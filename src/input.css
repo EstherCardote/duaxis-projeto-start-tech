@@ -1,0 +1,276 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, sans-serif;
+
+  --color-brand-navy: #000b1a;
+  --color-brand-blue: #0047ab;
+  --color-brand-blue-light: #0072ff;
+  --color-bg-page: #f8f9fb;
+  --color-bg-card: #ffffff;
+  --color-border: #e2e8f0;
+  --color-text-primary: #0f172a;
+  --color-text-secondary: #64748b;
+  --color-text-muted: #94a3b8;
+  --color-danger-bg: #fed7d7;
+  --color-danger-text: #c53030;
+  --color-success: #16a34a;
+  --color-alert-bg: #f1f5f9;
+}
+
+@layer base {
+  body {
+    @apply bg-bg-page text-text-primary font-sans antialiased;
+  }
+}
+
+@layer components {
+  .app-shell {
+    @apply flex min-h-screen;
+  }
+
+  .sidebar {
+    @apply fixed top-0 left-0 z-40 flex h-screen w-[260px] flex-col border-r border-border bg-bg-card transition-all duration-300 ease-in-out;
+  }
+
+  .sidebar--collapsed {
+    @apply w-[72px];
+  }
+
+  .sidebar__header {
+    @apply flex items-center gap-3 border-b border-border px-4 py-4;
+  }
+
+  .sidebar--collapsed .sidebar__header {
+    @apply flex-col justify-center gap-2 px-2 py-3;
+  }
+
+  .sidebar__logo {
+    @apply h-8 w-8 shrink-0 object-contain;
+  }
+
+  .sidebar__brand-text {
+    @apply min-w-0 flex-1 overflow-hidden transition-opacity duration-200;
+  }
+
+  .sidebar--collapsed .sidebar__brand-text {
+    @apply hidden;
+  }
+
+  .sidebar__brand-name {
+    @apply text-sm font-bold tracking-wide text-brand-navy;
+  }
+
+  .sidebar__brand-tagline {
+    @apply text-[10px] leading-tight text-text-secondary;
+  }
+
+  .sidebar__toggle {
+    @apply flex h-8 w-8 shrink-0 cursor-pointer items-center justify-center rounded-lg text-text-secondary transition-colors hover:bg-alert-bg hover:text-brand-navy;
+  }
+
+  .sidebar--collapsed .sidebar__toggle {
+    @apply order-first;
+  }
+
+  .sidebar__label {
+    @apply px-4 pt-4 pb-2 text-[10px] font-semibold tracking-widest text-text-muted uppercase;
+  }
+
+  .sidebar--collapsed .sidebar__label {
+    @apply hidden;
+  }
+
+  .sidebar__nav {
+    @apply flex flex-1 flex-col gap-1 px-3;
+  }
+
+  .sidebar__item {
+    @apply flex items-center gap-3 rounded-xl px-3 py-2.5 text-text-secondary transition-colors hover:bg-alert-bg;
+  }
+
+  .sidebar--collapsed .sidebar__item {
+    @apply justify-center px-2;
+  }
+
+  .sidebar__item--active {
+    @apply bg-brand-navy text-white hover:bg-brand-navy;
+  }
+
+  .sidebar__item-icon {
+    @apply flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-alert-bg text-brand-navy;
+  }
+
+  .sidebar__item--active .sidebar__item-icon {
+    @apply bg-white/15 text-white;
+  }
+
+  .sidebar__item-text {
+    @apply min-w-0 overflow-hidden;
+  }
+
+  .sidebar--collapsed .sidebar__item-text {
+    @apply hidden;
+  }
+
+  .sidebar__item-title {
+    @apply text-sm font-semibold leading-tight;
+  }
+
+  .sidebar__item-subtitle {
+    @apply text-xs text-text-muted;
+  }
+
+  .sidebar__item--active .sidebar__item-subtitle {
+    @apply text-white/70;
+  }
+
+  .app-main {
+    @apply ml-[260px] flex min-h-screen flex-1 flex-col transition-all duration-300 ease-in-out;
+  }
+
+  .sidebar--collapsed ~ .app-main {
+    @apply ml-[72px];
+  }
+
+  .main-header {
+    @apply flex items-start justify-between border-b border-border bg-bg-card px-6 py-5;
+  }
+
+  .main-header__title {
+    @apply text-2xl font-bold text-text-primary;
+  }
+
+  .main-header__subtitle {
+    @apply mt-0.5 text-sm text-text-secondary;
+  }
+
+  .notification-btn {
+    @apply relative flex h-10 w-10 cursor-pointer items-center justify-center rounded-xl border border-border bg-bg-card text-text-secondary transition-colors hover:bg-alert-bg;
+  }
+
+  .notification-btn__badge {
+    @apply absolute top-2 right-2 h-2 w-2 rounded-full bg-success;
+  }
+
+  .page-content {
+    @apply flex flex-1 flex-col gap-6 p-6;
+  }
+
+  .alert-banner {
+    @apply flex cursor-pointer items-center justify-between rounded-xl border border-border bg-alert-bg px-4 py-3 transition-colors hover:bg-border/50;
+  }
+
+  .alert-banner__content {
+    @apply flex items-center gap-3 text-sm text-text-primary;
+  }
+
+  .alert-banner__icon {
+    @apply text-brand-blue;
+  }
+
+  .greeting__title {
+    @apply text-2xl font-bold text-text-primary;
+  }
+
+  .greeting__text {
+    @apply mt-1 text-sm text-text-secondary;
+  }
+
+  .chat-card {
+    @apply rounded-2xl border border-border bg-bg-card p-5;
+  }
+
+  .chat-card__header {
+    @apply mb-4 flex items-start gap-3;
+  }
+
+  .chat-card__icon {
+    @apply flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-brand-blue/10 text-brand-blue;
+  }
+
+  .chat-card__title {
+    @apply text-base font-semibold text-text-primary;
+  }
+
+  .chat-card__subtitle {
+    @apply text-sm text-text-secondary;
+  }
+
+  .chat-input-wrapper {
+    @apply flex items-center gap-2 rounded-xl border border-border bg-bg-page px-4 py-2;
+  }
+
+  .chat-input {
+    @apply flex-1 bg-transparent text-sm text-text-primary outline-none placeholder:text-text-muted;
+  }
+
+  .chat-send-btn {
+    @apply flex h-9 w-9 shrink-0 cursor-pointer items-center justify-center rounded-full bg-brand-blue text-white transition-colors hover:bg-brand-blue-light;
+  }
+
+  .chips {
+    @apply mt-3 flex flex-wrap gap-2;
+  }
+
+  .chip {
+    @apply flex cursor-pointer items-center gap-1.5 rounded-full border border-border bg-bg-page px-3 py-1.5 text-xs text-text-secondary transition-colors hover:border-brand-blue/30 hover:bg-brand-blue/5;
+  }
+
+  .kpi-grid {
+    @apply grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-6;
+  }
+
+  .kpi-card {
+    @apply rounded-2xl border border-border bg-bg-card p-4;
+  }
+
+  .kpi-card__header {
+    @apply mb-3 flex items-start justify-between;
+  }
+
+  .kpi-card__icon {
+    @apply flex h-9 w-9 items-center justify-center rounded-full;
+  }
+
+  .kpi-card__icon--blue {
+    @apply bg-brand-blue/10 text-brand-blue;
+  }
+
+  .kpi-card__icon--green {
+    @apply bg-success/10 text-success;
+  }
+
+  .kpi-card__icon--dark {
+    @apply bg-brand-navy/10 text-brand-navy;
+  }
+
+  .kpi-card__value {
+    @apply text-xl font-bold text-text-primary;
+  }
+
+  .kpi-card__label {
+    @apply mt-0.5 text-xs text-text-secondary;
+  }
+
+  .kpi-card__footer {
+    @apply mt-2 text-[10px] text-text-muted;
+  }
+
+  .trend-badge {
+    @apply inline-flex items-center rounded-full px-2 py-0.5 text-[10px] font-semibold;
+  }
+
+  .trend-badge--down {
+    @apply bg-danger-bg text-danger-text;
+  }
+
+  .trend-badge--neutral {
+    @apply bg-alert-bg text-text-secondary;
+  }
+
+  .sparkline {
+    @apply h-5 w-12 text-text-muted;
+  }
+}
