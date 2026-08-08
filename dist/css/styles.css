@@ -203,6 +203,9 @@
   }
 }
 @layer utilities {
+  .contents {
+    display: contents;
+  }
   .hidden {
     display: none;
   }
