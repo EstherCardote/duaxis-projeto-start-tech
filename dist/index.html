@@ -11,455 +11,220 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="css/styles.css" />
+    <script>
+      (function () {
+        const t = localStorage.getItem("tema");
+        if (
+          t === "escuro" ||
+          (!t && matchMedia("(prefers-color-scheme: dark)").matches)
+        )
+          document.documentElement.classList.add("dark");
+      })();
+    </script>
   </head>
   <body>
-    <div class="app-shell">
-      <aside class="sidebar" id="sidebar">
-        <div class="sidebar__header">
+    <div class="aplicativo">
+      <aside class="menu-lateral" id="menu-lateral">
+        <div class="menu-lateral__cabecalho">
           <img
-            src="assets/logo.png"
+            src="assets/images/logo.png"
             alt="DUAXIS"
-            class="sidebar__logo"
+            class="menu-lateral__logo"
           />
-          <div class="sidebar__brand-text">
-            <div class="sidebar__brand-name">DUAXIS</div>
-            <div class="sidebar__brand-tagline">
+          <div class="menu-lateral__marca-texto">
+            <div class="menu-lateral__marca-nome">DUAXIS</div>
+            <div class="menu-lateral__marca-slogan">
               Inteligência para decisões empresariais
             </div>
           </div>
-          <button
-            class="sidebar__toggle"
-            id="sidebar-toggle"
-            type="button"
-            aria-label="Recolher menu"
-          >
-            <svg
-              width="18"
-              height="18"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            >
-              <rect x="3" y="3" width="18" height="18" rx="2" />
-              <path d="M9 3v18" />
-              <path d="M14 9l3 3-3 3" />
-            </svg>
+          <button class="menu-lateral__alternar" id="alternar-menu-lateral" type="button" aria-label="Recolher menu">
+            <i data-lucide="panel-left-close" class="icone icone--pequeno"></i>
           </button>
         </div>
 
-        <div class="sidebar__label">Menu</div>
+        <div class="menu-lateral__rotulo">Menu</div>
 
-        <nav class="sidebar__nav">
+        <nav class="menu-lateral__navegacao">
           <a
             href="index.html"
-            class="sidebar__item sidebar__item--active"
+            class="menu-lateral__item menu-lateral__item--ativo"
             title="Dashboard"
           >
-            <span class="sidebar__item-icon">
-              <svg
-                width="18"
-                height="18"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              >
-                <rect x="3" y="3" width="7" height="7" rx="1" />
-                <rect x="14" y="3" width="7" height="7" rx="1" />
-                <rect x="3" y="14" width="7" height="7" rx="1" />
-                <rect x="14" y="14" width="7" height="7" rx="1" />
-              </svg>
-            </span>
-            <span class="sidebar__item-text">
-              <div class="sidebar__item-title">Dashboard</div>
-              <div class="sidebar__item-subtitle">Visão geral</div>
+            <span class="menu-lateral__item-icone"><i data-lucide="layout-dashboard" class="icone icone--pequeno"></i></span>
+            <span class="menu-lateral__item-texto">
+              <div class="menu-lateral__item-titulo">Dashboard</div>
+              <div class="menu-lateral__item-subtitulo">Visão geral</div>
             </span>
           </a>
 
           <a
-            href="#"
-            class="sidebar__item sidebar__item--disabled"
+            href="diretor-virtual.html"
+            class="menu-lateral__item"
             title="Diretor Virtual"
           >
-            <span class="sidebar__item-icon">
-              <svg
-                width="18"
-                height="18"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              >
-                <path
-                  d="M12 8V4H8a4 4 0 0 0 0 8h4"
-                />
-                <path
-                  d="M12 16v4h4a4 4 0 0 0 0-8h-4"
-                />
-                <rect x="8" y="8" width="8" height="8" rx="2" />
-              </svg>
-            </span>
-            <span class="sidebar__item-text">
-              <div class="sidebar__item-title">Diretor Virtual</div>
-              <div class="sidebar__item-subtitle">Copiloto IA</div>
+            <span class="menu-lateral__item-icone"><i data-lucide="bot" class="icone icone--pequeno"></i></span>
+            <span class="menu-lateral__item-texto">
+              <div class="menu-lateral__item-titulo">Diretor Virtual</div>
+              <div class="menu-lateral__item-subtitulo">Copiloto IA</div>
             </span>
           </a>
 
           <a
-            href="#"
-            class="sidebar__item sidebar__item--disabled"
+            href="fontes-de-dados.html"
+            class="menu-lateral__item"
             title="Fontes de Dados"
           >
-            <span class="sidebar__item-icon">
-              <svg
-                width="18"
-                height="18"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              >
-                <ellipse cx="12" cy="5" rx="9" ry="3" />
-                <path d="M3 5v14a9 3 0 0 0 18 0V5" />
-                <path d="M3 12a9 3 0 0 0 18 0" />
-              </svg>
+            <span class="menu-lateral__item-icone"><i data-lucide="database" class="icone icone--pequeno"></i></span>
+            <span class="menu-lateral__item-texto">
+              <div class="menu-lateral__item-titulo">Fontes de Dados</div>
+              <div class="menu-lateral__item-subtitulo">Conexões</div>
             </span>
-            <span class="sidebar__item-text">
-              <div class="sidebar__item-title">Fontes de Dados</div>
-              <div class="sidebar__item-subtitle">Conexões</div>
+          </a>
+
+          <a href="alertas.html" class="menu-lateral__item" title="Alertas">
+            <span class="menu-lateral__item-icone"><i data-lucide="bell" class="icone icone--pequeno"></i></span>
+            <span class="menu-lateral__item-texto">
+              <div class="menu-lateral__item-titulo">Alertas</div>
+              <div class="menu-lateral__item-subtitulo">Central de alertas</div>
             </span>
           </a>
 
           <a
-            href="#"
-            class="sidebar__item sidebar__item--disabled"
+            href="configuracoes.html"
+            class="menu-lateral__item"
             title="Configurações"
           >
-            <span class="sidebar__item-icon">
-              <svg
-                width="18"
-                height="18"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              >
-                <circle cx="12" cy="12" r="3" />
-                <path
-                  d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"
-                />
-              </svg>
-            </span>
-            <span class="sidebar__item-text">
-              <div class="sidebar__item-title">Configurações</div>
-              <div class="sidebar__item-subtitle">Ajustes</div>
+            <span class="menu-lateral__item-icone"><i data-lucide="settings" class="icone icone--pequeno"></i></span>
+            <span class="menu-lateral__item-texto">
+              <div class="menu-lateral__item-titulo">Configurações</div>
+              <div class="menu-lateral__item-subtitulo">Ajustes</div>
             </span>
           </a>
         </nav>
       </aside>
 
-      <main class="app-main">
-        <header class="main-header">
-          <div>
-            <h1 class="main-header__title">Dashboard</h1>
-            <p class="main-header__subtitle">
-              Visão geral do desempenho do seu negócio
-            </p>
+      <main class="app-principal">
+        <header class="cabecalho-principal">
+          <div class="cabecalho-principal__info">
+            <h1 class="cabecalho-principal__titulo">Dashboard</h1>
+            <p class="cabecalho-principal__subtitulo">Visão geral do desempenho do seu negócio</p>
           </div>
-          <button
-            class="notification-btn"
-            type="button"
-            aria-label="Notificações"
-          >
-            <svg
-              width="20"
-              height="20"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            >
-              <path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9" />
-              <path d="M10.3 21a1.94 1.94 0 0 0 3.4 0" />
-            </svg>
-            <span class="notification-btn__badge"></span>
-          </button>
+          <div class="cabecalho-principal__acoes">
+            <a href="alertas.html" class="botao-notificacao" aria-label="Notificações">
+              <i data-lucide="bell" class="icone icone--medio"></i>
+              <span class="botao-notificacao__indicador"></span>
+            </a>
+            <button id="alternar-tema" class="alternador-tema" type="button" aria-label="Alternar tema">
+              <i data-lucide="sun" class="alternador-tema__icone alternador-tema__icone--claro icon icone--medio"></i>
+              <i data-lucide="moon" class="alternador-tema__icone alternador-tema__icone--escuro icon icone--medio"></i>
+            </button>
+          </div>
         </header>
 
-        <div class="page-content">
-          <div class="alert-banner">
-            <div class="alert-banner__content">
-              <svg
-                class="alert-banner__icon"
-                width="18"
-                height="18"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              >
-                <path
-                  d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"
-                />
-                <path d="M12 9v4" />
-                <path d="M12 17h.01" />
-              </svg>
+        <div class="conteudo-pagina">
+          <a href="alertas.html" class="banner-alerta">
+            <div class="banner-alerta__conteudo">
+              <i data-lucide="triangle-alert" class="banner-alerta__icone icon icone--pequeno"></i>
               <span>Você possui <strong>7 alertas</strong> não lidos.</span>
             </div>
-            <svg
-              width="16"
-              height="16"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              class="text-text-muted"
-            >
-              <path d="m9 18 6-6-6-6" />
-            </svg>
-          </div>
+            <i data-lucide="chevron-right" class="icone icone--pequeno text-text-muted"></i>
+          </a>
 
-          <section class="greeting">
-            <h2 class="greeting__title">Bom dia!</h2>
-            <p class="greeting__text">
+          <section class="saudacao">
+            <h2 class="saudacao__titulo">Bom dia!</h2>
+            <p class="saudacao__texto">
               Seu Diretor Virtual analisou os dados da empresa e preparou os
               principais insights para hoje.
             </p>
           </section>
 
-          <section class="chat-card">
-            <div class="chat-card__header">
-              <div class="chat-card__icon">
-                <svg
-                  width="20"
-                  height="20"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                >
-                  <rect x="3" y="11" width="18" height="10" rx="2" />
-                  <circle cx="12" cy="5" r="2" />
-                  <path d="M12 7v4" />
-                  <line x1="8" y1="16" x2="8" y2="16" />
-                  <line x1="16" y1="16" x2="16" y2="16" />
-                </svg>
-              </div>
+          <section class="cartao-chat">
+            <div class="cartao-chat__cabecalho">
+              <div class="cartao-chat__icone"><i data-lucide="bot" class="icone icone--medio"></i></div>
               <div>
-                <h3 class="chat-card__title">Converse com o Diretor Virtual</h3>
-                <p class="chat-card__subtitle">
+                <h3 class="cartao-chat__titulo">Converse com o Diretor Virtual</h3>
+                <p class="cartao-chat__subtitulo">
                   Faça uma pergunta e a IA analisará os dados da empresa
                 </p>
               </div>
             </div>
 
-            <div class="chat-input-wrapper">
+            <div class="campo-chat-envoltorio">
               <input
                 type="text"
-                class="chat-input"
-                id="chat-input"
+                class="campo-chat"
+                id="campo-chat"
                 placeholder="Pergunte algo sobre sua empresa..."
               />
-              <button
-                class="chat-send-btn"
-                type="button"
-                aria-label="Enviar pergunta"
-              >
-                <svg
-                  width="16"
-                  height="16"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                >
-                  <path d="m22 2-7 20-4-9-9-4Z" />
-                  <path d="M22 2 11 13" />
-                </svg>
+              <button class="botao-enviar-chat" type="button" aria-label="Enviar pergunta">
+                <i data-lucide="send" class="icone icone--pequeno"></i>
               </button>
             </div>
 
-            <div class="chips">
-              <button class="chip" type="button" data-suggestion="Por que o lucro caiu?">
-                <svg
-                  width="12"
-                  height="12"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                >
-                  <line x1="4" y1="9" x2="20" y2="9" />
-                  <line x1="4" y1="15" x2="20" y2="15" />
-                  <line x1="10" y1="3" x2="8" y2="21" />
-                  <line x1="16" y1="3" x2="14" y2="21" />
-                </svg>
+            <div class="etiquetas">
+              <button
+                class="etiqueta"
+                type="button"
+                data-sugestao="Por que o lucro caiu?"
+              >
+                <i data-lucide="sparkles" class="icone icone--pequeno"></i>
                 Por que o lucro caiu?
               </button>
               <button
-                class="chip"
+                class="etiqueta"
                 type="button"
-                data-suggestion="Quanto gastei com folha este mês?"
+                data-sugestao="Quanto gastei com folha este mês?"
               >
-                <svg
-                  width="12"
-                  height="12"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                >
-                  <line x1="4" y1="9" x2="20" y2="9" />
-                  <line x1="4" y1="15" x2="20" y2="15" />
-                  <line x1="10" y1="3" x2="8" y2="21" />
-                  <line x1="16" y1="3" x2="14" y2="21" />
-                </svg>
+                <i data-lucide="sparkles" class="icone icone--pequeno"></i>
                 Quanto gastei com folha este mês?
               </button>
               <button
-                class="chip"
+                class="etiqueta"
                 type="button"
-                data-suggestion="Quais produtos precisam de reposição?"
+                data-sugestao="Quais produtos precisam de reposição?"
               >
-                <svg
-                  width="12"
-                  height="12"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                >
-                  <line x1="4" y1="9" x2="20" y2="9" />
-                  <line x1="4" y1="15" x2="20" y2="15" />
-                  <line x1="10" y1="3" x2="8" y2="21" />
-                  <line x1="16" y1="3" x2="14" y2="21" />
-                </svg>
+                <i data-lucide="sparkles" class="icone icone--pequeno"></i>
                 Quais produtos precisam de reposição?
               </button>
             </div>
           </section>
 
-          <section class="kpi-grid">
-            <article class="kpi-card">
-              <div class="kpi-card__header">
-                <span class="kpi-card__icon kpi-card__icon--blue">
-                  <svg
-                    width="16"
-                    height="16"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  >
-                    <line x1="12" y1="1" x2="12" y2="23" />
-                    <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
-                  </svg>
-                </span>
-                <span class="trend-badge trend-badge--down">-0,8%</span>
+          <section class="grade-indicadores">
+            <article class="cartao-indicador">
+              <div class="cartao-indicador__cabecalho">
+                <span class="cartao-indicador__icone cartao-indicador__icone--azul"><i data-lucide="dollar-sign" class="icone icone--pequeno"></i></span>
+                <span class="indicador-tendencia indicador-tendencia--queda">-0,8%</span>
               </div>
-              <div class="kpi-card__value">R$ 1.342.000</div>
-              <div class="kpi-card__label">Receita Total</div>
-              <div class="kpi-card__footer">vs. mês anterior</div>
+              <div class="cartao-indicador__valor">R$ 1.342.000</div>
+              <div class="cartao-indicador__rotulo">Receita Total</div>
+              <div class="cartao-indicador__rodape">vs. mês anterior</div>
             </article>
 
-            <article class="kpi-card">
-              <div class="kpi-card__header">
-                <span class="kpi-card__icon kpi-card__icon--green">
-                  <svg
-                    width="16"
-                    height="16"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  >
-                    <polyline points="23 6 13.5 15.5 8.5 10.5 1 18" />
-                    <polyline points="17 6 23 6 23 12" />
-                  </svg>
-                </span>
-                <span class="trend-badge trend-badge--down">-7,1%</span>
+            <article class="cartao-indicador">
+              <div class="cartao-indicador__cabecalho">
+                <span class="cartao-indicador__icone cartao-indicador__icone--verde"><i data-lucide="trending-up" class="icone icone--pequeno"></i></span>
+                <span class="indicador-tendencia indicador-tendencia--queda">-7,1%</span>
               </div>
-              <div class="kpi-card__value">R$ 237.960</div>
-              <div class="kpi-card__label">Lucro Líquido</div>
-              <div class="kpi-card__footer">vs. mês anterior</div>
+              <div class="cartao-indicador__valor">R$ 237.960</div>
+              <div class="cartao-indicador__rotulo">Lucro Líquido</div>
+              <div class="cartao-indicador__rodape">vs. mês anterior</div>
             </article>
 
-            <article class="kpi-card">
-              <div class="kpi-card__header">
-                <span class="kpi-card__icon kpi-card__icon--blue">
-                  <svg
-                    width="16"
-                    height="16"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  >
-                    <rect x="2" y="4" width="20" height="16" rx="2" />
-                    <path d="M12 8v8" />
-                    <path d="M8 12h8" />
-                  </svg>
-                </span>
-                <span class="trend-badge trend-badge--down">-7,1%</span>
+            <article class="cartao-indicador">
+              <div class="cartao-indicador__cabecalho">
+                <span class="cartao-indicador__icone cartao-indicador__icone--azul"><i data-lucide="wallet" class="icone icone--pequeno"></i></span>
+                <span class="indicador-tendencia indicador-tendencia--queda">-7,1%</span>
               </div>
-              <div class="kpi-card__value">R$ 237.960</div>
-              <div class="kpi-card__label">Fluxo de Caixa</div>
-              <div class="kpi-card__footer">vs. mês anterior</div>
+              <div class="cartao-indicador__valor">R$ 237.960</div>
+              <div class="cartao-indicador__rotulo">Fluxo de Caixa</div>
+              <div class="cartao-indicador__rodape">vs. mês anterior</div>
             </article>
 
-            <article class="kpi-card">
-              <div class="kpi-card__header">
-                <span class="kpi-card__icon kpi-card__icon--dark">
-                  <svg
-                    width="16"
-                    height="16"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  >
-                    <path
-                      d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"
-                    />
-                  </svg>
-                </span>
+            <article class="cartao-indicador">
+              <div class="cartao-indicador__cabecalho">
+                <span class="cartao-indicador__icone cartao-indicador__icone--escuro"><i data-lucide="package" class="icone icone--pequeno"></i></span>
                 <svg
-                  class="sparkline"
+                  class="minigrafico"
                   viewBox="0 0 48 20"
                   fill="none"
                   stroke="currentColor"
@@ -470,60 +235,26 @@
                   <polyline points="0,15 8,12 16,14 24,8 32,10 40,4 48,6" />
                 </svg>
               </div>
-              <div class="kpi-card__value">16.365</div>
-              <div class="kpi-card__label">Produtos em Estoque</div>
-              <div class="kpi-card__footer">vs. mês anterior</div>
+              <div class="cartao-indicador__valor">16.365</div>
+              <div class="cartao-indicador__rotulo">Produtos em Estoque</div>
+              <div class="cartao-indicador__rodape">vs. mês anterior</div>
             </article>
 
-            <article class="kpi-card">
-              <div class="kpi-card__header">
-                <span class="kpi-card__icon kpi-card__icon--dark">
-                  <svg
-                    width="16"
-                    height="16"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  >
-                    <path
-                      d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"
-                    />
-                    <rect x="8" y="2" width="8" height="4" rx="1" />
-                    <path d="M9 12h6" />
-                    <path d="M9 16h6" />
-                  </svg>
-                </span>
-                <span class="trend-badge trend-badge--down">−</span>
+            <article class="cartao-indicador">
+              <div class="cartao-indicador__cabecalho">
+                <span class="cartao-indicador__icone cartao-indicador__icone--escuro"><i data-lucide="clipboard-list" class="icone icone--pequeno"></i></span>
+                <span class="indicador-tendencia indicador-tendencia--queda">−</span>
               </div>
-              <div class="kpi-card__value">7</div>
-              <div class="kpi-card__label">Abaixo do Mínimo</div>
-              <div class="kpi-card__footer">vs. mês anterior</div>
+              <div class="cartao-indicador__valor">7</div>
+              <div class="cartao-indicador__rotulo">Abaixo do Mínimo</div>
+              <div class="cartao-indicador__rodape">vs. mês anterior</div>
             </article>
 
-            <article class="kpi-card">
-              <div class="kpi-card__header">
-                <span class="kpi-card__icon kpi-card__icon--dark">
-                  <svg
-                    width="16"
-                    height="16"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  >
-                    <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
-                    <circle cx="9" cy="7" r="4" />
-                    <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
-                    <path d="M16 3.13a4 4 0 0 1 0 7.75" />
-                  </svg>
-                </span>
+            <article class="cartao-indicador">
+              <div class="cartao-indicador__cabecalho">
+                <span class="cartao-indicador__icone cartao-indicador__icone--escuro"><i data-lucide="users" class="icone icone--pequeno"></i></span>
                 <svg
-                  class="sparkline"
+                  class="minigrafico"
                   viewBox="0 0 48 20"
                   fill="none"
                   stroke="currentColor"
@@ -534,15 +265,16 @@
                   <polyline points="0,12 8,10 16,14 24,6 32,8 40,12 48,4" />
                 </svg>
               </div>
-              <div class="kpi-card__value">50</div>
-              <div class="kpi-card__label">Clientes Ativos</div>
-              <div class="kpi-card__footer">vs. mês anterior</div>
+              <div class="cartao-indicador__valor">50</div>
+              <div class="cartao-indicador__rotulo">Clientes Ativos</div>
+              <div class="cartao-indicador__rodape">vs. mês anterior</div>
             </article>
           </section>
         </div>
       </main>
     </div>
 
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
     <script src="js/main.js"></script>
   </body>
 </html>

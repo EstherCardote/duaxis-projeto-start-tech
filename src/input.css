@@ -1,8 +1,12 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 @theme {
   --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
     "Helvetica Neue", Arial, sans-serif;
+
+  --header-height: 4.5rem;
 
   --color-brand-navy: #000b1a;
   --color-brand-blue: #0047ab;
@@ -20,257 +24,721 @@
 }
 
 @layer base {
+  .dark {
+    --color-bg-page: #0b1220;
+    --color-bg-card: #111827;
+    --color-border: #1e293b;
+    --color-text-primary: #f1f5f9;
+    --color-text-secondary: #94a3b8;
+    --color-text-muted: #64748b;
+    --color-alert-bg: #1e293b;
+    --color-brand-navy: #1e3a5f;
+    --color-danger-bg: #3b1219;
+    --color-danger-text: #fca5a5;
+  }
+
   body {
-    @apply bg-bg-page text-text-primary font-sans antialiased;
+    @apply bg-bg-page text-text-primary font-sans antialiased transition-colors duration-300 ease-in-out;
   }
 }
 
 @layer components {
-  .app-shell {
+  .aplicativo {
     @apply flex min-h-screen;
   }
 
-  .sidebar {
+  .menu-lateral {
     @apply fixed top-0 left-0 z-40 flex h-screen w-[260px] flex-col border-r border-border bg-bg-card transition-all duration-300 ease-in-out;
   }
 
-  .sidebar--collapsed {
+  .menu-lateral--recolhido {
     @apply w-[72px];
   }
 
-  .sidebar__header {
-    @apply flex items-center gap-3 border-b border-border px-4 py-4;
+  .menu-lateral__cabecalho {
+    @apply flex h-[var(--header-height)] shrink-0 items-center gap-3 border-b border-border px-4;
   }
 
-  .sidebar--collapsed .sidebar__header {
-    @apply flex-col justify-center gap-2 px-2 py-3;
+  .menu-lateral--recolhido .menu-lateral__cabecalho {
+    @apply h-[var(--header-height)] flex-col justify-center gap-2 px-2;
   }
 
-  .sidebar__logo {
+  .menu-lateral__logo {
     @apply h-8 w-8 shrink-0 object-contain;
   }
 
-  .sidebar__brand-text {
+  .menu-lateral__marca-texto {
     @apply min-w-0 flex-1 overflow-hidden transition-opacity duration-200;
   }
 
-  .sidebar--collapsed .sidebar__brand-text {
+  .menu-lateral--recolhido .menu-lateral__marca-texto {
     @apply hidden;
   }
 
-  .sidebar__brand-name {
+  .menu-lateral__marca-nome {
     @apply text-sm font-bold tracking-wide text-brand-navy;
   }
 
-  .sidebar__brand-tagline {
+  .menu-lateral__marca-slogan {
     @apply text-[10px] leading-tight text-text-secondary;
   }
 
-  .sidebar__toggle {
-    @apply flex h-8 w-8 shrink-0 cursor-pointer items-center justify-center rounded-lg text-text-secondary transition-colors hover:bg-alert-bg hover:text-brand-navy;
+  .menu-lateral__alternar {
+    @apply flex h-8 w-8 shrink-0 cursor-pointer items-center justify-center rounded-lg text-text-secondary transition-colors duration-200 hover:bg-alert-bg hover:text-brand-navy;
   }
 
-  .sidebar--collapsed .sidebar__toggle {
+  .menu-lateral--recolhido .menu-lateral__alternar {
     @apply order-first;
   }
 
-  .sidebar__label {
+  .menu-lateral__rotulo {
     @apply px-4 pt-4 pb-2 text-[10px] font-semibold tracking-widest text-text-muted uppercase;
   }
 
-  .sidebar--collapsed .sidebar__label {
+  .menu-lateral--recolhido .menu-lateral__rotulo {
     @apply hidden;
   }
 
-  .sidebar__nav {
+  .menu-lateral__navegacao {
     @apply flex flex-1 flex-col gap-1 px-3;
   }
 
-  .sidebar__item {
-    @apply flex items-center gap-3 rounded-xl px-3 py-2.5 text-text-secondary transition-colors hover:bg-alert-bg;
+  .menu-lateral__item {
+    @apply flex items-center gap-3 rounded-xl px-3 py-2.5 text-text-secondary no-underline transition-all duration-200 ease-in-out hover:bg-alert-bg;
   }
 
-  .sidebar--collapsed .sidebar__item {
+  .menu-lateral--recolhido .menu-lateral__item {
     @apply justify-center px-2;
   }
 
-  .sidebar__item--active {
+  .menu-lateral__item--ativo {
     @apply bg-brand-navy text-white hover:bg-brand-navy;
   }
 
-  .sidebar__item-icon {
+  .menu-lateral__item-icone {
     @apply flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-alert-bg text-brand-navy;
   }
 
-  .sidebar__item--active .sidebar__item-icon {
+  .menu-lateral__item--ativo .menu-lateral__item-icone {
     @apply bg-white/15 text-white;
   }
 
-  .sidebar__item-text {
+  .menu-lateral__item-texto {
     @apply min-w-0 overflow-hidden;
   }
 
-  .sidebar--collapsed .sidebar__item-text {
+  .menu-lateral--recolhido .menu-lateral__item-texto {
     @apply hidden;
   }
 
-  .sidebar__item-title {
+  .menu-lateral__item-titulo {
     @apply text-sm font-semibold leading-tight;
   }
 
-  .sidebar__item-subtitle {
+  .menu-lateral__item-subtitulo {
     @apply text-xs text-text-muted;
   }
 
-  .sidebar__item--active .sidebar__item-subtitle {
+  .menu-lateral__item--ativo .menu-lateral__item-subtitulo {
     @apply text-white/70;
   }
 
-  .app-main {
+  .app-principal {
     @apply ml-[260px] flex min-h-screen flex-1 flex-col transition-all duration-300 ease-in-out;
   }
 
-  .sidebar--collapsed ~ .app-main {
+  .menu-lateral--recolhido ~ .app-principal {
     @apply ml-[72px];
   }
 
-  .main-header {
-    @apply flex items-start justify-between border-b border-border bg-bg-card px-6 py-5;
+  .cabecalho-principal {
+    @apply flex h-[var(--header-height)] shrink-0 items-center justify-between border-b border-border bg-bg-card px-6 transition-colors duration-300;
   }
 
-  .main-header__title {
-    @apply text-2xl font-bold text-text-primary;
+  .cabecalho-principal__info {
+    @apply min-w-0;
   }
 
-  .main-header__subtitle {
-    @apply mt-0.5 text-sm text-text-secondary;
+  .cabecalho-principal__titulo {
+    @apply text-xl leading-tight font-bold text-text-primary;
   }
 
-  .notification-btn {
-    @apply relative flex h-10 w-10 cursor-pointer items-center justify-center rounded-xl border border-border bg-bg-card text-text-secondary transition-colors hover:bg-alert-bg;
-  }
-
-  .notification-btn__badge {
-    @apply absolute top-2 right-2 h-2 w-2 rounded-full bg-success;
-  }
-
-  .page-content {
-    @apply flex flex-1 flex-col gap-6 p-6;
-  }
-
-  .alert-banner {
-    @apply flex cursor-pointer items-center justify-between rounded-xl border border-border bg-alert-bg px-4 py-3 transition-colors hover:bg-border/50;
-  }
-
-  .alert-banner__content {
-    @apply flex items-center gap-3 text-sm text-text-primary;
-  }
-
-  .alert-banner__icon {
-    @apply text-brand-blue;
-  }
-
-  .greeting__title {
-    @apply text-2xl font-bold text-text-primary;
-  }
-
-  .greeting__text {
-    @apply mt-1 text-sm text-text-secondary;
-  }
-
-  .chat-card {
-    @apply rounded-2xl border border-border bg-bg-card p-5;
-  }
-
-  .chat-card__header {
-    @apply mb-4 flex items-start gap-3;
-  }
-
-  .chat-card__icon {
-    @apply flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-brand-blue/10 text-brand-blue;
-  }
-
-  .chat-card__title {
-    @apply text-base font-semibold text-text-primary;
-  }
-
-  .chat-card__subtitle {
-    @apply text-sm text-text-secondary;
-  }
-
-  .chat-input-wrapper {
-    @apply flex items-center gap-2 rounded-xl border border-border bg-bg-page px-4 py-2;
-  }
-
-  .chat-input {
-    @apply flex-1 bg-transparent text-sm text-text-primary outline-none placeholder:text-text-muted;
-  }
-
-  .chat-send-btn {
-    @apply flex h-9 w-9 shrink-0 cursor-pointer items-center justify-center rounded-full bg-brand-blue text-white transition-colors hover:bg-brand-blue-light;
-  }
-
-  .chips {
-    @apply mt-3 flex flex-wrap gap-2;
-  }
-
-  .chip {
-    @apply flex cursor-pointer items-center gap-1.5 rounded-full border border-border bg-bg-page px-3 py-1.5 text-xs text-text-secondary transition-colors hover:border-brand-blue/30 hover:bg-brand-blue/5;
-  }
-
-  .kpi-grid {
-    @apply grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-6;
-  }
-
-  .kpi-card {
-    @apply rounded-2xl border border-border bg-bg-card p-4;
-  }
-
-  .kpi-card__header {
-    @apply mb-3 flex items-start justify-between;
-  }
-
-  .kpi-card__icon {
-    @apply flex h-9 w-9 items-center justify-center rounded-full;
-  }
-
-  .kpi-card__icon--blue {
-    @apply bg-brand-blue/10 text-brand-blue;
-  }
-
-  .kpi-card__icon--green {
-    @apply bg-success/10 text-success;
-  }
-
-  .kpi-card__icon--dark {
-    @apply bg-brand-navy/10 text-brand-navy;
-  }
-
-  .kpi-card__value {
-    @apply text-xl font-bold text-text-primary;
-  }
-
-  .kpi-card__label {
+  .cabecalho-principal__subtitulo {
     @apply mt-0.5 text-xs text-text-secondary;
   }
 
-  .kpi-card__footer {
+  .cabecalho-principal__acoes {
+    @apply flex shrink-0 items-center gap-2;
+  }
+
+  .alternador-tema {
+    @apply relative flex h-10 w-10 cursor-pointer items-center justify-center rounded-xl border border-border bg-bg-card text-text-secondary transition-colors duration-200 hover:bg-alert-bg;
+  }
+
+  .alternador-tema__icone {
+    @apply transition-opacity duration-200;
+  }
+
+  .alternador-tema__icone--claro {
+    @apply hidden;
+  }
+
+  .dark .alternador-tema__icone--claro {
+    @apply block;
+  }
+
+  .dark .alternador-tema__icone--escuro {
+    @apply hidden;
+  }
+
+  .botao-notificacao {
+    @apply relative flex h-10 w-10 cursor-pointer items-center justify-center rounded-xl border border-border bg-bg-card text-text-secondary no-underline transition-colors duration-200 hover:bg-alert-bg;
+  }
+
+  .botao-notificacao__indicador {
+    @apply absolute top-2 right-2 h-2 w-2 rounded-full bg-success;
+  }
+
+  .conteudo-pagina {
+    @apply flex flex-1 flex-col gap-6 p-6;
+  }
+
+  .banner-alerta {
+    @apply flex cursor-pointer items-center justify-between rounded-xl border border-border bg-alert-bg px-4 py-3 no-underline transition-colors hover:bg-border/50;
+  }
+
+  .banner-alerta__conteudo {
+    @apply flex items-center gap-3 text-sm text-text-primary;
+  }
+
+  .banner-alerta__icone {
+    @apply text-brand-blue;
+  }
+
+  .saudacao__titulo {
+    @apply text-2xl font-bold text-text-primary;
+  }
+
+  .saudacao__texto {
+    @apply mt-1 text-sm text-text-secondary;
+  }
+
+  .cartao-chat {
+    @apply rounded-2xl border border-border bg-bg-card p-5;
+  }
+
+  .cartao-chat__cabecalho {
+    @apply mb-4 flex items-start gap-3;
+  }
+
+  .cartao-chat__icone {
+    @apply flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-brand-blue/10 text-brand-blue;
+  }
+
+  .cartao-chat__titulo {
+    @apply text-base font-semibold text-text-primary;
+  }
+
+  .cartao-chat__subtitulo {
+    @apply text-sm text-text-secondary;
+  }
+
+  .campo-chat-envoltorio {
+    @apply flex items-center gap-2 rounded-xl border border-border bg-bg-page px-4 py-2;
+  }
+
+  .campo-chat {
+    @apply flex-1 bg-transparent text-sm text-text-primary outline-none placeholder:text-text-muted;
+  }
+
+  .botao-enviar-chat {
+    @apply flex h-9 w-9 shrink-0 cursor-pointer items-center justify-center rounded-full bg-brand-blue text-white transition-colors hover:bg-brand-blue-light;
+  }
+
+  .etiquetas {
+    @apply mt-3 flex flex-wrap gap-2;
+  }
+
+  .etiqueta {
+    @apply flex cursor-pointer items-center gap-1.5 rounded-full border border-border bg-bg-page px-3 py-1.5 text-xs text-text-secondary transition-all duration-200 ease-in-out hover:border-brand-blue/30 hover:bg-brand-blue/5;
+  }
+
+  .icone {
+    @apply shrink-0;
+  }
+
+  .icone--pequeno {
+    @apply h-4 w-4;
+  }
+
+  .icone--medio {
+    @apply h-5 w-5;
+  }
+
+  .icone--grande {
+    @apply h-[22px] w-[22px];
+  }
+
+  .menu-lateral__item-icone .icone,
+  .menu-lateral__item-icone svg {
+    @apply h-[18px] w-[18px];
+  }
+
+  .grade-indicadores {
+    @apply grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-6;
+  }
+
+  .cartao-indicador {
+    @apply rounded-2xl border border-border bg-bg-card p-4;
+  }
+
+  .cartao-indicador__cabecalho {
+    @apply mb-3 flex items-start justify-between;
+  }
+
+  .cartao-indicador__icone {
+    @apply flex h-9 w-9 items-center justify-center rounded-full;
+  }
+
+  .cartao-indicador__icone--azul {
+    @apply bg-brand-blue/10 text-brand-blue;
+  }
+
+  .cartao-indicador__icone--verde {
+    @apply bg-success/10 text-success;
+  }
+
+  .cartao-indicador__icone--escuro {
+    @apply bg-brand-navy/10 text-brand-navy;
+  }
+
+  .cartao-indicador__valor {
+    @apply text-xl font-bold text-text-primary;
+  }
+
+  .cartao-indicador__rotulo {
+    @apply mt-0.5 text-xs text-text-secondary;
+  }
+
+  .cartao-indicador__rodape {
     @apply mt-2 text-[10px] text-text-muted;
   }
 
-  .trend-badge {
+  .indicador-tendencia {
     @apply inline-flex items-center rounded-full px-2 py-0.5 text-[10px] font-semibold;
   }
 
-  .trend-badge--down {
+  .indicador-tendencia--queda {
     @apply bg-danger-bg text-danger-text;
   }
 
-  .trend-badge--neutral {
+  .indicador-tendencia--neutro {
     @apply bg-alert-bg text-text-secondary;
   }
 
-  .sparkline {
+  .minigrafico {
     @apply h-5 w-12 text-text-muted;
+  }
+
+  /* Diretor Virtual layout */
+  .app-principal--completo {
+    @apply bg-bg-page;
+  }
+
+  .app-principal > .layout-dv {
+    @apply min-h-0 flex-1;
+  }
+
+  .layout-dv {
+    @apply flex min-h-0 flex-1;
+  }
+
+  .historico-dv {
+    @apply flex w-[280px] shrink-0 flex-col border-r border-border bg-bg-card;
+  }
+
+  .historico-dv__cabecalho {
+    @apply flex items-center justify-between px-5 py-4;
+  }
+
+  .historico-dv__titulo {
+    @apply text-base font-bold text-text-primary;
+  }
+
+  .historico-dv__botao-novo {
+    @apply flex h-8 w-8 cursor-pointer items-center justify-center rounded-lg text-text-secondary transition-colors hover:bg-alert-bg hover:text-brand-blue;
+  }
+
+  .historico-dv__busca {
+    @apply mx-4 mb-4 flex items-center gap-2 rounded-full border border-border bg-bg-page px-4 py-2;
+  }
+
+  .historico-dv__busca-campo {
+    @apply flex-1 bg-transparent text-sm text-text-primary outline-none placeholder:text-text-muted;
+  }
+
+  .historico-dv__vazio {
+    @apply flex flex-1 flex-col items-center justify-center gap-2 px-4 text-center text-sm text-text-muted;
+  }
+
+  .chat-dv {
+    @apply relative flex flex-1 flex-col bg-bg-page;
+  }
+
+  .chat-dv__interno {
+    @apply flex flex-1 flex-col overflow-y-auto p-6 pb-32;
+  }
+
+  .chat-dv__cabecalho {
+    @apply mb-6 flex items-start justify-between;
+  }
+
+  .chat-dv__cabecalho-esquerda {
+    @apply flex items-start gap-3;
+  }
+
+  .chat-dv__icone {
+    @apply flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-brand-blue text-white;
+  }
+
+  .chat-dv__titulo {
+    @apply text-xl font-bold text-text-primary;
+  }
+
+  .chat-dv__subtitulo {
+    @apply mt-0.5 max-w-xl text-sm text-text-secondary;
+  }
+
+  .chat-dv__botao-comparar {
+    @apply flex cursor-pointer items-center gap-2 rounded-xl border border-border bg-bg-card px-4 py-2 text-sm font-medium text-text-secondary transition-colors hover:bg-alert-bg;
+  }
+
+  .chat-dv__intro {
+    @apply mb-8 flex items-start gap-3 rounded-2xl border border-brand-blue/20 bg-brand-blue/5 p-5;
+  }
+
+  .chat-dv__intro-icone {
+    @apply flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-brand-blue/10 text-brand-blue;
+  }
+
+  .chat-dv__intro-texto {
+    @apply text-sm leading-relaxed text-text-primary;
+  }
+
+  .sugestoes-dv__rotulo {
+    @apply mb-3 text-[10px] font-semibold tracking-widest text-text-muted uppercase;
+  }
+
+  .sugestoes-dv {
+    @apply grid grid-cols-1 gap-3 md:grid-cols-2;
+  }
+
+  .cartao-sugestao-dv {
+    @apply flex cursor-pointer items-start gap-3 rounded-xl border border-border bg-bg-card p-4 text-left text-sm text-text-primary transition-all duration-200 ease-in-out hover:border-brand-blue/30 hover:bg-brand-blue/5;
+  }
+
+  .cartao-sugestao-dv__icone {
+    @apply mt-0.5 shrink-0 text-brand-blue;
+  }
+
+  .area-entrada-dv {
+    @apply absolute right-0 bottom-0 left-0 border-t border-border bg-bg-page px-6 py-4;
+  }
+
+  .barra-entrada-dv {
+    @apply mx-auto flex max-w-3xl items-center gap-2 rounded-full border border-border bg-bg-card px-4 py-2 shadow-sm;
+  }
+
+  .barra-entrada-dv__icone {
+    @apply shrink-0 text-brand-blue;
+  }
+
+  .barra-entrada-dv__campo {
+    @apply flex-1 bg-transparent text-sm text-text-primary outline-none placeholder:text-text-muted;
+  }
+
+  .barra-entrada-dv__explorar {
+    @apply flex shrink-0 cursor-pointer items-center gap-1.5 rounded-full bg-brand-blue/10 px-3 py-1.5 text-xs font-medium text-brand-blue transition-colors hover:bg-brand-blue/20;
+  }
+
+  .barra-entrada-dv__enviar {
+    @apply flex h-9 w-9 shrink-0 cursor-pointer items-center justify-center rounded-full bg-brand-blue text-white transition-colors hover:bg-brand-blue-light;
+  }
+
+  .area-entrada-dv__aviso {
+    @apply mx-auto mt-2 max-w-3xl text-center text-[10px] text-text-muted;
+  }
+
+  /* Fontes de Dados */
+  .grade-fontes {
+    @apply grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3;
+  }
+
+  .cartao-fonte {
+    @apply rounded-2xl border border-border bg-bg-card p-5 transition-all duration-200 ease-in-out hover:border-brand-blue/30;
+  }
+
+  .cartao-fonte__topo {
+    @apply mb-4 flex items-start justify-between;
+  }
+
+  .cartao-fonte__icone {
+    @apply flex h-10 w-10 items-center justify-center rounded-xl bg-brand-blue/10 text-brand-blue;
+  }
+
+  .cartao-fonte__status {
+    @apply text-xs font-medium;
+  }
+
+  .cartao-fonte__status--conectado {
+    @apply text-success;
+  }
+
+  .cartao-fonte__status--desatualizado {
+    @apply text-orange-600;
+  }
+
+  .cartao-fonte__status--desconectado {
+    @apply inline-flex items-center gap-1 rounded-full bg-danger-bg px-2 py-0.5 text-xs font-medium text-danger-text;
+  }
+
+  .cartao-fonte__nome {
+    @apply text-base font-bold text-text-primary;
+  }
+
+  .cartao-fonte__atualizado {
+    @apply mt-0.5 text-xs text-text-muted;
+  }
+
+  .cartao-fonte__qualidade {
+    @apply mt-4;
+  }
+
+  .cartao-fonte__cabecalho-qualidade {
+    @apply mb-1.5 flex items-center justify-between text-xs;
+  }
+
+  .cartao-fonte__rotulo-qualidade {
+    @apply text-text-secondary;
+  }
+
+  .cartao-fonte__valor-qualidade {
+    @apply font-semibold text-text-primary;
+  }
+
+  .cartao-fonte__barra-qualidade {
+    @apply h-1.5 w-full overflow-hidden rounded-full bg-alert-bg;
+  }
+
+  .cartao-fonte__preenchimento-qualidade {
+    @apply h-full rounded-full bg-brand-blue transition-all;
+  }
+
+  .cartao-fonte__preenchimento-qualidade--baixo {
+    @apply bg-danger-text;
+  }
+
+  .secao-transparencia {
+    @apply rounded-2xl border border-brand-blue/20 bg-brand-blue/5 p-6;
+  }
+
+  .secao-transparencia__cabecalho {
+    @apply mb-2 flex items-center gap-2;
+  }
+
+  .secao-transparencia__icone {
+    @apply text-brand-blue;
+  }
+
+  .secao-transparencia__titulo {
+    @apply text-base font-bold text-brand-blue;
+  }
+
+  .secao-transparencia__texto {
+    @apply mb-5 text-sm text-text-secondary;
+  }
+
+  .secao-transparencia__metricas {
+    @apply mb-5 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4;
+  }
+
+  .metrica-transparencia {
+    @apply rounded-xl border border-border bg-bg-card px-4 py-3;
+  }
+
+  .metrica-transparencia__icone {
+    @apply mb-1 text-brand-blue;
+  }
+
+  .metrica-transparencia__valor {
+    @apply text-sm font-bold text-text-primary;
+  }
+
+  .metrica-transparencia__rotulo {
+    @apply text-[10px] text-text-muted;
+  }
+
+  .botao-primario {
+    @apply inline-flex cursor-pointer items-center gap-2 rounded-xl bg-brand-blue px-5 py-2.5 text-sm font-medium text-white transition-colors hover:bg-brand-blue-light;
+  }
+
+  .botao-secundario {
+    @apply inline-flex cursor-pointer items-center gap-2 rounded-xl border border-border bg-bg-card px-5 py-2.5 text-sm font-medium text-text-primary transition-colors hover:bg-alert-bg;
+  }
+
+  /* Alertas */
+  .resumo-alertas {
+    @apply rounded-2xl border border-border bg-bg-card p-6;
+  }
+
+  .resumo-alertas__titulo {
+    @apply mb-5 text-base font-bold text-text-primary;
+  }
+
+  .resumo-alertas__grade {
+    @apply grid grid-cols-2 gap-4 md:grid-cols-4;
+  }
+
+  .resumo-alertas__item {
+    @apply flex flex-col items-center gap-1 border-r border-border last:border-r-0 md:px-4;
+  }
+
+  .resumo-alertas__item-icone {
+    @apply mb-1 text-text-muted;
+  }
+
+  .resumo-alertas__item-icone--critico {
+    @apply text-danger-text;
+  }
+
+  .resumo-alertas__item-valor {
+    @apply text-2xl font-bold text-text-primary;
+  }
+
+  .resumo-alertas__item-valor--critico {
+    @apply text-danger-text;
+  }
+
+  .resumo-alertas__item-rotulo {
+    @apply text-xs text-text-secondary;
+  }
+
+  .barra-busca {
+    @apply flex items-center gap-2 rounded-full border border-border bg-bg-card px-4 py-2.5;
+  }
+
+  .barra-busca__campo {
+    @apply flex-1 bg-transparent text-sm text-text-primary outline-none placeholder:text-text-muted;
+  }
+
+  .filtros-etiquetas {
+    @apply flex flex-wrap items-center gap-2;
+  }
+
+  .etiqueta-filtro {
+    @apply cursor-pointer rounded-full bg-alert-bg px-3 py-1.5 text-xs font-medium text-text-secondary transition-all duration-200 ease-in-out hover:bg-border;
+  }
+
+  .etiqueta-filtro--ativo {
+    @apply bg-brand-blue text-white hover:bg-brand-blue;
+  }
+
+  .grade-alertas {
+    @apply grid grid-cols-1 gap-4 lg:grid-cols-2;
+  }
+
+  .cartao-alerta {
+    @apply flex gap-4 rounded-2xl border border-border bg-bg-card p-4 transition-all duration-200 ease-in-out;
+  }
+
+  .cartao-alerta--nao-lido {
+    @apply border-l-4 border-l-brand-blue;
+  }
+
+  .cartao-alerta__icone {
+    @apply flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-brand-blue/10 text-brand-blue;
+  }
+
+  .cartao-alerta__corpo {
+    @apply min-w-0 flex-1;
+  }
+
+  .cartao-alerta__titulo {
+    @apply text-sm font-semibold text-text-primary;
+  }
+
+  .cartao-alerta__descricao {
+    @apply mt-1 text-xs text-text-secondary;
+  }
+
+  .cartao-alerta__meta {
+    @apply mt-2 flex items-center gap-3 text-[10px] text-text-muted;
+  }
+
+  .cartao-alerta__status--nao-lido {
+    @apply font-medium text-brand-blue;
+  }
+
+  .indicador-prioridade {
+    @apply shrink-0 self-start rounded-full px-2.5 py-1 text-xs font-semibold;
+  }
+
+  .indicador-prioridade--alta {
+    @apply bg-danger-bg text-danger-text;
+  }
+
+  .indicador-prioridade--media {
+    @apply bg-alert-bg text-text-secondary;
+  }
+
+  .indicador-prioridade--baixa {
+    @apply bg-alert-bg text-text-muted;
+  }
+
+  /* Configurações */
+  .grade-configuracoes {
+    @apply grid grid-cols-1 gap-4 md:grid-cols-2;
+  }
+
+  .cartao-configuracao {
+    @apply flex cursor-pointer items-start gap-4 rounded-2xl border border-border bg-bg-card p-6 transition-all duration-200 ease-in-out hover:border-brand-blue/30 hover:bg-brand-blue/5;
+  }
+
+  .cartao-configuracao__icone {
+    @apply flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-brand-blue/10 text-brand-blue;
+  }
+
+  .cartao-configuracao__titulo {
+    @apply text-base font-semibold text-text-primary;
+  }
+
+  .cartao-configuracao__descricao {
+    @apply mt-0.5 text-xs text-text-secondary;
+  }
+
+  .cartao-plano {
+    @apply rounded-2xl border border-brand-blue/20 bg-brand-blue/5 p-8;
+  }
+
+  .cartao-plano__titulo {
+    @apply text-base font-bold text-text-primary;
+  }
+
+  .cartao-plano__texto {
+    @apply mt-2 text-sm text-text-secondary;
+  }
+
+  .cartao-plano__acoes {
+    @apply mt-5 flex flex-wrap gap-3;
+  }
+
+  @media (max-width: 1024px) {
+    .layout-dv {
+      @apply flex-col;
+    }
+
+    .historico-dv {
+      @apply w-full border-r-0 border-b;
+    }
   }
 }
