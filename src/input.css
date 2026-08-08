@@ -340,6 +340,103 @@
     @apply h-5 w-12 text-text-muted;
   }
 
+  /* Painéis de dashboard com gráficos */
+  .secao-painel {
+    @apply flex flex-col gap-4;
+  }
+
+  .secao-painel__titulo {
+    @apply text-base font-bold text-text-primary;
+  }
+
+  .grade-painel {
+    @apply grid grid-cols-1 gap-4 lg:grid-cols-2;
+  }
+
+  .painel-grafico {
+    @apply rounded-2xl border border-border bg-bg-card p-5;
+  }
+
+  .painel-grafico--largura-total {
+    @apply lg:col-span-2;
+  }
+
+  .painel-grafico__cabecalho {
+    @apply mb-3 flex items-start justify-between gap-3;
+  }
+
+  .painel-grafico__titulo-grupo {
+    @apply flex items-center gap-2;
+  }
+
+  .painel-grafico__icone {
+    @apply flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-brand-blue/10 text-brand-blue;
+  }
+
+  .painel-grafico__titulo {
+    @apply text-sm font-bold text-text-primary;
+  }
+
+  .painel-grafico__abas {
+    @apply flex shrink-0 gap-1 rounded-lg bg-alert-bg p-0.5;
+  }
+
+  .painel-grafico__aba {
+    @apply cursor-pointer rounded-md px-2.5 py-1 text-[10px] font-medium text-text-muted transition-colors hover:text-text-primary;
+  }
+
+  .painel-grafico__aba--ativa {
+    @apply bg-bg-card text-text-primary shadow-sm;
+  }
+
+  .painel-grafico__estatisticas {
+    @apply mb-4 flex flex-wrap gap-x-5 gap-y-1 text-xs text-text-secondary;
+  }
+
+  .painel-grafico__estatisticas strong {
+    @apply font-semibold text-text-primary;
+  }
+
+  .painel-grafico__destaque--positivo {
+    @apply font-semibold text-success;
+  }
+
+  .painel-grafico__destaque--negativo {
+    @apply font-semibold text-danger-text;
+  }
+
+  .painel-grafico__indicador {
+    @apply shrink-0 rounded-full bg-danger-bg px-2.5 py-0.5 text-[10px] font-semibold text-danger-text;
+  }
+
+  .painel-grafico__grafico {
+    @apply w-full overflow-hidden;
+  }
+
+  .painel-grafico__grafico svg {
+    @apply w-full;
+  }
+
+  .painel-grafico__legenda {
+    @apply mt-3 flex flex-wrap items-center gap-4 text-[10px] text-text-secondary;
+  }
+
+  .painel-grafico__legenda-item {
+    @apply flex items-center gap-1.5;
+  }
+
+  .painel-grafico__legenda-cor {
+    @apply h-2 w-2 rounded-full;
+  }
+
+  .painel-grafico__legenda-cor--normal {
+    @apply bg-brand-blue;
+  }
+
+  .painel-grafico__legenda-cor--alerta {
+    @apply bg-danger-text;
+  }
+
   /* Diretor Virtual layout */
   .app-principal--completo {
     @apply bg-bg-page;

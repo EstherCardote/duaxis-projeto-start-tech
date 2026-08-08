@@ -270,6 +270,449 @@
               <div class="cartao-indicador__rodape">vs. mês anterior</div>
             </article>
           </section>
+
+          <!-- Financeiro -->
+          <section class="secao-painel">
+            <h2 class="secao-painel__titulo">Financeiro</h2>
+            <div class="grade-painel">
+              <article class="painel-grafico">
+                <div class="painel-grafico__cabecalho">
+                  <div class="painel-grafico__titulo-grupo">
+                    <span class="painel-grafico__icone"><i data-lucide="trending-up" class="icone icone--pequeno"></i></span>
+                    <h3 class="painel-grafico__titulo">Faturamento</h3>
+                  </div>
+                  <div class="painel-grafico__abas">
+                    <button class="painel-grafico__aba" type="button" data-periodo="dia">Dia</button>
+                    <button class="painel-grafico__aba painel-grafico__aba--ativa" type="button" data-periodo="mes">Mês</button>
+                    <button class="painel-grafico__aba" type="button" data-periodo="ano">Ano</button>
+                  </div>
+                </div>
+                <div class="painel-grafico__estatisticas" data-estatistica-periodo="mes">
+                  <span>Total do período: <strong>R$ 8.275.000</strong></span>
+                  <span>Variação vs período anterior: <span class="painel-grafico__destaque--negativo">-0,8%</span></span>
+                </div>
+                <div class="painel-grafico__estatisticas" data-estatistica-periodo="dia" hidden>
+                  <span>Total do dia: <strong>R$ 312.400</strong></span>
+                  <span>Variação vs ontem: <span class="painel-grafico__destaque--positivo">+2,3%</span></span>
+                </div>
+                <div class="painel-grafico__estatisticas" data-estatistica-periodo="ano" hidden>
+                  <span>Total do ano: <strong>R$ 94.120.000</strong></span>
+                  <span>Variação vs ano anterior: <span class="painel-grafico__destaque--positivo">+4,1%</span></span>
+                </div>
+                <div class="painel-grafico__grafico" data-grafico-periodo="mes">
+                  <svg viewBox="0 0 400 160" aria-hidden="true">
+                    <line x1="40" y1="20" x2="40" y2="130" stroke="#e2e8f0" stroke-width="1"/>
+                    <line x1="40" y1="130" x2="380" y2="130" stroke="#e2e8f0" stroke-width="1"/>
+                    <polyline fill="none" stroke="#0047ab" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" points="60,45 110,38 160,50 210,42 260,55 310,48"/>
+                    <circle cx="60" cy="45" r="3" fill="#0047ab"/><circle cx="110" cy="38" r="3" fill="#0047ab"/>
+                    <circle cx="160" cy="50" r="3" fill="#0047ab"/><circle cx="210" cy="42" r="3" fill="#0047ab"/>
+                    <circle cx="260" cy="55" r="3" fill="#0047ab"/><circle cx="310" cy="48" r="3" fill="#0047ab"/>
+                    <text x="60" y="148" text-anchor="middle" fill="#94a3b8" font-size="9">Fev</text>
+                    <text x="110" y="148" text-anchor="middle" fill="#94a3b8" font-size="9">Mar</text>
+                    <text x="160" y="148" text-anchor="middle" fill="#94a3b8" font-size="9">Abr</text>
+                    <text x="210" y="148" text-anchor="middle" fill="#94a3b8" font-size="9">Mai</text>
+                    <text x="260" y="148" text-anchor="middle" fill="#94a3b8" font-size="9">Jun</text>
+                    <text x="310" y="148" text-anchor="middle" fill="#94a3b8" font-size="9">Jul</text>
+                  </svg>
+                </div>
+                <div class="painel-grafico__grafico" data-grafico-periodo="dia" hidden>
+                  <svg viewBox="0 0 400 160" aria-hidden="true">
+                    <line x1="40" y1="20" x2="40" y2="130" stroke="#e2e8f0" stroke-width="1"/>
+                    <line x1="40" y1="130" x2="380" y2="130" stroke="#e2e8f0" stroke-width="1"/>
+                    <polyline fill="none" stroke="#0047ab" stroke-width="2" points="70,80 130,65 190,72 250,58 310,70"/>
+                    <text x="70" y="148" text-anchor="middle" fill="#94a3b8" font-size="9">Seg</text>
+                    <text x="130" y="148" text-anchor="middle" fill="#94a3b8" font-size="9">Ter</text>
+                    <text x="190" y="148" text-anchor="middle" fill="#94a3b8" font-size="9">Qua</text>
+                    <text x="250" y="148" text-anchor="middle" fill="#94a3b8" font-size="9">Qui</text>
+                    <text x="310" y="148" text-anchor="middle" fill="#94a3b8" font-size="9">Sex</text>
+                  </svg>
+                </div>
+                <div class="painel-grafico__grafico" data-grafico-periodo="ano" hidden>
+                  <svg viewBox="0 0 400 160" aria-hidden="true">
+                    <line x1="40" y1="20" x2="40" y2="130" stroke="#e2e8f0" stroke-width="1"/>
+                    <line x1="40" y1="130" x2="380" y2="130" stroke="#e2e8f0" stroke-width="1"/>
+                    <polyline fill="none" stroke="#0047ab" stroke-width="2" points="80,90 160,70 240,55 320,40"/>
+                    <text x="80" y="148" text-anchor="middle" fill="#94a3b8" font-size="9">2023</text>
+                    <text x="160" y="148" text-anchor="middle" fill="#94a3b8" font-size="9">2024</text>
+                    <text x="240" y="148" text-anchor="middle" fill="#94a3b8" font-size="9">2025</text>
+                    <text x="320" y="148" text-anchor="middle" fill="#94a3b8" font-size="9">2026</text>
+                  </svg>
+                </div>
+              </article>
+
+              <article class="painel-grafico">
+                <div class="painel-grafico__cabecalho">
+                  <div class="painel-grafico__titulo-grupo">
+                    <span class="painel-grafico__icone"><i data-lucide="banknote" class="icone icone--pequeno"></i></span>
+                    <h3 class="painel-grafico__titulo">Lucro Líquido</h3>
+                  </div>
+                  <div class="painel-grafico__abas">
+                    <button class="painel-grafico__aba painel-grafico__aba--ativa" type="button" data-periodo="mes">Mês</button>
+                    <button class="painel-grafico__aba" type="button" data-periodo="ano">Ano</button>
+                  </div>
+                </div>
+                <div class="painel-grafico__estatisticas" data-estatistica-periodo="mes">
+                  <span>Lucro líquido: <strong>R$ 237.960</strong></span>
+                  <span>Margem de lucro: <span class="painel-grafico__destaque--positivo">17,7%</span></span>
+                </div>
+                <div class="painel-grafico__estatisticas" data-estatistica-periodo="ano" hidden>
+                  <span>Lucro anual: <strong>R$ 2.856.000</strong></span>
+                  <span>Margem de lucro: <span class="painel-grafico__destaque--positivo">18,2%</span></span>
+                </div>
+                <div class="painel-grafico__grafico" data-grafico-periodo="mes">
+                  <svg viewBox="0 0 400 160" aria-hidden="true">
+                    <defs><linearGradient id="grad-lucro" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#0047ab" stop-opacity="0.3"/><stop offset="100%" stop-color="#0047ab" stop-opacity="0"/></linearGradient></defs>
+                    <line x1="40" y1="20" x2="40" y2="130" stroke="#e2e8f0" stroke-width="1"/>
+                    <line x1="40" y1="130" x2="380" y2="130" stroke="#e2e8f0" stroke-width="1"/>
+                    <polygon fill="url(#grad-lucro)" points="60,55 110,35 160,50 210,65 260,75 310,85 310,130 60,130"/>
+                    <polyline fill="none" stroke="#0047ab" stroke-width="2" points="60,55 110,35 160,50 210,65 260,75 310,85"/>
+                    <text x="60" y="148" text-anchor="middle" fill="#94a3b8" font-size="9">Fev</text>
+                    <text x="110" y="148" text-anchor="middle" fill="#94a3b8" font-size="9">Mar</text>
+                    <text x="160" y="148" text-anchor="middle" fill="#94a3b8" font-size="9">Abr</text>
+                    <text x="210" y="148" text-anchor="middle" fill="#94a3b8" font-size="9">Mai</text>
+                    <text x="260" y="148" text-anchor="middle" fill="#94a3b8" font-size="9">Jun</text>
+                    <text x="310" y="148" text-anchor="middle" fill="#94a3b8" font-size="9">Jul</text>
+                  </svg>
+                </div>
+                <div class="painel-grafico__grafico" data-grafico-periodo="ano" hidden>
+                  <svg viewBox="0 0 400 160" aria-hidden="true">
+                    <defs><linearGradient id="grad-lucro-ano" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#0047ab" stop-opacity="0.3"/><stop offset="100%" stop-color="#0047ab" stop-opacity="0"/></linearGradient></defs>
+                    <polygon fill="url(#grad-lucro-ano)" points="80,70 160,50 240,45 320,40 320,130 80,130"/>
+                    <polyline fill="none" stroke="#0047ab" stroke-width="2" points="80,70 160,50 240,45 320,40"/>
+                    <text x="80" y="148" text-anchor="middle" fill="#94a3b8" font-size="9">2023</text>
+                    <text x="160" y="148" text-anchor="middle" fill="#94a3b8" font-size="9">2024</text>
+                    <text x="240" y="148" text-anchor="middle" fill="#94a3b8" font-size="9">2025</text>
+                    <text x="320" y="148" text-anchor="middle" fill="#94a3b8" font-size="9">2026</text>
+                  </svg>
+                </div>
+              </article>
+
+              <article class="painel-grafico">
+                <div class="painel-grafico__cabecalho">
+                  <div class="painel-grafico__titulo-grupo">
+                    <span class="painel-grafico__icone"><i data-lucide="pie-chart" class="icone icone--pequeno"></i></span>
+                    <h3 class="painel-grafico__titulo">Despesas por Categoria</h3>
+                  </div>
+                </div>
+                <div class="painel-grafico__estatisticas">
+                  <span>Total de despesas: <strong>R$ 1.104.040</strong></span>
+                  <span>Maior gasto: <strong>Folha de pagamento (42%)</strong></span>
+                </div>
+                <div class="painel-grafico__grafico">
+                  <svg viewBox="0 0 400 160" aria-hidden="true">
+                    <rect x="120" y="18" width="250" height="14" rx="3" fill="#0047ab"/>
+                    <text x="110" y="29" text-anchor="end" fill="#64748b" font-size="9">Folha</text>
+                    <rect x="120" y="40" width="167" height="14" rx="3" fill="#0047ab" opacity="0.85"/>
+                    <text x="110" y="51" text-anchor="end" fill="#64748b" font-size="9">Fornec.</text>
+                    <rect x="120" y="62" width="89" height="14" rx="3" fill="#0047ab" opacity="0.7"/>
+                    <text x="110" y="73" text-anchor="end" fill="#64748b" font-size="9">Logíst.</text>
+                    <rect x="120" y="84" width="48" height="14" rx="3" fill="#0047ab" opacity="0.55"/>
+                    <text x="110" y="95" text-anchor="end" fill="#64748b" font-size="9">Mkt</text>
+                    <rect x="120" y="106" width="42" height="14" rx="3" fill="#0047ab" opacity="0.4"/>
+                    <text x="110" y="117" text-anchor="end" fill="#64748b" font-size="9">Outros</text>
+                  </svg>
+                </div>
+              </article>
+
+              <article class="painel-grafico">
+                <div class="painel-grafico__cabecalho">
+                  <div class="painel-grafico__titulo-grupo">
+                    <span class="painel-grafico__icone"><i data-lucide="receipt" class="icone icone--pequeno"></i></span>
+                    <h3 class="painel-grafico__titulo">Contas a Pagar</h3>
+                  </div>
+                  <span class="painel-grafico__indicador">3 vencidas</span>
+                </div>
+                <div class="painel-grafico__estatisticas">
+                  <span>Total em aberto: <strong>R$ 284.700</strong></span>
+                  <span>Vencidas: <span class="painel-grafico__destaque--negativo">R$ 12.450</span></span>
+                  <span>A vencer (30 dias): <strong>R$ 98.200</strong></span>
+                </div>
+                <div class="painel-grafico__grafico">
+                  <svg viewBox="0 0 400 160" aria-hidden="true">
+                    <line x1="40" y1="20" x2="40" y2="130" stroke="#e2e8f0" stroke-width="1"/>
+                    <line x1="40" y1="130" x2="380" y2="130" stroke="#e2e8f0" stroke-width="1"/>
+                    <rect x="70" y="50" width="40" height="80" rx="3" fill="#0047ab"/>
+                    <rect x="140" y="70" width="40" height="60" rx="3" fill="#0047ab" opacity="0.7"/>
+                    <rect x="210" y="90" width="40" height="40" rx="3" fill="#c53030"/>
+                    <rect x="280" y="60" width="40" height="70" rx="3" fill="#0047ab" opacity="0.85"/>
+                    <text x="90" y="148" text-anchor="middle" fill="#94a3b8" font-size="8">Fornec.</text>
+                    <text x="160" y="148" text-anchor="middle" fill="#94a3b8" font-size="8">Aluguel</text>
+                    <text x="230" y="148" text-anchor="middle" fill="#94a3b8" font-size="8">Tecidos</text>
+                    <text x="300" y="148" text-anchor="middle" fill="#94a3b8" font-size="8">Energia</text>
+                  </svg>
+                </div>
+              </article>
+            </div>
+          </section>
+
+          <!-- RH -->
+          <section class="secao-painel">
+            <h2 class="secao-painel__titulo">Recursos Humanos</h2>
+            <div class="grade-painel">
+              <article class="painel-grafico">
+                <div class="painel-grafico__cabecalho">
+                  <div class="painel-grafico__titulo-grupo">
+                    <span class="painel-grafico__icone"><i data-lucide="wallet" class="icone icone--pequeno"></i></span>
+                    <h3 class="painel-grafico__titulo">Folha por Departamento</h3>
+                  </div>
+                </div>
+                <div class="painel-grafico__estatisticas">
+                  <span>Total da folha: <strong>R$ 555.000</strong></span>
+                  <span>Maior custo: <strong>Produção (33%)</strong></span>
+                </div>
+                <div class="painel-grafico__grafico">
+                  <svg viewBox="0 0 400 160" aria-hidden="true">
+                    <line x1="40" y1="20" x2="40" y2="130" stroke="#e2e8f0" stroke-width="1"/>
+                    <line x1="40" y1="130" x2="380" y2="130" stroke="#e2e8f0" stroke-width="1"/>
+                    <rect x="55" y="30" width="35" height="100" rx="3" fill="#0047ab"/>
+                    <rect x="115" y="55" width="35" height="75" rx="3" fill="#0047ab" opacity="0.85"/>
+                    <rect x="175" y="80" width="35" height="50" rx="3" fill="#0047ab" opacity="0.7"/>
+                    <rect x="235" y="95" width="35" height="35" rx="3" fill="#0047ab" opacity="0.6"/>
+                    <rect x="295" y="105" width="35" height="25" rx="3" fill="#0047ab" opacity="0.5"/>
+                    <text x="72" y="148" text-anchor="middle" fill="#94a3b8" font-size="8">Produção</text>
+                    <text x="132" y="148" text-anchor="middle" fill="#94a3b8" font-size="8">Comercial</text>
+                    <text x="192" y="148" text-anchor="middle" fill="#94a3b8" font-size="8">Admin</text>
+                    <text x="252" y="148" text-anchor="middle" fill="#94a3b8" font-size="8">Logíst.</text>
+                    <text x="312" y="148" text-anchor="middle" fill="#94a3b8" font-size="8">TI</text>
+                  </svg>
+                </div>
+              </article>
+
+              <article class="painel-grafico">
+                <div class="painel-grafico__cabecalho">
+                  <div class="painel-grafico__titulo-grupo">
+                    <span class="painel-grafico__icone"><i data-lucide="users" class="icone icone--pequeno"></i></span>
+                    <h3 class="painel-grafico__titulo">Headcount por Área</h3>
+                  </div>
+                </div>
+                <div class="painel-grafico__estatisticas">
+                  <span>Total de colaboradores: <strong>50</strong></span>
+                  <span>Admissões no mês: <span class="painel-grafico__destaque--positivo">+2</span></span>
+                </div>
+                <div class="painel-grafico__grafico">
+                  <svg viewBox="0 0 400 160" aria-hidden="true">
+                    <rect x="120" y="15" width="216" height="14" rx="3" fill="#0047ab"/>
+                    <text x="110" y="26" text-anchor="end" fill="#64748b" font-size="9">Produção (18)</text>
+                    <rect x="120" y="37" width="144" height="14" rx="3" fill="#0047ab" opacity="0.85"/>
+                    <text x="110" y="48" text-anchor="end" fill="#64748b" font-size="9">Comercial (12)</text>
+                    <rect x="120" y="59" width="120" height="14" rx="3" fill="#0047ab" opacity="0.7"/>
+                    <text x="110" y="70" text-anchor="end" fill="#64748b" font-size="9">Admin (10)</text>
+                    <rect x="120" y="81" width="72" height="14" rx="3" fill="#0047ab" opacity="0.6"/>
+                    <text x="110" y="92" text-anchor="end" fill="#64748b" font-size="9">Logíst. (6)</text>
+                    <rect x="120" y="103" width="48" height="14" rx="3" fill="#0047ab" opacity="0.5"/>
+                    <text x="110" y="114" text-anchor="end" fill="#64748b" font-size="9">TI (4)</text>
+                  </svg>
+                </div>
+              </article>
+
+              <article class="painel-grafico">
+                <div class="painel-grafico__cabecalho">
+                  <div class="painel-grafico__titulo-grupo">
+                    <span class="painel-grafico__icone"><i data-lucide="user-minus" class="icone icone--pequeno"></i></span>
+                    <h3 class="painel-grafico__titulo">Taxa de Turnover</h3>
+                  </div>
+                </div>
+                <div class="painel-grafico__estatisticas">
+                  <span>Turnover atual: <strong>1,9%</strong></span>
+                  <span>Média do setor: <strong>2,8%</strong></span>
+                  <span>Desligamentos no mês: <strong>1</strong></span>
+                </div>
+                <div class="painel-grafico__grafico">
+                  <svg viewBox="0 0 400 160" aria-hidden="true">
+                    <line x1="40" y1="20" x2="40" y2="130" stroke="#e2e8f0" stroke-width="1"/>
+                    <line x1="40" y1="130" x2="380" y2="130" stroke="#e2e8f0" stroke-width="1"/>
+                    <polyline fill="none" stroke="#0047ab" stroke-width="2" points="60,70 110,80 160,55 210,75 260,65 310,72"/>
+                    <text x="60" y="148" text-anchor="middle" fill="#94a3b8" font-size="9">Fev</text>
+                    <text x="110" y="148" text-anchor="middle" fill="#94a3b8" font-size="9">Mar</text>
+                    <text x="160" y="148" text-anchor="middle" fill="#94a3b8" font-size="9">Abr</text>
+                    <text x="210" y="148" text-anchor="middle" fill="#94a3b8" font-size="9">Mai</text>
+                    <text x="260" y="148" text-anchor="middle" fill="#94a3b8" font-size="9">Jun</text>
+                    <text x="310" y="148" text-anchor="middle" fill="#94a3b8" font-size="9">Jul</text>
+                  </svg>
+                </div>
+              </article>
+
+              <article class="painel-grafico">
+                <div class="painel-grafico__cabecalho">
+                  <div class="painel-grafico__titulo-grupo">
+                    <span class="painel-grafico__icone"><i data-lucide="calendar-off" class="icone icone--pequeno"></i></span>
+                    <h3 class="painel-grafico__titulo">Absenteísmo</h3>
+                  </div>
+                </div>
+                <div class="painel-grafico__estatisticas">
+                  <span>Taxa de absenteísmo: <strong>3,2%</strong></span>
+                  <span>Horas perdidas: <strong>128h</strong></span>
+                  <span>vs mês anterior: <span class="painel-grafico__destaque--negativo">+0,4%</span></span>
+                </div>
+                <div class="painel-grafico__grafico">
+                  <svg viewBox="0 0 400 160" aria-hidden="true">
+                    <defs><linearGradient id="grad-abs" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#0047ab" stop-opacity="0.25"/><stop offset="100%" stop-color="#0047ab" stop-opacity="0"/></linearGradient></defs>
+                    <polygon fill="url(#grad-abs)" points="60,90 110,75 160,85 210,70 260,80 310,72 310,130 60,130"/>
+                    <polyline fill="none" stroke="#0047ab" stroke-width="2" points="60,90 110,75 160,85 210,70 260,80 310,72"/>
+                    <text x="60" y="148" text-anchor="middle" fill="#94a3b8" font-size="9">Fev</text>
+                    <text x="110" y="148" text-anchor="middle" fill="#94a3b8" font-size="9">Mar</text>
+                    <text x="160" y="148" text-anchor="middle" fill="#94a3b8" font-size="9">Abr</text>
+                    <text x="210" y="148" text-anchor="middle" fill="#94a3b8" font-size="9">Mai</text>
+                    <text x="260" y="148" text-anchor="middle" fill="#94a3b8" font-size="9">Jun</text>
+                    <text x="310" y="148" text-anchor="middle" fill="#94a3b8" font-size="9">Jul</text>
+                  </svg>
+                </div>
+              </article>
+            </div>
+          </section>
+
+          <!-- Logística -->
+          <section class="secao-painel">
+            <h2 class="secao-painel__titulo">Logística</h2>
+            <div class="grade-painel">
+              <article class="painel-grafico painel-grafico--largura-total">
+                <div class="painel-grafico__cabecalho">
+                  <div class="painel-grafico__titulo-grupo">
+                    <span class="painel-grafico__icone"><i data-lucide="boxes" class="icone icone--pequeno"></i></span>
+                    <h3 class="painel-grafico__titulo">Nível de Estoque</h3>
+                  </div>
+                  <span class="painel-grafico__indicador">7 abaixo do mínimo</span>
+                </div>
+                <div class="painel-grafico__estatisticas">
+                  <span>Total em estoque: <strong>16.365 un</strong></span>
+                  <span>Itens críticos: <span class="painel-grafico__destaque--negativo">7 produtos</span></span>
+                </div>
+                <div class="painel-grafico__grafico">
+                  <svg viewBox="0 0 400 160" aria-hidden="true">
+                    <line x1="30" y1="20" x2="30" y2="120" stroke="#e2e8f0" stroke-width="1"/>
+                    <line x1="30" y1="120" x2="390" y2="120" stroke="#e2e8f0" stroke-width="1"/>
+                    <rect x="38" y="95" width="22" height="25" rx="2" fill="#c53030"/>
+                    <rect x="68" y="100" width="22" height="20" rx="2" fill="#c53030"/>
+                    <rect x="98" y="25" width="22" height="95" rx="2" fill="#0047ab"/>
+                    <rect x="128" y="90" width="22" height="30" rx="2" fill="#c53030"/>
+                    <rect x="158" y="50" width="22" height="70" rx="2" fill="#0047ab"/>
+                    <rect x="188" y="105" width="22" height="15" rx="2" fill="#c53030"/>
+                    <rect x="218" y="100" width="22" height="20" rx="2" fill="#c53030"/>
+                    <rect x="248" y="85" width="22" height="35" rx="2" fill="#c53030"/>
+                    <rect x="278" y="55" width="22" height="65" rx="2" fill="#0047ab"/>
+                    <rect x="308" y="60" width="22" height="60" rx="2" fill="#0047ab"/>
+                    <text x="49" y="135" text-anchor="middle" fill="#94a3b8" font-size="7" transform="rotate(-30 49 135)">Cam. Preta</text>
+                    <text x="109" y="135" text-anchor="middle" fill="#94a3b8" font-size="7" transform="rotate(-30 109 135)">Calça Jeans</text>
+                    <text x="169" y="135" text-anchor="middle" fill="#94a3b8" font-size="7" transform="rotate(-30 169 135)">Vestido</text>
+                    <text x="229" y="135" text-anchor="middle" fill="#94a3b8" font-size="7" transform="rotate(-30 229 135)">Cam. Polo</text>
+                    <text x="289" y="135" text-anchor="middle" fill="#94a3b8" font-size="7" transform="rotate(-30 289 135)">Relógio</text>
+                  </svg>
+                </div>
+                <div class="painel-grafico__legenda">
+                  <span class="painel-grafico__legenda-item"><span class="painel-grafico__legenda-cor painel-grafico__legenda-cor--normal"></span> Estoque normal</span>
+                  <span class="painel-grafico__legenda-item"><span class="painel-grafico__legenda-cor painel-grafico__legenda-cor--alerta"></span> Abaixo do mínimo</span>
+                </div>
+              </article>
+
+              <article class="painel-grafico">
+                <div class="painel-grafico__cabecalho">
+                  <div class="painel-grafico__titulo-grupo">
+                    <span class="painel-grafico__icone"><i data-lucide="truck" class="icone icone--pequeno"></i></span>
+                    <h3 class="painel-grafico__titulo">Tempo Médio de Entrega</h3>
+                  </div>
+                </div>
+                <div class="painel-grafico__estatisticas">
+                  <span>Média atual: <strong>2,7 dias</strong></span>
+                  <span>Meta: <strong>3,0 dias</strong></span>
+                  <span>vs mês anterior: <span class="painel-grafico__destaque--positivo">-0,3 dias</span></span>
+                </div>
+                <div class="painel-grafico__grafico">
+                  <svg viewBox="0 0 400 160" aria-hidden="true">
+                    <line x1="40" y1="20" x2="40" y2="130" stroke="#e2e8f0" stroke-width="1"/>
+                    <line x1="40" y1="130" x2="380" y2="130" stroke="#e2e8f0" stroke-width="1"/>
+                    <line x1="40" y1="60" x2="380" y2="60" stroke="#16a34a" stroke-width="1" stroke-dasharray="4"/>
+                    <polyline fill="none" stroke="#0047ab" stroke-width="2" points="60,55 110,65 160,58 210,70 260,62 310,68"/>
+                    <text x="60" y="148" text-anchor="middle" fill="#94a3b8" font-size="9">Fev</text>
+                    <text x="110" y="148" text-anchor="middle" fill="#94a3b8" font-size="9">Mar</text>
+                    <text x="160" y="148" text-anchor="middle" fill="#94a3b8" font-size="9">Abr</text>
+                    <text x="210" y="148" text-anchor="middle" fill="#94a3b8" font-size="9">Mai</text>
+                    <text x="260" y="148" text-anchor="middle" fill="#94a3b8" font-size="9">Jun</text>
+                    <text x="310" y="148" text-anchor="middle" fill="#94a3b8" font-size="9">Jul</text>
+                  </svg>
+                </div>
+              </article>
+
+              <article class="painel-grafico">
+                <div class="painel-grafico__cabecalho">
+                  <div class="painel-grafico__titulo-grupo">
+                    <span class="painel-grafico__icone"><i data-lucide="map-pin" class="icone icone--pequeno"></i></span>
+                    <h3 class="painel-grafico__titulo">Entregas por Região</h3>
+                  </div>
+                </div>
+                <div class="painel-grafico__estatisticas">
+                  <span>Total de entregas: <strong>1.248</strong></span>
+                  <span>Principal região: <strong>Sudeste (42%)</strong></span>
+                </div>
+                <div class="painel-grafico__grafico">
+                  <svg viewBox="0 0 400 160" aria-hidden="true">
+                    <rect x="120" y="20" width="210" height="14" rx="3" fill="#0047ab"/>
+                    <text x="110" y="31" text-anchor="end" fill="#64748b" font-size="9">Sudeste (42%)</text>
+                    <rect x="120" y="45" width="140" height="14" rx="3" fill="#0047ab" opacity="0.85"/>
+                    <text x="110" y="56" text-anchor="end" fill="#64748b" font-size="9">Sul (28%)</text>
+                    <rect x="120" y="70" width="90" height="14" rx="3" fill="#0047ab" opacity="0.7"/>
+                    <text x="110" y="81" text-anchor="end" fill="#64748b" font-size="9">Nordeste (18%)</text>
+                    <rect x="120" y="95" width="60" height="14" rx="3" fill="#0047ab" opacity="0.55"/>
+                    <text x="110" y="106" text-anchor="end" fill="#64748b" font-size="9">Centro-Oeste (12%)</text>
+                  </svg>
+                </div>
+              </article>
+
+              <article class="painel-grafico">
+                <div class="painel-grafico__cabecalho">
+                  <div class="painel-grafico__titulo-grupo">
+                    <span class="painel-grafico__icone"><i data-lucide="undo-2" class="icone icone--pequeno"></i></span>
+                    <h3 class="painel-grafico__titulo">Taxa de Devolução</h3>
+                  </div>
+                </div>
+                <div class="painel-grafico__estatisticas">
+                  <span>Taxa atual: <strong>2,4%</strong></span>
+                  <span>Devoluções no mês: <strong>30 un</strong></span>
+                  <span>Custo estimado: <span class="painel-grafico__destaque--negativo">R$ 8.750</span></span>
+                </div>
+                <div class="painel-grafico__grafico">
+                  <svg viewBox="0 0 400 160" aria-hidden="true">
+                    <line x1="40" y1="20" x2="40" y2="130" stroke="#e2e8f0" stroke-width="1"/>
+                    <line x1="40" y1="130" x2="380" y2="130" stroke="#e2e8f0" stroke-width="1"/>
+                    <rect x="70" y="70" width="40" height="60" rx="3" fill="#0047ab"/>
+                    <rect x="140" y="80" width="40" height="50" rx="3" fill="#0047ab" opacity="0.85"/>
+                    <rect x="210" y="60" width="40" height="70" rx="3" fill="#c53030"/>
+                    <rect x="280" y="75" width="40" height="55" rx="3" fill="#0047ab" opacity="0.7"/>
+                    <text x="90" y="148" text-anchor="middle" fill="#94a3b8" font-size="8">Tamanho</text>
+                    <text x="160" y="148" text-anchor="middle" fill="#94a3b8" font-size="8">Defeito</text>
+                    <text x="230" y="148" text-anchor="middle" fill="#94a3b8" font-size="8">Atraso</text>
+                    <text x="300" y="148" text-anchor="middle" fill="#94a3b8" font-size="8">Outros</text>
+                  </svg>
+                </div>
+              </article>
+
+              <article class="painel-grafico">
+                <div class="painel-grafico__cabecalho">
+                  <div class="painel-grafico__titulo-grupo">
+                    <span class="painel-grafico__icone"><i data-lucide="package-check" class="icone icone--pequeno"></i></span>
+                    <h3 class="painel-grafico__titulo">Pedidos em Trânsito</h3>
+                  </div>
+                  <span class="painel-grafico__indicador">2 atrasados</span>
+                </div>
+                <div class="painel-grafico__estatisticas">
+                  <span>Em trânsito: <strong>84 pedidos</strong></span>
+                  <span>Entregues no prazo: <span class="painel-grafico__destaque--positivo">96,2%</span></span>
+                </div>
+                <div class="painel-grafico__grafico">
+                  <svg viewBox="0 0 400 160" aria-hidden="true">
+                    <defs><linearGradient id="grad-transito" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#0047ab" stop-opacity="0.25"/><stop offset="100%" stop-color="#0047ab" stop-opacity="0"/></linearGradient></defs>
+                    <polygon fill="url(#grad-transito)" points="60,80 110,65 160,70 210,55 260,60 310,50 310,130 60,130"/>
+                    <polyline fill="none" stroke="#0047ab" stroke-width="2" points="60,80 110,65 160,70 210,55 260,60 310,50"/>
+                    <text x="60" y="148" text-anchor="middle" fill="#94a3b8" font-size="9">Fev</text>
+                    <text x="110" y="148" text-anchor="middle" fill="#94a3b8" font-size="9">Mar</text>
+                    <text x="160" y="148" text-anchor="middle" fill="#94a3b8" font-size="9">Abr</text>
+                    <text x="210" y="148" text-anchor="middle" fill="#94a3b8" font-size="9">Mai</text>
+                    <text x="260" y="148" text-anchor="middle" fill="#94a3b8" font-size="9">Jun</text>
+                    <text x="310" y="148" text-anchor="middle" fill="#94a3b8" font-size="9">Jul</text>
+                  </svg>
+                </div>
+              </article>
+            </div>
+          </section>
         </div>
       </main>
     </div>

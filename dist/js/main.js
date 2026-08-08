@@ -26,6 +26,7 @@ document.addEventListener("DOMContentLoaded", () => {
   inicializarFiltrosAlertas();
   inicializarAtualizacaoAlertas();
   inicializarBotaoValidacao();
+  inicializarAbasPainel();
 });
 
 // Renderiza os ícones Lucide na página
@@ -184,5 +185,30 @@ function inicializarBotaoValidacao() {
       botaoValidar.innerHTML = htmlOriginal;
       inicializarIconesLucide();
     }, 2000);
+  });
+}
+
+// Alterna abas de período nos painéis de gráfico
+function inicializarAbasPainel() {
+  document.querySelectorAll(".painel-grafico__abas").forEach((grupoAbas) => {
+    const painel = grupoAbas.closest(".painel-grafico");
+    const abas = grupoAbas.querySelectorAll(".painel-grafico__aba");
+
+    abas.forEach((aba) => {
+      aba.addEventListener("click", () => {
+        abas.forEach((item) =>
+          item.classList.remove("painel-grafico__aba--ativa"),
+        );
+        aba.classList.add("painel-grafico__aba--ativa");
+
+        const periodo = aba.dataset.periodo;
+        painel.querySelectorAll("[data-grafico-periodo]").forEach((grafico) => {
+          grafico.hidden = grafico.dataset.graficoPeriodo !== periodo;
+        });
+        painel.querySelectorAll("[data-estatistica-periodo]").forEach((stat) => {
+          stat.hidden = stat.dataset.estatisticaPeriodo !== periodo;
+        });
+      });
+    });
   });
 }
