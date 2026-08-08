@@ -8,33 +8,40 @@
 
   --header-height: 4.5rem;
 
-  --color-brand-navy: #000b1a;
-  --color-brand-blue: #0047ab;
-  --color-brand-blue-light: #0072ff;
+  --color-brand-navy: #1a1c1e;
+  --color-brand-blue: #2563eb;
+  --color-brand-blue-light: #3b82f6;
   --color-bg-page: #f8f9fb;
   --color-bg-card: #ffffff;
-  --color-border: #e2e8f0;
-  --color-text-primary: #0f172a;
-  --color-text-secondary: #64748b;
-  --color-text-muted: #94a3b8;
-  --color-danger-bg: #fed7d7;
-  --color-danger-text: #c53030;
-  --color-success: #16a34a;
-  --color-alert-bg: #f1f5f9;
+  --color-border: #e5e7eb;
+  --color-text-primary: #1a1c1e;
+  --color-text-secondary: #6b7280;
+  --color-text-muted: #9ca3af;
+  --color-danger-bg: #fee2e2;
+  --color-danger-text: #ef4444;
+  --color-success: #22c55e;
+  --color-success-bg: #dcfce7;
+  --color-warning: #f59e0b;
+  --color-warning-bg: #fef3c7;
+  --color-alert-bg: #f3f4f6;
 }
 
 @layer base {
   .dark {
-    --color-bg-page: #0b1220;
-    --color-bg-card: #111827;
-    --color-border: #1e293b;
-    --color-text-primary: #f1f5f9;
-    --color-text-secondary: #94a3b8;
-    --color-text-muted: #64748b;
-    --color-alert-bg: #1e293b;
-    --color-brand-navy: #1e3a5f;
-    --color-danger-bg: #3b1219;
+    --color-bg-page: #111827;
+    --color-bg-card: #1f2937;
+    --color-border: #374151;
+    --color-text-primary: #f9fafb;
+    --color-text-secondary: #9ca3af;
+    --color-text-muted: #6b7280;
+    --color-alert-bg: #374151;
+    --color-brand-navy: #f9fafb;
+    --color-brand-blue: #3b82f6;
+    --color-brand-blue-light: #60a5fa;
+    --color-danger-bg: #7f1d1d;
     --color-danger-text: #fca5a5;
+    --color-success-bg: #14532d;
+    --color-warning-bg: #78350f;
   }
 
   body {
@@ -132,7 +139,7 @@
   }
 
   .menu-lateral__item--ativo {
-    @apply bg-brand-navy text-white hover:bg-brand-navy;
+    @apply bg-brand-blue text-white hover:bg-brand-blue;
   }
 
   .menu-lateral__item-icone {
@@ -240,7 +247,7 @@
   }
 
   .banner-alerta__icone {
-    @apply text-brand-blue;
+    @apply text-warning;
   }
 
   .saudacao__titulo {
@@ -333,7 +340,7 @@
   }
 
   .cartao-indicador__icone--verde {
-    @apply bg-success/10 text-success;
+    @apply bg-success-bg text-success;
   }
 
   .cartao-indicador__icone--escuro {
@@ -358,6 +365,10 @@
 
   .indicador-tendencia--queda {
     @apply bg-danger-bg text-danger-text;
+  }
+
+  .indicador-tendencia--alta {
+    @apply bg-success-bg text-success;
   }
 
   .indicador-tendencia--neutro {
@@ -741,11 +752,11 @@
   }
 
   .resumo-alertas__item-icone-wrap--resolvido {
-    @apply bg-brand-blue/10;
+    @apply bg-alert-bg;
   }
 
   .resumo-alertas__item-icone {
-    @apply text-text-secondary;
+    @apply text-text-primary;
   }
 
   .resumo-alertas__item-icone--critico {
@@ -753,7 +764,7 @@
   }
 
   .resumo-alertas__item-icone--resolvido {
-    @apply text-brand-blue;
+    @apply text-text-muted;
   }
 
   .resumo-alertas__item-valor {
@@ -762,6 +773,10 @@
 
   .resumo-alertas__item-valor--critico {
     @apply text-danger-text;
+  }
+
+  .resumo-alertas__item-valor--resolvido {
+    @apply text-text-muted;
   }
 
   .resumo-alertas__item-rotulo {
