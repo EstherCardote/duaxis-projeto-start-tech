@@ -1,0 +1,340 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Diretor Virtual | DUAXIS</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/styles.css" />
+    <script>
+      (function () {
+        const t = localStorage.getItem("tema");
+        if (
+          t === "escuro" ||
+          (!t && matchMedia("(prefers-color-scheme: dark)").matches)
+        )
+          document.documentElement.classList.add("dark");
+      })();
+    </script>
+  </head>
+  <body>
+    <div class="aplicativo">
+      <aside class="menu-lateral" id="menu-lateral">
+        <div class="menu-lateral__cabecalho">
+          <img
+            src="assets/images/logo.png"
+            alt="DUAXIS"
+            class="menu-lateral__logo"
+          />
+          <div class="menu-lateral__marca-texto">
+            <div class="menu-lateral__marca-nome">DUAXIS</div>
+            <div class="menu-lateral__marca-slogan">
+              Inteligência para decisões empresariais
+            </div>
+          </div>
+          <button
+            class="menu-lateral__alternar"
+            id="alternar-menu-lateral"
+            type="button"
+            aria-label="Recolher menu"
+          >
+            <i data-lucide="panel-left-close" class="icone icone--pequeno"></i>
+          </button>
+        </div>
+
+        <div class="menu-lateral__rotulo">Menu</div>
+
+        <nav class="menu-lateral__navegacao">
+          <a href="index.html" class="menu-lateral__item" title="Dashboard">
+            <span class="menu-lateral__item-icone">
+              <i data-lucide="layout-dashboard" class="icone icone--pequeno"></i>
+            </span>
+            <span class="menu-lateral__item-texto">
+              <div class="menu-lateral__item-titulo">Dashboard</div>
+              <div class="menu-lateral__item-subtitulo">Visão geral</div>
+            </span>
+          </a>
+
+          <a
+            href="diretor-virtual.html"
+            class="menu-lateral__item menu-lateral__item--ativo"
+            title="Diretor Virtual"
+          >
+            <span class="menu-lateral__item-icone">
+              <i data-lucide="bot" class="icone icone--pequeno"></i>
+            </span>
+            <span class="menu-lateral__item-texto">
+              <div class="menu-lateral__item-titulo">Diretor Virtual</div>
+              <div class="menu-lateral__item-subtitulo">Copiloto IA</div>
+            </span>
+          </a>
+
+          <a
+            href="fontes-de-dados.html"
+            class="menu-lateral__item"
+            title="Fontes de Dados"
+          >
+            <span class="menu-lateral__item-icone">
+              <i data-lucide="database" class="icone icone--pequeno"></i>
+            </span>
+            <span class="menu-lateral__item-texto">
+              <div class="menu-lateral__item-titulo">Fontes de Dados</div>
+              <div class="menu-lateral__item-subtitulo">Conexões</div>
+            </span>
+          </a>
+
+          <a href="alertas.html" class="menu-lateral__item" title="Alertas">
+            <span class="menu-lateral__item-icone">
+              <i data-lucide="bell" class="icone icone--pequeno"></i>
+            </span>
+            <span class="menu-lateral__item-texto">
+              <div class="menu-lateral__item-titulo">Alertas</div>
+              <div class="menu-lateral__item-subtitulo">Central de alertas</div>
+            </span>
+          </a>
+
+          <a
+            href="configuracoes.html"
+            class="menu-lateral__item"
+            title="Configurações"
+          >
+            <span class="menu-lateral__item-icone">
+              <i data-lucide="settings" class="icone icone--pequeno"></i>
+            </span>
+            <span class="menu-lateral__item-texto">
+              <div class="menu-lateral__item-titulo">Configurações</div>
+              <div class="menu-lateral__item-subtitulo">Ajustes</div>
+            </span>
+          </a>
+        </nav>
+      </aside>
+
+      <main class="app-principal">
+        <header class="cabecalho-principal">
+          <div class="cabecalho-principal__info">
+            <h1 class="cabecalho-principal__titulo">Diretor Virtual</h1>
+            <p class="cabecalho-principal__subtitulo">
+              Copiloto corporativo com IA — consulta, análise e simulação de
+              cenários.
+            </p>
+          </div>
+          <div class="cabecalho-principal__acoes">
+            <button
+              id="alternar-tema"
+              class="alternador-tema"
+              type="button"
+              aria-label="Alternar tema"
+            >
+              <i
+                data-lucide="sun"
+                class="alternador-tema__icone alternador-tema__icone--claro icon icone--medio"
+              ></i>
+              <i
+                data-lucide="moon"
+                class="alternador-tema__icone alternador-tema__icone--escuro icon icone--medio"
+              ></i>
+            </button>
+          </div>
+        </header>
+
+        <div class="layout-dv">
+          <aside class="historico-dv">
+            <div class="historico-dv__cabecalho">
+              <h2 class="historico-dv__titulo">Histórico</h2>
+              <button
+                class="historico-dv__botao-novo"
+                type="button"
+                aria-label="Nova conversa"
+              >
+                <i data-lucide="plus" class="icone icone--pequeno"></i>
+              </button>
+            </div>
+            <div class="historico-dv__busca">
+              <i
+                data-lucide="search"
+                class="icone icone--pequeno text-text-muted"
+              ></i>
+              <input
+                type="text"
+                id="busca-historico"
+                class="historico-dv__busca-campo"
+                placeholder="Buscar conversas..."
+              />
+            </div>
+            <div class="historico-dv__vazio">
+              <i data-lucide="clock" class="icone icone--grande"></i>
+              <span>Nenhuma conversa ainda</span>
+            </div>
+          </aside>
+
+          <section class="chat-dv">
+            <div class="chat-dv__interno">
+              <div class="chat-dv__cabecalho">
+                <div class="chat-dv__cabecalho-esquerda">
+                  <div class="chat-dv__icone">
+                    <i data-lucide="bot" class="icone icone--medio"></i>
+                  </div>
+                  <div>
+                    <h1 class="chat-dv__titulo">Diretor Virtual</h1>
+                    <p class="chat-dv__subtitulo">
+                      Copiloto corporativo com IA — consulta, análise e simulação
+                      de cenários.
+                    </p>
+                  </div>
+                </div>
+                <button class="chat-dv__botao-comparar" type="button">
+                  <i data-lucide="git-compare" class="icone icone--pequeno"></i>
+                  Comparar Simulações
+                </button>
+              </div>
+
+              <div class="chat-dv__intro">
+                <div class="chat-dv__intro-icone">
+                  <i data-lucide="bot" class="icone icone--pequeno"></i>
+                </div>
+                <p class="chat-dv__intro-texto">
+                  Olá! Sou seu Diretor Virtual de Negócios. Identifico
+                  automaticamente sua intenção e respondo com consultas,
+                  análises ou simulações de cenários — tudo baseado nos dados
+                  reais da empresa.
+                </p>
+              </div>
+
+              <div>
+                <p class="sugestoes-dv__rotulo">Sugestões de perguntas</p>
+                <div class="sugestoes-dv">
+                  <button
+                    class="cartao-sugestao-dv"
+                    type="button"
+                    data-sugestao="Quanto gastei com folha em junho?"
+                  >
+                    <i
+                      data-lucide="sparkles"
+                      class="cartao-sugestao-dv__icone icon icone--pequeno"
+                    ></i>
+                    Quanto gastei com folha em junho?
+                  </button>
+                  <button
+                    class="cartao-sugestao-dv"
+                    type="button"
+                    data-sugestao="Por que o lucro caiu?"
+                  >
+                    <i
+                      data-lucide="sparkles"
+                      class="cartao-sugestao-dv__icone icon icone--pequeno"
+                    ></i>
+                    Por que o lucro caiu?
+                  </button>
+                  <button
+                    class="cartao-sugestao-dv"
+                    type="button"
+                    data-sugestao="Quais produtos precisam de reposição?"
+                  >
+                    <i
+                      data-lucide="sparkles"
+                      class="cartao-sugestao-dv__icone icon icone--pequeno"
+                    ></i>
+                    Quais produtos precisam de reposição?
+                  </button>
+                  <button
+                    class="cartao-sugestao-dv"
+                    type="button"
+                    data-sugestao="Qual o fluxo de caixa previsto para o próximo mês?"
+                  >
+                    <i
+                      data-lucide="sparkles"
+                      class="cartao-sugestao-dv__icone icon icone--pequeno"
+                    ></i>
+                    Qual o fluxo de caixa previsto para o próximo mês?
+                  </button>
+                  <button
+                    class="cartao-sugestao-dv"
+                    type="button"
+                    data-sugestao="Quais fornecedores têm contas em atraso?"
+                  >
+                    <i
+                      data-lucide="sparkles"
+                      class="cartao-sugestao-dv__icone icon icone--pequeno"
+                    ></i>
+                    Quais fornecedores têm contas em atraso?
+                  </button>
+                  <button
+                    class="cartao-sugestao-dv"
+                    type="button"
+                    data-sugestao="Simule um aumento de 10% nos preços"
+                  >
+                    <i
+                      data-lucide="sparkles"
+                      class="cartao-sugestao-dv__icone icon icone--pequeno"
+                    ></i>
+                    Simule um aumento de 10% nos preços
+                  </button>
+                  <button
+                    class="cartao-sugestao-dv"
+                    type="button"
+                    data-sugestao="Quais são os clientes mais rentáveis?"
+                  >
+                    <i
+                      data-lucide="sparkles"
+                      class="cartao-sugestao-dv__icone icon icone--pequeno"
+                    ></i>
+                    Quais são os clientes mais rentáveis?
+                  </button>
+                  <button
+                    class="cartao-sugestao-dv"
+                    type="button"
+                    data-sugestao="Compare vendas deste mês com o ano passado"
+                  >
+                    <i
+                      data-lucide="sparkles"
+                      class="cartao-sugestao-dv__icone icon icone--pequeno"
+                    ></i>
+                    Compare vendas deste mês com o ano passado
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div class="area-entrada-dv">
+              <div class="barra-entrada-dv">
+                <i
+                  data-lucide="sparkles"
+                  class="barra-entrada-dv__icone icon icone--pequeno"
+                ></i>
+                <input
+                  type="text"
+                  id="campo-chat-dv"
+                  class="barra-entrada-dv__campo"
+                  placeholder="Pergunte, analise ou simule..."
+                />
+                <button class="barra-entrada-dv__explorar" type="button">
+                  <i data-lucide="compass" class="icone icone--pequeno"></i>
+                  Explorar
+                </button>
+                <button
+                  class="barra-entrada-dv__enviar"
+                  type="button"
+                  aria-label="Enviar"
+                >
+                  <i data-lucide="send" class="icone icone--pequeno"></i>
+                </button>
+              </div>
+              <p class="area-entrada-dv__aviso">
+                As respostas são baseadas nos dados reais do sistema. Simulações
+                não alteram dados reais.
+              </p>
+            </div>
+          </section>
+        </div>
+      </main>
+    </div>
+
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+    <script src="js/main.js"></script>
+  </body>
+</html>
