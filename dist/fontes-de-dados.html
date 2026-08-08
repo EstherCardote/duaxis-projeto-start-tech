@@ -1,0 +1,312 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fontes de Dados | DUAXIS</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/styles.css" />
+    <script>
+      (function () {
+        const t = localStorage.getItem("tema");
+        if (
+          t === "escuro" ||
+          (!t && matchMedia("(prefers-color-scheme: dark)").matches)
+        )
+          document.documentElement.classList.add("dark");
+      })();
+    </script>
+  </head>
+  <body>
+    <div class="aplicativo">
+      <aside class="menu-lateral" id="menu-lateral">
+        <div class="menu-lateral__cabecalho">
+          <img
+            src="assets/images/logo.png"
+            alt="DUAXIS"
+            class="menu-lateral__logo"
+          />
+          <div class="menu-lateral__marca-texto">
+            <div class="menu-lateral__marca-nome">DUAXIS</div>
+            <div class="menu-lateral__marca-slogan">
+              Inteligência para decisões empresariais
+            </div>
+          </div>
+          <button
+            class="menu-lateral__alternar"
+            id="alternar-menu-lateral"
+            type="button"
+            aria-label="Recolher menu"
+          >
+            <i data-lucide="panel-left-close" class="icone icone--pequeno"></i>
+          </button>
+        </div>
+
+        <div class="menu-lateral__rotulo">Menu</div>
+
+        <nav class="menu-lateral__navegacao">
+          <a href="index.html" class="menu-lateral__item" title="Dashboard">
+            <span class="menu-lateral__item-icone"
+              ><i
+                data-lucide="layout-dashboard"
+                class="icone icone--pequeno"
+              ></i
+            ></span>
+            <span class="menu-lateral__item-texto"
+              ><div class="menu-lateral__item-titulo">Dashboard</div>
+              <div class="menu-lateral__item-subtitulo">Visão geral</div></span
+            >
+          </a>
+
+          <a
+            href="diretor-virtual.html"
+            class="menu-lateral__item"
+            title="Diretor Virtual"
+          >
+            <span class="menu-lateral__item-icone"
+              ><i data-lucide="bot" class="icone icone--pequeno"></i
+            ></span>
+            <span class="menu-lateral__item-texto"
+              ><div class="menu-lateral__item-titulo">Diretor Virtual</div>
+              <div class="menu-lateral__item-subtitulo">Copiloto IA</div></span
+            >
+          </a>
+
+          <a
+            href="fontes-de-dados.html"
+            class="menu-lateral__item menu-lateral__item--ativo"
+            title="Fontes de Dados"
+          >
+            <span class="menu-lateral__item-icone"
+              ><i data-lucide="database" class="icone icone--pequeno"></i
+            ></span>
+            <span class="menu-lateral__item-texto"
+              ><div class="menu-lateral__item-titulo">Fontes de Dados</div>
+              <div class="menu-lateral__item-subtitulo">Conexões</div></span
+            >
+          </a>
+
+          <a href="alertas.html" class="menu-lateral__item" title="Alertas">
+            <span class="menu-lateral__item-icone"
+              ><i data-lucide="bell" class="icone icone--pequeno"></i
+            ></span>
+            <span class="menu-lateral__item-texto"
+              ><div class="menu-lateral__item-titulo">Alertas</div>
+              <div class="menu-lateral__item-subtitulo">
+                Central de alertas
+              </div></span
+            >
+          </a>
+
+          <a
+            href="configuracoes.html"
+            class="menu-lateral__item"
+            title="Configurações"
+          >
+            <span class="menu-lateral__item-icone"
+              ><i data-lucide="settings" class="icone icone--pequeno"></i
+            ></span>
+            <span class="menu-lateral__item-texto"
+              ><div class="menu-lateral__item-titulo">Configurações</div>
+              <div class="menu-lateral__item-subtitulo">Ajustes</div></span
+            >
+          </a>
+        </nav>
+      </aside>
+
+      <main class="app-principal">
+        <header class="cabecalho-principal">
+          <div class="cabecalho-principal__info">
+            <h1 class="cabecalho-principal__titulo">Fontes de Dados</h1>
+            <p class="cabecalho-principal__subtitulo">
+              O Diretor Virtual utiliza dados provenientes de diferentes
+              sistemas de gestão para gerar análises e recomendações.
+            </p>
+          </div>
+          <div class="cabecalho-principal__acoes">
+            <button
+              id="alternar-tema"
+              class="alternador-tema"
+              type="button"
+              aria-label="Alternar tema"
+            >
+              <i
+                data-lucide="sun"
+                class="alternador-tema__icone alternador-tema__icone--claro icon icone--medio"
+              ></i>
+              <i
+                data-lucide="moon"
+                class="alternador-tema__icone alternador-tema__icone--escuro icon icone--medio"
+              ></i>
+            </button>
+          </div>
+        </header>
+
+        <div class="conteudo-pagina">
+          <div class="grade-fontes">
+            <article class="cartao-fonte">
+              <div class="cartao-fonte__topo">
+                <div class="cartao-fonte__icone">
+                  <i data-lucide="box" class="icone icone--medio"></i>
+                </div>
+                <span
+                  class="cartao-fonte__status cartao-fonte__status--conectado"
+                  >Conectado</span
+                >
+              </div>
+              <h3 class="cartao-fonte__nome">RH</h3>
+              <p class="cartao-fonte__atualizado">Hoje às 06:12</p>
+              <div class="cartao-fonte__qualidade">
+                <div class="cartao-fonte__cabecalho-qualidade">
+                  <span class="cartao-fonte__rotulo-qualidade"
+                    >Qualidade dos dados</span
+                  >
+                  <span class="cartao-fonte__valor-qualidade">98%</span>
+                </div>
+                <div class="cartao-fonte__barra-qualidade">
+                  <div
+                    class="cartao-fonte__preenchimento-qualidade"
+                    style="width: 98%"
+                  ></div>
+                </div>
+              </div>
+            </article>
+
+            <article class="cartao-fonte">
+              <div class="cartao-fonte__topo">
+                <div class="cartao-fonte__icone">
+                  <i data-lucide="dollar-sign" class="icone icone--medio"></i>
+                </div>
+                <span
+                  class="cartao-fonte__status cartao-fonte__status--conectado"
+                  >Conectado</span
+                >
+              </div>
+              <h3 class="cartao-fonte__nome">Financeiro</h3>
+              <p class="cartao-fonte__atualizado">Hoje às 06:10</p>
+              <div class="cartao-fonte__qualidade">
+                <div class="cartao-fonte__cabecalho-qualidade">
+                  <span class="cartao-fonte__rotulo-qualidade"
+                    >Qualidade dos dados</span
+                  >
+                  <span class="cartao-fonte__valor-qualidade">95%</span>
+                </div>
+                <div class="cartao-fonte__barra-qualidade">
+                  <div
+                    class="cartao-fonte__preenchimento-qualidade"
+                    style="width: 95%"
+                  ></div>
+                </div>
+              </div>
+            </article>
+
+            <article class="cartao-fonte">
+              <div class="cartao-fonte__topo">
+                <div class="cartao-fonte__icone">
+                  <i data-lucide="users" class="icone icone--medio"></i>
+                </div>
+                <span
+                  class="cartao-fonte__status cartao-fonte__status--conectado"
+                  >Conectado</span
+                >
+              </div>
+              <h3 class="cartao-fonte__nome">Logística</h3>
+              <p class="cartao-fonte__atualizado">Hoje às 05:45</p>
+              <div class="cartao-fonte__qualidade">
+                <div class="cartao-fonte__cabecalho-qualidade">
+                  <span class="cartao-fonte__rotulo-qualidade"
+                    >Qualidade dos dados</span
+                  >
+                  <span class="cartao-fonte__valor-qualidade">92%</span>
+                </div>
+                <div class="cartao-fonte__barra-qualidade">
+                  <div
+                    class="cartao-fonte__preenchimento-qualidade"
+                    style="width: 92%"
+                  ></div>
+                </div>
+              </div>
+            </article>
+          </div>
+
+          <section class="secao-transparencia">
+            <div class="secao-transparencia__cabecalho">
+              <i
+                data-lucide="shield"
+                class="secao-transparencia__icone icon icone--medio"
+              ></i>
+              <h2 class="secao-transparencia__titulo">Transparência</h2>
+            </div>
+            <p class="secao-transparencia__texto">
+              Todas as respostas do Diretor Virtual são baseadas exclusivamente
+              em dados validados das fontes conectadas. Abaixo, um resumo da
+              cobertura de dados disponíveis.
+            </p>
+            <div class="secao-transparencia__metricas">
+              <div class="metrica-transparencia">
+                <i
+                  data-lucide="database"
+                  class="metrica-transparencia__icone icon icone--pequeno"
+                ></i>
+                <div class="metrica-transparencia__valor">
+                  9 fontes integradas
+                </div>
+                <div class="metrica-transparencia__rotulo">
+                  Sistemas conectados ao DUAXIS
+                </div>
+              </div>
+              <div class="metrica-transparencia">
+                <i
+                  data-lucide="file-text"
+                  class="metrica-transparencia__icone icon icone--pequeno"
+                ></i>
+                <div class="metrica-transparencia__valor">
+                  36.266 Registros utilizados
+                </div>
+                <div class="metrica-transparencia__rotulo">
+                  Dados processados nas análises
+                </div>
+              </div>
+              <div class="metrica-transparencia">
+                <i
+                  data-lucide="trending-up"
+                  class="metrica-transparencia__icone icon icone--pequeno"
+                ></i>
+                <div class="metrica-transparencia__valor">
+                  87% Qualidade média
+                </div>
+                <div class="metrica-transparencia__rotulo">
+                  Índice de confiabilidade dos dados
+                </div>
+              </div>
+              <div class="metrica-transparencia">
+                <i
+                  data-lucide="clock"
+                  class="metrica-transparencia__icone icon icone--pequeno"
+                ></i>
+                <div class="metrica-transparencia__valor">
+                  Última validação: Hoje
+                </div>
+                <div class="metrica-transparencia__rotulo">
+                  06:12 — sincronização automática
+                </div>
+              </div>
+            </div>
+            <button class="botao-primario" type="button" id="botao-validar">
+              <i data-lucide="refresh-cw" class="icone icone--pequeno"></i>
+              Executar Nova Validação
+            </button>
+          </section>
+        </div>
+      </main>
+    </div>
+
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+    <script src="js/main.js"></script>
+  </body>
+</html>
