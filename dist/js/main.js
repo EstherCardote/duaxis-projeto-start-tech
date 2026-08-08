@@ -2,25 +2,8 @@
 document.addEventListener("DOMContentLoaded", () => {
   inicializarIconesLucide();
   inicializarAlternadorTema();
-
-  const menuLateral = document.getElementById("menu-lateral");
-  const botaoAlternar = document.getElementById("alternar-menu-lateral");
-
-  // Recolhe ou expande o menu lateral
-  if (botaoAlternar && menuLateral) {
-    botaoAlternar.addEventListener("click", () => {
-      const recolhido = menuLateral.classList.toggle("menu-lateral--recolhido");
-      botaoAlternar.setAttribute(
-        "aria-label",
-        recolhido ? "Expandir menu" : "Recolher menu",
-      );
-      atualizarIconeMenuLateral(botaoAlternar, recolhido);
-    });
-    atualizarIconeMenuLateral(
-      botaoAlternar,
-      menuLateral.classList.contains("menu-lateral--recolhido"),
-    );
-  }
+  inicializarMenuLateral();
+  inicializarMenuMobile();
 
   inicializarEtiquetasSugestao();
   inicializarFiltrosAlertas();
@@ -34,6 +17,83 @@ function inicializarIconesLucide() {
   if (typeof lucide !== "undefined") {
     lucide.createIcons();
   }
+}
+
+function isMenuMobile() {
+  return window.matchMedia("(max-width: 1023px)").matches;
+}
+
+// Recolhe ou expande o menu lateral (desktop)
+function inicializarMenuLateral() {
+  const menuLateral = document.getElementById("menu-lateral");
+  const botaoAlternar = document.getElementById("alternar-menu-lateral");
+
+  if (!botaoAlternar || !menuLateral) return;
+
+  botaoAlternar.addEventListener("click", () => {
+    const recolhido = menuLateral.classList.toggle("menu-lateral--recolhido");
+    botaoAlternar.setAttribute(
+      "aria-label",
+      recolhido ? "Expandir menu" : "Recolher menu",
+    );
+    atualizarIconeMenuLateral(botaoAlternar, recolhido);
+  });
+
+  atualizarIconeMenuLateral(
+    botaoAlternar,
+    menuLateral.classList.contains("menu-lateral--recolhido"),
+  );
+}
+
+// Menu lateral deslizante em telas menores
+function inicializarMenuMobile() {
+  const menuLateral = document.getElementById("menu-lateral");
+  const overlay = document.getElementById("menu-overlay");
+  const botaoAbrir = document.getElementById("abrir-menu-mobile");
+  const botaoFechar = document.getElementById("fechar-menu-mobile");
+
+  if (!menuLateral) return;
+
+  function abrirMenuMobile() {
+    if (!isMenuMobile()) return;
+    menuLateral.classList.add("menu-lateral--aberto");
+    if (overlay) {
+      overlay.classList.add("menu-overlay--visivel");
+      overlay.setAttribute("aria-hidden", "false");
+    }
+    document.body.classList.add("menu-aberto");
+  }
+
+  function fecharMenuMobile() {
+    menuLateral.classList.remove("menu-lateral--aberto");
+    if (overlay) {
+      overlay.classList.remove("menu-overlay--visivel");
+      overlay.setAttribute("aria-hidden", "true");
+    }
+    document.body.classList.remove("menu-aberto");
+  }
+
+  if (botaoAbrir) {
+    botaoAbrir.addEventListener("click", abrirMenuMobile);
+  }
+
+  if (botaoFechar) {
+    botaoFechar.addEventListener("click", fecharMenuMobile);
+  }
+
+  if (overlay) {
+    overlay.addEventListener("click", fecharMenuMobile);
+  }
+
+  menuLateral.querySelectorAll(".menu-lateral__item").forEach((item) => {
+    item.addEventListener("click", () => {
+      if (isMenuMobile()) fecharMenuMobile();
+    });
+  });
+
+  window.addEventListener("resize", () => {
+    if (!isMenuMobile()) fecharMenuMobile();
+  });
 }
 
 // Troca o ícone do botão de recolher/expandir menu

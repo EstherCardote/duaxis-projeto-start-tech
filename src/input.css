@@ -40,6 +40,10 @@
   body {
     @apply bg-bg-page text-text-primary font-sans antialiased transition-colors duration-300 ease-in-out;
   }
+
+  body.menu-aberto {
+    @apply overflow-hidden lg:overflow-auto;
+  }
 }
 
 @layer components {
@@ -47,12 +51,24 @@
     @apply flex min-h-screen;
   }
 
+  .menu-overlay {
+    @apply fixed inset-0 z-30 bg-black/50 opacity-0 pointer-events-none transition-opacity duration-300 lg:hidden;
+  }
+
+  .menu-overlay--visivel {
+    @apply opacity-100 pointer-events-auto;
+  }
+
   .menu-lateral {
-    @apply fixed top-0 left-0 z-40 flex h-screen w-[260px] flex-col border-r border-border bg-bg-card transition-all duration-300 ease-in-out;
+    @apply fixed top-0 left-0 z-40 flex h-screen w-[260px] -translate-x-full flex-col border-r border-border bg-bg-card transition-all duration-300 ease-in-out lg:translate-x-0;
+  }
+
+  .menu-lateral--aberto {
+    @apply translate-x-0;
   }
 
   .menu-lateral--recolhido {
-    @apply w-[72px];
+    @apply lg:w-[72px];
   }
 
   .menu-lateral__cabecalho {
@@ -60,7 +76,7 @@
   }
 
   .menu-lateral--recolhido .menu-lateral__cabecalho {
-    @apply h-[var(--header-height)] flex-col justify-center gap-2 px-2;
+    @apply lg:h-[var(--header-height)] lg:flex-col lg:justify-center lg:gap-2 lg:px-2;
   }
 
   .menu-lateral__logo {
@@ -72,7 +88,7 @@
   }
 
   .menu-lateral--recolhido .menu-lateral__marca-texto {
-    @apply hidden;
+    @apply lg:hidden;
   }
 
   .menu-lateral__marca-nome {
@@ -84,11 +100,15 @@
   }
 
   .menu-lateral__alternar {
-    @apply flex h-8 w-8 shrink-0 cursor-pointer items-center justify-center rounded-lg text-text-secondary transition-colors duration-200 hover:bg-alert-bg hover:text-brand-navy;
+    @apply hidden h-8 w-8 shrink-0 cursor-pointer items-center justify-center rounded-lg text-text-secondary transition-colors duration-200 hover:bg-alert-bg hover:text-brand-navy lg:flex;
   }
 
   .menu-lateral--recolhido .menu-lateral__alternar {
-    @apply order-first;
+    @apply lg:order-first;
+  }
+
+  .menu-lateral__fechar-mobile {
+    @apply flex h-8 w-8 shrink-0 cursor-pointer items-center justify-center rounded-lg text-text-secondary transition-colors duration-200 hover:bg-alert-bg hover:text-brand-navy lg:hidden;
   }
 
   .menu-lateral__rotulo {
@@ -96,7 +116,7 @@
   }
 
   .menu-lateral--recolhido .menu-lateral__rotulo {
-    @apply hidden;
+    @apply lg:hidden;
   }
 
   .menu-lateral__navegacao {
@@ -108,7 +128,7 @@
   }
 
   .menu-lateral--recolhido .menu-lateral__item {
-    @apply justify-center px-2;
+    @apply lg:justify-center lg:px-2;
   }
 
   .menu-lateral__item--ativo {
@@ -128,7 +148,7 @@
   }
 
   .menu-lateral--recolhido .menu-lateral__item-texto {
-    @apply hidden;
+    @apply lg:hidden;
   }
 
   .menu-lateral__item-titulo {
@@ -144,15 +164,23 @@
   }
 
   .app-principal {
-    @apply ml-[260px] flex min-h-screen flex-1 flex-col transition-all duration-300 ease-in-out;
+    @apply flex min-h-screen flex-1 flex-col transition-all duration-300 ease-in-out ml-0 lg:ml-[260px];
   }
 
   .menu-lateral--recolhido ~ .app-principal {
-    @apply ml-[72px];
+    @apply lg:ml-[72px];
   }
 
   .cabecalho-principal {
-    @apply flex h-[var(--header-height)] shrink-0 items-center justify-between border-b border-border bg-bg-card px-6 transition-colors duration-300;
+    @apply flex shrink-0 items-center justify-between gap-3 border-b border-border bg-bg-card px-4 py-3 transition-colors duration-300 sm:px-6 sm:py-0 sm:h-[var(--header-height)];
+  }
+
+  .cabecalho-principal__inicio {
+    @apply flex min-w-0 flex-1 items-center gap-3;
+  }
+
+  .botao-menu-mobile {
+    @apply flex h-10 w-10 shrink-0 cursor-pointer items-center justify-center rounded-xl border border-border bg-bg-card text-text-secondary transition-colors duration-200 hover:bg-alert-bg lg:hidden;
   }
 
   .cabecalho-principal__info {
@@ -160,11 +188,11 @@
   }
 
   .cabecalho-principal__titulo {
-    @apply text-xl leading-tight font-bold text-text-primary;
+    @apply text-lg leading-tight font-bold text-text-primary sm:text-xl;
   }
 
   .cabecalho-principal__subtitulo {
-    @apply mt-0.5 text-xs text-text-secondary;
+    @apply mt-0.5 hidden text-xs text-text-secondary sm:block;
   }
 
   .cabecalho-principal__acoes {
@@ -200,11 +228,11 @@
   }
 
   .conteudo-pagina {
-    @apply flex flex-1 flex-col gap-6 p-6;
+    @apply flex flex-1 flex-col gap-4 p-4 sm:gap-6 sm:p-6;
   }
 
   .banner-alerta {
-    @apply flex cursor-pointer items-center justify-between rounded-xl border border-border bg-alert-bg px-4 py-3 no-underline transition-colors hover:bg-border/50;
+    @apply flex cursor-pointer items-center justify-between gap-2 rounded-xl border border-border bg-alert-bg px-3 py-2.5 no-underline transition-colors hover:bg-border/50 sm:px-4 sm:py-3;
   }
 
   .banner-alerta__conteudo {
@@ -216,7 +244,7 @@
   }
 
   .saudacao__titulo {
-    @apply text-2xl font-bold text-text-primary;
+    @apply text-xl font-bold text-text-primary sm:text-2xl;
   }
 
   .saudacao__texto {
@@ -224,7 +252,7 @@
   }
 
   .cartao-chat {
-    @apply rounded-2xl border border-border bg-bg-card p-5;
+    @apply rounded-2xl border border-border bg-bg-card p-4 sm:p-5;
   }
 
   .cartao-chat__cabecalho {
@@ -313,7 +341,7 @@
   }
 
   .cartao-indicador__valor {
-    @apply text-xl font-bold text-text-primary;
+    @apply text-lg font-bold text-text-primary sm:text-xl;
   }
 
   .cartao-indicador__rotulo {
@@ -354,7 +382,7 @@
   }
 
   .painel-grafico {
-    @apply rounded-2xl border border-border bg-bg-card p-5;
+    @apply rounded-2xl border border-border bg-bg-card p-4 sm:p-5;
   }
 
   .painel-grafico--largura-total {
@@ -362,7 +390,7 @@
   }
 
   .painel-grafico__cabecalho {
-    @apply mb-3 flex items-start justify-between gap-3;
+    @apply mb-3 flex flex-col items-start justify-between gap-2 sm:flex-row sm:items-start sm:gap-3;
   }
 
   .painel-grafico__titulo-grupo {
@@ -451,7 +479,7 @@
   }
 
   .historico-dv {
-    @apply flex w-[280px] shrink-0 flex-col border-r border-border bg-bg-card;
+    @apply hidden w-full shrink-0 flex-col border-r border-border bg-bg-card lg:flex lg:w-[280px];
   }
 
   .historico-dv__cabecalho {
@@ -483,11 +511,11 @@
   }
 
   .chat-dv__interno {
-    @apply flex flex-1 flex-col overflow-y-auto p-6 pb-32;
+    @apply flex flex-1 flex-col overflow-y-auto p-4 pb-28 sm:p-6 sm:pb-32;
   }
 
   .chat-dv__cabecalho {
-    @apply mb-6 flex items-start justify-between;
+    @apply mb-4 flex flex-col items-start justify-between gap-3 sm:mb-6 sm:flex-row sm:items-start;
   }
 
   .chat-dv__cabecalho-esquerda {
@@ -499,7 +527,7 @@
   }
 
   .chat-dv__titulo {
-    @apply text-xl font-bold text-text-primary;
+    @apply text-lg font-bold text-text-primary sm:text-xl;
   }
 
   .chat-dv__subtitulo {
@@ -507,7 +535,7 @@
   }
 
   .chat-dv__botao-comparar {
-    @apply flex cursor-pointer items-center gap-2 rounded-xl border border-border bg-bg-card px-4 py-2 text-sm font-medium text-text-secondary transition-colors hover:bg-alert-bg;
+    @apply flex w-full cursor-pointer items-center justify-center gap-2 rounded-xl border border-border bg-bg-card px-4 py-2 text-sm font-medium text-text-secondary transition-colors hover:bg-alert-bg sm:w-auto sm:justify-start;
   }
 
   .chat-dv__intro {
@@ -539,7 +567,7 @@
   }
 
   .area-entrada-dv {
-    @apply absolute right-0 bottom-0 left-0 border-t border-border bg-bg-page px-6 py-4;
+    @apply absolute right-0 bottom-0 left-0 border-t border-border bg-bg-page px-4 py-3 sm:px-6 sm:py-4;
   }
 
   .barra-entrada-dv {
@@ -555,7 +583,11 @@
   }
 
   .barra-entrada-dv__explorar {
-    @apply flex shrink-0 cursor-pointer items-center gap-1.5 rounded-full bg-brand-blue/10 px-3 py-1.5 text-xs font-medium text-brand-blue transition-colors hover:bg-brand-blue/20;
+    @apply flex shrink-0 cursor-pointer items-center gap-1.5 rounded-full bg-brand-blue/10 px-2 py-1.5 text-xs font-medium text-brand-blue transition-colors hover:bg-brand-blue/20 sm:px-3;
+  }
+
+  .barra-entrada-dv__explorar-texto {
+    @apply hidden sm:inline;
   }
 
   .barra-entrada-dv__enviar {
@@ -572,7 +604,7 @@
   }
 
   .cartao-fonte {
-    @apply rounded-2xl border border-border bg-bg-card p-5 transition-all duration-200 ease-in-out hover:border-brand-blue/30;
+    @apply rounded-2xl border border-border bg-bg-card p-4 transition-all duration-200 ease-in-out hover:border-brand-blue/30 sm:p-5;
   }
 
   .cartao-fonte__topo {
@@ -636,7 +668,7 @@
   }
 
   .secao-transparencia {
-    @apply rounded-2xl border border-brand-blue/20 bg-brand-blue/5 p-6;
+    @apply rounded-2xl border border-brand-blue/20 bg-brand-blue/5 p-4 sm:p-6;
   }
 
   .secao-transparencia__cabecalho {
@@ -685,7 +717,7 @@
 
   /* Alertas */
   .resumo-alertas {
-    @apply rounded-2xl border border-border bg-bg-card p-6;
+    @apply rounded-2xl border border-border bg-bg-card p-4 sm:p-6;
   }
 
   .resumo-alertas__titulo {
@@ -693,11 +725,11 @@
   }
 
   .resumo-alertas__grade {
-    @apply grid grid-cols-2 gap-4 md:grid-cols-4;
+    @apply grid grid-cols-2 gap-3 sm:gap-4 md:grid-cols-4;
   }
 
   .resumo-alertas__item {
-    @apply flex flex-col items-center gap-1 border-r border-border last:border-r-0 md:px-4;
+    @apply flex flex-col items-center gap-1 px-2 sm:px-4 md:border-r md:border-border md:last:border-r-0;
   }
 
   .resumo-alertas__item-icone {
@@ -745,7 +777,7 @@
   }
 
   .cartao-alerta {
-    @apply flex gap-4 rounded-2xl border border-border bg-bg-card p-4 transition-all duration-200 ease-in-out;
+    @apply flex flex-col gap-3 rounded-2xl border border-border bg-bg-card p-4 transition-all duration-200 ease-in-out sm:flex-row sm:gap-4;
   }
 
   .cartao-alerta--nao-lido {
@@ -777,7 +809,7 @@
   }
 
   .indicador-prioridade {
-    @apply shrink-0 self-start rounded-full px-2.5 py-1 text-xs font-semibold;
+    @apply shrink-0 self-start rounded-full px-2.5 py-1 text-xs font-semibold sm:self-auto;
   }
 
   .indicador-prioridade--alta {
@@ -798,7 +830,7 @@
   }
 
   .cartao-configuracao {
-    @apply flex cursor-pointer items-start gap-4 rounded-2xl border border-border bg-bg-card p-6 transition-all duration-200 ease-in-out hover:border-brand-blue/30 hover:bg-brand-blue/5;
+    @apply flex cursor-pointer items-start gap-3 rounded-2xl border border-border bg-bg-card p-4 transition-all duration-200 ease-in-out hover:border-brand-blue/30 hover:bg-brand-blue/5 sm:gap-4 sm:p-6;
   }
 
   .cartao-configuracao__icone {
@@ -814,7 +846,7 @@
   }
 
   .cartao-plano {
-    @apply rounded-2xl border border-brand-blue/20 bg-brand-blue/5 p-8;
+    @apply rounded-2xl border border-brand-blue/20 bg-brand-blue/5 p-4 sm:p-8;
   }
 
   .cartao-plano__titulo {
@@ -829,13 +861,7 @@
     @apply mt-5 flex flex-wrap gap-3;
   }
 
-  @media (max-width: 1024px) {
-    .layout-dv {
-      @apply flex-col;
-    }
-
-    .historico-dv {
-      @apply w-full border-r-0 border-b;
-    }
+  .botao-secundario__texto {
+    @apply hidden sm:inline;
   }
 }

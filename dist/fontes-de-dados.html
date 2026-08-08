@@ -45,6 +45,9 @@
           >
             <i data-lucide="panel-left-close" class="icone icone--pequeno"></i>
           </button>
+          <button class="menu-lateral__fechar-mobile" id="fechar-menu-mobile" type="button" aria-label="Fechar menu">
+            <i data-lucide="x" class="icone icone--pequeno"></i>
+          </button>
         </div>
 
         <div class="menu-lateral__rotulo">Menu</div>
@@ -119,14 +122,21 @@
         </nav>
       </aside>
 
+      <div class="menu-overlay" id="menu-overlay" aria-hidden="true"></div>
+
       <main class="app-principal">
         <header class="cabecalho-principal">
-          <div class="cabecalho-principal__info">
+          <div class="cabecalho-principal__inicio">
+            <button class="botao-menu-mobile" id="abrir-menu-mobile" type="button" aria-label="Abrir menu">
+              <i data-lucide="menu" class="icone icone--medio"></i>
+            </button>
+            <div class="cabecalho-principal__info">
             <h1 class="cabecalho-principal__titulo">Fontes de Dados</h1>
             <p class="cabecalho-principal__subtitulo">
               O Diretor Virtual utiliza dados provenientes de diferentes
               sistemas de gestão para gerar análises e recomendações.
             </p>
+          </div>
           </div>
           <div class="cabecalho-principal__acoes">
             <button
