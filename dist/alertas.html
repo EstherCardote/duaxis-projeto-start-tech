@@ -1,0 +1,413 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Central de Alertas | DUAXIS</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/styles.css" />
+    <script>
+      (function () {
+        const t = localStorage.getItem("tema");
+        if (
+          t === "escuro" ||
+          (!t && matchMedia("(prefers-color-scheme: dark)").matches)
+        )
+          document.documentElement.classList.add("dark");
+      })();
+    </script>
+  </head>
+  <body>
+    <div class="aplicativo">
+      <aside class="menu-lateral" id="menu-lateral">
+        <div class="menu-lateral__cabecalho">
+          <img
+            src="assets/images/logo.png"
+            alt="DUAXIS"
+            class="menu-lateral__logo"
+          />
+          <div class="menu-lateral__marca-texto">
+            <div class="menu-lateral__marca-nome">DUAXIS</div>
+            <div class="menu-lateral__marca-slogan">
+              Inteligência para decisões empresariais
+            </div>
+          </div>
+          <button
+            class="menu-lateral__alternar"
+            id="alternar-menu-lateral"
+            type="button"
+            aria-label="Recolher menu"
+          >
+            <i data-lucide="panel-left-close" class="icone icone--pequeno"></i>
+          </button>
+        </div>
+
+        <div class="menu-lateral__rotulo">Menu</div>
+
+        <nav class="menu-lateral__navegacao">
+          <a href="index.html" class="menu-lateral__item" title="Dashboard">
+            <span class="menu-lateral__item-icone"
+              ><i data-lucide="layout-dashboard" class="icone icone--pequeno"></i
+            ></span>
+            <span class="menu-lateral__item-texto">
+              <div class="menu-lateral__item-titulo">Dashboard</div>
+              <div class="menu-lateral__item-subtitulo">Visão geral</div>
+            </span>
+          </a>
+
+          <a
+            href="diretor-virtual.html"
+            class="menu-lateral__item"
+            title="Diretor Virtual"
+          >
+            <span class="menu-lateral__item-icone"
+              ><i data-lucide="bot" class="icone icone--pequeno"></i
+            ></span>
+            <span class="menu-lateral__item-texto">
+              <div class="menu-lateral__item-titulo">Diretor Virtual</div>
+              <div class="menu-lateral__item-subtitulo">Copiloto IA</div>
+            </span>
+          </a>
+
+          <a
+            href="fontes-de-dados.html"
+            class="menu-lateral__item"
+            title="Fontes de Dados"
+          >
+            <span class="menu-lateral__item-icone"
+              ><i data-lucide="database" class="icone icone--pequeno"></i
+            ></span>
+            <span class="menu-lateral__item-texto">
+              <div class="menu-lateral__item-titulo">Fontes de Dados</div>
+              <div class="menu-lateral__item-subtitulo">Conexões</div>
+            </span>
+          </a>
+
+          <a
+            href="alertas.html"
+            class="menu-lateral__item menu-lateral__item--ativo"
+            title="Alertas"
+          >
+            <span class="menu-lateral__item-icone"
+              ><i data-lucide="bell" class="icone icone--pequeno"></i
+            ></span>
+            <span class="menu-lateral__item-texto">
+              <div class="menu-lateral__item-titulo">Alertas</div>
+              <div class="menu-lateral__item-subtitulo">Central de alertas</div>
+            </span>
+          </a>
+
+          <a
+            href="configuracoes.html"
+            class="menu-lateral__item"
+            title="Configurações"
+          >
+            <span class="menu-lateral__item-icone"
+              ><i data-lucide="settings" class="icone icone--pequeno"></i
+            ></span>
+            <span class="menu-lateral__item-texto">
+              <div class="menu-lateral__item-titulo">Configurações</div>
+              <div class="menu-lateral__item-subtitulo">Ajustes</div>
+            </span>
+          </a>
+        </nav>
+      </aside>
+
+      <main class="app-principal">
+        <header class="cabecalho-principal">
+          <div class="cabecalho-principal__info">
+            <h1 class="cabecalho-principal__titulo">Central de Alertas</h1>
+            <p class="cabecalho-principal__subtitulo">
+              Alertas gerados pelo Diretor Virtual com base nos dados da empresa
+            </p>
+          </div>
+          <div class="cabecalho-principal__acoes">
+            <button
+              class="botao-secundario"
+              type="button"
+              id="botao-atualizar-alertas"
+            >
+              <i data-lucide="refresh-cw" class="icone icone--pequeno"></i>
+              <span id="texto-atualizar-alertas">Atualizar</span>
+            </button>
+            <button
+              id="alternar-tema"
+              class="alternador-tema"
+              type="button"
+              aria-label="Alternar tema"
+            >
+              <i
+                data-lucide="sun"
+                class="alternador-tema__icone alternador-tema__icone--claro icon icone--medio"
+              ></i>
+              <i
+                data-lucide="moon"
+                class="alternador-tema__icone alternador-tema__icone--escuro icon icone--medio"
+              ></i>
+            </button>
+          </div>
+        </header>
+
+        <div class="conteudo-pagina">
+          <section class="resumo-alertas">
+            <h2 class="resumo-alertas__titulo">Resumo de Alertas</h2>
+            <div class="resumo-alertas__grade">
+              <div class="resumo-alertas__item">
+                <i
+                  data-lucide="shield-alert"
+                  class="resumo-alertas__item-icone resumo-alertas__item-icone--critico icon icone--medio"
+                ></i>
+                <div
+                  class="resumo-alertas__item-valor resumo-alertas__item-valor--critico"
+                >
+                  2
+                </div>
+                <div class="resumo-alertas__item-rotulo">Críticos</div>
+              </div>
+              <div class="resumo-alertas__item">
+                <i
+                  data-lucide="triangle-alert"
+                  class="resumo-alertas__item-icone icon icone--medio"
+                ></i>
+                <div class="resumo-alertas__item-valor">3</div>
+                <div class="resumo-alertas__item-rotulo">Médios</div>
+              </div>
+              <div class="resumo-alertas__item">
+                <i
+                  data-lucide="info"
+                  class="resumo-alertas__item-icone icon icone--medio"
+                ></i>
+                <div class="resumo-alertas__item-valor">2</div>
+                <div class="resumo-alertas__item-rotulo">Baixos</div>
+              </div>
+              <div class="resumo-alertas__item">
+                <i
+                  data-lucide="circle-check"
+                  class="resumo-alertas__item-icone icon icone--medio"
+                ></i>
+                <div class="resumo-alertas__item-valor">12</div>
+                <div class="resumo-alertas__item-rotulo">Resolvidos</div>
+              </div>
+            </div>
+          </section>
+
+          <div class="barra-busca">
+            <i
+              data-lucide="search"
+              class="icone icone--pequeno text-text-muted"
+            ></i>
+            <input
+              type="text"
+              id="busca-alertas"
+              class="barra-busca__campo"
+              placeholder="Buscar alertas por palavras-chave..."
+            />
+          </div>
+
+          <div class="filtros-etiquetas">
+            <i
+              data-lucide="funnel"
+              class="icone icone--pequeno text-text-muted"
+            ></i>
+            <button
+              class="etiqueta-filtro etiqueta-filtro--ativo"
+              type="button"
+              data-filtro="todos"
+            >
+              Todos
+            </button>
+            <button class="etiqueta-filtro" type="button" data-filtro="nao-lidos">
+              Não lidos
+            </button>
+            <button class="etiqueta-filtro" type="button" data-filtro="alta">
+              Alta Prioridade
+            </button>
+            <button class="etiqueta-filtro" type="button" data-filtro="financeiro">
+              Financeiro
+            </button>
+            <button class="etiqueta-filtro" type="button" data-filtro="estoque">
+              Estoque
+            </button>
+          </div>
+
+          <div class="grade-alertas" id="grade-alertas">
+            <article
+              class="cartao-alerta cartao-alerta--nao-lido"
+              data-leitura="nao-lido"
+              data-prioridade="alta"
+              data-categoria="estoque"
+            >
+              <div class="cartao-alerta__icone">
+                <i data-lucide="package" class="icone icone--pequeno"></i>
+              </div>
+              <div class="cartao-alerta__corpo">
+                <h3 class="cartao-alerta__titulo">
+                  Produto abaixo do estoque mínimo
+                </h3>
+                <p class="cartao-alerta__descricao">
+                  Camiseta Básica Preta M — estoque atual: 3 unidades (mínimo:
+                  15)
+                </p>
+                <div class="cartao-alerta__meta">
+                  <span class="cartao-alerta__status--nao-lido">Não lido</span>
+                  <span>05/08, 09:24</span>
+                </div>
+              </div>
+              <span class="indicador-prioridade indicador-prioridade--alta">Alta</span>
+            </article>
+
+            <article
+              class="cartao-alerta cartao-alerta--nao-lido"
+              data-leitura="nao-lido"
+              data-prioridade="alta"
+              data-categoria="financeiro"
+            >
+              <div class="cartao-alerta__icone">
+                <i data-lucide="wallet" class="icone icone--pequeno"></i>
+              </div>
+              <div class="cartao-alerta__corpo">
+                <h3 class="cartao-alerta__titulo">Conta a pagar vencida</h3>
+                <p class="cartao-alerta__descricao">
+                  Fornecedor Tecidos Brasil — R$ 12.450,00 vencido há 5 dias
+                </p>
+                <div class="cartao-alerta__meta">
+                  <span class="cartao-alerta__status--nao-lido">Não lido</span>
+                  <span>04/08, 14:10</span>
+                </div>
+              </div>
+              <span class="indicador-prioridade indicador-prioridade--alta">Alta</span>
+            </article>
+
+            <article
+              class="cartao-alerta"
+              data-leitura="lido"
+              data-prioridade="media"
+              data-categoria="financeiro"
+            >
+              <div class="cartao-alerta__icone">
+                <i data-lucide="banknote" class="icone icone--pequeno"></i>
+              </div>
+              <div class="cartao-alerta__corpo">
+                <h3 class="cartao-alerta__titulo">
+                  Fluxo de caixa negativo previsto
+                </h3>
+                <p class="cartao-alerta__descricao">
+                  Projeção indica déficit de R$ 45.000 no próximo mês
+                </p>
+                <div class="cartao-alerta__meta">
+                  <span>Lido</span>
+                  <span>03/08, 11:30</span>
+                </div>
+              </div>
+              <span class="indicador-prioridade indicador-prioridade--media">Média</span>
+            </article>
+
+            <article
+              class="cartao-alerta cartao-alerta--nao-lido"
+              data-leitura="nao-lido"
+              data-prioridade="media"
+              data-categoria="estoque"
+            >
+              <div class="cartao-alerta__icone">
+                <i data-lucide="truck" class="icone icone--pequeno"></i>
+              </div>
+              <div class="cartao-alerta__corpo">
+                <h3 class="cartao-alerta__titulo">
+                  Atraso na entrega de fornecedor
+                </h3>
+                <p class="cartao-alerta__descricao">
+                  Pedido #4521 da Malhas Premium com 3 dias de atraso
+                </p>
+                <div class="cartao-alerta__meta">
+                  <span class="cartao-alerta__status--nao-lido">Não lido</span>
+                  <span>02/08, 16:45</span>
+                </div>
+              </div>
+              <span class="indicador-prioridade indicador-prioridade--media">Média</span>
+            </article>
+
+            <article
+              class="cartao-alerta"
+              data-leitura="lido"
+              data-prioridade="baixa"
+              data-categoria="financeiro"
+            >
+              <div class="cartao-alerta__icone">
+                <i data-lucide="trending-down" class="icone icone--pequeno"></i>
+              </div>
+              <div class="cartao-alerta__corpo">
+                <h3 class="cartao-alerta__titulo">
+                  Queda de 7,1% no lucro líquido
+                </h3>
+                <p class="cartao-alerta__descricao">
+                  Lucro caiu de R$ 255.800 para R$ 237.960 em relação ao mês
+                  anterior
+                </p>
+                <div class="cartao-alerta__meta">
+                  <span>Lido</span>
+                  <span>01/08, 08:00</span>
+                </div>
+              </div>
+              <span class="indicador-prioridade indicador-prioridade--baixa">Baixa</span>
+            </article>
+
+            <article
+              class="cartao-alerta cartao-alerta--nao-lido"
+              data-leitura="nao-lido"
+              data-prioridade="media"
+              data-categoria="estoque"
+            >
+              <div class="cartao-alerta__icone">
+                <i data-lucide="package" class="icone icone--pequeno"></i>
+              </div>
+              <div class="cartao-alerta__corpo">
+                <h3 class="cartao-alerta__titulo">7 produtos abaixo do mínimo</h3>
+                <p class="cartao-alerta__descricao">
+                  Verifique a lista completa de produtos que precisam de
+                  reposição urgente
+                </p>
+                <div class="cartao-alerta__meta">
+                  <span class="cartao-alerta__status--nao-lido">Não lido</span>
+                  <span>31/07, 17:20</span>
+                </div>
+              </div>
+              <span class="indicador-prioridade indicador-prioridade--media">Média</span>
+            </article>
+
+            <article
+              class="cartao-alerta"
+              data-leitura="lido"
+              data-prioridade="baixa"
+              data-categoria="financeiro"
+            >
+              <div class="cartao-alerta__icone">
+                <i data-lucide="users" class="icone icone--pequeno"></i>
+              </div>
+              <div class="cartao-alerta__corpo">
+                <h3 class="cartao-alerta__titulo">
+                  Novo cliente com alto potencial
+                </h3>
+                <p class="cartao-alerta__descricao">
+                  Loja Fashion Center realizou primeira compra de R$ 28.500
+                </p>
+                <div class="cartao-alerta__meta">
+                  <span>Lido</span>
+                  <span>30/07, 10:15</span>
+                </div>
+              </div>
+              <span class="indicador-prioridade indicador-prioridade--baixa">Baixa</span>
+            </article>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+    <script src="js/main.js"></script>
+  </body>
+</html>
