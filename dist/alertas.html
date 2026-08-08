@@ -132,7 +132,7 @@
             <div class="cabecalho-principal__info">
             <h1 class="cabecalho-principal__titulo">Central de Alertas</h1>
             <p class="cabecalho-principal__subtitulo">
-              Alertas gerados pelo Diretor Virtual com base nos dados da empresa
+              Alertas das bases Financeiro, RH e Logística
             </p>
           </div>
           </div>
@@ -179,7 +179,7 @@
                 <div
                   class="resumo-alertas__item-valor resumo-alertas__item-valor--critico"
                 >
-                  5
+                  4
                 </div>
                 <div class="resumo-alertas__item-rotulo">Críticos</div>
               </div>
@@ -190,7 +190,7 @@
                     class="resumo-alertas__item-icone icon icone--pequeno"
                   ></i>
                 </div>
-                <div class="resumo-alertas__item-valor">1</div>
+                <div class="resumo-alertas__item-valor">3</div>
                 <div class="resumo-alertas__item-rotulo">Médios</div>
               </div>
               <div class="resumo-alertas__item">
@@ -200,7 +200,7 @@
                     class="resumo-alertas__item-icone icon icone--pequeno"
                   ></i>
                 </div>
-                <div class="resumo-alertas__item-valor">2</div>
+                <div class="resumo-alertas__item-valor">1</div>
                 <div class="resumo-alertas__item-rotulo">Baixos</div>
               </div>
               <div class="resumo-alertas__item">
@@ -243,117 +243,18 @@
             >
               Todos
             </button>
-            <button class="etiqueta-filtro" type="button" data-filtro="nao-lidos">
-              Não lidos
-            </button>
-            <button class="etiqueta-filtro" type="button" data-filtro="alta">
-              Alta Prioridade
-            </button>
             <button class="etiqueta-filtro" type="button" data-filtro="financeiro">
               Financeiro
             </button>
-            <button class="etiqueta-filtro" type="button" data-filtro="estoque">
-              Estoque
+            <button class="etiqueta-filtro" type="button" data-filtro="rh">
+              RH
+            </button>
+            <button class="etiqueta-filtro" type="button" data-filtro="logistica">
+              Logística
             </button>
           </div>
 
           <div class="grade-alertas" id="grade-alertas">
-            <article
-              class="cartao-alerta cartao-alerta--nao-lido"
-              data-leitura="nao-lido"
-              data-prioridade="alta"
-              data-categoria="estoque"
-            >
-              <div class="cartao-alerta__icone">
-                <i data-lucide="package" class="icone icone--pequeno"></i>
-              </div>
-              <div class="cartao-alerta__corpo">
-                <h3 class="cartao-alerta__titulo">
-                  Produto abaixo do estoque mínimo: Regata Algodão Cinza
-                </h3>
-                <p class="cartao-alerta__descricao">
-                  Estoque atual: 35 unidades. Mínimo: 100.
-                </p>
-                <div class="cartao-alerta__meta">
-                  <span class="cartao-alerta__status--nao-lido">Não lido</span>
-                  <span>05/08, 09:24</span>
-                </div>
-              </div>
-              <span class="indicador-prioridade indicador-prioridade--alta">Alta</span>
-            </article>
-
-            <article
-              class="cartao-alerta cartao-alerta--nao-lido"
-              data-leitura="nao-lido"
-              data-prioridade="alta"
-              data-categoria="estoque"
-            >
-              <div class="cartao-alerta__icone">
-                <i data-lucide="package" class="icone icone--pequeno"></i>
-              </div>
-              <div class="cartao-alerta__corpo">
-                <h3 class="cartao-alerta__titulo">
-                  Produto abaixo do estoque mínimo: Camiseta Básica Preta
-                </h3>
-                <p class="cartao-alerta__descricao">
-                  Estoque atual: 50 unidades. Mínimo: 200.
-                </p>
-                <div class="cartao-alerta__meta">
-                  <span class="cartao-alerta__status--nao-lido">Não lido</span>
-                  <span>05/08, 09:24</span>
-                </div>
-              </div>
-              <span class="indicador-prioridade indicador-prioridade--alta">Alta</span>
-            </article>
-
-            <article
-              class="cartao-alerta cartao-alerta--nao-lido"
-              data-leitura="nao-lido"
-              data-prioridade="alta"
-              data-categoria="estoque"
-            >
-              <div class="cartao-alerta__icone">
-                <i data-lucide="package" class="icone icone--pequeno"></i>
-              </div>
-              <div class="cartao-alerta__corpo">
-                <h3 class="cartao-alerta__titulo">
-                  Produto abaixo do estoque mínimo: Tênis Casual Preto
-                </h3>
-                <p class="cartao-alerta__descricao">
-                  Estoque atual: 20 unidades. Mínimo: 80.
-                </p>
-                <div class="cartao-alerta__meta">
-                  <span class="cartao-alerta__status--nao-lido">Não lido</span>
-                  <span>05/08, 09:24</span>
-                </div>
-              </div>
-              <span class="indicador-prioridade indicador-prioridade--alta">Alta</span>
-            </article>
-
-            <article
-              class="cartao-alerta cartao-alerta--nao-lido"
-              data-leitura="nao-lido"
-              data-prioridade="alta"
-              data-categoria="estoque"
-            >
-              <div class="cartao-alerta__icone">
-                <i data-lucide="package" class="icone icone--pequeno"></i>
-              </div>
-              <div class="cartao-alerta__corpo">
-                <h3 class="cartao-alerta__titulo">
-                  Produto abaixo do estoque mínimo: Camiseta Básica Branca
-                </h3>
-                <p class="cartao-alerta__descricao">
-                  Estoque atual: 80 unidades. Mínimo: 200.
-                </p>
-                <div class="cartao-alerta__meta">
-                  <span class="cartao-alerta__status--nao-lido">Não lido</span>
-                  <span>05/08, 09:24</span>
-                </div>
-              </div>
-              <span class="indicador-prioridade indicador-prioridade--alta">Alta</span>
-            </article>
-
             <article
               class="cartao-alerta cartao-alerta--nao-lido"
               data-leitura="nao-lido"
@@ -401,28 +302,146 @@
             </article>
 
             <article
-              class="cartao-alerta"
-              data-leitura="lido"
-              data-prioridade="baixa"
-              data-categoria="financeiro"
+              class="cartao-alerta cartao-alerta--nao-lido"
+              data-leitura="nao-lido"
+              data-prioridade="media"
+              data-categoria="rh"
             >
               <div class="cartao-alerta__icone">
-                <i data-lucide="trending-down" class="icone icone--pequeno"></i>
+                <i data-lucide="calendar-off" class="icone icone--pequeno"></i>
               </div>
               <div class="cartao-alerta__corpo">
                 <h3 class="cartao-alerta__titulo">
-                  Queda de 7,1% no lucro líquido
+                  Absenteísmo acima da média em Produção
                 </h3>
                 <p class="cartao-alerta__descricao">
-                  Lucro caiu de R$ 255.800 para R$ 237.960 em relação ao mês
-                  anterior
+                  Taxa de 4,8% no departamento — média da empresa: 3,2%
+                </p>
+                <div class="cartao-alerta__meta">
+                  <span class="cartao-alerta__status--nao-lido">Não lido</span>
+                  <span>02/08, 08:15</span>
+                </div>
+              </div>
+              <span class="indicador-prioridade indicador-prioridade--media">Média</span>
+            </article>
+
+            <article
+              class="cartao-alerta"
+              data-leitura="lido"
+              data-prioridade="baixa"
+              data-categoria="rh"
+            >
+              <div class="cartao-alerta__icone">
+                <i data-lucide="users" class="icone icone--pequeno"></i>
+              </div>
+              <div class="cartao-alerta__corpo">
+                <h3 class="cartao-alerta__titulo">
+                  Admissões pendentes de documentação
+                </h3>
+                <p class="cartao-alerta__descricao">
+                  2 colaboradores com documentos de admissão incompletos
                 </p>
                 <div class="cartao-alerta__meta">
                   <span class="cartao-alerta__status--lido">Lido</span>
-                  <span>01/08, 08:00</span>
+                  <span>01/08, 16:40</span>
                 </div>
               </div>
               <span class="indicador-prioridade indicador-prioridade--baixa">Baixa</span>
+            </article>
+
+            <article
+              class="cartao-alerta cartao-alerta--nao-lido"
+              data-leitura="nao-lido"
+              data-prioridade="alta"
+              data-categoria="logistica"
+            >
+              <div class="cartao-alerta__icone">
+                <i data-lucide="package" class="icone icone--pequeno"></i>
+              </div>
+              <div class="cartao-alerta__corpo">
+                <h3 class="cartao-alerta__titulo">
+                  Produto abaixo do estoque mínimo: Regata Algodão Cinza
+                </h3>
+                <p class="cartao-alerta__descricao">
+                  Estoque atual: 35 unidades. Mínimo: 100.
+                </p>
+                <div class="cartao-alerta__meta">
+                  <span class="cartao-alerta__status--nao-lido">Não lido</span>
+                  <span>05/08, 09:24</span>
+                </div>
+              </div>
+              <span class="indicador-prioridade indicador-prioridade--alta">Alta</span>
+            </article>
+
+            <article
+              class="cartao-alerta cartao-alerta--nao-lido"
+              data-leitura="nao-lido"
+              data-prioridade="alta"
+              data-categoria="logistica"
+            >
+              <div class="cartao-alerta__icone">
+                <i data-lucide="package" class="icone icone--pequeno"></i>
+              </div>
+              <div class="cartao-alerta__corpo">
+                <h3 class="cartao-alerta__titulo">
+                  Produto abaixo do estoque mínimo: Camiseta Básica Preta
+                </h3>
+                <p class="cartao-alerta__descricao">
+                  Estoque atual: 50 unidades. Mínimo: 200.
+                </p>
+                <div class="cartao-alerta__meta">
+                  <span class="cartao-alerta__status--nao-lido">Não lido</span>
+                  <span>05/08, 09:24</span>
+                </div>
+              </div>
+              <span class="indicador-prioridade indicador-prioridade--alta">Alta</span>
+            </article>
+
+            <article
+              class="cartao-alerta cartao-alerta--nao-lido"
+              data-leitura="nao-lido"
+              data-prioridade="alta"
+              data-categoria="logistica"
+            >
+              <div class="cartao-alerta__icone">
+                <i data-lucide="truck" class="icone icone--pequeno"></i>
+              </div>
+              <div class="cartao-alerta__corpo">
+                <h3 class="cartao-alerta__titulo">
+                  Atraso na entrega de fornecedor
+                </h3>
+                <p class="cartao-alerta__descricao">
+                  Pedido #4521 da Malhas Premium com 3 dias de atraso
+                </p>
+                <div class="cartao-alerta__meta">
+                  <span class="cartao-alerta__status--nao-lido">Não lido</span>
+                  <span>02/08, 16:45</span>
+                </div>
+              </div>
+              <span class="indicador-prioridade indicador-prioridade--alta">Alta</span>
+            </article>
+
+            <article
+              class="cartao-alerta"
+              data-leitura="lido"
+              data-prioridade="media"
+              data-categoria="logistica"
+            >
+              <div class="cartao-alerta__icone">
+                <i data-lucide="boxes" class="icone icone--pequeno"></i>
+              </div>
+              <div class="cartao-alerta__corpo">
+                <h3 class="cartao-alerta__titulo">7 produtos abaixo do mínimo</h3>
+                <p class="cartao-alerta__descricao">
+                  Verifique a lista completa de produtos que precisam de
+                  reposição urgente
+                </p>
+                <div class="cartao-alerta__meta">
+                  <span class="cartao-alerta__status--lido">Lido</span>
+                  <span>31/07, 17:20</span>
+                </div>
+              </div>
+              <span class="indicador-prioridade indicador-prioridade--media">Média</span>
             </article>
           </div>
         </div>

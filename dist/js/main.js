@@ -182,25 +182,20 @@ function inicializarFiltrosAlertas() {
 // Mostra ou esconde cartões conforme filtro e busca
 function aplicarFiltrosAlertas(cartoes, filtro, termoBusca) {
   cartoes.forEach((cartao) => {
-    const prioridade = cartao.dataset.prioridade || "";
     const categoria = cartao.dataset.categoria || "";
-    const leitura = cartao.dataset.leitura || "";
     const texto = cartao.textContent.toLowerCase();
 
     let correspondeFiltro = true;
 
     switch (filtro) {
-      case "nao-lidos":
-        correspondeFiltro = leitura === "nao-lido";
-        break;
-      case "alta":
-        correspondeFiltro = prioridade === "alta";
-        break;
       case "financeiro":
         correspondeFiltro = categoria === "financeiro";
         break;
-      case "estoque":
-        correspondeFiltro = categoria === "estoque";
+      case "rh":
+        correspondeFiltro = categoria === "rh";
+        break;
+      case "logistica":
+        correspondeFiltro = categoria === "logistica";
         break;
       default:
         correspondeFiltro = true;
