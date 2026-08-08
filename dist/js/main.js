@@ -6,6 +6,8 @@ document.addEventListener("DOMContentLoaded", () => {
   inicializarMenuMobile();
 
   inicializarEtiquetasSugestao();
+  inicializarFiltrosSugestoesDv();
+  inicializarFiltrosIndicadores();
   inicializarFiltrosAlertas();
   inicializarAtualizacaoAlertas();
   inicializarBotaoValidacao();
@@ -149,10 +151,82 @@ function inicializarEtiquetasSugestao() {
     });
 }
 
+// Filtra sugestões de perguntas do Diretor Virtual por base
+function inicializarFiltrosSugestoesDv() {
+  const container = document.getElementById("sugestoes-dv-container");
+  if (!container) return;
+
+  const etiquetasFiltro = container.querySelectorAll(".etiqueta-filtro");
+  const cartoesSugestao = container.querySelectorAll(".cartao-sugestao-dv");
+
+  if (!etiquetasFiltro.length || !cartoesSugestao.length) return;
+
+  let filtroAtivo = "todos";
+
+  etiquetasFiltro.forEach((etiqueta) => {
+    etiqueta.addEventListener("click", () => {
+      etiquetasFiltro.forEach((e) =>
+        e.classList.remove("etiqueta-filtro--ativo"),
+      );
+      etiqueta.classList.add("etiqueta-filtro--ativo");
+      filtroAtivo = etiqueta.dataset.filtro || "todos";
+      aplicarFiltroSugestoesDv(cartoesSugestao, filtroAtivo);
+    });
+  });
+}
+
+function aplicarFiltroSugestoesDv(cartoes, filtro) {
+  cartoes.forEach((cartao) => {
+    const categoria = cartao.dataset.categoria || "";
+    const corresponde = filtro === "todos" || categoria === filtro;
+    cartao.style.display = corresponde ? "" : "none";
+  });
+}
+
+// Filtra cards de indicadores do dashboard por base
+function inicializarFiltrosIndicadores() {
+  const container = document.getElementById("indicadores-container");
+  if (!container) return;
+
+  const etiquetasFiltro = container.querySelectorAll(".etiqueta-filtro");
+  const cartoesIndicador = container.querySelectorAll(".cartao-indicador");
+
+  if (!etiquetasFiltro.length || !cartoesIndicador.length) return;
+
+  let filtroAtivo = "todos";
+
+  etiquetasFiltro.forEach((etiqueta) => {
+    etiqueta.addEventListener("click", () => {
+      etiquetasFiltro.forEach((e) =>
+        e.classList.remove("etiqueta-filtro--ativo"),
+      );
+      etiqueta.classList.add("etiqueta-filtro--ativo");
+      filtroAtivo = etiqueta.dataset.filtro || "todos";
+      aplicarFiltroIndicadores(cartoesIndicador, filtroAtivo);
+    });
+  });
+}
+
+function aplicarFiltroIndicadores(cartoes, filtro) {
+  cartoes.forEach((cartao) => {
+    const categoria = cartao.dataset.categoria || "";
+    const corresponde = filtro === "todos" || categoria === filtro;
+    cartao.style.display = corresponde ? "" : "none";
+  });
+}
+
 // Configura busca e filtros da página de alertas
 function inicializarFiltrosAlertas() {
-  const etiquetasFiltro = document.querySelectorAll(".etiqueta-filtro");
-  const cartoesAlerta = document.querySelectorAll(".cartao-alerta");
+  const gradeAlertas = document.getElementById("grade-alertas");
+  if (!gradeAlertas) return;
+
+  const conteudo = gradeAlertas.closest(".conteudo-pagina");
+  const etiquetasFiltro = conteudo
+    ? conteudo.querySelectorAll(
+        ".filtros-etiquetas:not(.secao-indicadores__filtros) .etiqueta-filtro",
+      )
+    : [];
+  const cartoesAlerta = gradeAlertas.querySelectorAll(".cartao-alerta");
 
   if (!etiquetasFiltro.length || !cartoesAlerta.length) return;
 

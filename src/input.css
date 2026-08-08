@@ -320,7 +320,23 @@
   }
 
   .grade-indicadores {
-    @apply grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-6;
+    @apply grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-6;
+  }
+
+  .secao-indicadores {
+    @apply flex flex-col gap-4;
+  }
+
+  .secao-indicadores__cabecalho {
+    @apply flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between;
+  }
+
+  .secao-indicadores__titulo {
+    @apply text-base font-bold text-text-primary;
+  }
+
+  .secao-indicadores__filtros {
+    @apply flex-wrap;
   }
 
   .cartao-indicador {
@@ -344,7 +360,7 @@
   }
 
   .cartao-indicador__icone--escuro {
-    @apply bg-brand-navy/10 text-brand-navy;
+    @apply bg-alert-bg text-text-secondary;
   }
 
   .cartao-indicador__valor {
@@ -563,6 +579,10 @@
 
   .sugestoes-dv__rotulo {
     @apply mb-3 text-[10px] font-semibold tracking-widest text-text-muted uppercase;
+  }
+
+  .sugestoes-dv__filtros {
+    @apply mb-4;
   }
 
   .sugestoes-dv {

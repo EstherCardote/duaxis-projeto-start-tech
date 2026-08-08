@@ -128,8 +128,7 @@
             <div class="cabecalho-principal__info">
             <h1 class="cabecalho-principal__titulo">Diretor Virtual</h1>
             <p class="cabecalho-principal__subtitulo">
-              Copiloto corporativo com IA — consulta, análise e simulação de
-              cenários.
+              Copiloto IA — consultas das bases Financeiro, RH e Logística
             </p>
           </div>
           </div>
@@ -215,23 +214,43 @@
                 </p>
               </div>
 
-              <div>
+              <div id="sugestoes-dv-container">
                 <p class="sugestoes-dv__rotulo">Sugestões de perguntas</p>
-                <div class="sugestoes-dv">
+                <div class="filtros-etiquetas sugestoes-dv__filtros">
+                  <i
+                    data-lucide="funnel"
+                    class="icone icone--pequeno text-text-muted"
+                  ></i>
                   <button
-                    class="cartao-sugestao-dv"
+                    class="etiqueta-filtro etiqueta-filtro--ativo"
                     type="button"
-                    data-sugestao="Quanto gastei com folha em junho?"
+                    data-filtro="todos"
                   >
-                    <i
-                      data-lucide="sparkles"
-                      class="cartao-sugestao-dv__icone icon icone--pequeno"
-                    ></i>
-                    Quanto gastei com folha em junho?
+                    Todos
                   </button>
                   <button
+                    class="etiqueta-filtro"
+                    type="button"
+                    data-filtro="financeiro"
+                  >
+                    Financeiro
+                  </button>
+                  <button class="etiqueta-filtro" type="button" data-filtro="rh">
+                    RH
+                  </button>
+                  <button
+                    class="etiqueta-filtro"
+                    type="button"
+                    data-filtro="logistica"
+                  >
+                    Logística
+                  </button>
+                </div>
+                <div class="sugestoes-dv" id="grade-sugestoes-dv">
+                  <button
                     class="cartao-sugestao-dv"
                     type="button"
+                    data-categoria="financeiro"
                     data-sugestao="Por que o lucro caiu?"
                   >
                     <i
@@ -243,17 +262,7 @@
                   <button
                     class="cartao-sugestao-dv"
                     type="button"
-                    data-sugestao="Quais produtos precisam de reposição?"
-                  >
-                    <i
-                      data-lucide="sparkles"
-                      class="cartao-sugestao-dv__icone icon icone--pequeno"
-                    ></i>
-                    Quais produtos precisam de reposição?
-                  </button>
-                  <button
-                    class="cartao-sugestao-dv"
-                    type="button"
+                    data-categoria="financeiro"
                     data-sugestao="Qual o fluxo de caixa previsto para o próximo mês?"
                   >
                     <i
@@ -265,46 +274,50 @@
                   <button
                     class="cartao-sugestao-dv"
                     type="button"
-                    data-sugestao="Quais fornecedores têm contas em atraso?"
+                    data-categoria="rh"
+                    data-sugestao="Quanto gastei com folha em junho?"
                   >
                     <i
                       data-lucide="sparkles"
                       class="cartao-sugestao-dv__icone icon icone--pequeno"
                     ></i>
-                    Quais fornecedores têm contas em atraso?
+                    Quanto gastei com folha em junho?
                   </button>
                   <button
                     class="cartao-sugestao-dv"
                     type="button"
-                    data-sugestao="Simule um aumento de 10% nos preços"
+                    data-categoria="rh"
+                    data-sugestao="Qual departamento tem o maior absenteísmo?"
                   >
                     <i
                       data-lucide="sparkles"
                       class="cartao-sugestao-dv__icone icon icone--pequeno"
                     ></i>
-                    Simule um aumento de 10% nos preços
+                    Qual departamento tem o maior absenteísmo?
                   </button>
                   <button
                     class="cartao-sugestao-dv"
                     type="button"
-                    data-sugestao="Quais são os clientes mais rentáveis?"
+                    data-categoria="logistica"
+                    data-sugestao="Quais produtos precisam de reposição?"
                   >
                     <i
                       data-lucide="sparkles"
                       class="cartao-sugestao-dv__icone icon icone--pequeno"
                     ></i>
-                    Quais são os clientes mais rentáveis?
+                    Quais produtos precisam de reposição?
                   </button>
                   <button
                     class="cartao-sugestao-dv"
                     type="button"
-                    data-sugestao="Compare vendas deste mês com o ano passado"
+                    data-categoria="logistica"
+                    data-sugestao="Quais pedidos estão com atraso na entrega?"
                   >
                     <i
                       data-lucide="sparkles"
                       class="cartao-sugestao-dv__icone icon icone--pequeno"
                     ></i>
-                    Compare vendas deste mês com o ano passado
+                    Quais pedidos estão com atraso na entrega?
                   </button>
                 </div>
               </div>
