@@ -729,19 +729,35 @@
   }
 
   .resumo-alertas__item {
-    @apply flex flex-col items-center gap-1 px-2 sm:px-4 md:border-r md:border-border md:last:border-r-0;
+    @apply flex flex-col items-center gap-2 rounded-xl border border-border px-3 py-5 sm:px-4 sm:py-6;
+  }
+
+  .resumo-alertas__item-icone-wrap {
+    @apply flex h-10 w-10 items-center justify-center rounded-full bg-alert-bg;
+  }
+
+  .resumo-alertas__item-icone-wrap--critico {
+    @apply bg-danger-bg;
+  }
+
+  .resumo-alertas__item-icone-wrap--resolvido {
+    @apply bg-brand-blue/10;
   }
 
   .resumo-alertas__item-icone {
-    @apply mb-1 text-text-muted;
+    @apply text-text-secondary;
   }
 
   .resumo-alertas__item-icone--critico {
     @apply text-danger-text;
   }
 
+  .resumo-alertas__item-icone--resolvido {
+    @apply text-brand-blue;
+  }
+
   .resumo-alertas__item-valor {
-    @apply text-2xl font-bold text-text-primary;
+    @apply text-2xl font-bold leading-none text-text-primary;
   }
 
   .resumo-alertas__item-valor--critico {
@@ -777,7 +793,7 @@
   }
 
   .cartao-alerta {
-    @apply flex flex-col gap-3 rounded-2xl border border-border bg-bg-card p-4 transition-all duration-200 ease-in-out sm:flex-row sm:gap-4;
+    @apply relative flex gap-4 rounded-xl border border-border bg-bg-card p-4 transition-all duration-200 ease-in-out;
   }
 
   .cartao-alerta--nao-lido {
@@ -785,15 +801,15 @@
   }
 
   .cartao-alerta__icone {
-    @apply flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-brand-blue/10 text-brand-blue;
+    @apply flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-brand-blue/10 text-brand-blue;
   }
 
   .cartao-alerta__corpo {
-    @apply min-w-0 flex-1;
+    @apply min-w-0 flex-1 pr-14;
   }
 
   .cartao-alerta__titulo {
-    @apply text-sm font-semibold text-text-primary;
+    @apply text-sm font-bold text-text-primary;
   }
 
   .cartao-alerta__descricao {
@@ -801,15 +817,19 @@
   }
 
   .cartao-alerta__meta {
-    @apply mt-2 flex items-center gap-3 text-[10px] text-text-muted;
+    @apply mt-2.5 flex items-center gap-2 text-[10px] text-text-muted;
   }
 
   .cartao-alerta__status--nao-lido {
-    @apply font-medium text-brand-blue;
+    @apply rounded-full bg-brand-blue/10 px-2 py-0.5 font-medium text-brand-blue;
+  }
+
+  .cartao-alerta__status--lido {
+    @apply rounded-full bg-alert-bg px-2 py-0.5 font-medium text-text-secondary;
   }
 
   .indicador-prioridade {
-    @apply shrink-0 self-start rounded-full px-2.5 py-1 text-xs font-semibold sm:self-auto;
+    @apply absolute top-4 right-4 shrink-0 rounded-full px-2.5 py-0.5 text-xs font-semibold;
   }
 
   .indicador-prioridade--alta {
