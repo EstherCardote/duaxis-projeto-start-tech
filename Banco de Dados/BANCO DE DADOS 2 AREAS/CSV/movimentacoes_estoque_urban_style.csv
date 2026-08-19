@@ -1,0 +1,1102 @@
+﻿id_movimentacao_estoque;data_movimentacao;produto_id;produto_nome;tipo_movimentacao;quantidade;estoque_anterior;estoque_posterior;origem;origem_id;motivo;usuario_responsavel_id
+ME00001;2025-08-01;PROD001;Camiseta Preta;Saldo inicial;37;0;37;Implantação;;Saldo inicial do período analisado.;FUN013
+ME00002;2025-08-01;PROD002;Camiseta Preta;Saldo inicial;54;0;54;Implantação;;Saldo inicial do período analisado.;FUN013
+ME00003;2025-08-01;PROD003;Camiseta Preta;Saldo inicial;41;0;41;Implantação;;Saldo inicial do período analisado.;FUN013
+ME00004;2025-08-01;PROD004;Camiseta Preta;Saldo inicial;14;0;14;Implantação;;Saldo inicial do período analisado.;FUN013
+ME00005;2025-08-01;PROD005;Camiseta Preta;Saldo inicial;47;0;47;Implantação;;Saldo inicial do período analisado.;FUN013
+ME00006;2025-08-01;PROD006;Camiseta Branca;Saldo inicial;34;0;34;Implantação;;Saldo inicial do período analisado.;FUN013
+ME00007;2025-08-01;PROD007;Camiseta Branca;Saldo inicial;46;0;46;Implantação;;Saldo inicial do período analisado.;FUN013
+ME00008;2025-08-01;PROD008;Camiseta Branca;Saldo inicial;30;0;30;Implantação;;Saldo inicial do período analisado.;FUN013
+ME00009;2025-08-01;PROD009;Camiseta Branca;Saldo inicial;21;0;21;Implantação;;Saldo inicial do período analisado.;FUN013
+ME00010;2025-08-01;PROD010;Camiseta Branca;Saldo inicial;205;0;205;Implantação;;Saldo inicial do período analisado.;FUN013
+ME00011;2025-08-01;PROD011;Camiseta Azul;Saldo inicial;25;0;25;Implantação;;Saldo inicial do período analisado.;FUN013
+ME00012;2025-08-01;PROD012;Camiseta Azul;Saldo inicial;38;0;38;Implantação;;Saldo inicial do período analisado.;FUN013
+ME00013;2025-08-01;PROD013;Camiseta Azul;Saldo inicial;37;0;37;Implantação;;Saldo inicial do período analisado.;FUN013
+ME00014;2025-08-01;PROD014;Camiseta Azul;Saldo inicial;19;0;19;Implantação;;Saldo inicial do período analisado.;FUN013
+ME00015;2025-08-01;PROD015;Camiseta Azul;Saldo inicial;222;0;222;Implantação;;Saldo inicial do período analisado.;FUN013
+ME00016;2025-08-01;PROD016;Camiseta Verde;Saldo inicial;137;0;137;Implantação;;Saldo inicial do período analisado.;FUN013
+ME00017;2025-08-01;PROD017;Camiseta Verde;Saldo inicial;36;0;36;Implantação;;Saldo inicial do período analisado.;FUN013
+ME00018;2025-08-01;PROD018;Camiseta Verde;Saldo inicial;41;0;41;Implantação;;Saldo inicial do período analisado.;FUN013
+ME00019;2025-08-01;PROD019;Camiseta Verde;Saldo inicial;32;0;32;Implantação;;Saldo inicial do período analisado.;FUN013
+ME00020;2025-08-01;PROD020;Camiseta Verde;Saldo inicial;41;0;41;Implantação;;Saldo inicial do período analisado.;FUN013
+ME00021;2025-08-01;PROD021;Camiseta Cinza;Saldo inicial;20;0;20;Implantação;;Saldo inicial do período analisado.;FUN013
+ME00022;2025-08-01;PROD022;Camiseta Cinza;Saldo inicial;29;0;29;Implantação;;Saldo inicial do período analisado.;FUN013
+ME00023;2025-08-01;PROD023;Camiseta Cinza;Saldo inicial;37;0;37;Implantação;;Saldo inicial do período analisado.;FUN013
+ME00024;2025-08-01;PROD024;Camiseta Cinza;Saldo inicial;17;0;17;Implantação;;Saldo inicial do período analisado.;FUN013
+ME00025;2025-08-01;PROD025;Camiseta Cinza;Saldo inicial;24;0;24;Implantação;;Saldo inicial do período analisado.;FUN013
+ME00026;2025-08-01;PROD026;Calça Jeans Azul;Saldo inicial;34;0;34;Implantação;;Saldo inicial do período analisado.;FUN013
+ME00027;2025-08-01;PROD027;Calça Jeans Azul;Saldo inicial;33;0;33;Implantação;;Saldo inicial do período analisado.;FUN013
+ME00028;2025-08-01;PROD028;Calça Jeans Azul;Saldo inicial;25;0;25;Implantação;;Saldo inicial do período analisado.;FUN013
+ME00029;2025-08-01;PROD029;Calça Jeans Azul;Saldo inicial;50;0;50;Implantação;;Saldo inicial do período analisado.;FUN013
+ME00030;2025-08-01;PROD030;Calça Jeans Azul;Saldo inicial;32;0;32;Implantação;;Saldo inicial do período analisado.;FUN013
+ME00031;2025-08-01;PROD031;Calça Jeans Preta;Saldo inicial;19;0;19;Implantação;;Saldo inicial do período analisado.;FUN013
+ME00032;2025-08-01;PROD032;Calça Jeans Preta;Saldo inicial;27;0;27;Implantação;;Saldo inicial do período analisado.;FUN013
+ME00033;2025-08-01;PROD033;Calça Jeans Preta;Saldo inicial;28;0;28;Implantação;;Saldo inicial do período analisado.;FUN013
+ME00034;2025-08-01;PROD034;Calça Jeans Preta;Saldo inicial;42;0;42;Implantação;;Saldo inicial do período analisado.;FUN013
+ME00035;2025-08-01;PROD035;Calça Jeans Preta;Saldo inicial;34;0;34;Implantação;;Saldo inicial do período analisado.;FUN013
+ME00036;2025-08-01;PROD036;Calça Bege;Saldo inicial;25;0;25;Implantação;;Saldo inicial do período analisado.;FUN013
+ME00037;2025-08-01;PROD037;Calça Bege;Saldo inicial;50;0;50;Implantação;;Saldo inicial do período analisado.;FUN013
+ME00038;2025-08-01;PROD038;Calça Bege;Saldo inicial;28;0;28;Implantação;;Saldo inicial do período analisado.;FUN013
+ME00039;2025-08-01;PROD039;Calça Bege;Saldo inicial;14;0;14;Implantação;;Saldo inicial do período analisado.;FUN013
+ME00040;2025-08-01;PROD040;Calça Bege;Saldo inicial;14;0;14;Implantação;;Saldo inicial do período analisado.;FUN013
+ME00041;2025-08-01;PROD041;Vestido Floral;Saldo inicial;47;0;47;Implantação;;Saldo inicial do período analisado.;FUN013
+ME00042;2025-08-01;PROD042;Vestido Floral;Saldo inicial;41;0;41;Implantação;;Saldo inicial do período analisado.;FUN013
+ME00043;2025-08-01;PROD043;Vestido Floral;Saldo inicial;30;0;30;Implantação;;Saldo inicial do período analisado.;FUN013
+ME00044;2025-08-01;PROD044;Vestido Floral;Saldo inicial;23;0;23;Implantação;;Saldo inicial do período analisado.;FUN013
+ME00045;2025-08-01;PROD045;Vestido Floral;Saldo inicial;30;0;30;Implantação;;Saldo inicial do período analisado.;FUN013
+ME00046;2025-08-01;PROD046;Vestido Preto;Saldo inicial;16;0;16;Implantação;;Saldo inicial do período analisado.;FUN013
+ME00047;2025-08-01;PROD047;Vestido Preto;Saldo inicial;23;0;23;Implantação;;Saldo inicial do período analisado.;FUN013
+ME00048;2025-08-01;PROD048;Vestido Preto;Saldo inicial;27;0;27;Implantação;;Saldo inicial do período analisado.;FUN013
+ME00049;2025-08-01;PROD049;Vestido Preto;Saldo inicial;30;0;30;Implantação;;Saldo inicial do período analisado.;FUN013
+ME00050;2025-08-01;PROD050;Vestido Preto;Saldo inicial;57;0;57;Implantação;;Saldo inicial do período analisado.;FUN013
+ME00051;2025-08-01;PROD051;Vestido Vermelho;Saldo inicial;12;0;12;Implantação;;Saldo inicial do período analisado.;FUN013
+ME00052;2025-08-01;PROD052;Vestido Vermelho;Saldo inicial;24;0;24;Implantação;;Saldo inicial do período analisado.;FUN013
+ME00053;2025-08-01;PROD053;Vestido Vermelho;Saldo inicial;14;0;14;Implantação;;Saldo inicial do período analisado.;FUN013
+ME00054;2025-08-01;PROD054;Vestido Vermelho;Saldo inicial;33;0;33;Implantação;;Saldo inicial do período analisado.;FUN013
+ME00055;2025-08-01;PROD055;Vestido Vermelho;Saldo inicial;30;0;30;Implantação;;Saldo inicial do período analisado.;FUN013
+ME00056;2025-08-01;PROD056;Jaqueta Preta;Saldo inicial;41;0;41;Implantação;;Saldo inicial do período analisado.;FUN013
+ME00057;2025-08-01;PROD057;Jaqueta Preta;Saldo inicial;18;0;18;Implantação;;Saldo inicial do período analisado.;FUN013
+ME00058;2025-08-01;PROD058;Jaqueta Preta;Saldo inicial;20;0;20;Implantação;;Saldo inicial do período analisado.;FUN013
+ME00059;2025-08-01;PROD059;Jaqueta Preta;Saldo inicial;45;0;45;Implantação;;Saldo inicial do período analisado.;FUN013
+ME00060;2025-08-01;PROD060;Jaqueta Preta;Saldo inicial;23;0;23;Implantação;;Saldo inicial do período analisado.;FUN013
+ME00061;2025-08-01;PROD061;Jaqueta Jeans;Saldo inicial;14;0;14;Implantação;;Saldo inicial do período analisado.;FUN013
+ME00062;2025-08-01;PROD062;Jaqueta Jeans;Saldo inicial;16;0;16;Implantação;;Saldo inicial do período analisado.;FUN013
+ME00063;2025-08-01;PROD063;Jaqueta Jeans;Saldo inicial;34;0;34;Implantação;;Saldo inicial do período analisado.;FUN013
+ME00064;2025-08-01;PROD064;Jaqueta Jeans;Saldo inicial;52;0;52;Implantação;;Saldo inicial do período analisado.;FUN013
+ME00065;2025-08-01;PROD065;Jaqueta Jeans;Saldo inicial;19;0;19;Implantação;;Saldo inicial do período analisado.;FUN013
+ME00066;2025-08-01;PROD066;Jaqueta Verde;Saldo inicial;31;0;31;Implantação;;Saldo inicial do período analisado.;FUN013
+ME00067;2025-08-01;PROD067;Jaqueta Verde;Saldo inicial;20;0;20;Implantação;;Saldo inicial do período analisado.;FUN013
+ME00068;2025-08-01;PROD068;Jaqueta Verde;Saldo inicial;28;0;28;Implantação;;Saldo inicial do período analisado.;FUN013
+ME00069;2025-08-01;PROD069;Jaqueta Verde;Saldo inicial;20;0;20;Implantação;;Saldo inicial do período analisado.;FUN013
+ME00070;2025-08-01;PROD070;Jaqueta Verde;Saldo inicial;37;0;37;Implantação;;Saldo inicial do período analisado.;FUN013
+ME00071;2025-08-01;PROD071;Bermuda Jeans;Saldo inicial;22;0;22;Implantação;;Saldo inicial do período analisado.;FUN013
+ME00072;2025-08-01;PROD072;Bermuda Jeans;Saldo inicial;29;0;29;Implantação;;Saldo inicial do período analisado.;FUN013
+ME00073;2025-08-01;PROD073;Bermuda Jeans;Saldo inicial;32;0;32;Implantação;;Saldo inicial do período analisado.;FUN013
+ME00074;2025-08-01;PROD074;Bermuda Jeans;Saldo inicial;30;0;30;Implantação;;Saldo inicial do período analisado.;FUN013
+ME00075;2025-08-01;PROD075;Bermuda Jeans;Saldo inicial;26;0;26;Implantação;;Saldo inicial do período analisado.;FUN013
+ME00076;2025-08-01;PROD076;Bermuda Caqui;Saldo inicial;25;0;25;Implantação;;Saldo inicial do período analisado.;FUN013
+ME00077;2025-08-01;PROD077;Bermuda Caqui;Saldo inicial;56;0;56;Implantação;;Saldo inicial do período analisado.;FUN013
+ME00078;2025-08-01;PROD078;Bermuda Caqui;Saldo inicial;89;0;89;Implantação;;Saldo inicial do período analisado.;FUN013
+ME00079;2025-08-01;PROD079;Bermuda Caqui;Saldo inicial;36;0;36;Implantação;;Saldo inicial do período analisado.;FUN013
+ME00080;2025-08-01;PROD080;Bermuda Caqui;Saldo inicial;25;0;25;Implantação;;Saldo inicial do período analisado.;FUN013
+ME00081;2025-08-01;PROD019;Camiseta Verde;Saída por venda;-2;32;30;Venda;VEN0001;Baixa de estoque por venda concluída.;FUN024
+ME00082;2025-08-01;PROD077;Bermuda Caqui;Saída por venda;-3;56;53;Venda;VEN0002;Baixa de estoque por venda concluída.;FUN024
+ME00083;2025-08-05;PROD011;Camiseta Azul;Saída por venda;-1;25;24;Venda;VEN0003;Baixa de estoque por venda concluída.;FUN036
+ME00084;2025-08-05;PROD011;Camiseta Azul;Saída por venda;-1;24;23;Venda;VEN0004;Baixa de estoque por venda concluída.;FUN036
+ME00085;2025-08-06;PROD001;Camiseta Preta;Entrada por compra;80;37;117;Compra;COMP0001;Recebimento de mercadoria do fornecedor.;FUN014
+ME00086;2025-08-06;PROD003;Camiseta Preta;Saída por venda;-1;41;40;Venda;VEN0007;Baixa de estoque por venda concluída.;FUN028
+ME00087;2025-08-06;PROD048;Vestido Preto;Saída por venda;-3;27;24;Venda;VEN0006;Baixa de estoque por venda concluída.;FUN034
+ME00088;2025-08-07;PROD038;Calça Bege;Saída por venda;-1;28;27;Venda;VEN0008;Baixa de estoque por venda concluída.;FUN035
+ME00089;2025-08-08;PROD059;Jaqueta Preta;Saída por venda;-2;45;43;Venda;VEN0010;Baixa de estoque por venda concluída.;FUN023
+ME00090;2025-08-08;PROD068;Jaqueta Verde;Saída por venda;-1;28;27;Venda;VEN0009;Baixa de estoque por venda concluída.;FUN024
+ME00091;2025-08-10;PROD037;Calça Bege;Saída por venda;-2;50;48;Venda;VEN0015;Baixa de estoque por venda concluída.;FUN029
+ME00092;2025-08-11;PROD029;Calça Jeans Azul;Saída por venda;-1;50;49;Venda;VEN0016;Baixa de estoque por venda concluída.;FUN030
+ME00093;2025-08-12;PROD050;Vestido Preto;Saída por venda;-2;57;55;Venda;VEN0020;Baixa de estoque por venda concluída.;FUN021
+ME00094;2025-08-12;PROD054;Vestido Vermelho;Saída por venda;-2;33;31;Venda;VEN0021;Baixa de estoque por venda concluída.;FUN026
+ME00095;2025-08-13;PROD043;Vestido Floral;Saída por venda;-1;30;29;Venda;VEN0025;Baixa de estoque por venda concluída.;FUN036
+ME00096;2025-08-14;PROD009;Camiseta Branca;Saída por venda;-2;21;19;Venda;VEN0026;Baixa de estoque por venda concluída.;FUN030
+ME00097;2025-08-14;PROD035;Calça Jeans Preta;Entrada por compra;30;34;64;Compra;COMP0002;Recebimento de mercadoria do fornecedor.;FUN014
+ME00098;2025-08-15;PROD029;Calça Jeans Azul;Saída por venda;-2;49;47;Venda;VEN0028;Baixa de estoque por venda concluída.;FUN033
+ME00099;2025-08-15;PROD031;Calça Jeans Preta;Devolução de cliente;3;19;22;Venda;VEN0019;Produto devolvido pelo cliente e reintegrado ao estoque.;FUN016
+ME00100;2025-08-15;PROD060;Jaqueta Preta;Saída por venda;-1;23;22;Venda;VEN0027;Baixa de estoque por venda concluída.;FUN035
+ME00101;2025-08-15;PROD072;Bermuda Jeans;Devolução de cliente;3;29;32;Venda;VEN0005;Produto devolvido pelo cliente e reintegrado ao estoque.;FUN014
+ME00102;2025-08-17;PROD025;Camiseta Cinza;Devolução de cliente;1;24;25;Venda;VEN0018;Produto devolvido pelo cliente e reintegrado ao estoque.;FUN013
+ME00103;2025-08-17;PROD079;Bermuda Caqui;Saída por venda;-1;36;35;Venda;VEN0031;Baixa de estoque por venda concluída.;FUN033
+ME00104;2025-08-18;PROD012;Camiseta Azul;Devolução de cliente;1;38;39;Venda;VEN0017;Produto devolvido pelo cliente e reintegrado ao estoque.;FUN016
+ME00105;2025-08-19;PROD002;Camiseta Preta;Saída por venda;-1;54;53;Venda;VEN0033;Baixa de estoque por venda concluída.;FUN025
+ME00106;2025-08-19;PROD003;Camiseta Preta;Saída por venda;-1;40;39;Venda;VEN0032;Baixa de estoque por venda concluída.;FUN029
+ME00107;2025-08-19;PROD015;Camiseta Azul;Saída por venda;-3;222;219;Venda;VEN0034;Baixa de estoque por venda concluída.;FUN026
+ME00108;2025-08-19;PROD028;Calça Jeans Azul;Saída por venda;-1;25;24;Venda;VEN0036;Baixa de estoque por venda concluída.;FUN030
+ME00109;2025-08-20;PROD008;Camiseta Branca;Entrada por compra;50;30;80;Compra;COMP0004;Recebimento de mercadoria do fornecedor.;FUN015
+ME00110;2025-08-20;PROD066;Jaqueta Verde;Entrada por compra;60;31;91;Compra;COMP0007;Recebimento de mercadoria do fornecedor.;FUN016
+ME00111;2025-08-21;PROD005;Camiseta Preta;Saída por venda;-1;47;46;Venda;VEN0038;Baixa de estoque por venda concluída.;FUN028
+ME00112;2025-08-21;PROD051;Vestido Vermelho;Saída por venda;-1;12;11;Venda;VEN0037;Baixa de estoque por venda concluída.;FUN027
+ME00113;2025-08-22;PROD008;Camiseta Branca;Saída por venda;-1;80;79;Venda;VEN0040;Baixa de estoque por venda concluída.;FUN032
+ME00114;2025-08-22;PROD038;Calça Bege;Saída por venda;-1;27;26;Venda;VEN0041;Baixa de estoque por venda concluída.;FUN027
+ME00115;2025-08-22;PROD040;Calça Bege;Saída por venda;-1;14;13;Venda;VEN0039;Baixa de estoque por venda concluída.;FUN037
+ME00116;2025-08-23;PROD041;Vestido Floral;Devolução de cliente;3;47;50;Venda;VEN0029;Produto devolvido pelo cliente e reintegrado ao estoque.;FUN015
+ME00117;2025-08-23;PROD053;Vestido Vermelho;Saída por venda;-2;14;12;Venda;VEN0043;Baixa de estoque por venda concluída.;FUN030
+ME00118;2025-08-23;PROD056;Jaqueta Preta;Saída por venda;-2;41;39;Venda;VEN0042;Baixa de estoque por venda concluída.;FUN037
+ME00119;2025-08-24;PROD011;Camiseta Azul;Saída por venda;-1;23;22;Venda;VEN0044;Baixa de estoque por venda concluída.;FUN028
+ME00120;2025-08-24;PROD026;Calça Jeans Azul;Devolução de cliente;1;34;35;Venda;VEN0030;Produto devolvido pelo cliente e reintegrado ao estoque.;FUN014
+ME00121;2025-08-25;PROD060;Jaqueta Preta;Entrada por compra;30;22;52;Compra;COMP0005;Recebimento de mercadoria do fornecedor.;FUN014
+ME00122;2025-08-26;PROD006;Camiseta Branca;Saída por venda;-2;34;32;Venda;VEN0046;Baixa de estoque por venda concluída.;FUN034
+ME00123;2025-08-26;PROD017;Camiseta Verde;Entrada por compra;30;36;66;Compra;COMP0006;Recebimento de mercadoria do fornecedor.;FUN013
+ME00124;2025-08-26;PROD064;Jaqueta Jeans;Saída por venda;-3;52;49;Venda;VEN0047;Baixa de estoque por venda concluída.;FUN028
+ME00125;2025-08-27;PROD025;Camiseta Cinza;Entrada por compra;80;25;105;Compra;COMP0008;Recebimento de mercadoria do fornecedor.;FUN015
+ME00126;2025-08-27;PROD030;Calça Jeans Azul;Saída por venda;-2;32;30;Venda;VEN0048;Baixa de estoque por venda concluída.;FUN038
+ME00127;2025-08-27;PROD032;Calça Jeans Preta;Saída por venda;-2;27;25;Venda;VEN0049;Baixa de estoque por venda concluída.;FUN026
+ME00128;2025-08-27;PROD072;Bermuda Jeans;Saída por venda;-2;32;30;Venda;VEN0050;Baixa de estoque por venda concluída.;FUN023
+ME00129;2025-08-29;PROD034;Calça Jeans Preta;Saída por venda;-2;42;40;Venda;VEN0051;Baixa de estoque por venda concluída.;FUN030
+ME00130;2025-08-29;PROD052;Vestido Vermelho;Saída por venda;-2;24;22;Venda;VEN0052;Baixa de estoque por venda concluída.;FUN022
+ME00131;2025-08-29;PROD062;Jaqueta Jeans;Entrada por compra;50;16;66;Compra;COMP0003;Recebimento de mercadoria do fornecedor.;FUN016
+ME00132;2025-08-30;PROD040;Calça Bege;Saída por venda;-2;13;11;Venda;VEN0054;Baixa de estoque por venda concluída.;FUN022
+ME00133;2025-09-01;PROD039;Calça Bege;Entrada por compra;60;14;74;Compra;COMP0011;Recebimento de mercadoria do fornecedor.;FUN013
+ME00134;2025-09-02;PROD008;Camiseta Branca;Entrada por compra;40;79;119;Compra;COMP0010;Recebimento de mercadoria do fornecedor.;FUN013
+ME00135;2025-09-03;PROD023;Camiseta Cinza;Saída por venda;-1;37;36;Venda;VEN0062;Baixa de estoque por venda concluída.;FUN033
+ME00136;2025-09-03;PROD027;Calça Jeans Azul;Saída por venda;-3;33;30;Venda;VEN0060;Baixa de estoque por venda concluída.;FUN033
+ME00137;2025-09-03;PROD039;Calça Bege;Saída por venda;-2;74;72;Venda;VEN0061;Baixa de estoque por venda concluída.;FUN021
+ME00138;2025-09-03;PROD043;Vestido Floral;Saída por venda;-2;29;27;Venda;VEN0063;Baixa de estoque por venda concluída.;FUN032
+ME00139;2025-09-03;PROD054;Vestido Vermelho;Saída por venda;-2;31;29;Venda;VEN0065;Baixa de estoque por venda concluída.;FUN027
+ME00140;2025-09-03;PROD078;Bermuda Caqui;Saída por venda;-1;89;88;Venda;VEN0064;Baixa de estoque por venda concluída.;FUN028
+ME00141;2025-09-04;PROD016;Camiseta Verde;Saída por venda;-2;137;135;Venda;VEN0067;Baixa de estoque por venda concluída.;FUN027
+ME00142;2025-09-04;PROD033;Calça Jeans Preta;Entrada por compra;40;28;68;Compra;COMP0009;Recebimento de mercadoria do fornecedor.;FUN016
+ME00143;2025-09-05;PROD066;Jaqueta Verde;Saída por venda;-2;91;89;Venda;VEN0068;Baixa de estoque por venda concluída.;FUN025
+ME00144;2025-09-06;PROD023;Camiseta Cinza;Devolução de cliente;2;36;38;Venda;VEN0058;Produto devolvido pelo cliente e reintegrado ao estoque.;FUN015
+ME00145;2025-09-06;PROD037;Calça Bege;Devolução de cliente;1;48;49;Venda;VEN0066;Produto devolvido pelo cliente e reintegrado ao estoque.;FUN015
+ME00146;2025-09-06;PROD038;Calça Bege;Saída por venda;-3;26;23;Venda;VEN0069;Baixa de estoque por venda concluída.;FUN037
+ME00147;2025-09-06;PROD069;Jaqueta Verde;Saída por venda;-2;20;18;Venda;VEN0071;Baixa de estoque por venda concluída.;FUN036
+ME00148;2025-09-09;PROD002;Camiseta Preta;Saída por venda;-1;53;52;Venda;VEN0076;Baixa de estoque por venda concluída.;FUN021
+ME00149;2025-09-09;PROD007;Camiseta Branca;Saída por venda;-1;46;45;Venda;VEN0075;Baixa de estoque por venda concluída.;FUN027
+ME00150;2025-09-09;PROD017;Camiseta Verde;Saída por venda;-3;66;63;Venda;VEN0074;Baixa de estoque por venda concluída.;FUN025
+ME00151;2025-09-10;PROD003;Camiseta Preta;Saída por venda;-4;39;35;Venda;VEN0078;Baixa de estoque por venda concluída.;FUN039
+ME00152;2025-09-10;PROD005;Camiseta Preta;Avaria;-1;46;45;Inventário;;Ajuste por perda ou avaria identificada em conferência.;FUN016
+ME00153;2025-09-10;PROD011;Camiseta Azul;Avaria;-1;22;21;Inventário;;Ajuste por perda ou avaria identificada em conferência.;FUN015
+ME00154;2025-09-10;PROD027;Calça Jeans Azul;Saída por venda;-1;30;29;Venda;VEN0079;Baixa de estoque por venda concluída.;FUN021
+ME00155;2025-09-10;PROD061;Jaqueta Jeans;Entrada por compra;80;14;94;Compra;COMP0015;Recebimento de mercadoria do fornecedor.;FUN016
+ME00156;2025-09-10;PROD066;Jaqueta Verde;Entrada por compra;50;89;139;Compra;COMP0014;Recebimento de mercadoria do fornecedor.;FUN014
+ME00157;2025-09-11;PROD075;Bermuda Jeans;Saída por venda;-3;26;23;Venda;VEN0080;Baixa de estoque por venda concluída.;FUN026
+ME00158;2025-09-12;PROD002;Camiseta Preta;Saída por venda;-2;52;50;Venda;VEN0081;Baixa de estoque por venda concluída.;FUN029
+ME00159;2025-09-12;PROD024;Camiseta Cinza;Devolução de cliente;1;17;18;Venda;VEN0077;Produto devolvido pelo cliente e reintegrado ao estoque.;FUN013
+ME00160;2025-09-13;PROD022;Camiseta Cinza;Saída por venda;-2;29;27;Venda;VEN0082;Baixa de estoque por venda concluída.;FUN033
+ME00161;2025-09-14;PROD002;Camiseta Preta;Devolução de cliente;1;50;51;Venda;VEN0073;Produto devolvido pelo cliente e reintegrado ao estoque.;FUN014
+ME00162;2025-09-14;PROD021;Camiseta Cinza;Saída por venda;-1;20;19;Venda;VEN0084;Baixa de estoque por venda concluída.;FUN021
+ME00163;2025-09-14;PROD049;Vestido Preto;Entrada por compra;20;30;50;Compra;COMP0012;Recebimento de mercadoria do fornecedor.;FUN015
+ME00164;2025-09-14;PROD051;Vestido Vermelho;Saída por venda;-1;11;10;Venda;VEN0083;Baixa de estoque por venda concluída.;FUN037
+ME00165;2025-09-14;PROD075;Bermuda Jeans;Saída por venda;-1;23;22;Venda;VEN0085;Baixa de estoque por venda concluída.;FUN022
+ME00166;2025-09-15;PROD001;Camiseta Preta;Devolução de cliente;1;117;118;Venda;VEN0072;Produto devolvido pelo cliente e reintegrado ao estoque.;FUN014
+ME00167;2025-09-15;PROD001;Camiseta Preta;Saída por venda;-2;118;116;Venda;VEN0088;Baixa de estoque por venda concluída.;FUN029
+ME00168;2025-09-15;PROD077;Bermuda Caqui;Saída por venda;-1;53;52;Venda;VEN0087;Baixa de estoque por venda concluída.;FUN027
+ME00169;2025-09-16;PROD015;Camiseta Azul;Saída por venda;-2;219;217;Venda;VEN0089;Baixa de estoque por venda concluída.;FUN023
+ME00170;2025-09-16;PROD039;Calça Bege;Saída por venda;-1;72;71;Venda;VEN0090;Baixa de estoque por venda concluída.;FUN039
+ME00171;2025-09-16;PROD048;Vestido Preto;Entrada por compra;20;24;44;Compra;COMP0018;Recebimento de mercadoria do fornecedor.;FUN015
+ME00172;2025-09-16;PROD073;Bermuda Jeans;Entrada por compra;50;32;82;Compra;COMP0013;Recebimento de mercadoria do fornecedor.;FUN015
+ME00173;2025-09-17;PROD039;Calça Bege;Saída por venda;-3;71;68;Venda;VEN0091;Baixa de estoque por venda concluída.;FUN030
+ME00174;2025-09-17;PROD054;Vestido Vermelho;Entrada por compra;120;29;149;Compra;COMP0019;Recebimento de mercadoria do fornecedor.;FUN016
+ME00175;2025-09-17;PROD055;Vestido Vermelho;Entrada por compra;80;30;110;Compra;COMP0020;Recebimento de mercadoria do fornecedor.;FUN013
+ME00176;2025-09-18;PROD023;Camiseta Cinza;Saída por venda;-1;38;37;Venda;VEN0093;Baixa de estoque por venda concluída.;FUN030
+ME00177;2025-09-20;PROD025;Camiseta Cinza;Saída por venda;-1;105;104;Venda;VEN0096;Baixa de estoque por venda concluída.;FUN027
+ME00178;2025-09-21;PROD015;Camiseta Azul;Saída por venda;-1;217;216;Venda;VEN0098;Baixa de estoque por venda concluída.;FUN039
+ME00179;2025-09-21;PROD034;Calça Jeans Preta;Entrada por compra;80;40;120;Compra;COMP0022;Recebimento de mercadoria do fornecedor.;FUN013
+ME00180;2025-09-21;PROD035;Calça Jeans Preta;Devolução de cliente;1;64;65;Venda;VEN0086;Produto devolvido pelo cliente e reintegrado ao estoque.;FUN013
+ME00181;2025-09-21;PROD055;Vestido Vermelho;Entrada por compra;40;110;150;Compra;COMP0023;Recebimento de mercadoria do fornecedor.;FUN016
+ME00182;2025-09-22;PROD053;Vestido Vermelho;Entrada por compra;100;12;112;Compra;COMP0017;Recebimento de mercadoria do fornecedor.;FUN013
+ME00183;2025-09-22;PROD074;Bermuda Jeans;Entrada por compra;50;30;80;Compra;COMP0016;Recebimento de mercadoria do fornecedor.;FUN013
+ME00184;2025-09-23;PROD034;Calça Jeans Preta;Saída por venda;-1;120;119;Venda;VEN0101;Baixa de estoque por venda concluída.;FUN027
+ME00185;2025-09-23;PROD045;Vestido Floral;Entrada por compra;80;30;110;Compra;COMP0024;Recebimento de mercadoria do fornecedor.;FUN016
+ME00186;2025-09-23;PROD065;Jaqueta Jeans;Saída por venda;-1;19;18;Venda;VEN0102;Baixa de estoque por venda concluída.;FUN036
+ME00187;2025-09-23;PROD080;Bermuda Caqui;Devolução de cliente;1;25;26;Venda;VEN0092;Produto devolvido pelo cliente e reintegrado ao estoque.;FUN014
+ME00188;2025-09-24;PROD002;Camiseta Preta;Saída por venda;-3;51;48;Venda;VEN0105;Baixa de estoque por venda concluída.;FUN028
+ME00189;2025-09-24;PROD029;Calça Jeans Azul;Saída por venda;-1;47;46;Venda;VEN0107;Baixa de estoque por venda concluída.;FUN028
+ME00190;2025-09-24;PROD047;Vestido Preto;Saída por venda;-1;23;22;Venda;VEN0104;Baixa de estoque por venda concluída.;FUN032
+ME00191;2025-09-25;PROD022;Camiseta Cinza;Saída por venda;-2;27;25;Venda;VEN0108;Baixa de estoque por venda concluída.;FUN032
+ME00192;2025-09-25;PROD073;Bermuda Jeans;Saída por venda;-1;82;81;Venda;VEN0109;Baixa de estoque por venda concluída.;FUN028
+ME00193;2025-09-26;PROD005;Camiseta Preta;Saída por venda;-1;45;44;Venda;VEN0110;Baixa de estoque por venda concluída.;FUN026
+ME00194;2025-09-26;PROD016;Camiseta Verde;Saída por venda;-1;135;134;Venda;VEN0112;Baixa de estoque por venda concluída.;FUN025
+ME00195;2025-09-26;PROD025;Camiseta Cinza;Devolução de cliente;1;104;105;Venda;VEN0097;Produto devolvido pelo cliente e reintegrado ao estoque.;FUN013
+ME00196;2025-09-28;PROD023;Camiseta Cinza;Entrada por compra;50;37;87;Compra;COMP0021;Recebimento de mercadoria do fornecedor.;FUN016
+ME00197;2025-09-28;PROD042;Vestido Floral;Saída por venda;-2;41;39;Venda;VEN0114;Baixa de estoque por venda concluída.;FUN022
+ME00198;2025-09-28;PROD051;Vestido Vermelho;Devolução de cliente;1;10;11;Venda;VEN0094;Produto devolvido pelo cliente e reintegrado ao estoque.;FUN014
+ME00199;2025-09-29;PROD001;Camiseta Preta;Saída por venda;-1;116;115;Venda;VEN0120;Baixa de estoque por venda concluída.;FUN023
+ME00200;2025-09-29;PROD005;Camiseta Preta;Saída por venda;-1;44;43;Venda;VEN0119;Baixa de estoque por venda concluída.;FUN031
+ME00201;2025-09-29;PROD027;Calça Jeans Azul;Saída por venda;-2;29;27;Venda;VEN0115;Baixa de estoque por venda concluída.;FUN032
+ME00202;2025-09-29;PROD032;Calça Jeans Preta;Saída por venda;-2;25;23;Venda;VEN0122;Baixa de estoque por venda concluída.;FUN033
+ME00203;2025-09-29;PROD033;Calça Jeans Preta;Saída por venda;-2;68;66;Venda;VEN0117;Baixa de estoque por venda concluída.;FUN030
+ME00204;2025-09-29;PROD049;Vestido Preto;Saída por venda;-1;50;49;Venda;VEN0121;Baixa de estoque por venda concluída.;FUN023
+ME00205;2025-09-29;PROD074;Bermuda Jeans;Saída por venda;-2;80;78;Venda;VEN0118;Baixa de estoque por venda concluída.;FUN026
+ME00206;2025-09-30;PROD035;Calça Jeans Preta;Saída por venda;-2;65;63;Venda;VEN0126;Baixa de estoque por venda concluída.;FUN030
+ME00207;2025-09-30;PROD052;Vestido Vermelho;Saída por venda;-3;22;19;Venda;VEN0125;Baixa de estoque por venda concluída.;FUN038
+ME00208;2025-09-30;PROD078;Bermuda Caqui;Saída por venda;-1;88;87;Venda;VEN0123;Baixa de estoque por venda concluída.;FUN032
+ME00209;2025-10-01;PROD015;Camiseta Azul;Devolução de cliente;1;216;217;Venda;VEN0099;Produto devolvido pelo cliente e reintegrado ao estoque.;FUN014
+ME00210;2025-10-01;PROD036;Calça Bege;Saída por venda;-1;25;24;Venda;VEN0128;Baixa de estoque por venda concluída.;FUN026
+ME00211;2025-10-02;PROD078;Bermuda Caqui;Saída por venda;-1;87;86;Venda;VEN0129;Baixa de estoque por venda concluída.;FUN036
+ME00212;2025-10-03;PROD025;Camiseta Cinza;Entrada por compra;30;105;135;Compra;COMP0026;Recebimento de mercadoria do fornecedor.;FUN014
+ME00213;2025-10-03;PROD028;Calça Jeans Azul;Saída por venda;-1;24;23;Venda;VEN0132;Baixa de estoque por venda concluída.;FUN027
+ME00214;2025-10-03;PROD051;Vestido Vermelho;Devolução de cliente;1;11;12;Venda;VEN0103;Produto devolvido pelo cliente e reintegrado ao estoque.;FUN015
+ME00215;2025-10-04;PROD028;Calça Jeans Azul;Saída por venda;-1;23;22;Venda;VEN0133;Baixa de estoque por venda concluída.;FUN037
+ME00216;2025-10-04;PROD047;Vestido Preto;Entrada por compra;50;22;72;Compra;COMP0025;Recebimento de mercadoria do fornecedor.;FUN013
+ME00217;2025-10-04;PROD075;Bermuda Jeans;Entrada por compra;100;22;122;Compra;COMP0027;Recebimento de mercadoria do fornecedor.;FUN014
+ME00218;2025-10-06;PROD023;Camiseta Cinza;Saída por venda;-1;87;86;Venda;VEN0136;Baixa de estoque por venda concluída.;FUN031
+ME00219;2025-10-06;PROD027;Calça Jeans Azul;Saída por venda;-1;27;26;Venda;VEN0135;Baixa de estoque por venda concluída.;FUN038
+ME00220;2025-10-06;PROD031;Calça Jeans Preta;Devolução de cliente;2;22;24;Venda;VEN0131;Produto devolvido pelo cliente e reintegrado ao estoque.;FUN016
+ME00221;2025-10-06;PROD053;Vestido Vermelho;Saída por venda;-1;112;111;Venda;VEN0137;Baixa de estoque por venda concluída.;FUN028
+ME00222;2025-10-06;PROD075;Bermuda Jeans;Entrada por compra;40;122;162;Compra;COMP0029;Recebimento de mercadoria do fornecedor.;FUN013
+ME00223;2025-10-08;PROD058;Jaqueta Preta;Saída por venda;-2;20;18;Venda;VEN0139;Baixa de estoque por venda concluída.;FUN032
+ME00224;2025-10-09;PROD022;Camiseta Cinza;Saída por venda;-1;25;24;Venda;VEN0142;Baixa de estoque por venda concluída.;FUN024
+ME00225;2025-10-09;PROD029;Calça Jeans Azul;Saída por venda;-1;46;45;Venda;VEN0141;Baixa de estoque por venda concluída.;FUN021
+ME00226;2025-10-09;PROD047;Vestido Preto;Entrada por compra;40;72;112;Compra;COMP0032;Recebimento de mercadoria do fornecedor.;FUN014
+ME00227;2025-10-10;PROD006;Camiseta Branca;Saída por venda;-2;32;30;Venda;VEN0147;Baixa de estoque por venda concluída.;FUN032
+ME00228;2025-10-10;PROD013;Camiseta Azul;Saída por venda;-1;37;36;Venda;VEN0148;Baixa de estoque por venda concluída.;FUN024
+ME00229;2025-10-10;PROD039;Calça Bege;Saída por venda;-1;68;67;Venda;VEN0143;Baixa de estoque por venda concluída.;FUN028
+ME00230;2025-10-10;PROD043;Vestido Floral;Devolução de cliente;2;27;29;Venda;VEN0124;Produto devolvido pelo cliente e reintegrado ao estoque.;FUN014
+ME00231;2025-10-10;PROD077;Bermuda Caqui;Saída por venda;-2;52;50;Venda;VEN0145;Baixa de estoque por venda concluída.;FUN039
+ME00232;2025-10-11;PROD010;Camiseta Branca;Saída por venda;-2;205;203;Venda;VEN0150;Baixa de estoque por venda concluída.;FUN022
+ME00233;2025-10-12;PROD066;Jaqueta Verde;Entrada por compra;40;139;179;Compra;COMP0033;Recebimento de mercadoria do fornecedor.;FUN013
+ME00234;2025-10-13;PROD013;Camiseta Azul;Saída por venda;-1;36;35;Venda;VEN0152;Baixa de estoque por venda concluída.;FUN021
+ME00235;2025-10-13;PROD070;Jaqueta Verde;Saída por venda;-1;37;36;Venda;VEN0153;Baixa de estoque por venda concluída.;FUN035
+ME00236;2025-10-14;PROD031;Calça Jeans Preta;Entrada por compra;30;24;54;Compra;COMP0031;Recebimento de mercadoria do fornecedor.;FUN014
+ME00237;2025-10-14;PROD066;Jaqueta Verde;Saída por venda;-2;179;177;Venda;VEN0154;Baixa de estoque por venda concluída.;FUN021
+ME00238;2025-10-15;PROD020;Camiseta Verde;Saída por venda;-1;41;40;Venda;VEN0156;Baixa de estoque por venda concluída.;FUN029
+ME00239;2025-10-15;PROD042;Vestido Floral;Saída por venda;-2;39;37;Venda;VEN0155;Baixa de estoque por venda concluída.;FUN039
+ME00240;2025-10-15;PROD070;Jaqueta Verde;Entrada por compra;20;36;56;Compra;COMP0028;Recebimento de mercadoria do fornecedor.;FUN013
+ME00241;2025-10-17;PROD011;Camiseta Azul;Entrada por compra;50;21;71;Compra;COMP0030;Recebimento de mercadoria do fornecedor.;FUN016
+ME00242;2025-10-17;PROD026;Calça Jeans Azul;Saída por venda;-1;35;34;Venda;VEN0160;Baixa de estoque por venda concluída.;FUN028
+ME00243;2025-10-17;PROD056;Jaqueta Preta;Saída por venda;-1;39;38;Venda;VEN0159;Baixa de estoque por venda concluída.;FUN037
+ME00244;2025-10-18;PROD011;Camiseta Azul;Saída por venda;-3;71;68;Venda;VEN0164;Baixa de estoque por venda concluída.;FUN039
+ME00245;2025-10-18;PROD022;Camiseta Cinza;Saída por venda;-1;24;23;Venda;VEN0161;Baixa de estoque por venda concluída.;FUN038
+ME00246;2025-10-18;PROD048;Vestido Preto;Saída por venda;-1;44;43;Venda;VEN0162;Baixa de estoque por venda concluída.;FUN027
+ME00247;2025-10-19;PROD013;Camiseta Azul;Saída por venda;-1;35;34;Venda;VEN0166;Baixa de estoque por venda concluída.;FUN021
+ME00248;2025-10-19;PROD015;Camiseta Azul;Devolução de cliente;1;217;218;Venda;VEN0149;Produto devolvido pelo cliente e reintegrado ao estoque.;FUN016
+ME00249;2025-10-20;PROD035;Calça Jeans Preta;Entrada por compra;120;63;183;Compra;COMP0034;Recebimento de mercadoria do fornecedor.;FUN014
+ME00250;2025-10-20;PROD038;Calça Bege;Devolução de cliente;2;23;25;Venda;VEN0157;Produto devolvido pelo cliente e reintegrado ao estoque.;FUN016
+ME00251;2025-10-20;PROD059;Jaqueta Preta;Saída por venda;-2;43;41;Venda;VEN0168;Baixa de estoque por venda concluída.;FUN028
+ME00252;2025-10-21;PROD002;Camiseta Preta;Saída por venda;-2;48;46;Venda;VEN0174;Baixa de estoque por venda concluída.;FUN025
+ME00253;2025-10-21;PROD003;Camiseta Preta;Saída por venda;-2;35;33;Venda;VEN0175;Baixa de estoque por venda concluída.;FUN025
+ME00254;2025-10-21;PROD024;Camiseta Cinza;Saída por venda;-2;18;16;Venda;VEN0173;Baixa de estoque por venda concluída.;FUN036
+ME00255;2025-10-22;PROD051;Vestido Vermelho;Saída por venda;-1;12;11;Venda;VEN0176;Baixa de estoque por venda concluída.;FUN026
+ME00256;2025-10-22;PROD075;Bermuda Jeans;Entrada por compra;40;162;202;Compra;COMP0041;Recebimento de mercadoria do fornecedor.;FUN015
+ME00257;2025-10-23;PROD008;Camiseta Branca;Saída por venda;-3;119;116;Venda;VEN0177;Baixa de estoque por venda concluída.;FUN030
+ME00258;2025-10-23;PROD011;Camiseta Azul;Devolução de cliente;1;68;69;Venda;VEN0167;Produto devolvido pelo cliente e reintegrado ao estoque.;FUN016
+ME00259;2025-10-23;PROD024;Camiseta Cinza;Entrada por compra;120;16;136;Compra;COMP0039;Recebimento de mercadoria do fornecedor.;FUN013
+ME00260;2025-10-24;PROD003;Camiseta Preta;Perda;-3;33;30;Inventário;;Ajuste por perda ou avaria identificada em conferência.;FUN014
+ME00261;2025-10-24;PROD008;Camiseta Branca;Saída por venda;-1;116;115;Venda;VEN0180;Baixa de estoque por venda concluída.;FUN026
+ME00262;2025-10-25;PROD014;Camiseta Azul;Saída por venda;-1;19;18;Venda;VEN0186;Baixa de estoque por venda concluída.;FUN036
+ME00263;2025-10-25;PROD019;Camiseta Verde;Entrada por compra;50;30;80;Compra;COMP0035;Recebimento de mercadoria do fornecedor.;FUN014
+ME00264;2025-10-25;PROD063;Jaqueta Jeans;Saída por venda;-2;34;32;Venda;VEN0184;Baixa de estoque por venda concluída.;FUN033
+ME00265;2025-10-26;PROD013;Camiseta Azul;Entrada por compra;80;34;114;Compra;COMP0036;Recebimento de mercadoria do fornecedor.;FUN016
+ME00266;2025-10-26;PROD023;Camiseta Cinza;Saída por venda;-1;86;85;Venda;VEN0190;Baixa de estoque por venda concluída.;FUN034
+ME00267;2025-10-26;PROD037;Calça Bege;Saída por venda;-1;49;48;Venda;VEN0188;Baixa de estoque por venda concluída.;FUN026
+ME00268;2025-10-26;PROD048;Vestido Preto;Saída por venda;-1;43;42;Venda;VEN0189;Baixa de estoque por venda concluída.;FUN039
+ME00269;2025-10-27;PROD014;Camiseta Azul;Entrada por compra;50;18;68;Compra;COMP0037;Recebimento de mercadoria do fornecedor.;FUN015
+ME00270;2025-10-27;PROD046;Vestido Preto;Saída por venda;-2;16;14;Venda;VEN0191;Baixa de estoque por venda concluída.;FUN023
+ME00271;2025-10-27;PROD065;Jaqueta Jeans;Saída por venda;-1;18;17;Venda;VEN0193;Baixa de estoque por venda concluída.;FUN032
+ME00272;2025-10-28;PROD006;Camiseta Branca;Devolução de cliente;2;30;32;Venda;VEN0185;Produto devolvido pelo cliente e reintegrado ao estoque.;FUN013
+ME00273;2025-10-29;PROD026;Calça Jeans Azul;Devolução de cliente;2;34;36;Venda;VEN0192;Produto devolvido pelo cliente e reintegrado ao estoque.;FUN014
+ME00274;2025-10-29;PROD036;Calça Bege;Saída por venda;-2;24;22;Venda;VEN0194;Baixa de estoque por venda concluída.;FUN023
+ME00275;2025-10-29;PROD042;Vestido Floral;Saída por venda;-3;37;34;Venda;VEN0195;Baixa de estoque por venda concluída.;FUN028
+ME00276;2025-10-30;PROD024;Camiseta Cinza;Entrada por compra;120;136;256;Compra;COMP0044;Recebimento de mercadoria do fornecedor.;FUN014
+ME00277;2025-10-30;PROD044;Vestido Floral;Saída por venda;-2;23;21;Venda;VEN0198;Baixa de estoque por venda concluída.;FUN021
+ME00278;2025-10-31;PROD009;Camiseta Branca;Entrada por compra;100;19;119;Compra;COMP0038;Recebimento de mercadoria do fornecedor.;FUN016
+ME00279;2025-10-31;PROD042;Vestido Floral;Entrada por compra;100;34;134;Compra;COMP0040;Recebimento de mercadoria do fornecedor.;FUN013
+ME00280;2025-10-31;PROD045;Vestido Floral;Devolução de cliente;1;110;111;Venda;VEN0179;Produto devolvido pelo cliente e reintegrado ao estoque.;FUN015
+ME00281;2025-10-31;PROD058;Jaqueta Preta;Saída por venda;-1;18;17;Venda;VEN0199;Baixa de estoque por venda concluída.;FUN039
+ME00282;2025-11-01;PROD005;Camiseta Preta;Saída por venda;-1;43;42;Venda;VEN0200;Baixa de estoque por venda concluída.;FUN029
+ME00283;2025-11-01;PROD007;Camiseta Branca;Saída por venda;-1;45;44;Venda;VEN0201;Baixa de estoque por venda concluída.;FUN033
+ME00284;2025-11-01;PROD023;Camiseta Cinza;Saída por venda;-1;85;84;Venda;VEN0202;Baixa de estoque por venda concluída.;FUN027
+ME00285;2025-11-01;PROD023;Camiseta Cinza;Saída por venda;-1;84;83;Venda;VEN0203;Baixa de estoque por venda concluída.;FUN038
+ME00286;2025-11-01;PROD041;Vestido Floral;Devolução de cliente;4;50;54;Venda;VEN0196;Produto devolvido pelo cliente e reintegrado ao estoque.;FUN016
+ME00287;2025-11-01;PROD050;Vestido Preto;Devolução de cliente;2;55;57;Venda;VEN0181;Produto devolvido pelo cliente e reintegrado ao estoque.;FUN016
+ME00288;2025-11-01;PROD054;Vestido Vermelho;Entrada por compra;50;149;199;Compra;COMP0047;Recebimento de mercadoria do fornecedor.;FUN015
+ME00289;2025-11-02;PROD026;Calça Jeans Azul;Saída por venda;-3;36;33;Venda;VEN0210;Baixa de estoque por venda concluída.;FUN038
+ME00290;2025-11-02;PROD031;Calça Jeans Preta;Devolução de cliente;1;54;55;Venda;VEN0187;Produto devolvido pelo cliente e reintegrado ao estoque.;FUN014
+ME00291;2025-11-02;PROD040;Calça Bege;Entrada por compra;120;11;131;Compra;COMP0042;Recebimento de mercadoria do fornecedor.;FUN013
+ME00292;2025-11-02;PROD047;Vestido Preto;Saída por venda;-2;112;110;Venda;VEN0208;Baixa de estoque por venda concluída.;FUN036
+ME00293;2025-11-02;PROD050;Vestido Preto;Saída por venda;-1;57;56;Venda;VEN0206;Baixa de estoque por venda concluída.;FUN029
+ME00294;2025-11-02;PROD076;Bermuda Caqui;Saída por venda;-3;25;22;Venda;VEN0207;Baixa de estoque por venda concluída.;FUN036
+ME00295;2025-11-02;PROD079;Bermuda Caqui;Saída por venda;-1;35;34;Venda;VEN0205;Baixa de estoque por venda concluída.;FUN036
+ME00296;2025-11-03;PROD003;Camiseta Preta;Saída por venda;-2;30;28;Venda;VEN0212;Baixa de estoque por venda concluída.;FUN030
+ME00297;2025-11-03;PROD005;Camiseta Preta;Saída por venda;-1;42;41;Venda;VEN0214;Baixa de estoque por venda concluída.;FUN030
+ME00298;2025-11-03;PROD021;Camiseta Cinza;Saída por venda;-2;19;17;Venda;VEN0213;Baixa de estoque por venda concluída.;FUN036
+ME00299;2025-11-03;PROD038;Calça Bege;Saída por venda;-3;25;22;Venda;VEN0211;Baixa de estoque por venda concluída.;FUN024
+ME00300;2025-11-03;PROD043;Vestido Floral;Devolução de cliente;2;29;31;Venda;VEN0182;Produto devolvido pelo cliente e reintegrado ao estoque.;FUN015
+ME00301;2025-11-04;PROD056;Jaqueta Preta;Entrada por compra;20;38;58;Compra;COMP0050;Recebimento de mercadoria do fornecedor.;FUN015
+ME00302;2025-11-06;PROD008;Camiseta Branca;Saída por venda;-1;115;114;Venda;VEN0219;Baixa de estoque por venda concluída.;FUN030
+ME00303;2025-11-06;PROD013;Camiseta Azul;Entrada por compra;100;114;214;Compra;COMP0043;Recebimento de mercadoria do fornecedor.;FUN013
+ME00304;2025-11-06;PROD020;Camiseta Verde;Saída por venda;-3;40;37;Venda;VEN0217;Baixa de estoque por venda concluída.;FUN025
+ME00305;2025-11-06;PROD024;Camiseta Cinza;Saída por venda;-1;256;255;Venda;VEN0218;Baixa de estoque por venda concluída.;FUN038
+ME00306;2025-11-06;PROD034;Calça Jeans Preta;Saída por venda;-3;119;116;Venda;VEN0216;Baixa de estoque por venda concluída.;FUN032
+ME00307;2025-11-06;PROD039;Calça Bege;Saída por venda;-1;67;66;Venda;VEN0221;Baixa de estoque por venda concluída.;FUN033
+ME00308;2025-11-06;PROD044;Vestido Floral;Devolução de cliente;1;21;22;Venda;VEN0204;Produto devolvido pelo cliente e reintegrado ao estoque.;FUN016
+ME00309;2025-11-06;PROD047;Vestido Preto;Saída por venda;-1;110;109;Venda;VEN0220;Baixa de estoque por venda concluída.;FUN022
+ME00310;2025-11-07;PROD006;Camiseta Branca;Avaria;-2;32;30;Inventário;;Ajuste por perda ou avaria identificada em conferência.;FUN015
+ME00311;2025-11-07;PROD016;Camiseta Verde;Devolução de cliente;3;134;137;Venda;VEN0197;Produto devolvido pelo cliente e reintegrado ao estoque.;FUN013
+ME00312;2025-11-07;PROD026;Calça Jeans Azul;Saída por venda;-2;33;31;Venda;VEN0226;Baixa de estoque por venda concluída.;FUN026
+ME00313;2025-11-07;PROD073;Bermuda Jeans;Saída por venda;-1;81;80;Venda;VEN0223;Baixa de estoque por venda concluída.;FUN029
+ME00314;2025-11-07;PROD073;Bermuda Jeans;Saída por venda;-2;80;78;Venda;VEN0225;Baixa de estoque por venda concluída.;FUN021
+ME00315;2025-11-08;PROD013;Camiseta Azul;Saída por venda;-3;214;211;Venda;VEN0230;Baixa de estoque por venda concluída.;FUN030
+ME00316;2025-11-08;PROD019;Camiseta Verde;Saída por venda;-2;80;78;Venda;VEN0227;Baixa de estoque por venda concluída.;FUN036
+ME00317;2025-11-08;PROD029;Calça Jeans Azul;Saída por venda;-2;45;43;Venda;VEN0228;Baixa de estoque por venda concluída.;FUN026
+ME00318;2025-11-08;PROD032;Calça Jeans Preta;Saída por venda;-2;23;21;Venda;VEN0229;Baixa de estoque por venda concluída.;FUN027
+ME00319;2025-11-08;PROD067;Jaqueta Verde;Entrada por compra;20;20;40;Compra;COMP0045;Recebimento de mercadoria do fornecedor.;FUN014
+ME00320;2025-11-09;PROD002;Camiseta Preta;Saída por venda;-2;46;44;Venda;VEN0233;Baixa de estoque por venda concluída.;FUN022
+ME00321;2025-11-09;PROD003;Camiseta Preta;Entrada por compra;120;28;148;Compra;COMP0048;Recebimento de mercadoria do fornecedor.;FUN013
+ME00322;2025-11-09;PROD021;Camiseta Cinza;Entrada por compra;100;17;117;Compra;COMP0046;Recebimento de mercadoria do fornecedor.;FUN014
+ME00323;2025-11-09;PROD065;Jaqueta Jeans;Saída por venda;-2;17;15;Venda;VEN0232;Baixa de estoque por venda concluída.;FUN027
+ME00324;2025-11-11;PROD014;Camiseta Azul;Saída por venda;-1;68;67;Venda;VEN0237;Baixa de estoque por venda concluída.;FUN033
+ME00325;2025-11-11;PROD028;Calça Jeans Azul;Saída por venda;-1;22;21;Venda;VEN0238;Baixa de estoque por venda concluída.;FUN029
+ME00326;2025-11-11;PROD056;Jaqueta Preta;Entrada por compra;30;58;88;Compra;COMP0055;Recebimento de mercadoria do fornecedor.;FUN016
+ME00327;2025-11-12;PROD015;Camiseta Azul;Saída por venda;-1;218;217;Venda;VEN0240;Baixa de estoque por venda concluída.;FUN028
+ME00328;2025-11-13;PROD028;Calça Jeans Azul;Saída por venda;-1;21;20;Venda;VEN0244;Baixa de estoque por venda concluída.;FUN036
+ME00329;2025-11-13;PROD040;Calça Bege;Saída por venda;-1;131;130;Venda;VEN0242;Baixa de estoque por venda concluída.;FUN025
+ME00330;2025-11-13;PROD048;Vestido Preto;Saída por venda;-2;42;40;Venda;VEN0243;Baixa de estoque por venda concluída.;FUN034
+ME00331;2025-11-13;PROD063;Jaqueta Jeans;Entrada por compra;100;32;132;Compra;COMP0049;Recebimento de mercadoria do fornecedor.;FUN014
+ME00332;2025-11-13;PROD080;Bermuda Caqui;Devolução de cliente;2;26;28;Venda;VEN0235;Produto devolvido pelo cliente e reintegrado ao estoque.;FUN015
+ME00333;2025-11-14;PROD012;Camiseta Azul;Saída por venda;-2;39;37;Venda;VEN0247;Baixa de estoque por venda concluída.;FUN022
+ME00334;2025-11-14;PROD072;Bermuda Jeans;Saída por venda;-1;30;29;Venda;VEN0246;Baixa de estoque por venda concluída.;FUN035
+ME00335;2025-11-14;PROD073;Bermuda Jeans;Entrada por compra;20;78;98;Compra;COMP0053;Recebimento de mercadoria do fornecedor.;FUN016
+ME00336;2025-11-15;PROD014;Camiseta Azul;Saída por venda;-1;67;66;Venda;VEN0251;Baixa de estoque por venda concluída.;FUN032
+ME00337;2025-11-16;PROD003;Camiseta Preta;Saída por venda;-2;148;146;Venda;VEN0255;Baixa de estoque por venda concluída.;FUN024
+ME00338;2025-11-16;PROD017;Camiseta Verde;Saída por venda;-1;63;62;Venda;VEN0259;Baixa de estoque por venda concluída.;FUN029
+ME00339;2025-11-16;PROD019;Camiseta Verde;Saída por venda;-3;78;75;Venda;VEN0258;Baixa de estoque por venda concluída.;FUN037
+ME00340;2025-11-16;PROD021;Camiseta Cinza;Entrada por compra;50;117;167;Compra;COMP0051;Recebimento de mercadoria do fornecedor.;FUN016
+ME00341;2025-11-16;PROD035;Calça Jeans Preta;Saída por venda;-3;183;180;Venda;VEN0252;Baixa de estoque por venda concluída.;FUN026
+ME00342;2025-11-16;PROD037;Calça Bege;Saída por venda;-2;48;46;Venda;VEN0253;Baixa de estoque por venda concluída.;FUN039
+ME00343;2025-11-16;PROD037;Calça Bege;Saída por venda;-1;46;45;Venda;VEN0256;Baixa de estoque por venda concluída.;FUN039
+ME00344;2025-11-16;PROD069;Jaqueta Verde;Saída por venda;-2;18;16;Venda;VEN0257;Baixa de estoque por venda concluída.;FUN023
+ME00345;2025-11-17;PROD007;Camiseta Branca;Devolução de cliente;1;44;45;Venda;VEN0245;Produto devolvido pelo cliente e reintegrado ao estoque.;FUN015
+ME00346;2025-11-17;PROD014;Camiseta Azul;Entrada por compra;50;66;116;Compra;COMP0052;Recebimento de mercadoria do fornecedor.;FUN013
+ME00347;2025-11-17;PROD023;Camiseta Cinza;Devolução de cliente;1;83;84;Venda;VEN0241;Produto devolvido pelo cliente e reintegrado ao estoque.;FUN015
+ME00348;2025-11-17;PROD042;Vestido Floral;Devolução de cliente;2;134;136;Venda;VEN0222;Produto devolvido pelo cliente e reintegrado ao estoque.;FUN013
+ME00349;2025-11-18;PROD003;Camiseta Preta;Devolução de cliente;1;146;147;Venda;VEN0249;Produto devolvido pelo cliente e reintegrado ao estoque.;FUN015
+ME00350;2025-11-18;PROD038;Calça Bege;Saída por venda;-2;22;20;Venda;VEN0262;Baixa de estoque por venda concluída.;FUN031
+ME00351;2025-11-18;PROD063;Jaqueta Jeans;Saída por venda;-1;132;131;Venda;VEN0261;Baixa de estoque por venda concluída.;FUN021
+ME00352;2025-11-19;PROD018;Camiseta Verde;Devolução de cliente;2;41;43;Venda;VEN0236;Produto devolvido pelo cliente e reintegrado ao estoque.;FUN013
+ME00353;2025-11-19;PROD023;Camiseta Cinza;Saída por venda;-2;84;82;Venda;VEN0265;Baixa de estoque por venda concluída.;FUN035
+ME00354;2025-11-19;PROD030;Calça Jeans Azul;Saída por venda;-2;30;28;Venda;VEN0263;Baixa de estoque por venda concluída.;FUN033
+ME00355;2025-11-19;PROD040;Calça Bege;Entrada por compra;30;130;160;Compra;COMP0054;Recebimento de mercadoria do fornecedor.;FUN016
+ME00356;2025-11-20;PROD036;Calça Bege;Devolução de cliente;2;22;24;Venda;VEN0239;Produto devolvido pelo cliente e reintegrado ao estoque.;FUN014
+ME00357;2025-11-20;PROD071;Bermuda Jeans;Saída por venda;-3;22;19;Venda;VEN0269;Baixa de estoque por venda concluída.;FUN032
+ME00358;2025-11-21;PROD003;Camiseta Preta;Devolução de cliente;1;147;148;Venda;VEN0250;Produto devolvido pelo cliente e reintegrado ao estoque.;FUN014
+ME00359;2025-11-21;PROD012;Camiseta Azul;Devolução de cliente;1;37;38;Venda;VEN0266;Produto devolvido pelo cliente e reintegrado ao estoque.;FUN016
+ME00360;2025-11-21;PROD036;Calça Bege;Devolução de cliente;2;24;26;Venda;VEN0248;Produto devolvido pelo cliente e reintegrado ao estoque.;FUN015
+ME00361;2025-11-21;PROD041;Vestido Floral;Saída por venda;-1;54;53;Venda;VEN0270;Baixa de estoque por venda concluída.;FUN023
+ME00362;2025-11-22;PROD002;Camiseta Preta;Saída por venda;-2;44;42;Venda;VEN0273;Baixa de estoque por venda concluída.;FUN032
+ME00363;2025-11-22;PROD010;Camiseta Branca;Saída por venda;-2;203;201;Venda;VEN0272;Baixa de estoque por venda concluída.;FUN030
+ME00364;2025-11-22;PROD028;Calça Jeans Azul;Saída por venda;-2;20;18;Venda;VEN0277;Baixa de estoque por venda concluída.;FUN037
+ME00365;2025-11-22;PROD050;Vestido Preto;Saída por venda;-1;56;55;Venda;VEN0276;Baixa de estoque por venda concluída.;FUN036
+ME00366;2025-11-22;PROD080;Bermuda Caqui;Saída por venda;-1;28;27;Venda;VEN0274;Baixa de estoque por venda concluída.;FUN029
+ME00367;2025-11-23;PROD037;Calça Bege;Saída por venda;-1;45;44;Venda;VEN0280;Baixa de estoque por venda concluída.;FUN030
+ME00368;2025-11-24;PROD002;Camiseta Preta;Saída por venda;-2;42;40;Venda;VEN0281;Baixa de estoque por venda concluída.;FUN034
+ME00369;2025-11-24;PROD041;Vestido Floral;Saída por venda;-2;53;51;Venda;VEN0282;Baixa de estoque por venda concluída.;FUN025
+ME00370;2025-11-24;PROD059;Jaqueta Preta;Saída por venda;-1;41;40;Venda;VEN0284;Baixa de estoque por venda concluída.;FUN039
+ME00371;2025-11-25;PROD003;Camiseta Preta;Saída por venda;-2;148;146;Venda;VEN0287;Baixa de estoque por venda concluída.;FUN031
+ME00372;2025-11-26;PROD006;Camiseta Branca;Entrada por compra;100;30;130;Compra;COMP0058;Recebimento de mercadoria do fornecedor.;FUN013
+ME00373;2025-11-26;PROD008;Camiseta Branca;Saída por venda;-1;114;113;Venda;VEN0288;Baixa de estoque por venda concluída.;FUN027
+ME00374;2025-11-27;PROD021;Camiseta Cinza;Saída por venda;-1;167;166;Venda;VEN0292;Baixa de estoque por venda concluída.;FUN036
+ME00375;2025-11-27;PROD038;Calça Bege;Saída por venda;-2;20;18;Venda;VEN0289;Baixa de estoque por venda concluída.;FUN038
+ME00376;2025-11-27;PROD057;Jaqueta Preta;Saída por venda;-1;18;17;Venda;VEN0291;Baixa de estoque por venda concluída.;FUN023
+ME00377;2025-11-28;PROD006;Camiseta Branca;Entrada por compra;20;130;150;Compra;COMP0059;Recebimento de mercadoria do fornecedor.;FUN016
+ME00378;2025-11-29;PROD022;Camiseta Cinza;Entrada por compra;40;23;63;Compra;COMP0060;Recebimento de mercadoria do fornecedor.;FUN016
+ME00379;2025-11-29;PROD028;Calça Jeans Azul;Entrada por compra;120;18;138;Compra;COMP0056;Recebimento de mercadoria do fornecedor.;FUN015
+ME00380;2025-11-29;PROD048;Vestido Preto;Saída por venda;-2;40;38;Venda;VEN0296;Baixa de estoque por venda concluída.;FUN023
+ME00381;2025-11-29;PROD077;Bermuda Caqui;Saída por venda;-1;50;49;Venda;VEN0295;Baixa de estoque por venda concluída.;FUN021
+ME00382;2025-11-30;PROD004;Camiseta Preta;Saída por venda;-1;14;13;Venda;VEN0297;Baixa de estoque por venda concluída.;FUN037
+ME00383;2025-11-30;PROD014;Camiseta Azul;Devolução de cliente;2;116;118;Venda;VEN0267;Produto devolvido pelo cliente e reintegrado ao estoque.;FUN013
+ME00384;2025-11-30;PROD036;Calça Bege;Devolução de cliente;1;26;27;Venda;VEN0286;Produto devolvido pelo cliente e reintegrado ao estoque.;FUN014
+ME00385;2025-11-30;PROD036;Calça Bege;Devolução de cliente;2;27;29;Venda;VEN0294;Produto devolvido pelo cliente e reintegrado ao estoque.;FUN014
+ME00386;2025-12-01;PROD005;Camiseta Preta;Saída por venda;-1;41;40;Venda;VEN0300;Baixa de estoque por venda concluída.;FUN036
+ME00387;2025-12-01;PROD024;Camiseta Cinza;Devolução de cliente;1;255;256;Venda;VEN0278;Produto devolvido pelo cliente e reintegrado ao estoque.;FUN013
+ME00388;2025-12-01;PROD075;Bermuda Jeans;Saída por venda;-1;202;201;Venda;VEN0301;Baixa de estoque por venda concluída.;FUN035
+ME00389;2025-12-02;PROD001;Camiseta Preta;Devolução de cliente;2;115;117;Venda;VEN0279;Produto devolvido pelo cliente e reintegrado ao estoque.;FUN016
+ME00390;2025-12-02;PROD005;Camiseta Preta;Saída por venda;-1;40;39;Venda;VEN0307;Baixa de estoque por venda concluída.;FUN035
+ME00391;2025-12-02;PROD018;Camiseta Verde;Saída por venda;-1;43;42;Venda;VEN0304;Baixa de estoque por venda concluída.;FUN033
+ME00392;2025-12-02;PROD030;Calça Jeans Azul;Saída por venda;-1;28;27;Venda;VEN0306;Baixa de estoque por venda concluída.;FUN021
+ME00393;2025-12-02;PROD056;Jaqueta Preta;Saída por venda;-1;88;87;Venda;VEN0302;Baixa de estoque por venda concluída.;FUN033
+ME00394;2025-12-02;PROD079;Bermuda Caqui;Saída por venda;-1;34;33;Venda;VEN0303;Baixa de estoque por venda concluída.;FUN031
+ME00395;2025-12-03;PROD052;Vestido Vermelho;Saída por venda;-1;19;18;Venda;VEN0308;Baixa de estoque por venda concluída.;FUN024
+ME00396;2025-12-03;PROD060;Jaqueta Preta;Saída por venda;-2;52;50;Venda;VEN0309;Baixa de estoque por venda concluída.;FUN039
+ME00397;2025-12-03;PROD077;Bermuda Caqui;Devolução de cliente;1;49;50;Venda;VEN0293;Produto devolvido pelo cliente e reintegrado ao estoque.;FUN015
+ME00398;2025-12-04;PROD019;Camiseta Verde;Saída por venda;-3;75;72;Venda;VEN0313;Baixa de estoque por venda concluída.;FUN026
+ME00399;2025-12-04;PROD027;Calça Jeans Azul;Devolução de cliente;2;26;28;Venda;VEN0290;Produto devolvido pelo cliente e reintegrado ao estoque.;FUN015
+ME00400;2025-12-04;PROD045;Vestido Floral;Saída por venda;-2;111;109;Venda;VEN0311;Baixa de estoque por venda concluída.;FUN034
+ME00401;2025-12-04;PROD060;Jaqueta Preta;Saída por venda;-1;50;49;Venda;VEN0310;Baixa de estoque por venda concluída.;FUN032
+ME00402;2025-12-04;PROD063;Jaqueta Jeans;Entrada por compra;100;131;231;Compra;COMP0057;Recebimento de mercadoria do fornecedor.;FUN013
+ME00403;2025-12-05;PROD008;Camiseta Branca;Saída por venda;-2;113;111;Venda;VEN0316;Baixa de estoque por venda concluída.;FUN038
+ME00404;2025-12-05;PROD024;Camiseta Cinza;Saída por venda;-2;256;254;Venda;VEN0318;Baixa de estoque por venda concluída.;FUN036
+ME00405;2025-12-05;PROD030;Calça Jeans Azul;Saída por venda;-2;27;25;Venda;VEN0317;Baixa de estoque por venda concluída.;FUN022
+ME00406;2025-12-06;PROD015;Camiseta Azul;Saída por venda;-1;217;216;Venda;VEN0322;Baixa de estoque por venda concluída.;FUN031
+ME00407;2025-12-06;PROD020;Camiseta Verde;Saída por venda;-2;37;35;Venda;VEN0323;Baixa de estoque por venda concluída.;FUN030
+ME00408;2025-12-06;PROD028;Calça Jeans Azul;Saída por venda;-2;138;136;Venda;VEN0321;Baixa de estoque por venda concluída.;FUN030
+ME00409;2025-12-06;PROD061;Jaqueta Jeans;Saída por venda;-2;94;92;Venda;VEN0319;Baixa de estoque por venda concluída.;FUN023
+ME00410;2025-12-07;PROD011;Camiseta Azul;Saída por venda;-1;69;68;Venda;VEN0324;Baixa de estoque por venda concluída.;FUN024
+ME00411;2025-12-07;PROD017;Camiseta Verde;Saída por venda;-1;62;61;Venda;VEN0327;Baixa de estoque por venda concluída.;FUN037
+ME00412;2025-12-07;PROD030;Calça Jeans Azul;Entrada por compra;50;25;75;Compra;COMP0062;Recebimento de mercadoria do fornecedor.;FUN013
+ME00413;2025-12-07;PROD054;Vestido Vermelho;Saída por venda;-3;199;196;Venda;VEN0326;Baixa de estoque por venda concluída.;FUN026
+ME00414;2025-12-08;PROD027;Calça Jeans Azul;Saída por venda;-2;28;26;Venda;VEN0331;Baixa de estoque por venda concluída.;FUN028
+ME00415;2025-12-09;PROD030;Calça Jeans Azul;Entrada por compra;30;75;105;Compra;COMP0063;Recebimento de mercadoria do fornecedor.;FUN013
+ME00416;2025-12-09;PROD043;Vestido Floral;Saída por venda;-1;31;30;Venda;VEN0335;Baixa de estoque por venda concluída.;FUN034
+ME00417;2025-12-09;PROD071;Bermuda Jeans;Saída por venda;-2;19;17;Venda;VEN0336;Baixa de estoque por venda concluída.;FUN037
+ME00418;2025-12-09;PROD078;Bermuda Caqui;Devolução de cliente;3;86;89;Venda;VEN0325;Produto devolvido pelo cliente e reintegrado ao estoque.;FUN014
+ME00419;2025-12-10;PROD023;Camiseta Cinza;Saída por venda;-1;82;81;Venda;VEN0337;Baixa de estoque por venda concluída.;FUN037
+ME00420;2025-12-10;PROD064;Jaqueta Jeans;Devolução de cliente;2;49;51;Venda;VEN0298;Produto devolvido pelo cliente e reintegrado ao estoque.;FUN016
+ME00421;2025-12-11;PROD038;Calça Bege;Saída por venda;-1;18;17;Venda;VEN0338;Baixa de estoque por venda concluída.;FUN030
+ME00422;2025-12-11;PROD067;Jaqueta Verde;Entrada por compra;120;40;160;Compra;COMP0061;Recebimento de mercadoria do fornecedor.;FUN015
+ME00423;2025-12-12;PROD038;Calça Bege;Saída por venda;-1;17;16;Venda;VEN0346;Baixa de estoque por venda concluída.;FUN024
+ME00424;2025-12-12;PROD040;Calça Bege;Saída por venda;-2;160;158;Venda;VEN0343;Baixa de estoque por venda concluída.;FUN029
+ME00425;2025-12-13;PROD017;Camiseta Verde;Saída por venda;-3;61;58;Venda;VEN0348;Baixa de estoque por venda concluída.;FUN025
+ME00426;2025-12-13;PROD053;Vestido Vermelho;Saída por venda;-1;111;110;Venda;VEN0347;Baixa de estoque por venda concluída.;FUN024
+ME00427;2025-12-14;PROD014;Camiseta Azul;Saída por venda;-1;118;117;Venda;VEN0353;Baixa de estoque por venda concluída.;FUN028
+ME00428;2025-12-14;PROD024;Camiseta Cinza;Devolução de cliente;1;254;255;Venda;VEN0342;Produto devolvido pelo cliente e reintegrado ao estoque.;FUN015
+ME00429;2025-12-14;PROD026;Calça Jeans Azul;Devolução de cliente;1;31;32;Venda;VEN0328;Produto devolvido pelo cliente e reintegrado ao estoque.;FUN014
+ME00430;2025-12-14;PROD027;Calça Jeans Azul;Saída por venda;-3;26;23;Venda;VEN0355;Baixa de estoque por venda concluída.;FUN037
+ME00431;2025-12-14;PROD033;Calça Jeans Preta;Saída por venda;-1;66;65;Venda;VEN0354;Baixa de estoque por venda concluída.;FUN021
+ME00432;2025-12-14;PROD050;Vestido Preto;Saída por venda;-2;55;53;Venda;VEN0357;Baixa de estoque por venda concluída.;FUN031
+ME00433;2025-12-14;PROD055;Vestido Vermelho;Saída por venda;-1;150;149;Venda;VEN0358;Baixa de estoque por venda concluída.;FUN022
+ME00434;2025-12-14;PROD062;Jaqueta Jeans;Devolução de cliente;1;66;67;Venda;VEN0314;Produto devolvido pelo cliente e reintegrado ao estoque.;FUN016
+ME00435;2025-12-14;PROD072;Bermuda Jeans;Devolução de cliente;1;29;30;Venda;VEN0333;Produto devolvido pelo cliente e reintegrado ao estoque.;FUN014
+ME00436;2025-12-14;PROD076;Bermuda Caqui;Saída por venda;-2;22;20;Venda;VEN0352;Baixa de estoque por venda concluída.;FUN033
+ME00437;2025-12-15;PROD043;Vestido Floral;Saída por venda;-1;30;29;Venda;VEN0360;Baixa de estoque por venda concluída.;FUN025
+ME00438;2025-12-15;PROD065;Jaqueta Jeans;Saída por venda;-1;15;14;Venda;VEN0361;Baixa de estoque por venda concluída.;FUN022
+ME00439;2025-12-15;PROD073;Bermuda Jeans;Devolução de cliente;1;98;99;Venda;VEN0349;Produto devolvido pelo cliente e reintegrado ao estoque.;FUN015
+ME00440;2025-12-16;PROD009;Camiseta Branca;Devolução de cliente;1;119;120;Venda;VEN0356;Produto devolvido pelo cliente e reintegrado ao estoque.;FUN014
+ME00441;2025-12-16;PROD009;Camiseta Branca;Saída por venda;-2;120;118;Venda;VEN0364;Baixa de estoque por venda concluída.;FUN030
+ME00442;2025-12-16;PROD020;Camiseta Verde;Saída por venda;-1;35;34;Venda;VEN0363;Baixa de estoque por venda concluída.;FUN023
+ME00443;2025-12-16;PROD064;Jaqueta Jeans;Saída por venda;-1;51;50;Venda;VEN0362;Baixa de estoque por venda concluída.;FUN039
+ME00444;2025-12-17;PROD007;Camiseta Branca;Saída por venda;-1;45;44;Venda;VEN0365;Baixa de estoque por venda concluída.;FUN039
+ME00445;2025-12-17;PROD024;Camiseta Cinza;Devolução de cliente;3;255;258;Venda;VEN0334;Produto devolvido pelo cliente e reintegrado ao estoque.;FUN013
+ME00446;2025-12-17;PROD045;Vestido Floral;Devolução de cliente;2;109;111;Venda;VEN0329;Produto devolvido pelo cliente e reintegrado ao estoque.;FUN014
+ME00447;2025-12-17;PROD063;Jaqueta Jeans;Entrada por compra;20;231;251;Compra;COMP0064;Recebimento de mercadoria do fornecedor.;FUN014
+ME00448;2025-12-18;PROD007;Camiseta Branca;Perda;-3;44;41;Inventário;;Ajuste por perda ou avaria identificada em conferência.;FUN015
+ME00449;2025-12-18;PROD018;Camiseta Verde;Saída por venda;-2;42;40;Venda;VEN0369;Baixa de estoque por venda concluída.;FUN036
+ME00450;2025-12-18;PROD026;Calça Jeans Azul;Saída por venda;-2;32;30;Venda;VEN0366;Baixa de estoque por venda concluída.;FUN028
+ME00451;2025-12-18;PROD033;Calça Jeans Preta;Entrada por compra;100;65;165;Compra;COMP0065;Recebimento de mercadoria do fornecedor.;FUN015
+ME00452;2025-12-18;PROD044;Vestido Floral;Saída por venda;-1;22;21;Venda;VEN0370;Baixa de estoque por venda concluída.;FUN028
+ME00453;2025-12-19;PROD006;Camiseta Branca;Saída por venda;-1;150;149;Venda;VEN0372;Baixa de estoque por venda concluída.;FUN039
+ME00454;2025-12-19;PROD016;Camiseta Verde;Saída por venda;-1;137;136;Venda;VEN0375;Baixa de estoque por venda concluída.;FUN035
+ME00455;2025-12-19;PROD022;Camiseta Cinza;Entrada por compra;120;63;183;Compra;COMP0071;Recebimento de mercadoria do fornecedor.;FUN015
+ME00456;2025-12-20;PROD001;Camiseta Preta;Saída por venda;-1;117;116;Venda;VEN0379;Baixa de estoque por venda concluída.;FUN024
+ME00457;2025-12-20;PROD004;Camiseta Preta;Saída por venda;-3;13;10;Venda;VEN0377;Baixa de estoque por venda concluída.;FUN022
+ME00458;2025-12-20;PROD028;Calça Jeans Azul;Saída por venda;-1;136;135;Venda;VEN0378;Baixa de estoque por venda concluída.;FUN022
+ME00459;2025-12-21;PROD002;Camiseta Preta;Saída por venda;-3;40;37;Venda;VEN0383;Baixa de estoque por venda concluída.;FUN022
+ME00460;2025-12-21;PROD019;Camiseta Verde;Entrada por compra;40;72;112;Compra;COMP0066;Recebimento de mercadoria do fornecedor.;FUN014
+ME00461;2025-12-21;PROD022;Camiseta Cinza;Entrada por compra;120;183;303;Compra;COMP0073;Recebimento de mercadoria do fornecedor.;FUN016
+ME00462;2025-12-21;PROD030;Calça Jeans Azul;Saída por venda;-1;105;104;Venda;VEN0384;Baixa de estoque por venda concluída.;FUN022
+ME00463;2025-12-21;PROD034;Calça Jeans Preta;Saída por venda;-1;116;115;Venda;VEN0387;Baixa de estoque por venda concluída.;FUN023
+ME00464;2025-12-21;PROD074;Bermuda Jeans;Saída por venda;-1;78;77;Venda;VEN0382;Baixa de estoque por venda concluída.;FUN024
+ME00465;2025-12-21;PROD076;Bermuda Caqui;Saída por venda;-2;20;18;Venda;VEN0386;Baixa de estoque por venda concluída.;FUN029
+ME00466;2025-12-22;PROD037;Calça Bege;Saída por venda;-1;44;43;Venda;VEN0388;Baixa de estoque por venda concluída.;FUN027
+ME00467;2025-12-22;PROD037;Calça Bege;Saída por venda;-1;43;42;Venda;VEN0390;Baixa de estoque por venda concluída.;FUN039
+ME00468;2025-12-22;PROD046;Vestido Preto;Saída por venda;-1;14;13;Venda;VEN0389;Baixa de estoque por venda concluída.;FUN028
+ME00469;2025-12-22;PROD048;Vestido Preto;Saída por venda;-2;38;36;Venda;VEN0391;Baixa de estoque por venda concluída.;FUN022
+ME00470;2025-12-22;PROD080;Bermuda Caqui;Devolução de cliente;1;27;28;Venda;VEN0345;Produto devolvido pelo cliente e reintegrado ao estoque.;FUN015
+ME00471;2025-12-23;PROD001;Camiseta Preta;Perda;-3;116;113;Inventário;;Ajuste por perda ou avaria identificada em conferência.;FUN015
+ME00472;2025-12-23;PROD014;Camiseta Azul;Devolução de cliente;4;117;121;Venda;VEN0373;Produto devolvido pelo cliente e reintegrado ao estoque.;FUN016
+ME00473;2025-12-23;PROD014;Camiseta Azul;Entrada por compra;20;121;141;Compra;COMP0067;Recebimento de mercadoria do fornecedor.;FUN015
+ME00474;2025-12-23;PROD027;Calça Jeans Azul;Saída por venda;-3;23;20;Venda;VEN0396;Baixa de estoque por venda concluída.;FUN023
+ME00475;2025-12-23;PROD037;Calça Bege;Saída por venda;-2;42;40;Venda;VEN0397;Baixa de estoque por venda concluída.;FUN039
+ME00476;2025-12-23;PROD065;Jaqueta Jeans;Saída por venda;-2;14;12;Venda;VEN0395;Baixa de estoque por venda concluída.;FUN027
+ME00477;2025-12-24;PROD003;Camiseta Preta;Entrada por compra;80;146;226;Compra;COMP0068;Recebimento de mercadoria do fornecedor.;FUN014
+ME00478;2025-12-24;PROD013;Camiseta Azul;Devolução de cliente;1;211;212;Venda;VEN0381;Produto devolvido pelo cliente e reintegrado ao estoque.;FUN013
+ME00479;2025-12-24;PROD035;Calça Jeans Preta;Devolução de cliente;1;180;181;Venda;VEN0371;Produto devolvido pelo cliente e reintegrado ao estoque.;FUN013
+ME00480;2025-12-24;PROD080;Bermuda Caqui;Devolução de cliente;2;28;30;Venda;VEN0368;Produto devolvido pelo cliente e reintegrado ao estoque.;FUN014
+ME00481;2025-12-25;PROD022;Camiseta Cinza;Entrada por compra;60;303;363;Compra;COMP0076;Recebimento de mercadoria do fornecedor.;FUN016
+ME00482;2025-12-25;PROD024;Camiseta Cinza;Saída por venda;-1;258;257;Venda;VEN0406;Baixa de estoque por venda concluída.;FUN024
+ME00483;2025-12-25;PROD028;Calça Jeans Azul;Saída por venda;-1;135;134;Venda;VEN0408;Baixa de estoque por venda concluída.;FUN031
+ME00484;2025-12-25;PROD043;Vestido Floral;Devolução de cliente;1;29;30;Venda;VEN0374;Produto devolvido pelo cliente e reintegrado ao estoque.;FUN015
+ME00485;2025-12-25;PROD047;Vestido Preto;Entrada por compra;20;109;129;Compra;COMP0077;Recebimento de mercadoria do fornecedor.;FUN013
+ME00486;2025-12-25;PROD066;Jaqueta Verde;Saída por venda;-1;177;176;Venda;VEN0405;Baixa de estoque por venda concluída.;FUN029
+ME00487;2025-12-25;PROD066;Jaqueta Verde;Saída por venda;-1;176;175;Venda;VEN0409;Baixa de estoque por venda concluída.;FUN024
+ME00488;2025-12-25;PROD077;Bermuda Caqui;Saída por venda;-2;50;48;Venda;VEN0404;Baixa de estoque por venda concluída.;FUN023
+ME00489;2025-12-26;PROD004;Camiseta Preta;Devolução de cliente;1;10;11;Venda;VEN0385;Produto devolvido pelo cliente e reintegrado ao estoque.;FUN013
+ME00490;2025-12-26;PROD006;Camiseta Branca;Entrada por compra;20;149;169;Compra;COMP0072;Recebimento de mercadoria do fornecedor.;FUN016
+ME00491;2025-12-26;PROD022;Camiseta Cinza;Saída por venda;-1;363;362;Venda;VEN0411;Baixa de estoque por venda concluída.;FUN036
+ME00492;2025-12-26;PROD046;Vestido Preto;Saída por venda;-1;13;12;Venda;VEN0410;Baixa de estoque por venda concluída.;FUN022
+ME00493;2025-12-26;PROD062;Jaqueta Jeans;Devolução de cliente;2;67;69;Venda;VEN0402;Produto devolvido pelo cliente e reintegrado ao estoque.;FUN014
+ME00494;2025-12-26;PROD078;Bermuda Caqui;Saída por venda;-3;89;86;Venda;VEN0413;Baixa de estoque por venda concluída.;FUN031
+ME00495;2025-12-27;PROD008;Camiseta Branca;Saída por venda;-1;111;110;Venda;VEN0415;Baixa de estoque por venda concluída.;FUN027
+ME00496;2025-12-27;PROD038;Calça Bege;Devolução de cliente;1;16;17;Venda;VEN0401;Produto devolvido pelo cliente e reintegrado ao estoque.;FUN013
+ME00497;2025-12-27;PROD053;Vestido Vermelho;Saída por venda;-1;110;109;Venda;VEN0416;Baixa de estoque por venda concluída.;FUN037
+ME00498;2025-12-27;PROD071;Bermuda Jeans;Entrada por compra;100;17;117;Compra;COMP0069;Recebimento de mercadoria do fornecedor.;FUN014
+ME00499;2025-12-28;PROD002;Camiseta Preta;Saída por venda;-1;37;36;Venda;VEN0425;Baixa de estoque por venda concluída.;FUN038
+ME00500;2025-12-28;PROD007;Camiseta Branca;Saída por venda;-1;41;40;Venda;VEN0420;Baixa de estoque por venda concluída.;FUN028
+ME00501;2025-12-28;PROD018;Camiseta Verde;Devolução de cliente;3;40;43;Venda;VEN0376;Produto devolvido pelo cliente e reintegrado ao estoque.;FUN015
+ME00502;2025-12-28;PROD019;Camiseta Verde;Saída por venda;-1;112;111;Venda;VEN0423;Baixa de estoque por venda concluída.;FUN021
+ME00503;2025-12-28;PROD021;Camiseta Cinza;Saída por venda;-3;166;163;Venda;VEN0422;Baixa de estoque por venda concluída.;FUN021
+ME00504;2025-12-28;PROD023;Camiseta Cinza;Saída por venda;-3;81;78;Venda;VEN0426;Baixa de estoque por venda concluída.;FUN030
+ME00505;2025-12-28;PROD026;Calça Jeans Azul;Saída por venda;-1;30;29;Venda;VEN0424;Baixa de estoque por venda concluída.;FUN039
+ME00506;2025-12-28;PROD060;Jaqueta Preta;Entrada por compra;80;49;129;Compra;COMP0070;Recebimento de mercadoria do fornecedor.;FUN014
+ME00507;2025-12-29;PROD007;Camiseta Branca;Saída por venda;-1;40;39;Venda;VEN0428;Baixa de estoque por venda concluída.;FUN036
+ME00508;2025-12-29;PROD014;Camiseta Azul;Saída por venda;-2;141;139;Venda;VEN0430;Baixa de estoque por venda concluída.;FUN029
+ME00509;2025-12-29;PROD028;Calça Jeans Azul;Saída por venda;-1;134;133;Venda;VEN0427;Baixa de estoque por venda concluída.;FUN034
+ME00510;2025-12-29;PROD038;Calça Bege;Devolução de cliente;1;17;18;Venda;VEN0380;Produto devolvido pelo cliente e reintegrado ao estoque.;FUN016
+ME00511;2025-12-29;PROD041;Vestido Floral;Saída por venda;-1;51;50;Venda;VEN0429;Baixa de estoque por venda concluída.;FUN030
+ME00512;2025-12-29;PROD056;Jaqueta Preta;Entrada por compra;30;87;117;Compra;COMP0079;Recebimento de mercadoria do fornecedor.;FUN016
+ME00513;2025-12-30;PROD005;Camiseta Preta;Saída por venda;-2;39;37;Venda;VEN0434;Baixa de estoque por venda concluída.;FUN021
+ME00514;2025-12-30;PROD021;Camiseta Cinza;Saída por venda;-1;163;162;Venda;VEN0431;Baixa de estoque por venda concluída.;FUN022
+ME00515;2025-12-30;PROD027;Calça Jeans Azul;Saída por venda;-3;20;17;Venda;VEN0433;Baixa de estoque por venda concluída.;FUN027
+ME00516;2025-12-30;PROD058;Jaqueta Preta;Entrada por compra;50;17;67;Compra;COMP0075;Recebimento de mercadoria do fornecedor.;FUN013
+ME00517;2025-12-30;PROD078;Bermuda Caqui;Saída por venda;-1;86;85;Venda;VEN0432;Baixa de estoque por venda concluída.;FUN025
+ME00518;2025-12-31;PROD002;Camiseta Preta;Saída por venda;-1;36;35;Venda;VEN0436;Baixa de estoque por venda concluída.;FUN034
+ME00519;2025-12-31;PROD020;Camiseta Verde;Saída por venda;-1;34;33;Venda;VEN0437;Baixa de estoque por venda concluída.;FUN039
+ME00520;2025-12-31;PROD027;Calça Jeans Azul;Entrada por compra;40;17;57;Compra;COMP0074;Recebimento de mercadoria do fornecedor.;FUN015
+ME00521;2025-12-31;PROD041;Vestido Floral;Saída por venda;-2;50;48;Venda;VEN0439;Baixa de estoque por venda concluída.;FUN025
+ME00522;2025-12-31;PROD046;Vestido Preto;Saída por venda;-1;12;11;Venda;VEN0438;Baixa de estoque por venda concluída.;FUN035
+ME00523;2025-12-31;PROD072;Bermuda Jeans;Devolução de cliente;1;30;31;Venda;VEN0418;Produto devolvido pelo cliente e reintegrado ao estoque.;FUN015
+ME00524;2026-01-01;PROD033;Calça Jeans Preta;Devolução de cliente;1;165;166;Venda;VEN0392;Produto devolvido pelo cliente e reintegrado ao estoque.;FUN016
+ME00525;2026-01-01;PROD052;Vestido Vermelho;Saída por venda;-1;18;17;Venda;VEN0445;Baixa de estoque por venda concluída.;FUN028
+ME00526;2026-01-01;PROD073;Bermuda Jeans;Saída por venda;-1;99;98;Venda;VEN0443;Baixa de estoque por venda concluída.;FUN035
+ME00527;2026-01-02;PROD076;Bermuda Caqui;Devolução de cliente;2;18;20;Venda;VEN0399;Produto devolvido pelo cliente e reintegrado ao estoque.;FUN014
+ME00528;2026-01-05;PROD018;Camiseta Verde;Saída por venda;-1;43;42;Venda;VEN0448;Baixa de estoque por venda concluída.;FUN023
+ME00529;2026-01-05;PROD020;Camiseta Verde;Saída por venda;-2;33;31;Venda;VEN0450;Baixa de estoque por venda concluída.;FUN032
+ME00530;2026-01-05;PROD072;Bermuda Jeans;Devolução de cliente;2;31;33;Venda;VEN0419;Produto devolvido pelo cliente e reintegrado ao estoque.;FUN016
+ME00531;2026-01-05;PROD076;Bermuda Caqui;Devolução de cliente;2;20;22;Venda;VEN0435;Produto devolvido pelo cliente e reintegrado ao estoque.;FUN015
+ME00532;2026-01-06;PROD004;Camiseta Preta;Saída por venda;-1;11;10;Venda;VEN0455;Baixa de estoque por venda concluída.;FUN022
+ME00533;2026-01-06;PROD007;Camiseta Branca;Saída por venda;-2;39;37;Venda;VEN0451;Baixa de estoque por venda concluída.;FUN025
+ME00534;2026-01-06;PROD051;Vestido Vermelho;Entrada por compra;80;11;91;Compra;COMP0080;Recebimento de mercadoria do fornecedor.;FUN013
+ME00535;2026-01-06;PROD060;Jaqueta Preta;Saída por venda;-2;129;127;Venda;VEN0453;Baixa de estoque por venda concluída.;FUN027
+ME00536;2026-01-06;PROD077;Bermuda Caqui;Saída por venda;-2;48;46;Venda;VEN0454;Baixa de estoque por venda concluída.;FUN033
+ME00537;2026-01-08;PROD003;Camiseta Preta;Saída por venda;-1;226;225;Venda;VEN0460;Baixa de estoque por venda concluída.;FUN036
+ME00538;2026-01-08;PROD008;Camiseta Branca;Avaria;-1;110;109;Inventário;;Ajuste por perda ou avaria identificada em conferência.;FUN014
+ME00539;2026-01-08;PROD029;Calça Jeans Azul;Saída por venda;-2;43;41;Venda;VEN0459;Baixa de estoque por venda concluída.;FUN024
+ME00540;2026-01-08;PROD052;Vestido Vermelho;Devolução de cliente;1;17;18;Venda;VEN0449;Produto devolvido pelo cliente e reintegrado ao estoque.;FUN015
+ME00541;2026-01-08;PROD067;Jaqueta Verde;Saída por venda;-1;160;159;Venda;VEN0461;Baixa de estoque por venda concluída.;FUN038
+ME00542;2026-01-09;PROD053;Vestido Vermelho;Saída por venda;-1;109;108;Venda;VEN0464;Baixa de estoque por venda concluída.;FUN030
+ME00543;2026-01-09;PROD058;Jaqueta Preta;Devolução de cliente;1;67;68;Venda;VEN0442;Produto devolvido pelo cliente e reintegrado ao estoque.;FUN016
+ME00544;2026-01-09;PROD066;Jaqueta Verde;Saída por venda;-1;175;174;Venda;VEN0462;Baixa de estoque por venda concluída.;FUN022
+ME00545;2026-01-10;PROD005;Camiseta Preta;Saída por venda;-3;37;34;Venda;VEN0470;Baixa de estoque por venda concluída.;FUN035
+ME00546;2026-01-10;PROD013;Camiseta Azul;Saída por venda;-1;212;211;Venda;VEN0469;Baixa de estoque por venda concluída.;FUN024
+ME00547;2026-01-10;PROD020;Camiseta Verde;Saída por venda;-1;31;30;Venda;VEN0467;Baixa de estoque por venda concluída.;FUN038
+ME00548;2026-01-10;PROD031;Calça Jeans Preta;Entrada por compra;120;55;175;Compra;COMP0078;Recebimento de mercadoria do fornecedor.;FUN016
+ME00549;2026-01-10;PROD050;Vestido Preto;Saída por venda;-2;53;51;Venda;VEN0468;Baixa de estoque por venda concluída.;FUN024
+ME00550;2026-01-10;PROD066;Jaqueta Verde;Devolução de cliente;1;174;175;Venda;VEN0440;Produto devolvido pelo cliente e reintegrado ao estoque.;FUN014
+ME00551;2026-01-11;PROD001;Camiseta Preta;Saída por venda;-1;113;112;Venda;VEN0473;Baixa de estoque por venda concluída.;FUN029
+ME00552;2026-01-11;PROD005;Camiseta Preta;Saída por venda;-2;34;32;Venda;VEN0474;Baixa de estoque por venda concluída.;FUN039
+ME00553;2026-01-11;PROD033;Calça Jeans Preta;Devolução de cliente;4;166;170;Venda;VEN0446;Produto devolvido pelo cliente e reintegrado ao estoque.;FUN013
+ME00554;2026-01-11;PROD033;Calça Jeans Preta;Devolução de cliente;1;170;171;Venda;VEN0457;Produto devolvido pelo cliente e reintegrado ao estoque.;FUN016
+ME00555;2026-01-12;PROD029;Calça Jeans Azul;Devolução de cliente;2;41;43;Venda;VEN0466;Produto devolvido pelo cliente e reintegrado ao estoque.;FUN013
+ME00556;2026-01-12;PROD050;Vestido Preto;Saída por venda;-1;51;50;Venda;VEN0475;Baixa de estoque por venda concluída.;FUN033
+ME00557;2026-01-12;PROD058;Jaqueta Preta;Devolução de cliente;1;68;69;Venda;VEN0458;Produto devolvido pelo cliente e reintegrado ao estoque.;FUN015
+ME00558;2026-01-12;PROD073;Bermuda Jeans;Saída por venda;-2;98;96;Venda;VEN0477;Baixa de estoque por venda concluída.;FUN039
+ME00559;2026-01-14;PROD037;Calça Bege;Saída por venda;-1;40;39;Venda;VEN0478;Baixa de estoque por venda concluída.;FUN030
+ME00560;2026-01-15;PROD063;Jaqueta Jeans;Entrada por compra;30;251;281;Compra;COMP0081;Recebimento de mercadoria do fornecedor.;FUN016
+ME00561;2026-01-16;PROD024;Camiseta Cinza;Devolução de cliente;4;257;261;Venda;VEN0456;Produto devolvido pelo cliente e reintegrado ao estoque.;FUN013
+ME00562;2026-01-16;PROD071;Bermuda Jeans;Saída por venda;-2;117;115;Venda;VEN0481;Baixa de estoque por venda concluída.;FUN036
+ME00563;2026-01-18;PROD046;Vestido Preto;Saída por venda;-1;11;10;Venda;VEN0482;Baixa de estoque por venda concluída.;FUN035
+ME00564;2026-01-19;PROD013;Camiseta Azul;Saída por venda;-1;211;210;Venda;VEN0485;Baixa de estoque por venda concluída.;FUN036
+ME00565;2026-01-20;PROD080;Bermuda Caqui;Entrada por compra;50;30;80;Compra;COMP0083;Recebimento de mercadoria do fornecedor.;FUN013
+ME00566;2026-01-21;PROD002;Camiseta Preta;Saída por venda;-1;35;34;Venda;VEN0489;Baixa de estoque por venda concluída.;FUN038
+ME00567;2026-01-21;PROD003;Camiseta Preta;Entrada por compra;20;225;245;Compra;COMP0085;Recebimento de mercadoria do fornecedor.;FUN015
+ME00568;2026-01-21;PROD006;Camiseta Branca;Entrada por compra;120;169;289;Compra;COMP0091;Recebimento de mercadoria do fornecedor.;FUN015
+ME00569;2026-01-21;PROD038;Calça Bege;Saída por venda;-1;18;17;Venda;VEN0490;Baixa de estoque por venda concluída.;FUN026
+ME00570;2026-01-22;PROD060;Jaqueta Preta;Entrada por compra;120;127;247;Compra;COMP0082;Recebimento de mercadoria do fornecedor.;FUN016
+ME00571;2026-01-22;PROD064;Jaqueta Jeans;Devolução de cliente;1;50;51;Venda;VEN0486;Produto devolvido pelo cliente e reintegrado ao estoque.;FUN013
+ME00572;2026-01-23;PROD014;Camiseta Azul;Devolução de cliente;1;139;140;Venda;VEN0480;Produto devolvido pelo cliente e reintegrado ao estoque.;FUN016
+ME00573;2026-01-23;PROD064;Jaqueta Jeans;Devolução de cliente;2;51;53;Venda;VEN0479;Produto devolvido pelo cliente e reintegrado ao estoque.;FUN015
+ME00574;2026-01-24;PROD014;Camiseta Azul;Entrada por compra;50;140;190;Compra;COMP0084;Recebimento de mercadoria do fornecedor.;FUN014
+ME00575;2026-01-24;PROD039;Calça Bege;Entrada por compra;60;66;126;Compra;COMP0093;Recebimento de mercadoria do fornecedor.;FUN015
+ME00576;2026-01-24;PROD054;Vestido Vermelho;Saída por venda;-2;196;194;Venda;VEN0492;Baixa de estoque por venda concluída.;FUN025
+ME00577;2026-01-25;PROD020;Camiseta Verde;Saída por venda;-1;30;29;Venda;VEN0494;Baixa de estoque por venda concluída.;FUN025
+ME00578;2026-01-25;PROD032;Calça Jeans Preta;Entrada por compra;60;21;81;Compra;COMP0094;Recebimento de mercadoria do fornecedor.;FUN014
+ME00579;2026-01-25;PROD048;Vestido Preto;Entrada por compra;100;36;136;Compra;COMP0086;Recebimento de mercadoria do fornecedor.;FUN015
+ME00580;2026-01-26;PROD014;Camiseta Azul;Devolução de cliente;1;190;191;Venda;VEN0493;Produto devolvido pelo cliente e reintegrado ao estoque.;FUN014
+ME00581;2026-01-26;PROD080;Bermuda Caqui;Saída por venda;-2;80;78;Venda;VEN0497;Baixa de estoque por venda concluída.;FUN034
+ME00582;2026-01-27;PROD044;Vestido Floral;Entrada por compra;40;21;61;Compra;COMP0087;Recebimento de mercadoria do fornecedor.;FUN015
+ME00583;2026-01-27;PROD052;Vestido Vermelho;Entrada por compra;120;18;138;Compra;COMP0089;Recebimento de mercadoria do fornecedor.;FUN016
+ME00584;2026-01-28;PROD061;Jaqueta Jeans;Devolução de cliente;1;92;93;Venda;VEN0491;Produto devolvido pelo cliente e reintegrado ao estoque.;FUN016
+ME00585;2026-01-29;PROD023;Camiseta Cinza;Saída por venda;-1;78;77;Venda;VEN0500;Baixa de estoque por venda concluída.;FUN036
+ME00586;2026-01-29;PROD034;Calça Jeans Preta;Saída por venda;-2;115;113;Venda;VEN0499;Baixa de estoque por venda concluída.;FUN030
+ME00587;2026-01-29;PROD046;Vestido Preto;Entrada por compra;60;10;70;Compra;COMP0096;Recebimento de mercadoria do fornecedor.;FUN014
+ME00588;2026-01-29;PROD064;Jaqueta Jeans;Devolução de cliente;1;53;54;Venda;VEN0487;Produto devolvido pelo cliente e reintegrado ao estoque.;FUN013
+ME00589;2026-01-30;PROD004;Camiseta Preta;Entrada por compra;30;10;40;Compra;COMP0100;Recebimento de mercadoria do fornecedor.;FUN015
+ME00590;2026-01-30;PROD014;Camiseta Azul;Entrada por compra;100;191;291;Compra;COMP0088;Recebimento de mercadoria do fornecedor.;FUN015
+ME00591;2026-01-30;PROD045;Vestido Floral;Saída por venda;-1;111;110;Venda;VEN0502;Baixa de estoque por venda concluída.;FUN025
+ME00592;2026-01-30;PROD072;Bermuda Jeans;Entrada por compra;30;33;63;Compra;COMP0098;Recebimento de mercadoria do fornecedor.;FUN016
+ME00593;2026-01-31;PROD009;Camiseta Branca;Entrada por compra;50;118;168;Compra;COMP0090;Recebimento de mercadoria do fornecedor.;FUN014
+ME00594;2026-01-31;PROD017;Camiseta Verde;Saída por venda;-1;58;57;Venda;VEN0503;Baixa de estoque por venda concluída.;FUN033
+ME00595;2026-02-01;PROD030;Calça Jeans Azul;Entrada por compra;50;104;154;Compra;COMP0099;Recebimento de mercadoria do fornecedor.;FUN015
+ME00596;2026-02-01;PROD032;Calça Jeans Preta;Saída por venda;-3;81;78;Venda;VEN0506;Baixa de estoque por venda concluída.;FUN034
+ME00597;2026-02-01;PROD066;Jaqueta Verde;Saída por venda;-2;175;173;Venda;VEN0505;Baixa de estoque por venda concluída.;FUN022
+ME00598;2026-02-02;PROD021;Camiseta Cinza;Entrada por compra;20;162;182;Compra;COMP0092;Recebimento de mercadoria do fornecedor.;FUN013
+ME00599;2026-02-03;PROD031;Calça Jeans Preta;Saída por venda;-1;175;174;Venda;VEN0510;Baixa de estoque por venda concluída.;FUN038
+ME00600;2026-02-03;PROD033;Calça Jeans Preta;Saída por venda;-2;171;169;Venda;VEN0509;Baixa de estoque por venda concluída.;FUN027
+ME00601;2026-02-04;PROD018;Camiseta Verde;Saída por venda;-2;42;40;Venda;VEN0512;Baixa de estoque por venda concluída.;FUN026
+ME00602;2026-02-04;PROD023;Camiseta Cinza;Saída por venda;-1;77;76;Venda;VEN0511;Baixa de estoque por venda concluída.;FUN022
+ME00603;2026-02-04;PROD047;Vestido Preto;Entrada por compra;20;129;149;Compra;COMP0102;Recebimento de mercadoria do fornecedor.;FUN016
+ME00604;2026-02-04;PROD079;Bermuda Caqui;Devolução de cliente;2;33;35;Venda;VEN0498;Produto devolvido pelo cliente e reintegrado ao estoque.;FUN016
+ME00605;2026-02-05;PROD004;Camiseta Preta;Saída por venda;-3;40;37;Venda;VEN0515;Baixa de estoque por venda concluída.;FUN026
+ME00606;2026-02-05;PROD017;Camiseta Verde;Saída por venda;-1;57;56;Venda;VEN0514;Baixa de estoque por venda concluída.;FUN033
+ME00607;2026-02-05;PROD079;Bermuda Caqui;Entrada por compra;120;35;155;Compra;COMP0095;Recebimento de mercadoria do fornecedor.;FUN014
+ME00608;2026-02-07;PROD070;Jaqueta Verde;Entrada por compra;20;56;76;Compra;COMP0097;Recebimento de mercadoria do fornecedor.;FUN013
+ME00609;2026-02-08;PROD011;Camiseta Azul;Saída por venda;-1;68;67;Venda;VEN0517;Baixa de estoque por venda concluída.;FUN036
+ME00610;2026-02-08;PROD034;Calça Jeans Preta;Saída por venda;-2;113;111;Venda;VEN0518;Baixa de estoque por venda concluída.;FUN038
+ME00611;2026-02-09;PROD021;Camiseta Cinza;Saída por venda;-2;182;180;Venda;VEN0519;Baixa de estoque por venda concluída.;FUN025
+ME00612;2026-02-09;PROD074;Bermuda Jeans;Saída por venda;-1;77;76;Venda;VEN0520;Baixa de estoque por venda concluída.;FUN024
+ME00613;2026-02-09;PROD078;Bermuda Caqui;Devolução de cliente;2;85;87;Venda;VEN0508;Produto devolvido pelo cliente e reintegrado ao estoque.;FUN014
+ME00614;2026-02-10;PROD028;Calça Jeans Azul;Saída por venda;-2;133;131;Venda;VEN0522;Baixa de estoque por venda concluída.;FUN038
+ME00615;2026-02-12;PROD074;Bermuda Jeans;Devolução de cliente;1;76;77;Venda;VEN0521;Produto devolvido pelo cliente e reintegrado ao estoque.;FUN013
+ME00616;2026-02-13;PROD006;Camiseta Branca;Entrada por compra;40;289;329;Compra;COMP0105;Recebimento de mercadoria do fornecedor.;FUN015
+ME00617;2026-02-13;PROD014;Camiseta Azul;Entrada por compra;120;291;411;Compra;COMP0101;Recebimento de mercadoria do fornecedor.;FUN015
+ME00618;2026-02-14;PROD053;Vestido Vermelho;Saída por venda;-2;108;106;Venda;VEN0526;Baixa de estoque por venda concluída.;FUN026
+ME00619;2026-02-15;PROD006;Camiseta Branca;Saída por venda;-3;329;326;Venda;VEN0528;Baixa de estoque por venda concluída.;FUN029
+ME00620;2026-02-15;PROD013;Camiseta Azul;Saída por venda;-4;210;206;Venda;VEN0527;Baixa de estoque por venda concluída.;FUN023
+ME00621;2026-02-15;PROD067;Jaqueta Verde;Devolução de cliente;3;159;162;Venda;VEN0523;Produto devolvido pelo cliente e reintegrado ao estoque.;FUN014
+ME00622;2026-02-16;PROD039;Calça Bege;Saída por venda;-2;126;124;Venda;VEN0530;Baixa de estoque por venda concluída.;FUN029
+ME00623;2026-02-17;PROD079;Bermuda Caqui;Devolução de cliente;2;155;157;Venda;VEN0516;Produto devolvido pelo cliente e reintegrado ao estoque.;FUN016
+ME00624;2026-02-18;PROD006;Camiseta Branca;Entrada por compra;100;326;426;Compra;COMP0109;Recebimento de mercadoria do fornecedor.;FUN016
+ME00625;2026-02-18;PROD016;Camiseta Verde;Saída por venda;-2;136;134;Venda;VEN0532;Baixa de estoque por venda concluída.;FUN025
+ME00626;2026-02-18;PROD020;Camiseta Verde;Devolução de cliente;2;29;31;Venda;VEN0525;Produto devolvido pelo cliente e reintegrado ao estoque.;FUN016
+ME00627;2026-02-19;PROD018;Camiseta Verde;Saída por venda;-2;40;38;Venda;VEN0536;Baixa de estoque por venda concluída.;FUN038
+ME00628;2026-02-19;PROD042;Vestido Floral;Saída por venda;-2;136;134;Venda;VEN0535;Baixa de estoque por venda concluída.;FUN036
+ME00629;2026-02-19;PROD044;Vestido Floral;Saída por venda;-2;61;59;Venda;VEN0534;Baixa de estoque por venda concluída.;FUN025
+ME00630;2026-02-19;PROD068;Jaqueta Verde;Entrada por compra;40;27;67;Compra;COMP0104;Recebimento de mercadoria do fornecedor.;FUN014
+ME00631;2026-02-19;PROD079;Bermuda Caqui;Entrada por compra;60;157;217;Compra;COMP0103;Recebimento de mercadoria do fornecedor.;FUN016
+ME00632;2026-02-21;PROD040;Calça Bege;Entrada por compra;50;158;208;Compra;COMP0106;Recebimento de mercadoria do fornecedor.;FUN013
+ME00633;2026-02-22;PROD050;Vestido Preto;Saída por venda;-2;50;48;Venda;VEN0537;Baixa de estoque por venda concluída.;FUN036
+ME00634;2026-02-23;PROD040;Calça Bege;Saída por venda;-1;208;207;Venda;VEN0540;Baixa de estoque por venda concluída.;FUN022
+ME00635;2026-02-23;PROD058;Jaqueta Preta;Entrada por compra;60;69;129;Compra;COMP0108;Recebimento de mercadoria do fornecedor.;FUN014
+ME00636;2026-02-23;PROD072;Bermuda Jeans;Saída por venda;-2;63;61;Venda;VEN0541;Baixa de estoque por venda concluída.;FUN023
+ME00637;2026-02-24;PROD001;Camiseta Preta;Saída por venda;-2;112;110;Venda;VEN0544;Baixa de estoque por venda concluída.;FUN039
+ME00638;2026-02-24;PROD026;Calça Jeans Azul;Entrada por compra;80;29;109;Compra;COMP0114;Recebimento de mercadoria do fornecedor.;FUN014
+ME00639;2026-02-25;PROD017;Camiseta Verde;Entrada por compra;50;56;106;Compra;COMP0107;Recebimento de mercadoria do fornecedor.;FUN015
+ME00640;2026-02-25;PROD025;Camiseta Cinza;Saída por venda;-1;135;134;Venda;VEN0547;Baixa de estoque por venda concluída.;FUN023
+ME00641;2026-02-25;PROD036;Calça Bege;Saída por venda;-1;29;28;Venda;VEN0545;Baixa de estoque por venda concluída.;FUN025
+ME00642;2026-02-25;PROD063;Jaqueta Jeans;Saída por venda;-1;281;280;Venda;VEN0546;Baixa de estoque por venda concluída.;FUN032
+ME00643;2026-02-25;PROD075;Bermuda Jeans;Entrada por compra;40;201;241;Compra;COMP0116;Recebimento de mercadoria do fornecedor.;FUN015
+ME00644;2026-02-26;PROD059;Jaqueta Preta;Saída por venda;-2;40;38;Venda;VEN0548;Baixa de estoque por venda concluída.;FUN021
+ME00645;2026-02-27;PROD038;Calça Bege;Entrada por compra;60;17;77;Compra;COMP0118;Recebimento de mercadoria do fornecedor.;FUN013
+ME00646;2026-02-27;PROD064;Jaqueta Jeans;Saída por venda;-1;54;53;Venda;VEN0550;Baixa de estoque por venda concluída.;FUN038
+ME00647;2026-02-28;PROD013;Camiseta Azul;Devolução de cliente;2;206;208;Venda;VEN0542;Produto devolvido pelo cliente e reintegrado ao estoque.;FUN014
+ME00648;2026-03-01;PROD002;Camiseta Preta;Entrada por compra;120;34;154;Compra;COMP0111;Recebimento de mercadoria do fornecedor.;FUN016
+ME00649;2026-03-01;PROD009;Camiseta Branca;Entrada por compra;50;168;218;Compra;COMP0110;Recebimento de mercadoria do fornecedor.;FUN014
+ME00650;2026-03-02;PROD024;Camiseta Cinza;Entrada por compra;40;261;301;Compra;COMP0119;Recebimento de mercadoria do fornecedor.;FUN014
+ME00651;2026-03-02;PROD033;Calça Jeans Preta;Entrada por compra;80;169;249;Compra;COMP0112;Recebimento de mercadoria do fornecedor.;FUN015
+ME00652;2026-03-03;PROD006;Camiseta Branca;Saída por venda;-1;426;425;Venda;VEN0556;Baixa de estoque por venda concluída.;FUN024
+ME00653;2026-03-03;PROD024;Camiseta Cinza;Saída por venda;-1;301;300;Venda;VEN0558;Baixa de estoque por venda concluída.;FUN036
+ME00654;2026-03-03;PROD034;Calça Jeans Preta;Saída por venda;-2;111;109;Venda;VEN0557;Baixa de estoque por venda concluída.;FUN039
+ME00655;2026-03-03;PROD041;Vestido Floral;Saída por venda;-1;48;47;Venda;VEN0555;Baixa de estoque por venda concluída.;FUN029
+ME00656;2026-03-04;PROD011;Camiseta Azul;Saída por venda;-1;67;66;Venda;VEN0561;Baixa de estoque por venda concluída.;FUN039
+ME00657;2026-03-04;PROD019;Camiseta Verde;Entrada por compra;40;111;151;Compra;COMP0113;Recebimento de mercadoria do fornecedor.;FUN015
+ME00658;2026-03-04;PROD022;Camiseta Cinza;Entrada por compra;100;362;462;Compra;COMP0122;Recebimento de mercadoria do fornecedor.;FUN016
+ME00659;2026-03-04;PROD044;Vestido Floral;Devolução de cliente;1;59;60;Venda;VEN0554;Produto devolvido pelo cliente e reintegrado ao estoque.;FUN013
+ME00660;2026-03-04;PROD044;Vestido Floral;Saída por venda;-1;60;59;Venda;VEN0560;Baixa de estoque por venda concluída.;FUN038
+ME00661;2026-03-04;PROD074;Bermuda Jeans;Entrada por compra;60;77;137;Compra;COMP0115;Recebimento de mercadoria do fornecedor.;FUN013
+ME00662;2026-03-04;PROD079;Bermuda Caqui;Saída por venda;-1;217;216;Venda;VEN0559;Baixa de estoque por venda concluída.;FUN030
+ME00663;2026-03-05;PROD007;Camiseta Branca;Devolução de cliente;1;37;38;Venda;VEN0553;Produto devolvido pelo cliente e reintegrado ao estoque.;FUN016
+ME00664;2026-03-05;PROD013;Camiseta Azul;Saída por venda;-4;208;204;Venda;VEN0563;Baixa de estoque por venda concluída.;FUN037
+ME00665;2026-03-05;PROD036;Calça Bege;Saída por venda;-1;28;27;Venda;VEN0564;Baixa de estoque por venda concluída.;FUN034
+ME00666;2026-03-05;PROD045;Vestido Floral;Entrada por compra;100;110;210;Compra;COMP0123;Recebimento de mercadoria do fornecedor.;FUN016
+ME00667;2026-03-05;PROD045;Vestido Floral;Saída por venda;-1;210;209;Venda;VEN0562;Baixa de estoque por venda concluída.;FUN033
+ME00668;2026-03-06;PROD001;Camiseta Preta;Saída por venda;-3;110;107;Venda;VEN0566;Baixa de estoque por venda concluída.;FUN022
+ME00669;2026-03-06;PROD014;Camiseta Azul;Saída por venda;-2;411;409;Venda;VEN0565;Baixa de estoque por venda concluída.;FUN035
+ME00670;2026-03-07;PROD022;Camiseta Cinza;Saída por venda;-2;462;460;Venda;VEN0568;Baixa de estoque por venda concluída.;FUN031
+ME00671;2026-03-08;PROD017;Camiseta Verde;Saída por venda;-1;106;105;Venda;VEN0571;Baixa de estoque por venda concluída.;FUN036
+ME00672;2026-03-08;PROD067;Jaqueta Verde;Entrada por compra;100;162;262;Compra;COMP0117;Recebimento de mercadoria do fornecedor.;FUN014
+ME00673;2026-03-09;PROD007;Camiseta Branca;Saída por venda;-1;38;37;Venda;VEN0574;Baixa de estoque por venda concluída.;FUN032
+ME00674;2026-03-09;PROD054;Vestido Vermelho;Entrada por compra;80;194;274;Compra;COMP0127;Recebimento de mercadoria do fornecedor.;FUN015
+ME00675;2026-03-09;PROD065;Jaqueta Jeans;Entrada por compra;50;12;62;Compra;COMP0120;Recebimento de mercadoria do fornecedor.;FUN014
+ME00676;2026-03-09;PROD075;Bermuda Jeans;Saída por venda;-1;241;240;Venda;VEN0573;Baixa de estoque por venda concluída.;FUN021
+ME00677;2026-03-10;PROD069;Jaqueta Verde;Saída por venda;-2;16;14;Venda;VEN0575;Baixa de estoque por venda concluída.;FUN022
+ME00678;2026-03-11;PROD002;Camiseta Preta;Saída por venda;-1;154;153;Venda;VEN0576;Baixa de estoque por venda concluída.;FUN039
+ME00679;2026-03-11;PROD021;Camiseta Cinza;Saída por venda;-1;180;179;Venda;VEN0578;Baixa de estoque por venda concluída.;FUN027
+ME00680;2026-03-11;PROD035;Calça Jeans Preta;Saída por venda;-2;181;179;Venda;VEN0577;Baixa de estoque por venda concluída.;FUN039
+ME00681;2026-03-11;PROD059;Jaqueta Preta;Devolução de cliente;2;38;40;Venda;VEN0569;Produto devolvido pelo cliente e reintegrado ao estoque.;FUN014
+ME00682;2026-03-11;PROD065;Jaqueta Jeans;Devolução de cliente;3;62;65;Venda;VEN0552;Produto devolvido pelo cliente e reintegrado ao estoque.;FUN013
+ME00683;2026-03-12;PROD012;Camiseta Azul;Saída por venda;-3;38;35;Venda;VEN0579;Baixa de estoque por venda concluída.;FUN022
+ME00684;2026-03-12;PROD015;Camiseta Azul;Saída por venda;-1;216;215;Venda;VEN0582;Baixa de estoque por venda concluída.;FUN026
+ME00685;2026-03-12;PROD035;Calça Jeans Preta;Entrada por compra;50;179;229;Compra;COMP0124;Recebimento de mercadoria do fornecedor.;FUN016
+ME00686;2026-03-12;PROD072;Bermuda Jeans;Saída por venda;-1;61;60;Venda;VEN0581;Baixa de estoque por venda concluída.;FUN033
+ME00687;2026-03-13;PROD002;Camiseta Preta;Saída por venda;-1;153;152;Venda;VEN0584;Baixa de estoque por venda concluída.;FUN023
+ME00688;2026-03-13;PROD007;Camiseta Branca;Saída por venda;-2;37;35;Venda;VEN0586;Baixa de estoque por venda concluída.;FUN033
+ME00689;2026-03-13;PROD034;Calça Jeans Preta;Entrada por compra;40;109;149;Compra;COMP0130;Recebimento de mercadoria do fornecedor.;FUN013
+ME00690;2026-03-13;PROD045;Vestido Floral;Saída por venda;-2;209;207;Venda;VEN0585;Baixa de estoque por venda concluída.;FUN022
+ME00691;2026-03-13;PROD070;Jaqueta Verde;Entrada por compra;80;76;156;Compra;COMP0121;Recebimento de mercadoria do fornecedor.;FUN016
+ME00692;2026-03-14;PROD005;Camiseta Preta;Saída por venda;-1;32;31;Venda;VEN0589;Baixa de estoque por venda concluída.;FUN037
+ME00693;2026-03-14;PROD040;Calça Bege;Entrada por compra;50;207;257;Compra;COMP0126;Recebimento de mercadoria do fornecedor.;FUN015
+ME00694;2026-03-14;PROD052;Vestido Vermelho;Saída por venda;-1;138;137;Venda;VEN0590;Baixa de estoque por venda concluída.;FUN035
+ME00695;2026-03-15;PROD019;Camiseta Verde;Saída por venda;-3;151;148;Venda;VEN0591;Baixa de estoque por venda concluída.;FUN032
+ME00696;2026-03-16;PROD001;Camiseta Preta;Saída por venda;-1;107;106;Venda;VEN0592;Baixa de estoque por venda concluída.;FUN026
+ME00697;2026-03-16;PROD019;Camiseta Verde;Entrada por compra;30;148;178;Compra;COMP0125;Recebimento de mercadoria do fornecedor.;FUN014
+ME00698;2026-03-16;PROD025;Camiseta Cinza;Devolução de cliente;1;134;135;Venda;VEN0570;Produto devolvido pelo cliente e reintegrado ao estoque.;FUN016
+ME00699;2026-03-17;PROD008;Camiseta Branca;Saída por venda;-1;109;108;Venda;VEN0593;Baixa de estoque por venda concluída.;FUN038
+ME00700;2026-03-17;PROD039;Calça Bege;Saída por venda;-1;124;123;Venda;VEN0594;Baixa de estoque por venda concluída.;FUN028
+ME00701;2026-03-18;PROD001;Camiseta Preta;Saída por venda;-1;106;105;Venda;VEN0595;Baixa de estoque por venda concluída.;FUN039
+ME00702;2026-03-18;PROD016;Camiseta Verde;Saída por venda;-2;134;132;Venda;VEN0596;Baixa de estoque por venda concluída.;FUN033
+ME00703;2026-03-18;PROD029;Calça Jeans Azul;Saída por venda;-1;43;42;Venda;VEN0597;Baixa de estoque por venda concluída.;FUN024
+ME00704;2026-03-19;PROD022;Camiseta Cinza;Saída por venda;-2;460;458;Venda;VEN0599;Baixa de estoque por venda concluída.;FUN028
+ME00705;2026-03-19;PROD046;Vestido Preto;Entrada por compra;80;70;150;Compra;COMP0134;Recebimento de mercadoria do fornecedor.;FUN015
+ME00706;2026-03-19;PROD056;Jaqueta Preta;Entrada por compra;100;117;217;Compra;COMP0128;Recebimento de mercadoria do fornecedor.;FUN016
+ME00707;2026-03-19;PROD065;Jaqueta Jeans;Entrada por compra;20;65;85;Compra;COMP0129;Recebimento de mercadoria do fornecedor.;FUN016
+ME00708;2026-03-20;PROD001;Camiseta Preta;Saída por venda;-2;105;103;Venda;VEN0603;Baixa de estoque por venda concluída.;FUN038
+ME00709;2026-03-20;PROD019;Camiseta Verde;Saída por venda;-2;178;176;Venda;VEN0602;Baixa de estoque por venda concluída.;FUN036
+ME00710;2026-03-20;PROD073;Bermuda Jeans;Saída por venda;-1;96;95;Venda;VEN0601;Baixa de estoque por venda concluída.;FUN029
+ME00711;2026-03-21;PROD036;Calça Bege;Entrada por compra;30;27;57;Compra;COMP0142;Recebimento de mercadoria do fornecedor.;FUN014
+ME00712;2026-03-21;PROD037;Calça Bege;Saída por venda;-1;39;38;Venda;VEN0604;Baixa de estoque por venda concluída.;FUN029
+ME00713;2026-03-21;PROD040;Calça Bege;Entrada por compra;40;257;297;Compra;COMP0131;Recebimento de mercadoria do fornecedor.;FUN014
+ME00714;2026-03-21;PROD056;Jaqueta Preta;Entrada por compra;60;217;277;Compra;COMP0141;Recebimento de mercadoria do fornecedor.;FUN014
+ME00715;2026-03-22;PROD004;Camiseta Preta;Devolução de cliente;1;37;38;Venda;VEN0587;Produto devolvido pelo cliente e reintegrado ao estoque.;FUN013
+ME00716;2026-03-22;PROD027;Calça Jeans Azul;Saída por venda;-1;57;56;Venda;VEN0606;Baixa de estoque por venda concluída.;FUN025
+ME00717;2026-03-22;PROD041;Vestido Floral;Saída por venda;-2;47;45;Venda;VEN0605;Baixa de estoque por venda concluída.;FUN036
+ME00718;2026-03-23;PROD020;Camiseta Verde;Saída por venda;-2;31;29;Venda;VEN0610;Baixa de estoque por venda concluída.;FUN035
+ME00719;2026-03-23;PROD032;Calça Jeans Preta;Saída por venda;-3;78;75;Venda;VEN0608;Baixa de estoque por venda concluída.;FUN034
+ME00720;2026-03-23;PROD035;Calça Jeans Preta;Saída por venda;-2;229;227;Venda;VEN0609;Baixa de estoque por venda concluída.;FUN027
+ME00721;2026-03-24;PROD019;Camiseta Verde;Entrada por compra;20;176;196;Compra;COMP0132;Recebimento de mercadoria do fornecedor.;FUN014
+ME00722;2026-03-24;PROD021;Camiseta Cinza;Saída por venda;-3;179;176;Venda;VEN0614;Baixa de estoque por venda concluída.;FUN024
+ME00723;2026-03-25;PROD049;Vestido Preto;Entrada por compra;100;49;149;Compra;COMP0133;Recebimento de mercadoria do fornecedor.;FUN016
+ME00724;2026-03-26;PROD008;Camiseta Branca;Entrada por compra;120;108;228;Compra;COMP0135;Recebimento de mercadoria do fornecedor.;FUN014
+ME00725;2026-03-26;PROD020;Camiseta Verde;Entrada por compra;120;29;149;Compra;COMP0136;Recebimento de mercadoria do fornecedor.;FUN015
+ME00726;2026-03-26;PROD033;Calça Jeans Preta;Saída por venda;-1;249;248;Venda;VEN0616;Baixa de estoque por venda concluída.;FUN031
+ME00727;2026-03-27;PROD044;Vestido Floral;Entrada por compra;120;59;179;Compra;COMP0138;Recebimento de mercadoria do fornecedor.;FUN014
+ME00728;2026-03-27;PROD052;Vestido Vermelho;Entrada por compra;80;137;217;Compra;COMP0139;Recebimento de mercadoria do fornecedor.;FUN015
+ME00729;2026-03-27;PROD059;Jaqueta Preta;Entrada por compra;40;40;80;Compra;COMP0137;Recebimento de mercadoria do fornecedor.;FUN016
+ME00730;2026-03-28;PROD014;Camiseta Azul;Saída por venda;-3;409;406;Venda;VEN0617;Baixa de estoque por venda concluída.;FUN030
+ME00731;2026-03-30;PROD037;Calça Bege;Saída por venda;-1;38;37;Venda;VEN0618;Baixa de estoque por venda concluída.;FUN024
+ME00732;2026-03-31;PROD049;Vestido Preto;Entrada por compra;20;149;169;Compra;COMP0140;Recebimento de mercadoria do fornecedor.;FUN015
+ME00733;2026-03-31;PROD067;Jaqueta Verde;Saída por venda;-1;262;261;Venda;VEN0622;Baixa de estoque por venda concluída.;FUN027
+ME00734;2026-03-31;PROD074;Bermuda Jeans;Saída por venda;-2;137;135;Venda;VEN0620;Baixa de estoque por venda concluída.;FUN035
+ME00735;2026-04-01;PROD019;Camiseta Verde;Saída por venda;-1;196;195;Venda;VEN0626;Baixa de estoque por venda concluída.;FUN032
+ME00736;2026-04-01;PROD022;Camiseta Cinza;Entrada por compra;20;458;478;Compra;COMP0146;Recebimento de mercadoria do fornecedor.;FUN016
+ME00737;2026-04-01;PROD038;Calça Bege;Saída por venda;-1;77;76;Venda;VEN0625;Baixa de estoque por venda concluída.;FUN021
+ME00738;2026-04-02;PROD005;Camiseta Preta;Entrada por compra;30;31;61;Compra;COMP0145;Recebimento de mercadoria do fornecedor.;FUN014
+ME00739;2026-04-02;PROD006;Camiseta Branca;Saída por venda;-1;425;424;Venda;VEN0627;Baixa de estoque por venda concluída.;FUN028
+ME00740;2026-04-02;PROD017;Camiseta Verde;Devolução de cliente;1;105;106;Venda;VEN0615;Produto devolvido pelo cliente e reintegrado ao estoque.;FUN015
+ME00741;2026-04-02;PROD017;Camiseta Verde;Saída por venda;-2;106;104;Venda;VEN0628;Baixa de estoque por venda concluída.;FUN039
+ME00742;2026-04-03;PROD009;Camiseta Branca;Devolução de cliente;2;218;220;Venda;VEN0612;Produto devolvido pelo cliente e reintegrado ao estoque.;FUN013
+ME00743;2026-04-03;PROD030;Calça Jeans Azul;Saída por venda;-1;154;153;Venda;VEN0631;Baixa de estoque por venda concluída.;FUN030
+ME00744;2026-04-04;PROD013;Camiseta Azul;Entrada por compra;100;204;304;Compra;COMP0144;Recebimento de mercadoria do fornecedor.;FUN016
+ME00745;2026-04-04;PROD039;Calça Bege;Devolução de cliente;1;123;124;Venda;VEN0624;Produto devolvido pelo cliente e reintegrado ao estoque.;FUN014
+ME00746;2026-04-04;PROD063;Jaqueta Jeans;Entrada por compra;120;280;400;Compra;COMP0143;Recebimento de mercadoria do fornecedor.;FUN014
+ME00747;2026-04-05;PROD026;Calça Jeans Azul;Devolução de cliente;2;109;111;Venda;VEN0621;Produto devolvido pelo cliente e reintegrado ao estoque.;FUN014
+ME00748;2026-04-06;PROD017;Camiseta Verde;Saída por venda;-2;104;102;Venda;VEN0636;Baixa de estoque por venda concluída.;FUN035
+ME00749;2026-04-06;PROD018;Camiseta Verde;Saída por venda;-1;38;37;Venda;VEN0637;Baixa de estoque por venda concluída.;FUN032
+ME00750;2026-04-07;PROD023;Camiseta Cinza;Saída por venda;-1;76;75;Venda;VEN0638;Baixa de estoque por venda concluída.;FUN033
+ME00751;2026-04-08;PROD021;Camiseta Cinza;Devolução de cliente;1;176;177;Venda;VEN0619;Produto devolvido pelo cliente e reintegrado ao estoque.;FUN013
+ME00752;2026-04-08;PROD076;Bermuda Caqui;Entrada por compra;50;22;72;Compra;COMP0149;Recebimento de mercadoria do fornecedor.;FUN014
+ME00753;2026-04-09;PROD035;Calça Jeans Preta;Devolução de cliente;1;227;228;Venda;VEN0632;Produto devolvido pelo cliente e reintegrado ao estoque.;FUN015
+ME00754;2026-04-09;PROD053;Vestido Vermelho;Saída por venda;-1;106;105;Venda;VEN0642;Baixa de estoque por venda concluída.;FUN026
+ME00755;2026-04-10;PROD001;Camiseta Preta;Devolução de cliente;3;103;106;Venda;VEN0623;Produto devolvido pelo cliente e reintegrado ao estoque.;FUN015
+ME00756;2026-04-10;PROD001;Camiseta Preta;Saída por venda;-1;106;105;Venda;VEN0645;Baixa de estoque por venda concluída.;FUN034
+ME00757;2026-04-11;PROD029;Calça Jeans Azul;Saída por venda;-2;42;40;Venda;VEN0646;Baixa de estoque por venda concluída.;FUN031
+ME00758;2026-04-11;PROD040;Calça Bege;Saída por venda;-2;297;295;Venda;VEN0650;Baixa de estoque por venda concluída.;FUN022
+ME00759;2026-04-11;PROD042;Vestido Floral;Saída por venda;-2;134;132;Venda;VEN0648;Baixa de estoque por venda concluída.;FUN021
+ME00760;2026-04-11;PROD043;Vestido Floral;Saída por venda;-1;30;29;Venda;VEN0651;Baixa de estoque por venda concluída.;FUN029
+ME00761;2026-04-11;PROD066;Jaqueta Verde;Saída por venda;-1;173;172;Venda;VEN0647;Baixa de estoque por venda concluída.;FUN026
+ME00762;2026-04-12;PROD051;Vestido Vermelho;Saída por venda;-2;91;89;Venda;VEN0652;Baixa de estoque por venda concluída.;FUN038
+ME00763;2026-04-13;PROD011;Camiseta Azul;Devolução de cliente;1;66;67;Venda;VEN0649;Produto devolvido pelo cliente e reintegrado ao estoque.;FUN016
+ME00764;2026-04-13;PROD035;Calça Jeans Preta;Saída por venda;-1;228;227;Venda;VEN0654;Baixa de estoque por venda concluída.;FUN039
+ME00765;2026-04-13;PROD080;Bermuda Caqui;Saída por venda;-2;78;76;Venda;VEN0655;Baixa de estoque por venda concluída.;FUN032
+ME00766;2026-04-14;PROD014;Camiseta Azul;Devolução de cliente;1;406;407;Venda;VEN0644;Produto devolvido pelo cliente e reintegrado ao estoque.;FUN014
+ME00767;2026-04-14;PROD014;Camiseta Azul;Saída por venda;-2;407;405;Venda;VEN0658;Baixa de estoque por venda concluída.;FUN022
+ME00768;2026-04-14;PROD041;Vestido Floral;Entrada por compra;40;45;85;Compra;COMP0147;Recebimento de mercadoria do fornecedor.;FUN013
+ME00769;2026-04-15;PROD005;Camiseta Preta;Saída por venda;-2;61;59;Venda;VEN0659;Baixa de estoque por venda concluída.;FUN027
+ME00770;2026-04-15;PROD029;Calça Jeans Azul;Entrada por compra;60;40;100;Compra;COMP0155;Recebimento de mercadoria do fornecedor.;FUN014
+ME00771;2026-04-15;PROD057;Jaqueta Preta;Entrada por compra;20;17;37;Compra;COMP0156;Recebimento de mercadoria do fornecedor.;FUN013
+ME00772;2026-04-16;PROD002;Camiseta Preta;Perda;-3;152;149;Inventário;;Ajuste por perda ou avaria identificada em conferência.;FUN014
+ME00773;2026-04-16;PROD031;Calça Jeans Preta;Saída por venda;-2;174;172;Venda;VEN0662;Baixa de estoque por venda concluída.;FUN038
+ME00774;2026-04-16;PROD039;Calça Bege;Saída por venda;-1;124;123;Venda;VEN0661;Baixa de estoque por venda concluída.;FUN035
+ME00775;2026-04-17;PROD012;Camiseta Azul;Saída por venda;-1;35;34;Venda;VEN0664;Baixa de estoque por venda concluída.;FUN028
+ME00776;2026-04-17;PROD020;Camiseta Verde;Saída por venda;-2;149;147;Venda;VEN0663;Baixa de estoque por venda concluída.;FUN033
+ME00777;2026-04-17;PROD028;Calça Jeans Azul;Devolução de cliente;1;131;132;Venda;VEN0656;Produto devolvido pelo cliente e reintegrado ao estoque.;FUN015
+ME00778;2026-04-17;PROD042;Vestido Floral;Entrada por compra;100;132;232;Compra;COMP0148;Recebimento de mercadoria do fornecedor.;FUN016
+ME00779;2026-04-18;PROD014;Camiseta Azul;Entrada por compra;40;405;445;Compra;COMP0150;Recebimento de mercadoria do fornecedor.;FUN015
+ME00780;2026-04-18;PROD028;Calça Jeans Azul;Devolução de cliente;1;132;133;Venda;VEN0653;Produto devolvido pelo cliente e reintegrado ao estoque.;FUN014
+ME00781;2026-04-18;PROD057;Jaqueta Preta;Entrada por compra;40;37;77;Compra;COMP0157;Recebimento de mercadoria do fornecedor.;FUN015
+ME00782;2026-04-19;PROD033;Calça Jeans Preta;Saída por venda;-3;248;245;Venda;VEN0666;Baixa de estoque por venda concluída.;FUN036
+ME00783;2026-04-19;PROD047;Vestido Preto;Entrada por compra;60;149;209;Compra;COMP0158;Recebimento de mercadoria do fornecedor.;FUN016
+ME00784;2026-04-19;PROD071;Bermuda Jeans;Saída por venda;-1;115;114;Venda;VEN0667;Baixa de estoque por venda concluída.;FUN023
+ME00785;2026-04-20;PROD012;Camiseta Azul;Entrada por compra;20;34;54;Compra;COMP0153;Recebimento de mercadoria do fornecedor.;FUN014
+ME00786;2026-04-20;PROD013;Camiseta Azul;Saída por venda;-2;304;302;Venda;VEN0669;Baixa de estoque por venda concluída.;FUN024
+ME00787;2026-04-20;PROD025;Camiseta Cinza;Saída por venda;-2;135;133;Venda;VEN0668;Baixa de estoque por venda concluída.;FUN025
+ME00788;2026-04-20;PROD078;Bermuda Caqui;Saída por venda;-2;87;85;Venda;VEN0670;Baixa de estoque por venda concluída.;FUN035
+ME00789;2026-04-21;PROD034;Calça Jeans Preta;Saída por venda;-2;149;147;Venda;VEN0672;Baixa de estoque por venda concluída.;FUN033
+ME00790;2026-04-21;PROD045;Vestido Floral;Saída por venda;-1;207;206;Venda;VEN0673;Baixa de estoque por venda concluída.;FUN025
+ME00791;2026-04-21;PROD069;Jaqueta Verde;Entrada por compra;20;14;34;Compra;COMP0151;Recebimento de mercadoria do fornecedor.;FUN015
+ME00792;2026-04-21;PROD071;Bermuda Jeans;Devolução de cliente;2;114;116;Venda;VEN0665;Produto devolvido pelo cliente e reintegrado ao estoque.;FUN013
+ME00793;2026-04-22;PROD067;Jaqueta Verde;Entrada por compra;30;261;291;Compra;COMP0152;Recebimento de mercadoria do fornecedor.;FUN016
+ME00794;2026-04-23;PROD033;Calça Jeans Preta;Saída por venda;-1;245;244;Venda;VEN0677;Baixa de estoque por venda concluída.;FUN026
+ME00795;2026-04-23;PROD037;Calça Bege;Devolução de cliente;3;37;40;Venda;VEN0674;Produto devolvido pelo cliente e reintegrado ao estoque.;FUN014
+ME00796;2026-04-23;PROD045;Vestido Floral;Saída por venda;-1;206;205;Venda;VEN0679;Baixa de estoque por venda concluída.;FUN021
+ME00797;2026-04-23;PROD051;Vestido Vermelho;Entrada por compra;60;89;149;Compra;COMP0160;Recebimento de mercadoria do fornecedor.;FUN016
+ME00798;2026-04-23;PROD062;Jaqueta Jeans;Saída por venda;-1;69;68;Venda;VEN0678;Baixa de estoque por venda concluída.;FUN034
+ME00799;2026-04-23;PROD079;Bermuda Caqui;Entrada por compra;20;216;236;Compra;COMP0154;Recebimento de mercadoria do fornecedor.;FUN015
+ME00800;2026-04-24;PROD016;Camiseta Verde;Devolução de cliente;1;132;133;Venda;VEN0657;Produto devolvido pelo cliente e reintegrado ao estoque.;FUN014
+ME00801;2026-04-24;PROD060;Jaqueta Preta;Devolução de cliente;2;247;249;Venda;VEN0671;Produto devolvido pelo cliente e reintegrado ao estoque.;FUN016
+ME00802;2026-04-25;PROD012;Camiseta Azul;Perda;-2;54;52;Inventário;;Ajuste por perda ou avaria identificada em conferência.;FUN016
+ME00803;2026-04-25;PROD073;Bermuda Jeans;Saída por venda;-1;95;94;Venda;VEN0681;Baixa de estoque por venda concluída.;FUN036
+ME00804;2026-04-25;PROD073;Bermuda Jeans;Saída por venda;-1;94;93;Venda;VEN0682;Baixa de estoque por venda concluída.;FUN037
+ME00805;2026-04-26;PROD045;Vestido Floral;Entrada por compra;120;205;325;Compra;COMP0163;Recebimento de mercadoria do fornecedor.;FUN016
+ME00806;2026-04-26;PROD066;Jaqueta Verde;Entrada por compra;60;172;232;Compra;COMP0162;Recebimento de mercadoria do fornecedor.;FUN013
+ME00807;2026-04-26;PROD066;Jaqueta Verde;Saída por venda;-2;232;230;Venda;VEN0683;Baixa de estoque por venda concluída.;FUN025
+ME00808;2026-04-27;PROD034;Calça Jeans Preta;Saída por venda;-4;147;143;Venda;VEN0684;Baixa de estoque por venda concluída.;FUN029
+ME00809;2026-04-27;PROD066;Jaqueta Verde;Entrada por compra;50;230;280;Compra;COMP0165;Recebimento de mercadoria do fornecedor.;FUN016
+ME00810;2026-04-28;PROD009;Camiseta Branca;Perda;-3;220;217;Inventário;;Ajuste por perda ou avaria identificada em conferência.;FUN016
+ME00811;2026-04-28;PROD009;Camiseta Branca;Saída por venda;-2;217;215;Venda;VEN0686;Baixa de estoque por venda concluída.;FUN033
+ME00812;2026-04-28;PROD023;Camiseta Cinza;Entrada por compra;20;75;95;Compra;COMP0159;Recebimento de mercadoria do fornecedor.;FUN015
+ME00813;2026-04-28;PROD024;Camiseta Cinza;Entrada por compra;120;300;420;Compra;COMP0164;Recebimento de mercadoria do fornecedor.;FUN015
+ME00814;2026-04-29;PROD019;Camiseta Verde;Devolução de cliente;1;195;196;Venda;VEN0675;Produto devolvido pelo cliente e reintegrado ao estoque.;FUN016
+ME00815;2026-04-30;PROD034;Calça Jeans Preta;Entrada por compra;40;143;183;Compra;COMP0172;Recebimento de mercadoria do fornecedor.;FUN016
+ME00816;2026-05-01;PROD003;Camiseta Preta;Saída por venda;-1;245;244;Venda;VEN0691;Baixa de estoque por venda concluída.;FUN027
+ME00817;2026-05-01;PROD005;Camiseta Preta;Saída por venda;-1;59;58;Venda;VEN0688;Baixa de estoque por venda concluída.;FUN030
+ME00818;2026-05-01;PROD051;Vestido Vermelho;Entrada por compra;40;149;189;Compra;COMP0171;Recebimento de mercadoria do fornecedor.;FUN016
+ME00819;2026-05-01;PROD056;Jaqueta Preta;Entrada por compra;100;277;377;Compra;COMP0173;Recebimento de mercadoria do fornecedor.;FUN015
+ME00820;2026-05-02;PROD063;Jaqueta Jeans;Saída por venda;-1;400;399;Venda;VEN0693;Baixa de estoque por venda concluída.;FUN023
+ME00821;2026-05-03;PROD002;Camiseta Preta;Entrada por compra;50;149;199;Compra;COMP0161;Recebimento de mercadoria do fornecedor.;FUN016
+ME00822;2026-05-03;PROD043;Vestido Floral;Saída por venda;-3;29;26;Venda;VEN0694;Baixa de estoque por venda concluída.;FUN024
+ME00823;2026-05-04;PROD033;Calça Jeans Preta;Saída por venda;-2;244;242;Venda;VEN0695;Baixa de estoque por venda concluída.;FUN025
+ME00824;2026-05-04;PROD061;Jaqueta Jeans;Devolução de cliente;2;93;95;Venda;VEN0689;Produto devolvido pelo cliente e reintegrado ao estoque.;FUN013
+ME00825;2026-05-04;PROD078;Bermuda Caqui;Saída por venda;-1;85;84;Venda;VEN0697;Baixa de estoque por venda concluída.;FUN038
+ME00826;2026-05-05;PROD005;Camiseta Preta;Entrada por compra;100;58;158;Compra;COMP0169;Recebimento de mercadoria do fornecedor.;FUN014
+ME00827;2026-05-05;PROD071;Bermuda Jeans;Saída por venda;-1;116;115;Venda;VEN0698;Baixa de estoque por venda concluída.;FUN032
+ME00828;2026-05-06;PROD012;Camiseta Azul;Entrada por compra;80;52;132;Compra;COMP0170;Recebimento de mercadoria do fornecedor.;FUN014
+ME00829;2026-05-06;PROD036;Calça Bege;Saída por venda;-2;57;55;Venda;VEN0702;Baixa de estoque por venda concluída.;FUN028
+ME00830;2026-05-07;PROD009;Camiseta Branca;Saída por venda;-2;215;213;Venda;VEN0705;Baixa de estoque por venda concluída.;FUN023
+ME00831;2026-05-07;PROD025;Camiseta Cinza;Saída por venda;-1;133;132;Venda;VEN0704;Baixa de estoque por venda concluída.;FUN026
+ME00832;2026-05-07;PROD027;Calça Jeans Azul;Entrada por compra;120;56;176;Compra;COMP0166;Recebimento de mercadoria do fornecedor.;FUN015
+ME00833;2026-05-08;PROD042;Vestido Floral;Entrada por compra;100;232;332;Compra;COMP0167;Recebimento de mercadoria do fornecedor.;FUN014
+ME00834;2026-05-08;PROD042;Vestido Floral;Entrada por compra;30;332;362;Compra;COMP0168;Recebimento de mercadoria do fornecedor.;FUN016
+ME00835;2026-05-08;PROD066;Jaqueta Verde;Entrada por compra;50;280;330;Compra;COMP0174;Recebimento de mercadoria do fornecedor.;FUN014
+ME00836;2026-05-11;PROD034;Calça Jeans Preta;Saída por venda;-1;183;182;Venda;VEN0712;Baixa de estoque por venda concluída.;FUN021
+ME00837;2026-05-11;PROD061;Jaqueta Jeans;Devolução de cliente;1;95;96;Venda;VEN0696;Produto devolvido pelo cliente e reintegrado ao estoque.;FUN016
+ME00838;2026-05-11;PROD072;Bermuda Jeans;Entrada por compra;50;60;110;Compra;COMP0175;Recebimento de mercadoria do fornecedor.;FUN015
+ME00839;2026-05-12;PROD008;Camiseta Branca;Saída por venda;-1;228;227;Venda;VEN0717;Baixa de estoque por venda concluída.;FUN031
+ME00840;2026-05-12;PROD019;Camiseta Verde;Saída por venda;-2;196;194;Venda;VEN0714;Baixa de estoque por venda concluída.;FUN024
+ME00841;2026-05-12;PROD020;Camiseta Verde;Saída por venda;-1;147;146;Venda;VEN0713;Baixa de estoque por venda concluída.;FUN029
+ME00842;2026-05-12;PROD052;Vestido Vermelho;Saída por venda;-1;217;216;Venda;VEN0715;Baixa de estoque por venda concluída.;FUN026
+ME00843;2026-05-13;PROD015;Camiseta Azul;Saída por venda;-3;215;212;Venda;VEN0720;Baixa de estoque por venda concluída.;FUN022
+ME00844;2026-05-13;PROD024;Camiseta Cinza;Saída por venda;-1;420;419;Venda;VEN0721;Baixa de estoque por venda concluída.;FUN027
+ME00845;2026-05-13;PROD052;Vestido Vermelho;Saída por venda;-1;216;215;Venda;VEN0718;Baixa de estoque por venda concluída.;FUN027
+ME00846;2026-05-13;PROD077;Bermuda Caqui;Saída por venda;-4;46;42;Venda;VEN0719;Baixa de estoque por venda concluída.;FUN032
+ME00847;2026-05-14;PROD027;Calça Jeans Azul;Saída por venda;-2;176;174;Venda;VEN0722;Baixa de estoque por venda concluída.;FUN038
+ME00848;2026-05-14;PROD051;Vestido Vermelho;Entrada por compra;60;189;249;Compra;COMP0177;Recebimento de mercadoria do fornecedor.;FUN016
+ME00849;2026-05-15;PROD001;Camiseta Preta;Saída por venda;-1;105;104;Venda;VEN0723;Baixa de estoque por venda concluída.;FUN031
+ME00850;2026-05-15;PROD010;Camiseta Branca;Avaria;-2;201;199;Inventário;;Ajuste por perda ou avaria identificada em conferência.;FUN014
+ME00851;2026-05-15;PROD025;Camiseta Cinza;Saída por venda;-1;132;131;Venda;VEN0725;Baixa de estoque por venda concluída.;FUN034
+ME00852;2026-05-15;PROD056;Jaqueta Preta;Devolução de cliente;1;377;378;Venda;VEN0699;Produto devolvido pelo cliente e reintegrado ao estoque.;FUN016
+ME00853;2026-05-15;PROD067;Jaqueta Verde;Saída por venda;-2;291;289;Venda;VEN0724;Baixa de estoque por venda concluída.;FUN021
+ME00854;2026-05-16;PROD014;Camiseta Azul;Saída por venda;-1;445;444;Venda;VEN0728;Baixa de estoque por venda concluída.;FUN030
+ME00855;2026-05-16;PROD032;Calça Jeans Preta;Saída por venda;-1;75;74;Venda;VEN0727;Baixa de estoque por venda concluída.;FUN028
+ME00856;2026-05-17;PROD006;Camiseta Branca;Saída por venda;-1;424;423;Venda;VEN0732;Baixa de estoque por venda concluída.;FUN033
+ME00857;2026-05-17;PROD029;Calça Jeans Azul;Saída por venda;-3;100;97;Venda;VEN0730;Baixa de estoque por venda concluída.;FUN029
+ME00858;2026-05-17;PROD040;Calça Bege;Saída por venda;-1;295;294;Venda;VEN0731;Baixa de estoque por venda concluída.;FUN038
+ME00859;2026-05-17;PROD066;Jaqueta Verde;Devolução de cliente;1;330;331;Venda;VEN0709;Produto devolvido pelo cliente e reintegrado ao estoque.;FUN016
+ME00860;2026-05-17;PROD075;Bermuda Jeans;Entrada por compra;60;240;300;Compra;COMP0179;Recebimento de mercadoria do fornecedor.;FUN016
+ME00861;2026-05-18;PROD077;Bermuda Caqui;Devolução de cliente;1;42;43;Venda;VEN0716;Produto devolvido pelo cliente e reintegrado ao estoque.;FUN014
+ME00862;2026-05-19;PROD009;Camiseta Branca;Entrada por compra;20;213;233;Compra;COMP0176;Recebimento de mercadoria do fornecedor.;FUN016
+ME00863;2026-05-19;PROD011;Camiseta Azul;Saída por venda;-2;67;65;Venda;VEN0734;Baixa de estoque por venda concluída.;FUN037
+ME00864;2026-05-19;PROD038;Calça Bege;Devolução de cliente;3;76;79;Venda;VEN0729;Produto devolvido pelo cliente e reintegrado ao estoque.;FUN013
+ME00865;2026-05-20;PROD004;Camiseta Preta;Perda;-1;38;37;Inventário;;Ajuste por perda ou avaria identificada em conferência.;FUN015
+ME00866;2026-05-20;PROD015;Camiseta Azul;Saída por venda;-2;212;210;Venda;VEN0737;Baixa de estoque por venda concluída.;FUN034
+ME00867;2026-05-20;PROD027;Calça Jeans Azul;Devolução de cliente;3;174;177;Venda;VEN0708;Produto devolvido pelo cliente e reintegrado ao estoque.;FUN015
+ME00868;2026-05-20;PROD029;Calça Jeans Azul;Saída por venda;-4;97;93;Venda;VEN0738;Baixa de estoque por venda concluída.;FUN025
+ME00869;2026-05-20;PROD063;Jaqueta Jeans;Saída por venda;-2;399;397;Venda;VEN0736;Baixa de estoque por venda concluída.;FUN036
+ME00870;2026-05-21;PROD031;Calça Jeans Preta;Saída por venda;-1;172;171;Venda;VEN0742;Baixa de estoque por venda concluída.;FUN033
+ME00871;2026-05-21;PROD054;Vestido Vermelho;Saída por venda;-1;274;273;Venda;VEN0739;Baixa de estoque por venda concluída.;FUN032
+ME00872;2026-05-22;PROD022;Camiseta Cinza;Devolução de cliente;2;478;480;Venda;VEN0735;Produto devolvido pelo cliente e reintegrado ao estoque.;FUN014
+ME00873;2026-05-22;PROD046;Vestido Preto;Saída por venda;-1;150;149;Venda;VEN0745;Baixa de estoque por venda concluída.;FUN030
+ME00874;2026-05-23;PROD006;Camiseta Branca;Devolução de cliente;1;423;424;Venda;VEN0726;Produto devolvido pelo cliente e reintegrado ao estoque.;FUN014
+ME00875;2026-05-24;PROD032;Calça Jeans Preta;Saída por venda;-4;74;70;Venda;VEN0747;Baixa de estoque por venda concluída.;FUN039
+ME00876;2026-05-25;PROD012;Camiseta Azul;Saída por venda;-2;132;130;Venda;VEN0748;Baixa de estoque por venda concluída.;FUN032
+ME00877;2026-05-25;PROD018;Camiseta Verde;Devolução de cliente;3;37;40;Venda;VEN0733;Produto devolvido pelo cliente e reintegrado ao estoque.;FUN013
+ME00878;2026-05-25;PROD024;Camiseta Cinza;Devolução de cliente;1;419;420;Venda;VEN0741;Produto devolvido pelo cliente e reintegrado ao estoque.;FUN016
+ME00879;2026-05-25;PROD067;Jaqueta Verde;Saída por venda;-3;289;286;Venda;VEN0749;Baixa de estoque por venda concluída.;FUN034
+ME00880;2026-05-25;PROD069;Jaqueta Verde;Entrada por compra;50;34;84;Compra;COMP0178;Recebimento de mercadoria do fornecedor.;FUN016
+ME00881;2026-05-26;PROD038;Calça Bege;Saída por venda;-3;79;76;Venda;VEN0750;Baixa de estoque por venda concluída.;FUN027
+ME00882;2026-05-27;PROD020;Camiseta Verde;Saída por venda;-1;146;145;Venda;VEN0751;Baixa de estoque por venda concluída.;FUN022
+ME00883;2026-05-27;PROD062;Jaqueta Jeans;Entrada por compra;30;68;98;Compra;COMP0180;Recebimento de mercadoria do fornecedor.;FUN013
+ME00884;2026-05-29;PROD010;Camiseta Branca;Entrada por compra;20;199;219;Compra;COMP0181;Recebimento de mercadoria do fornecedor.;FUN016
+ME00885;2026-05-29;PROD011;Camiseta Azul;Saída por venda;-1;65;64;Venda;VEN0753;Baixa de estoque por venda concluída.;FUN025
+ME00886;2026-05-29;PROD073;Bermuda Jeans;Entrada por compra;40;93;133;Compra;COMP0182;Recebimento de mercadoria do fornecedor.;FUN016
+ME00887;2026-05-30;PROD039;Calça Bege;Saída por venda;-1;123;122;Venda;VEN0754;Baixa de estoque por venda concluída.;FUN036
+ME00888;2026-05-31;PROD005;Camiseta Preta;Entrada por compra;120;158;278;Compra;COMP0184;Recebimento de mercadoria do fornecedor.;FUN015
+ME00889;2026-05-31;PROD011;Camiseta Azul;Entrada por compra;80;64;144;Compra;COMP0187;Recebimento de mercadoria do fornecedor.;FUN016
+ME00890;2026-05-31;PROD040;Calça Bege;Saída por venda;-2;294;292;Venda;VEN0759;Baixa de estoque por venda concluída.;FUN029
+ME00891;2026-05-31;PROD054;Vestido Vermelho;Saída por venda;-2;273;271;Venda;VEN0757;Baixa de estoque por venda concluída.;FUN022
+ME00892;2026-05-31;PROD079;Bermuda Caqui;Saída por venda;-2;236;234;Venda;VEN0758;Baixa de estoque por venda concluída.;FUN036
+ME00893;2026-06-01;PROD007;Camiseta Branca;Devolução de cliente;1;35;36;Venda;VEN0752;Produto devolvido pelo cliente e reintegrado ao estoque.;FUN014
+ME00894;2026-06-01;PROD011;Camiseta Azul;Saída por venda;-2;144;142;Venda;VEN0760;Baixa de estoque por venda concluída.;FUN033
+ME00895;2026-06-01;PROD016;Camiseta Verde;Entrada por compra;60;133;193;Compra;COMP0185;Recebimento de mercadoria do fornecedor.;FUN014
+ME00896;2026-06-01;PROD025;Camiseta Cinza;Saída por venda;-2;131;129;Venda;VEN0761;Baixa de estoque por venda concluída.;FUN025
+ME00897;2026-06-01;PROD049;Vestido Preto;Saída por venda;-1;169;168;Venda;VEN0763;Baixa de estoque por venda concluída.;FUN028
+ME00898;2026-06-01;PROD075;Bermuda Jeans;Saída por venda;-1;300;299;Venda;VEN0764;Baixa de estoque por venda concluída.;FUN031
+ME00899;2026-06-02;PROD004;Camiseta Preta;Entrada por compra;80;37;117;Compra;COMP0190;Recebimento de mercadoria do fornecedor.;FUN014
+ME00900;2026-06-02;PROD033;Calça Jeans Preta;Saída por venda;-1;242;241;Venda;VEN0767;Baixa de estoque por venda concluída.;FUN035
+ME00901;2026-06-02;PROD042;Vestido Floral;Entrada por compra;20;362;382;Compra;COMP0183;Recebimento de mercadoria do fornecedor.;FUN016
+ME00902;2026-06-02;PROD072;Bermuda Jeans;Entrada por compra;100;110;210;Compra;COMP0188;Recebimento de mercadoria do fornecedor.;FUN015
+ME00903;2026-06-03;PROD031;Calça Jeans Preta;Saída por venda;-1;171;170;Venda;VEN0770;Baixa de estoque por venda concluída.;FUN032
+ME00904;2026-06-03;PROD055;Vestido Vermelho;Saída por venda;-1;149;148;Venda;VEN0769;Baixa de estoque por venda concluída.;FUN037
+ME00905;2026-06-03;PROD060;Jaqueta Preta;Saída por venda;-2;249;247;Venda;VEN0771;Baixa de estoque por venda concluída.;FUN034
+ME00906;2026-06-04;PROD035;Calça Jeans Preta;Saída por venda;-1;227;226;Venda;VEN0773;Baixa de estoque por venda concluída.;FUN030
+ME00907;2026-06-07;PROD019;Camiseta Verde;Devolução de cliente;2;194;196;Venda;VEN0768;Produto devolvido pelo cliente e reintegrado ao estoque.;FUN014
+ME00908;2026-06-07;PROD031;Calça Jeans Preta;Saída por venda;-3;170;167;Venda;VEN0775;Baixa de estoque por venda concluída.;FUN023
+ME00909;2026-06-07;PROD057;Jaqueta Preta;Saída por venda;-1;77;76;Venda;VEN0776;Baixa de estoque por venda concluída.;FUN037
+ME00910;2026-06-07;PROD079;Bermuda Caqui;Entrada por compra;120;234;354;Compra;COMP0186;Recebimento de mercadoria do fornecedor.;FUN013
+ME00911;2026-06-08;PROD041;Vestido Floral;Devolução de cliente;2;85;87;Venda;VEN0772;Produto devolvido pelo cliente e reintegrado ao estoque.;FUN014
+ME00912;2026-06-09;PROD072;Bermuda Jeans;Saída por venda;-2;210;208;Venda;VEN0777;Baixa de estoque por venda concluída.;FUN023
+ME00913;2026-06-10;PROD012;Camiseta Azul;Saída por venda;-3;130;127;Venda;VEN0781;Baixa de estoque por venda concluída.;FUN033
+ME00914;2026-06-10;PROD050;Vestido Preto;Saída por venda;-2;48;46;Venda;VEN0779;Baixa de estoque por venda concluída.;FUN037
+ME00915;2026-06-10;PROD065;Jaqueta Jeans;Saída por venda;-1;85;84;Venda;VEN0780;Baixa de estoque por venda concluída.;FUN024
+ME00916;2026-06-10;PROD080;Bermuda Caqui;Saída por venda;-1;76;75;Venda;VEN0782;Baixa de estoque por venda concluída.;FUN025
+ME00917;2026-06-11;PROD006;Camiseta Branca;Saída por venda;-1;424;423;Venda;VEN0783;Baixa de estoque por venda concluída.;FUN034
+ME00918;2026-06-11;PROD045;Vestido Floral;Saída por venda;-1;325;324;Venda;VEN0784;Baixa de estoque por venda concluída.;FUN023
+ME00919;2026-06-11;PROD068;Jaqueta Verde;Entrada por compra;120;67;187;Compra;COMP0189;Recebimento de mercadoria do fornecedor.;FUN015
+ME00920;2026-06-12;PROD017;Camiseta Verde;Devolução de cliente;1;102;103;Venda;VEN0766;Produto devolvido pelo cliente e reintegrado ao estoque.;FUN013
+ME00921;2026-06-13;PROD030;Calça Jeans Azul;Devolução de cliente;2;153;155;Venda;VEN0774;Produto devolvido pelo cliente e reintegrado ao estoque.;FUN016
+ME00922;2026-06-14;PROD015;Camiseta Azul;Saída por venda;-1;210;209;Venda;VEN0791;Baixa de estoque por venda concluída.;FUN026
+ME00923;2026-06-14;PROD025;Camiseta Cinza;Entrada por compra;120;129;249;Compra;COMP0195;Recebimento de mercadoria do fornecedor.;FUN013
+ME00924;2026-06-14;PROD032;Calça Jeans Preta;Saída por venda;-1;70;69;Venda;VEN0786;Baixa de estoque por venda concluída.;FUN029
+ME00925;2026-06-14;PROD033;Calça Jeans Preta;Saída por venda;-1;241;240;Venda;VEN0790;Baixa de estoque por venda concluída.;FUN027
+ME00926;2026-06-15;PROD035;Calça Jeans Preta;Saída por venda;-1;226;225;Venda;VEN0793;Baixa de estoque por venda concluída.;FUN036
+ME00927;2026-06-16;PROD002;Camiseta Preta;Saída por venda;-1;199;198;Venda;VEN0796;Baixa de estoque por venda concluída.;FUN033
+ME00928;2026-06-16;PROD015;Camiseta Azul;Saída por venda;-1;209;208;Venda;VEN0797;Baixa de estoque por venda concluída.;FUN036
+ME00929;2026-06-16;PROD052;Vestido Vermelho;Saída por venda;-1;215;214;Venda;VEN0799;Baixa de estoque por venda concluída.;FUN028
+ME00930;2026-06-16;PROD074;Bermuda Jeans;Entrada por compra;40;135;175;Compra;COMP0191;Recebimento de mercadoria do fornecedor.;FUN015
+ME00931;2026-06-17;PROD009;Camiseta Branca;Saída por venda;-2;233;231;Venda;VEN0801;Baixa de estoque por venda concluída.;FUN023
+ME00932;2026-06-17;PROD039;Calça Bege;Saída por venda;-2;122;120;Venda;VEN0800;Baixa de estoque por venda concluída.;FUN037
+ME00933;2026-06-18;PROD004;Camiseta Preta;Saída por venda;-1;117;116;Venda;VEN0803;Baixa de estoque por venda concluída.;FUN029
+ME00934;2026-06-18;PROD007;Camiseta Branca;Entrada por compra;30;36;66;Compra;COMP0199;Recebimento de mercadoria do fornecedor.;FUN013
+ME00935;2026-06-18;PROD062;Jaqueta Jeans;Entrada por compra;40;98;138;Compra;COMP0193;Recebimento de mercadoria do fornecedor.;FUN015
+ME00936;2026-06-18;PROD066;Jaqueta Verde;Entrada por compra;20;331;351;Compra;COMP0198;Recebimento de mercadoria do fornecedor.;FUN014
+ME00937;2026-06-18;PROD069;Jaqueta Verde;Saída por venda;-1;84;83;Venda;VEN0802;Baixa de estoque por venda concluída.;FUN031
+ME00938;2026-06-19;PROD006;Camiseta Branca;Saída por venda;-1;423;422;Venda;VEN0804;Baixa de estoque por venda concluída.;FUN021
+ME00939;2026-06-19;PROD008;Camiseta Branca;Saída por venda;-1;227;226;Venda;VEN0807;Baixa de estoque por venda concluída.;FUN023
+ME00940;2026-06-19;PROD035;Calça Jeans Preta;Saída por venda;-3;225;222;Venda;VEN0808;Baixa de estoque por venda concluída.;FUN030
+ME00941;2026-06-19;PROD070;Jaqueta Verde;Saída por venda;-1;156;155;Venda;VEN0809;Baixa de estoque por venda concluída.;FUN033
+ME00942;2026-06-20;PROD003;Camiseta Preta;Saída por venda;-1;244;243;Venda;VEN0810;Baixa de estoque por venda concluída.;FUN033
+ME00943;2026-06-20;PROD011;Camiseta Azul;Saída por venda;-4;142;138;Venda;VEN0811;Baixa de estoque por venda concluída.;FUN028
+ME00944;2026-06-20;PROD017;Camiseta Verde;Devolução de cliente;2;103;105;Venda;VEN0794;Produto devolvido pelo cliente e reintegrado ao estoque.;FUN013
+ME00945;2026-06-21;PROD004;Camiseta Preta;Entrada por compra;50;116;166;Compra;COMP0200;Recebimento de mercadoria do fornecedor.;FUN016
+ME00946;2026-06-22;PROD003;Camiseta Preta;Saída por venda;-2;243;241;Venda;VEN0813;Baixa de estoque por venda concluída.;FUN037
+ME00947;2026-06-22;PROD031;Calça Jeans Preta;Devolução de cliente;1;167;168;Venda;VEN0787;Produto devolvido pelo cliente e reintegrado ao estoque.;FUN013
+ME00948;2026-06-22;PROD073;Bermuda Jeans;Devolução de cliente;1;133;134;Venda;VEN0795;Produto devolvido pelo cliente e reintegrado ao estoque.;FUN014
+ME00949;2026-06-23;PROD012;Camiseta Azul;Saída por venda;-2;127;125;Venda;VEN0814;Baixa de estoque por venda concluída.;FUN025
+ME00950;2026-06-23;PROD025;Camiseta Cinza;Devolução de cliente;1;249;250;Venda;VEN0788;Produto devolvido pelo cliente e reintegrado ao estoque.;FUN013
+ME00951;2026-06-23;PROD055;Vestido Vermelho;Saída por venda;-2;148;146;Venda;VEN0816;Baixa de estoque por venda concluída.;FUN026
+ME00952;2026-06-23;PROD080;Bermuda Caqui;Devolução de cliente;1;75;76;Venda;VEN0805;Produto devolvido pelo cliente e reintegrado ao estoque.;FUN014
+ME00953;2026-06-24;PROD028;Calça Jeans Azul;Saída por venda;-4;133;129;Venda;VEN0820;Baixa de estoque por venda concluída.;FUN039
+ME00954;2026-06-24;PROD033;Calça Jeans Preta;Saída por venda;-1;240;239;Venda;VEN0819;Baixa de estoque por venda concluída.;FUN025
+ME00955;2026-06-26;PROD033;Calça Jeans Preta;Entrada por compra;100;239;339;Compra;COMP0197;Recebimento de mercadoria do fornecedor.;FUN016
+ME00956;2026-06-26;PROD052;Vestido Vermelho;Saída por venda;-2;214;212;Venda;VEN0824;Baixa de estoque por venda concluída.;FUN023
+ME00957;2026-06-28;PROD011;Camiseta Azul;Saída por venda;-1;138;137;Venda;VEN0825;Baixa de estoque por venda concluída.;FUN025
+ME00958;2026-06-28;PROD015;Camiseta Azul;Saída por venda;-2;208;206;Venda;VEN0826;Baixa de estoque por venda concluída.;FUN029
+ME00959;2026-06-29;PROD015;Camiseta Azul;Saída por venda;-2;206;204;Venda;VEN0827;Baixa de estoque por venda concluída.;FUN034
+ME00960;2026-06-30;PROD033;Calça Jeans Preta;Saída por venda;-2;339;337;Venda;VEN0830;Baixa de estoque por venda concluída.;FUN022
+ME00961;2026-06-30;PROD071;Bermuda Jeans;Saída por venda;-1;115;114;Venda;VEN0829;Baixa de estoque por venda concluída.;FUN027
+ME00962;2026-07-01;PROD013;Camiseta Azul;Saída por venda;-1;302;301;Venda;VEN0832;Baixa de estoque por venda concluída.;FUN039
+ME00963;2026-07-01;PROD015;Camiseta Azul;Saída por venda;-2;204;202;Venda;VEN0831;Baixa de estoque por venda concluída.;FUN030
+ME00964;2026-07-01;PROD041;Vestido Floral;Saída por venda;-1;87;86;Venda;VEN0834;Baixa de estoque por venda concluída.;FUN036
+ME00965;2026-07-02;PROD025;Camiseta Cinza;Devolução de cliente;2;250;252;Venda;VEN0818;Produto devolvido pelo cliente e reintegrado ao estoque.;FUN016
+ME00966;2026-07-02;PROD025;Camiseta Cinza;Saída por venda;-1;252;251;Venda;VEN0836;Baixa de estoque por venda concluída.;FUN029
+ME00967;2026-07-03;PROD029;Calça Jeans Azul;Saída por venda;-1;93;92;Venda;VEN0838;Baixa de estoque por venda concluída.;FUN031
+ME00968;2026-07-04;PROD018;Camiseta Verde;Saída por venda;-3;40;37;Venda;VEN0839;Baixa de estoque por venda concluída.;FUN028
+ME00969;2026-07-04;PROD072;Bermuda Jeans;Saída por venda;-4;208;204;Venda;VEN0840;Baixa de estoque por venda concluída.;FUN028
+ME00970;2026-07-04;PROD076;Bermuda Caqui;Devolução de cliente;2;72;74;Venda;VEN0828;Produto devolvido pelo cliente e reintegrado ao estoque.;FUN014
+ME00971;2026-07-05;PROD033;Calça Jeans Preta;Devolução de cliente;1;337;338;Venda;VEN0833;Produto devolvido pelo cliente e reintegrado ao estoque.;FUN014
+ME00972;2026-07-05;PROD050;Vestido Preto;Saída por venda;-1;46;45;Venda;VEN0841;Baixa de estoque por venda concluída.;FUN031
+ME00973;2026-07-06;PROD003;Camiseta Preta;Saída por venda;-1;241;240;Venda;VEN0842;Baixa de estoque por venda concluída.;FUN034
+ME00974;2026-07-06;PROD012;Camiseta Azul;Saída por venda;-1;125;124;Venda;VEN0844;Baixa de estoque por venda concluída.;FUN034
+ME00975;2026-07-06;PROD056;Jaqueta Preta;Saída por venda;-1;378;377;Venda;VEN0843;Baixa de estoque por venda concluída.;FUN026
+ME00976;2026-07-07;PROD030;Calça Jeans Azul;Saída por venda;-1;155;154;Venda;VEN0846;Baixa de estoque por venda concluída.;FUN039
+ME00977;2026-07-07;PROD036;Calça Bege;Saída por venda;-1;55;54;Venda;VEN0845;Baixa de estoque por venda concluída.;FUN036
+ME00978;2026-07-08;PROD060;Jaqueta Preta;Saída por venda;-1;247;246;Venda;VEN0847;Baixa de estoque por venda concluída.;FUN031
+ME00979;2026-07-09;PROD014;Camiseta Azul;Saída por venda;-1;444;443;Venda;VEN0848;Baixa de estoque por venda concluída.;FUN032
+ME00980;2026-07-09;PROD022;Camiseta Cinza;Saída por venda;-1;480;479;Venda;VEN0850;Baixa de estoque por venda concluída.;FUN027
+ME00981;2026-07-09;PROD077;Bermuda Caqui;Saída por venda;-1;43;42;Venda;VEN0849;Baixa de estoque por venda concluída.;FUN034
+ME00982;2026-07-10;PROD029;Calça Jeans Azul;Saída por venda;-1;92;91;Venda;VEN0853;Baixa de estoque por venda concluída.;FUN034
+ME00983;2026-07-10;PROD037;Calça Bege;Saída por venda;-1;40;39;Venda;VEN0854;Baixa de estoque por venda concluída.;FUN032
+ME00984;2026-07-11;PROD004;Camiseta Preta;Saída por venda;-2;166;164;Venda;VEN0856;Baixa de estoque por venda concluída.;FUN036
+ME00985;2026-07-12;PROD021;Camiseta Cinza;Devolução de cliente;1;177;178;Venda;VEN0851;Produto devolvido pelo cliente e reintegrado ao estoque.;FUN016
+ME00986;2026-07-12;PROD043;Vestido Floral;Saída por venda;-1;26;25;Venda;VEN0858;Baixa de estoque por venda concluída.;FUN031
+ME00987;2026-07-12;PROD054;Vestido Vermelho;Saída por venda;-2;271;269;Venda;VEN0857;Baixa de estoque por venda concluída.;FUN021
+ME00988;2026-07-12;PROD080;Bermuda Caqui;Devolução de cliente;1;76;77;Venda;VEN0852;Produto devolvido pelo cliente e reintegrado ao estoque.;FUN015
+ME00989;2026-07-13;PROD016;Camiseta Verde;Devolução de cliente;1;193;194;Venda;VEN0855;Produto devolvido pelo cliente e reintegrado ao estoque.;FUN014
+ME00990;2026-07-13;PROD069;Jaqueta Verde;Saída por venda;-1;83;82;Venda;VEN0860;Baixa de estoque por venda concluída.;FUN036
+ME00991;2026-07-15;PROD008;Camiseta Branca;Devolução de cliente;1;226;227;Venda;VEN0859;Produto devolvido pelo cliente e reintegrado ao estoque.;FUN015
+ME00992;2026-07-15;PROD025;Camiseta Cinza;Saída por venda;-3;251;248;Venda;VEN0863;Baixa de estoque por venda concluída.;FUN037
+ME00993;2026-07-15;PROD045;Vestido Floral;Saída por venda;-1;324;323;Venda;VEN0864;Baixa de estoque por venda concluída.;FUN026
+ME00994;2026-07-15;PROD055;Vestido Vermelho;Entrada por compra;40;146;186;Compra;COMP0211;Recebimento de mercadoria do fornecedor.;FUN016
+ME00995;2026-07-16;PROD021;Camiseta Cinza;Saída por venda;-1;178;177;Venda;VEN0866;Baixa de estoque por venda concluída.;FUN024
+ME00996;2026-07-17;PROD043;Vestido Floral;Saída por venda;-2;25;23;Venda;VEN0869;Baixa de estoque por venda concluída.;FUN036
+ME00997;2026-07-17;PROD060;Jaqueta Preta;Saída por venda;-2;246;244;Venda;VEN0868;Baixa de estoque por venda concluída.;FUN023
+ME00998;2026-07-17;PROD061;Jaqueta Jeans;Saída por venda;-1;96;95;Venda;VEN0867;Baixa de estoque por venda concluída.;FUN032
+ME00999;2026-07-18;PROD015;Camiseta Azul;Saída por venda;-1;202;201;Venda;VEN0870;Baixa de estoque por venda concluída.;FUN021
+ME01000;2026-07-19;PROD026;Calça Jeans Azul;Saída por venda;-1;111;110;Venda;VEN0875;Baixa de estoque por venda concluída.;FUN027
+ME01001;2026-07-19;PROD028;Calça Jeans Azul;Saída por venda;-2;129;127;Venda;VEN0876;Baixa de estoque por venda concluída.;FUN030
+ME01002;2026-07-19;PROD036;Calça Bege;Saída por venda;-1;54;53;Venda;VEN0872;Baixa de estoque por venda concluída.;FUN024
+ME01003;2026-07-20;PROD014;Camiseta Azul;Saída por venda;-1;443;442;Venda;VEN0878;Baixa de estoque por venda concluída.;FUN021
+ME01004;2026-07-20;PROD036;Calça Bege;Saída por venda;-1;53;52;Venda;VEN0879;Baixa de estoque por venda concluída.;FUN030
+ME01005;2026-07-20;PROD072;Bermuda Jeans;Saída por venda;-1;204;203;Venda;VEN0877;Baixa de estoque por venda concluída.;FUN027
+ME01006;2026-07-21;PROD058;Jaqueta Preta;Devolução de cliente;2;129;131;Venda;VEN0874;Produto devolvido pelo cliente e reintegrado ao estoque.;FUN013
+ME01007;2026-07-21;PROD065;Jaqueta Jeans;Entrada por compra;80;84;164;Compra;COMP0208;Recebimento de mercadoria do fornecedor.;FUN016
+ME01008;2026-07-21;PROD067;Jaqueta Verde;Entrada por compra;80;286;366;Compra;COMP0207;Recebimento de mercadoria do fornecedor.;FUN013
+ME01009;2026-07-21;PROD072;Bermuda Jeans;Saída por venda;-1;203;202;Venda;VEN0880;Baixa de estoque por venda concluída.;FUN027
+ME01010;2026-07-22;PROD007;Camiseta Branca;Saída por venda;-1;66;65;Venda;VEN0881;Baixa de estoque por venda concluída.;FUN036
+ME01011;2026-07-22;PROD012;Camiseta Azul;Entrada por compra;60;124;184;Compra;COMP0210;Recebimento de mercadoria do fornecedor.;FUN014
+ME01012;2026-07-22;PROD051;Vestido Vermelho;Saída por venda;-1;249;248;Venda;VEN0882;Baixa de estoque por venda concluída.;FUN037
+ME01013;2026-07-24;PROD037;Calça Bege;Saída por venda;-1;39;38;Venda;VEN0883;Baixa de estoque por venda concluída.;FUN027
+ME01014;2026-07-25;PROD029;Calça Jeans Azul;Saída por venda;-1;91;90;Venda;VEN0885;Baixa de estoque por venda concluída.;FUN028
+ME01015;2026-07-25;PROD036;Calça Bege;Entrada por compra;30;52;82;Compra;COMP0212;Recebimento de mercadoria do fornecedor.;FUN015
+ME01016;2026-07-26;PROD014;Camiseta Azul;Saída por venda;-1;442;441;Venda;VEN0889;Baixa de estoque por venda concluída.;FUN021
+ME01017;2026-07-26;PROD020;Camiseta Verde;Saída por venda;-1;145;144;Venda;VEN0886;Baixa de estoque por venda concluída.;FUN031
+ME01018;2026-07-26;PROD038;Calça Bege;Saída por venda;-1;76;75;Venda;VEN0887;Baixa de estoque por venda concluída.;FUN033
+ME01019;2026-07-26;PROD067;Jaqueta Verde;Saída por venda;-2;366;364;Venda;VEN0890;Baixa de estoque por venda concluída.;FUN037
+ME01020;2026-07-27;PROD008;Camiseta Branca;Saída por venda;-2;227;225;Venda;VEN0891;Baixa de estoque por venda concluída.;FUN038
+ME01021;2026-07-27;PROD016;Camiseta Verde;Saída por venda;-1;194;193;Venda;VEN0893;Baixa de estoque por venda concluída.;FUN037
+ME01022;2026-07-27;PROD035;Calça Jeans Preta;Saída por venda;-2;222;220;Venda;VEN0892;Baixa de estoque por venda concluída.;FUN033
+ME01023;2026-07-28;PROD005;Camiseta Preta;Saída por venda;-1;278;277;Venda;VEN0895;Baixa de estoque por venda concluída.;FUN022
+ME01024;2026-07-28;PROD014;Camiseta Azul;Saída por venda;-1;441;440;Venda;VEN0896;Baixa de estoque por venda concluída.;FUN031
+ME01025;2026-07-28;PROD024;Camiseta Cinza;Saída por venda;-2;420;418;Venda;VEN0897;Baixa de estoque por venda concluída.;FUN034
+ME01026;2026-07-28;PROD042;Vestido Floral;Saída por venda;-3;382;379;Venda;VEN0898;Baixa de estoque por venda concluída.;FUN038
+ME01027;2026-07-31;PROD019;Camiseta Verde;Saída por venda;-1;196;195;Venda;VEN0900;Baixa de estoque por venda concluída.;FUN035
+ME01032;2026-07-31;PROD001;Camiseta Preta;Ajuste de inventário;-98;104;6;Inventário;INV-2026-07-PROD001;Ajuste de inventário para conciliação com o saldo físico final.;FUN013
+ME01033;2026-07-31;PROD002;Camiseta Preta;Ajuste de inventário;-192;198;6;Inventário;INV-2026-07-PROD002;Ajuste de inventário para conciliação com o saldo físico final.;FUN013
+ME01034;2026-07-31;PROD003;Camiseta Preta;Ajuste de inventário;-238;240;2;Inventário;INV-2026-07-PROD003;Ajuste de inventário para conciliação com o saldo físico final.;FUN013
+ME01035;2026-07-31;PROD004;Camiseta Preta;Ajuste de inventário;-158;164;6;Inventário;INV-2026-07-PROD004;Ajuste de inventário para conciliação com o saldo físico final.;FUN013
+ME01036;2026-07-31;PROD005;Camiseta Preta;Ajuste de inventário;-273;277;4;Inventário;INV-2026-07-PROD005;Ajuste de inventário para conciliação com o saldo físico final.;FUN013
+ME01037;2026-07-31;PROD006;Camiseta Branca;Ajuste de inventário;-414;422;8;Inventário;INV-2026-07-PROD006;Ajuste de inventário para conciliação com o saldo físico final.;FUN013
+ME01038;2026-07-31;PROD007;Camiseta Branca;Ajuste de inventário;-58;65;7;Inventário;INV-2026-07-PROD007;Ajuste de inventário para conciliação com o saldo físico final.;FUN013
+ME01039;2026-07-31;PROD008;Camiseta Branca;Ajuste de inventário;-223;225;2;Inventário;INV-2026-07-PROD008;Ajuste de inventário para conciliação com o saldo físico final.;FUN013
+ME01040;2026-07-31;PROD009;Camiseta Branca;Ajuste de inventário;-111;231;120;Inventário;INV-2026-07-PROD009;Ajuste de inventário para conciliação com o saldo físico final.;FUN013
+ME01041;2026-07-31;PROD012;Camiseta Azul;Ajuste de inventário;-2;184;182;Inventário;INV-2026-07-PROD012;Ajuste de inventário para conciliação com o saldo físico final.;FUN013
+ME01042;2026-07-31;PROD013;Camiseta Azul;Ajuste de inventário;-55;301;246;Inventário;INV-2026-07-PROD013;Ajuste de inventário para conciliação com o saldo físico final.;FUN013
+ME01043;2026-07-31;PROD014;Camiseta Azul;Ajuste de inventário;-191;440;249;Inventário;INV-2026-07-PROD014;Ajuste de inventário para conciliação com o saldo físico final.;FUN013
+ME01044;2026-07-31;PROD017;Camiseta Verde;Ajuste de inventário;-18;105;87;Inventário;INV-2026-07-PROD017;Ajuste de inventário para conciliação com o saldo físico final.;FUN013
+ME01045;2026-07-31;PROD019;Camiseta Verde;Ajuste de inventário;-175;195;20;Inventário;INV-2026-07-PROD019;Ajuste de inventário para conciliação com o saldo físico final.;FUN013
+ME01046;2026-07-31;PROD020;Camiseta Verde;Ajuste de inventário;-122;144;22;Inventário;INV-2026-07-PROD020;Ajuste de inventário para conciliação com o saldo físico final.;FUN013
+ME01047;2026-07-31;PROD021;Camiseta Cinza;Ajuste de inventário;-145;177;32;Inventário;INV-2026-07-PROD021;Ajuste de inventário para conciliação com o saldo físico final.;FUN013
+ME01048;2026-07-31;PROD022;Camiseta Cinza;Ajuste de inventário;-448;479;31;Inventário;INV-2026-07-PROD022;Ajuste de inventário para conciliação com o saldo físico final.;FUN013
+ME01049;2026-07-31;PROD023;Camiseta Cinza;Ajuste de inventário;-81;95;14;Inventário;INV-2026-07-PROD023;Ajuste de inventário para conciliação com o saldo físico final.;FUN013
+ME01050;2026-07-31;PROD024;Camiseta Cinza;Ajuste de inventário;-329;418;89;Inventário;INV-2026-07-PROD024;Ajuste de inventário para conciliação com o saldo físico final.;FUN013
+ME01051;2026-07-31;PROD025;Camiseta Cinza;Ajuste de inventário;-187;248;61;Inventário;INV-2026-07-PROD025;Ajuste de inventário para conciliação com o saldo físico final.;FUN013
+ME01052;2026-07-31;PROD026;Calça Jeans Azul;Ajuste de inventário;-76;110;34;Inventário;INV-2026-07-PROD026;Ajuste de inventário para conciliação com o saldo físico final.;FUN013
+ME01053;2026-07-31;PROD027;Calça Jeans Azul;Ajuste de inventário;-116;177;61;Inventário;INV-2026-07-PROD027;Ajuste de inventário para conciliação com o saldo físico final.;FUN013
+ME01054;2026-07-31;PROD028;Calça Jeans Azul;Ajuste de inventário;-96;127;31;Inventário;INV-2026-07-PROD028;Ajuste de inventário para conciliação com o saldo físico final.;FUN013
+ME01055;2026-07-31;PROD029;Calça Jeans Azul;Ajuste de inventário;-5;90;85;Inventário;INV-2026-07-PROD029;Ajuste de inventário para conciliação com o saldo físico final.;FUN013
+ME01056;2026-07-31;PROD030;Calça Jeans Azul;Ajuste de inventário;-104;154;50;Inventário;INV-2026-07-PROD030;Ajuste de inventário para conciliação com o saldo físico final.;FUN013
+ME01057;2026-07-31;PROD031;Calça Jeans Preta;Ajuste de inventário;-138;168;30;Inventário;INV-2026-07-PROD031;Ajuste de inventário para conciliação com o saldo físico final.;FUN013
+ME01058;2026-07-31;PROD032;Calça Jeans Preta;Ajuste de inventário;-17;69;52;Inventário;INV-2026-07-PROD032;Ajuste de inventário para conciliação com o saldo físico final.;FUN013
+ME01059;2026-07-31;PROD033;Calça Jeans Preta;Ajuste de inventário;-296;338;42;Inventário;INV-2026-07-PROD033;Ajuste de inventário para conciliação com o saldo físico final.;FUN013
+ME01060;2026-07-31;PROD034;Calça Jeans Preta;Ajuste de inventário;-131;182;51;Inventário;INV-2026-07-PROD034;Ajuste de inventário para conciliação com o saldo físico final.;FUN013
+ME01061;2026-07-31;PROD035;Calça Jeans Preta;Ajuste de inventário;-154;220;66;Inventário;INV-2026-07-PROD035;Ajuste de inventário para conciliação com o saldo físico final.;FUN013
+ME01062;2026-07-31;PROD036;Calça Bege;Ajuste de inventário;-4;82;78;Inventário;INV-2026-07-PROD036;Ajuste de inventário para conciliação com o saldo físico final.;FUN013
+ME01063;2026-07-31;PROD037;Calça Bege;Ajuste de inventário;-13;38;25;Inventário;INV-2026-07-PROD037;Ajuste de inventário para conciliação com o saldo físico final.;FUN013
+ME01064;2026-07-31;PROD038;Calça Bege;Ajuste de inventário;-32;75;43;Inventário;INV-2026-07-PROD038;Ajuste de inventário para conciliação com o saldo físico final.;FUN013
+ME01065;2026-07-31;PROD039;Calça Bege;Ajuste de inventário;-31;120;89;Inventário;INV-2026-07-PROD039;Ajuste de inventário para conciliação com o saldo físico final.;FUN013
+ME01066;2026-07-31;PROD040;Calça Bege;Ajuste de inventário;-217;292;75;Inventário;INV-2026-07-PROD040;Ajuste de inventário para conciliação com o saldo físico final.;FUN013
+ME01067;2026-07-31;PROD042;Vestido Floral;Ajuste de inventário;-322;379;57;Inventário;INV-2026-07-PROD042;Ajuste de inventário para conciliação com o saldo físico final.;FUN013
+ME01068;2026-07-31;PROD043;Vestido Floral;Ajuste de inventário;-60;83;23;Inventário;INV-2026-07-PROD043;Ajuste de inventário para conciliação com o saldo físico final.;FUN013
+ME01069;2026-07-31;PROD044;Vestido Floral;Ajuste de inventário;-130;179;49;Inventário;INV-2026-07-PROD044;Ajuste de inventário para conciliação com o saldo físico final.;FUN013
+ME01070;2026-07-31;PROD045;Vestido Floral;Ajuste de inventário;-286;323;37;Inventário;INV-2026-07-PROD045;Ajuste de inventário para conciliação com o saldo físico final.;FUN013
+ME01071;2026-07-31;PROD046;Vestido Preto;Ajuste de inventário;-85;149;64;Inventário;INV-2026-07-PROD046;Ajuste de inventário para conciliação com o saldo físico final.;FUN013
+ME01072;2026-07-31;PROD047;Vestido Preto;Ajuste de inventário;-127;209;82;Inventário;INV-2026-07-PROD047;Ajuste de inventário para conciliação com o saldo físico final.;FUN013
+ME01073;2026-07-31;PROD048;Vestido Preto;Ajuste de inventário;-84;136;52;Inventário;INV-2026-07-PROD048;Ajuste de inventário para conciliação com o saldo físico final.;FUN013
+ME01074;2026-07-31;PROD049;Vestido Preto;Ajuste de inventário;-115;168;53;Inventário;INV-2026-07-PROD049;Ajuste de inventário para conciliação com o saldo físico final.;FUN013
+ME01075;2026-07-31;PROD051;Vestido Vermelho;Ajuste de inventário;-204;248;44;Inventário;INV-2026-07-PROD051;Ajuste de inventário para conciliação com o saldo físico final.;FUN013
+ME01076;2026-07-31;PROD052;Vestido Vermelho;Ajuste de inventário;-138;212;74;Inventário;INV-2026-07-PROD052;Ajuste de inventário para conciliação com o saldo físico final.;FUN013
+ME01077;2026-07-31;PROD053;Vestido Vermelho;Ajuste de inventário;-73;105;32;Inventário;INV-2026-07-PROD053;Ajuste de inventário para conciliação com o saldo físico final.;FUN013
+ME01078;2026-07-31;PROD054;Vestido Vermelho;Ajuste de inventário;-183;269;86;Inventário;INV-2026-07-PROD054;Ajuste de inventário para conciliação com o saldo físico final.;FUN013
+ME01079;2026-07-31;PROD055;Vestido Vermelho;Ajuste de inventário;-129;186;57;Inventário;INV-2026-07-PROD055;Ajuste de inventário para conciliação com o saldo físico final.;FUN013
+ME01080;2026-07-31;PROD056;Jaqueta Preta;Ajuste de inventário;-298;377;79;Inventário;INV-2026-07-PROD056;Ajuste de inventário para conciliação com o saldo físico final.;FUN013
+ME01081;2026-07-31;PROD057;Jaqueta Preta;Ajuste de inventário;-18;96;78;Inventário;INV-2026-07-PROD057;Ajuste de inventário para conciliação com o saldo físico final.;FUN013
+ME01082;2026-07-31;PROD058;Jaqueta Preta;Ajuste de inventário;-104;131;27;Inventário;INV-2026-07-PROD058;Ajuste de inventário para conciliação com o saldo físico final.;FUN013
+ME01083;2026-07-31;PROD059;Jaqueta Preta;Ajuste de inventário;-6;80;74;Inventário;INV-2026-07-PROD059;Ajuste de inventário para conciliação com o saldo físico final.;FUN013
+ME01084;2026-07-31;PROD060;Jaqueta Preta;Ajuste de inventário;-157;244;87;Inventário;INV-2026-07-PROD060;Ajuste de inventário para conciliação com o saldo físico final.;FUN013
+ME01085;2026-07-31;PROD061;Jaqueta Jeans;Ajuste de inventário;-71;95;24;Inventário;INV-2026-07-PROD061;Ajuste de inventário para conciliação com o saldo físico final.;FUN013
+ME01086;2026-07-31;PROD062;Jaqueta Jeans;Ajuste de inventário;-58;138;80;Inventário;INV-2026-07-PROD062;Ajuste de inventário para conciliação com o saldo físico final.;FUN013
+ME01087;2026-07-31;PROD063;Jaqueta Jeans;Ajuste de inventário;-317;397;80;Inventário;INV-2026-07-PROD063;Ajuste de inventário para conciliação com o saldo físico final.;FUN013
+ME01088;2026-07-31;PROD065;Jaqueta Jeans;Ajuste de inventário;-107;164;57;Inventário;INV-2026-07-PROD065;Ajuste de inventário para conciliação com o saldo físico final.;FUN013
+ME01089;2026-07-31;PROD066;Jaqueta Verde;Ajuste de inventário;-296;351;55;Inventário;INV-2026-07-PROD066;Ajuste de inventário para conciliação com o saldo físico final.;FUN013
+ME01090;2026-07-31;PROD067;Jaqueta Verde;Ajuste de inventário;-323;364;41;Inventário;INV-2026-07-PROD067;Ajuste de inventário para conciliação com o saldo físico final.;FUN013
+ME01091;2026-07-31;PROD068;Jaqueta Verde;Ajuste de inventário;-113;187;74;Inventário;INV-2026-07-PROD068;Ajuste de inventário para conciliação com o saldo físico final.;FUN013
+ME01092;2026-07-31;PROD069;Jaqueta Verde;Ajuste de inventário;-25;82;57;Inventário;INV-2026-07-PROD069;Ajuste de inventário para conciliação com o saldo físico final.;FUN013
+ME01093;2026-07-31;PROD070;Jaqueta Verde;Ajuste de inventário;-116;155;39;Inventário;INV-2026-07-PROD070;Ajuste de inventário para conciliação com o saldo físico final.;FUN013
+ME01094;2026-07-31;PROD071;Bermuda Jeans;Ajuste de inventário;-99;154;55;Inventário;INV-2026-07-PROD071;Ajuste de inventário para conciliação com o saldo físico final.;FUN013
+ME01095;2026-07-31;PROD072;Bermuda Jeans;Ajuste de inventário;-140;202;62;Inventário;INV-2026-07-PROD072;Ajuste de inventário para conciliação com o saldo físico final.;FUN013
+ME01096;2026-07-31;PROD073;Bermuda Jeans;Ajuste de inventário;-75;134;59;Inventário;INV-2026-07-PROD073;Ajuste de inventário para conciliação com o saldo físico final.;FUN013
+ME01097;2026-07-31;PROD074;Bermuda Jeans;Ajuste de inventário;-122;175;53;Inventário;INV-2026-07-PROD074;Ajuste de inventário para conciliação com o saldo físico final.;FUN013
+ME01098;2026-07-31;PROD075;Bermuda Jeans;Ajuste de inventário;-231;299;68;Inventário;INV-2026-07-PROD075;Ajuste de inventário para conciliação com o saldo físico final.;FUN013
+ME01099;2026-07-31;PROD076;Bermuda Caqui;Ajuste de inventário;-19;74;55;Inventário;INV-2026-07-PROD076;Ajuste de inventário para conciliação com o saldo físico final.;FUN013
+ME01100;2026-07-31;PROD079;Bermuda Caqui;Ajuste de inventário;-404;454;50;Inventário;INV-2026-07-PROD079;Ajuste de inventário para conciliação com o saldo físico final.;FUN013
+ME01101;2026-07-31;PROD080;Bermuda Caqui;Ajuste de inventário;-33;77;44;Inventário;INV-2026-07-PROD080;Ajuste de inventário para conciliação com o saldo físico final.;FUN013
+ME01028;2026-08-04;PROD057;Jaqueta Preta;Entrada por compra;20;76;96;Compra;COMP0218;Recebimento de mercadoria do fornecedor.;FUN014
+ME01029;2026-08-08;PROD043;Vestido Floral;Entrada por compra;60;23;83;Compra;COMP0217;Recebimento de mercadoria do fornecedor.;FUN014
+ME01030;2026-08-15;PROD071;Bermuda Jeans;Entrada por compra;40;114;154;Compra;COMP0220;Recebimento de mercadoria do fornecedor.;FUN013
+ME01031;2026-08-15;PROD079;Bermuda Caqui;Entrada por compra;100;354;454;Compra;COMP0219;Recebimento de mercadoria do fornecedor.;FUN014

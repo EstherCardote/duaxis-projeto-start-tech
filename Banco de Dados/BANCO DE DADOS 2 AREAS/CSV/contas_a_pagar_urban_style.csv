@@ -1,0 +1,221 @@
+﻿id_conta_pagar;compra_id;fornecedor_id;fornecedor_nome;data_emissao;data_vencimento;data_pagamento;valor_original;juros_multa;valor_pago;saldo_aberto;status;dias_atraso;forma_pagamento;categoria;centro_custo;competencia;documento_referencia;observacoes
+CP0001;COMP0001;FOR014;Cabides Brasil;2025-08-01;2025-08-31;2025-08-30;6186.4;0.0;6186.4;0.0;Pago;0;TED;Compra de Mercadorias;CC-COMPRAS;2025-08;COMP0001;Conta liquidada dentro do prazo.
+CP0002;COMP0002;FOR012;Tecido Nobre;2025-08-02;2025-09-01;2025-08-27;1130.54;0.0;1130.54;0.0;Pago;0;TED;Compra de Mercadorias;CC-COMPRAS;2025-08;COMP0002;Conta liquidada dentro do prazo.
+CP0003;COMP0003;FOR013;Fashion Logistics;2025-08-07;2025-09-04;2025-09-01;5013.88;0.0;5013.88;0.0;Pago;0;TED;Compra de Mercadorias;CC-COMPRAS;2025-08;COMP0003;Conta liquidada dentro do prazo.
+CP0004;COMP0004;FOR012;Tecido Nobre;2025-08-08;2025-09-05;2025-08-31;8575.8;0.0;8575.8;0.0;Pago;0;PIX;Compra de Mercadorias;CC-COMPRAS;2025-08;COMP0004;Conta liquidada dentro do prazo.
+CP0009;COMP0009;FOR016;Tecelagem Aurora;2025-08-20;2025-09-17;2025-09-13;2827.24;0.0;2827.24;0.0;Pago;0;PIX;Compra de Mercadorias;CC-COMPRAS;2025-08;COMP0009;Conta liquidada dentro do prazo.
+CP0010;COMP0010;FOR012;Tecido Nobre;2025-08-21;2025-09-18;2025-09-30;6769.24;162.19;6931.43;0.0;Pago com atraso;12;Boleto;Compra de Mercadorias;CC-COMPRAS;2025-08;COMP0010;Conta liquidada após o vencimento.
+CP0008;COMP0008;FOR002;Denim Brasil;2025-08-20;2025-09-19;2025-09-16;10848.18;0.0;10848.18;0.0;Pago;0;Boleto;Compra de Mercadorias;CC-COMPRAS;2025-08;COMP0008;Conta liquidada dentro do prazo.
+CP0005;COMP0005;FOR013;Fashion Logistics;2025-08-10;2025-09-24;2025-09-19;5221.53;0.0;5221.53;0.0;Pago;0;TED;Compra de Mercadorias;CC-COMPRAS;2025-08;COMP0005;Conta liquidada dentro do prazo.
+CP0006;COMP0006;FOR016;Tecelagem Aurora;2025-08-11;2025-09-25;2025-09-22;4139.43;0.0;4139.43;0.0;Pago;0;Boleto;Compra de Mercadorias;CC-COMPRAS;2025-08;COMP0006;Conta liquidada dentro do prazo.
+CP0012;COMP0012;FOR003;Tecidos Paulista;2025-08-30;2025-09-27;2025-09-24;767.21;0.0;767.21;0.0;Pago;0;PIX;Compra de Mercadorias;CC-COMPRAS;2025-08;COMP0012;Conta liquidada dentro do prazo.
+CP0007;COMP0007;FOR009;Confecções Prime;2025-08-15;2025-09-29;2025-09-27;5403.03;0.0;5403.03;0.0;Pago;0;PIX;Compra de Mercadorias;CC-COMPRAS;2025-08;COMP0007;Conta liquidada dentro do prazo.
+CP0014;COMP0014;FOR009;Confecções Prime;2025-09-05;2025-10-03;2025-10-01;4555.77;0.0;4555.77;0.0;Pago;0;TED;Compra de Mercadorias;CC-COMPRAS;2025-09;COMP0014;Conta liquidada dentro do prazo.
+CP0013;COMP0013;FOR012;Tecido Nobre;2025-09-04;2025-10-04;2025-10-04;4228.35;0.0;4228.35;0.0;Pago;0;TED;Compra de Mercadorias;CC-COMPRAS;2025-09;COMP0013;Conta liquidada dentro do prazo.
+CP0011;COMP0011;FOR005;Style Buttons;2025-08-27;2025-10-11;2025-10-10;1981.86;0.0;1981.86;0.0;Pago;0;PIX;Compra de Mercadorias;CC-COMPRAS;2025-08;COMP0011;Conta liquidada dentro do prazo.
+CP0019;COMP0019;FOR011;Malharia Horizonte;2025-09-12;2025-10-12;2025-10-08;24201.99;0.0;24201.99;0.0;Pago;0;PIX;Compra de Mercadorias;CC-COMPRAS;2025-09;COMP0019;Conta liquidada dentro do prazo.
+CP0020;COMP0020;FOR017;Trend Imports;2025-09-12;2025-10-12;2025-10-08;9096.58;0.0;9096.58;0.0;Pago;0;TED;Compra de Mercadorias;CC-COMPRAS;2025-09;COMP0020;Conta liquidada dentro do prazo.
+CP0021;COMP0021;FOR008;Moda Sul;2025-09-16;2025-10-14;2025-10-10;9733.56;0.0;9733.56;0.0;Pago;0;TED;Compra de Mercadorias;CC-COMPRAS;2025-09;COMP0021;Conta liquidada dentro do prazo.
+CP0022;COMP0022;FOR017;Trend Imports;2025-09-16;2025-10-14;2025-10-14;8018.46;0.0;8018.46;0.0;Pago;0;PIX;Compra de Mercadorias;CC-COMPRAS;2025-09;COMP0022;Conta liquidada dentro do prazo.
+CP0023;COMP0023;FOR017;Trend Imports;2025-09-16;2025-10-14;;4790.49;0.0;0.0;4790.49;Em atraso;290;Boleto;Compra de Mercadorias;CC-COMPRAS;2025-09;COMP0023;Título pendente de pagamento.
+CP0024;COMP0024;FOR011;Malharia Horizonte;2025-09-18;2025-10-18;2025-10-17;8946.66;0.0;8946.66;0.0;Pago;0;TED;Compra de Mercadorias;CC-COMPRAS;2025-09;COMP0024;Conta liquidada dentro do prazo.
+CP0015;COMP0015;FOR014;Cabides Brasil;2025-09-05;2025-10-20;2025-10-16;7685.83;0.0;7685.83;0.0;Pago;0;PIX;Compra de Mercadorias;CC-COMPRAS;2025-09;COMP0015;Conta liquidada dentro do prazo.
+CP0016;COMP0016;FOR001;FashionTex Malhas;2025-09-07;2025-10-22;2025-10-19;4105.58;0.0;4105.58;0.0;Pago;0;TED;Compra de Mercadorias;CC-COMPRAS;2025-09;COMP0016;Conta liquidada dentro do prazo.
+CP0017;COMP0017;FOR004;Urban Cotton;2025-09-07;2025-10-22;2025-10-22;17771.2;0.0;17771.2;0.0;Pago;0;Boleto;Compra de Mercadorias;CC-COMPRAS;2025-09;COMP0017;Conta liquidada dentro do prazo.
+CP0026;COMP0026;FOR002;Denim Brasil;2025-09-26;2025-10-24;2025-10-24;4164.0;0.0;4164.0;0.0;Pago;0;Boleto;Compra de Mercadorias;CC-COMPRAS;2025-09;COMP0026;Conta liquidada dentro do prazo.
+CP0018;COMP0018;FOR017;Trend Imports;2025-09-11;2025-10-26;2025-10-22;1075.16;0.0;1075.16;0.0;Pago;0;TED;Compra de Mercadorias;CC-COMPRAS;2025-09;COMP0018;Conta liquidada dentro do prazo.
+CP0030;COMP0030;FOR006;ZipMaster;2025-10-01;2025-10-31;2025-10-27;7195.48;0.0;7195.48;0.0;Pago;0;PIX;Compra de Mercadorias;CC-COMPRAS;2025-10;COMP0030;Conta liquidada dentro do prazo.
+CP0031;COMP0031;FOR008;Moda Sul;2025-10-02;2025-11-01;2025-11-01;3254.56;0.0;3254.56;0.0;Pago;0;TED;Compra de Mercadorias;CC-COMPRAS;2025-10;COMP0031;Conta liquidada dentro do prazo.
+CP0032;COMP0032;FOR007;ColorPrint Têxtil;2025-10-04;2025-11-03;2025-11-02;3531.11;0.0;3531.11;0.0;Pago;0;TED;Compra de Mercadorias;CC-COMPRAS;2025-10;COMP0032;Conta liquidada dentro do prazo.
+CP0033;COMP0033;FOR009;Confecções Prime;2025-10-07;2025-11-04;2025-11-03;3864.92;0.0;3864.92;0.0;Pago;0;PIX;Compra de Mercadorias;CC-COMPRAS;2025-10;COMP0033;Conta liquidada dentro do prazo.
+CP0025;COMP0025;FOR007;ColorPrint Têxtil;2025-09-22;2025-11-06;2025-11-02;3906.1;0.0;3906.1;0.0;Pago;0;PIX;Compra de Mercadorias;CC-COMPRAS;2025-09;COMP0025;Conta liquidada dentro do prazo.
+CP0035;COMP0035;FOR003;Tecidos Paulista;2025-10-10;2025-11-07;2025-11-16;8675.79;199.28;8875.07;0.0;Pago com atraso;9;PIX;Compra de Mercadorias;CC-COMPRAS;2025-10;COMP0035;Conta liquidada após o vencimento.
+CP0036;COMP0036;FOR003;Tecidos Paulista;2025-10-11;2025-11-08;2025-11-05;7115.4;0.0;7115.4;0.0;Pago;0;Boleto;Compra de Mercadorias;CC-COMPRAS;2025-10;COMP0036;Conta liquidada dentro do prazo.
+CP0037;COMP0037;FOR013;Fashion Logistics;2025-10-12;2025-11-09;2025-11-06;9357.93;0.0;9357.93;0.0;Pago;0;PIX;Compra de Mercadorias;CC-COMPRAS;2025-10;COMP0037;Conta liquidada dentro do prazo.
+CP0027;COMP0027;FOR005;Style Buttons;2025-09-29;2025-11-13;2025-11-09;16969.37;0.0;16969.37;0.0;Pago;0;Boleto;Compra de Mercadorias;CC-COMPRAS;2025-09;COMP0027;Conta liquidada dentro do prazo.
+CP0039;COMP0039;FOR006;ZipMaster;2025-10-16;2025-11-13;;8851.1;0.0;0.0;8851.1;Em atraso;260;PIX;Compra de Mercadorias;CC-COMPRAS;2025-10;COMP0039;Título pendente de pagamento.
+CP0028;COMP0028;FOR003;Tecidos Paulista;2025-09-30;2025-11-14;2025-12-01;1418.04;36.32;1454.36;0.0;Pago com atraso;17;TED;Compra de Mercadorias;CC-COMPRAS;2025-09;COMP0028;Conta liquidada após o vencimento.
+CP0029;COMP0029;FOR005;Style Buttons;2025-10-01;2025-11-15;2025-11-12;7005.64;0.0;7005.64;0.0;Pago;0;TED;Compra de Mercadorias;CC-COMPRAS;2025-10;COMP0029;Conta liquidada dentro do prazo.
+CP0038;COMP0038;FOR003;Tecidos Paulista;2025-10-16;2025-11-15;2025-11-12;7182.91;0.0;7182.91;0.0;Pago;0;PIX;Compra de Mercadorias;CC-COMPRAS;2025-10;COMP0038;Conta liquidada dentro do prazo.
+CP0041;COMP0041;FOR005;Style Buttons;2025-10-17;2025-11-16;2025-11-13;6896.37;0.0;6896.37;0.0;Pago;0;Boleto;Compra de Mercadorias;CC-COMPRAS;2025-10;COMP0041;Conta liquidada dentro do prazo.
+CP0043;COMP0043;FOR003;Tecidos Paulista;2025-10-22;2025-11-19;2025-11-19;8451.28;0.0;8451.28;0.0;Pago;0;Boleto;Compra de Mercadorias;CC-COMPRAS;2025-10;COMP0043;Conta liquidada dentro do prazo.
+CP0042;COMP0042;FOR008;Moda Sul;2025-10-21;2025-11-20;2025-11-18;12243.33;0.0;12243.33;0.0;Pago;0;TED;Compra de Mercadorias;CC-COMPRAS;2025-10;COMP0042;Conta liquidada dentro do prazo.
+CP0034;COMP0034;FOR012;Tecido Nobre;2025-10-08;2025-11-22;2025-11-22;4277.68;0.0;4277.68;0.0;Pago;0;PIX;Compra de Mercadorias;CC-COMPRAS;2025-10;COMP0034;Conta liquidada dentro do prazo.
+CP0044;COMP0044;FOR006;ZipMaster;2025-10-23;2025-11-22;2025-11-17;9099.03;0.0;9099.03;0.0;Pago;0;Boleto;Compra de Mercadorias;CC-COMPRAS;2025-10;COMP0044;Conta liquidada dentro do prazo.
+CP0046;COMP0046;FOR004;Urban Cotton;2025-10-25;2025-11-22;2025-12-04;19318.04;462.86;19780.9;0.0;Pago com atraso;12;Boleto;Compra de Mercadorias;CC-COMPRAS;2025-10;COMP0046;Conta liquidada após o vencimento.
+CP0045;COMP0045;FOR013;Fashion Logistics;2025-10-24;2025-11-23;2025-11-19;3337.75;0.0;3337.75;0.0;Pago;0;TED;Compra de Mercadorias;CC-COMPRAS;2025-10;COMP0045;Conta liquidada dentro do prazo.
+CP0047;COMP0047;FOR011;Malharia Horizonte;2025-10-27;2025-11-24;2025-11-19;10251.25;0.0;10251.25;0.0;Pago;0;PIX;Compra de Mercadorias;CC-COMPRAS;2025-10;COMP0047;Conta liquidada dentro do prazo.
+CP0048;COMP0048;FOR008;Moda Sul;2025-10-28;2025-11-27;2025-11-24;9523.75;0.0;9523.75;0.0;Pago;0;TED;Compra de Mercadorias;CC-COMPRAS;2025-10;COMP0048;Conta liquidada dentro do prazo.
+CP0049;COMP0049;FOR013;Fashion Logistics;2025-10-29;2025-11-28;2025-11-28;15990.98;0.0;15990.98;0.0;Pago;0;TED;Compra de Mercadorias;CC-COMPRAS;2025-10;COMP0049;Conta liquidada dentro do prazo.
+CP0040;COMP0040;FOR013;Fashion Logistics;2025-10-16;2025-11-30;2025-11-30;6561.32;0.0;6561.32;0.0;Pago;0;Boleto;Compra de Mercadorias;CC-COMPRAS;2025-10;COMP0040;Conta liquidada dentro do prazo.
+CP0052;COMP0052;FOR013;Fashion Logistics;2025-11-02;2025-11-30;2025-11-27;9782.3;0.0;9782.3;0.0;Pago;0;Boleto;Compra de Mercadorias;CC-COMPRAS;2025-11;COMP0052;Conta liquidada dentro do prazo.
+CP0053;COMP0053;FOR012;Tecido Nobre;2025-11-02;2025-12-02;2025-12-01;2070.47;0.0;2070.47;0.0;Pago;0;PIX;Compra de Mercadorias;CC-COMPRAS;2025-11;COMP0053;Conta liquidada dentro do prazo.
+CP0054;COMP0054;FOR008;Moda Sul;2025-11-03;2025-12-03;2025-12-01;3199.43;0.0;3199.43;0.0;Pago;0;TED;Compra de Mercadorias;CC-COMPRAS;2025-11;COMP0054;Conta liquidada dentro do prazo.
+CP0055;COMP0055;FOR011;Malharia Horizonte;2025-11-06;2025-12-04;2025-12-01;2790.96;0.0;2790.96;0.0;Pago;0;TED;Compra de Mercadorias;CC-COMPRAS;2025-11;COMP0055;Conta liquidada dentro do prazo.
+CP0050;COMP0050;FOR011;Malharia Horizonte;2025-10-30;2025-12-14;2025-12-14;1954.55;0.0;1954.55;0.0;Pago;0;TED;Compra de Mercadorias;CC-COMPRAS;2025-10;COMP0050;Conta liquidada dentro do prazo.
+CP0051;COMP0051;FOR004;Urban Cotton;2025-11-01;2025-12-16;2025-12-16;10062.77;0.0;10062.77;0.0;Pago;0;PIX;Compra de Mercadorias;CC-COMPRAS;2025-11;COMP0051;Conta liquidada dentro do prazo.
+CP0057;COMP0057;FOR013;Fashion Logistics;2025-11-17;2025-12-17;2025-12-17;15582.26;0.0;15582.26;0.0;Pago;0;Boleto;Compra de Mercadorias;CC-COMPRAS;2025-11;COMP0057;Conta liquidada dentro do prazo.
+CP0058;COMP0058;FOR014;Cabides Brasil;2025-11-21;2025-12-21;2025-12-16;3860.2;0.0;3860.2;0.0;Pago;0;TED;Compra de Mercadorias;CC-COMPRAS;2025-11;COMP0058;Conta liquidada dentro do prazo.
+CP0059;COMP0059;FOR014;Cabides Brasil;2025-11-23;2025-12-23;2025-12-22;900.5;0.0;900.5;0.0;Pago;0;Boleto;Compra de Mercadorias;CC-COMPRAS;2025-11;COMP0059;Conta liquidada dentro do prazo.
+CP0060;COMP0060;FOR011;Malharia Horizonte;2025-11-24;2025-12-24;2025-12-23;3227.84;0.0;3227.84;0.0;Pago;0;PIX;Compra de Mercadorias;CC-COMPRAS;2025-11;COMP0060;Conta liquidada dentro do prazo.
+CP0061;COMP0061;FOR013;Fashion Logistics;2025-11-26;2025-12-24;2025-12-21;18916.31;0.0;18916.31;0.0;Pago;0;Boleto;Compra de Mercadorias;CC-COMPRAS;2025-11;COMP0061;Conta liquidada dentro do prazo.
+CP0062;COMP0062;FOR002;Denim Brasil;2025-11-30;2025-12-30;2026-01-10;2257.81;53.35;2311.16;0.0;Pago com atraso;11;PIX;Compra de Mercadorias;CC-COMPRAS;2025-11;COMP0062;Conta liquidada após o vencimento.
+CP0063;COMP0063;FOR002;Denim Brasil;2025-12-02;2025-12-30;;1592.26;0.0;0.0;1592.26;Em atraso;213;PIX;Compra de Mercadorias;CC-COMPRAS;2025-12;COMP0063;Título pendente de pagamento.
+CP0065;COMP0065;FOR016;Tecelagem Aurora;2025-12-03;2025-12-31;2026-01-14;7205.54;177.4;7382.94;0.0;Pago com atraso;14;Boleto;Compra de Mercadorias;CC-COMPRAS;2025-12;COMP0065;Conta liquidada após o vencimento.
+CP0056;COMP0056;FOR008;Moda Sul;2025-11-17;2026-01-01;2025-12-28;16051.35;0.0;16051.35;0.0;Pago;0;PIX;Compra de Mercadorias;CC-COMPRAS;2025-11;COMP0056;Conta liquidada dentro do prazo.
+CP0064;COMP0064;FOR013;Fashion Logistics;2025-12-02;2026-01-01;2025-12-30;3173.17;0.0;3173.17;0.0;Pago;0;Boleto;Compra de Mercadorias;CC-COMPRAS;2025-12;COMP0064;Conta liquidada dentro do prazo.
+CP0066;COMP0066;FOR003;Tecidos Paulista;2025-12-06;2026-01-05;2026-01-01;6997.6;0.0;6997.6;0.0;Pago;0;Boleto;Compra de Mercadorias;CC-COMPRAS;2025-12;COMP0066;Conta liquidada dentro do prazo.
+CP0067;COMP0067;FOR013;Fashion Logistics;2025-12-08;2026-01-05;2025-12-31;3933.08;0.0;3933.08;0.0;Pago;0;Boleto;Compra de Mercadorias;CC-COMPRAS;2025-12;COMP0067;Conta liquidada dentro do prazo.
+CP0070;COMP0070;FOR013;Fashion Logistics;2025-12-13;2026-01-10;2026-01-10;13288.07;0.0;13288.07;0.0;Pago;0;Boleto;Compra de Mercadorias;CC-COMPRAS;2025-12;COMP0070;Conta liquidada dentro do prazo.
+CP0069;COMP0069;FOR013;Fashion Logistics;2025-12-12;2026-01-11;2026-01-06;11209.87;0.0;11209.87;0.0;Pago;0;PIX;Compra de Mercadorias;CC-COMPRAS;2025-12;COMP0069;Conta liquidada dentro do prazo.
+CP0071;COMP0071;FOR011;Malharia Horizonte;2025-12-14;2026-01-13;2026-01-08;9012.78;0.0;9012.78;0.0;Pago;0;TED;Compra de Mercadorias;CC-COMPRAS;2025-12;COMP0071;Conta liquidada dentro do prazo.
+CP0072;COMP0072;FOR014;Cabides Brasil;2025-12-16;2026-01-13;2026-01-12;1181.35;0.0;1181.35;0.0;Pago;0;PIX;Compra de Mercadorias;CC-COMPRAS;2025-12;COMP0072;Conta liquidada dentro do prazo.
+CP0073;COMP0073;FOR011;Malharia Horizonte;2025-12-16;2026-01-15;2026-01-12;8783.02;0.0;8783.02;0.0;Pago;0;TED;Compra de Mercadorias;CC-COMPRAS;2025-12;COMP0073;Conta liquidada dentro do prazo.
+CP0074;COMP0074;FOR016;Tecelagem Aurora;2025-12-16;2026-01-15;2026-01-14;1335.71;0.0;1335.71;0.0;Pago;0;TED;Compra de Mercadorias;CC-COMPRAS;2025-12;COMP0074;Conta liquidada dentro do prazo.
+CP0075;COMP0075;FOR015;Embalagens Premium;2025-12-18;2026-01-17;2026-01-15;2775.7;0.0;2775.7;0.0;Pago;0;TED;Compra de Mercadorias;CC-COMPRAS;2025-12;COMP0075;Conta liquidada dentro do prazo.
+CP0076;COMP0076;FOR011;Malharia Horizonte;2025-12-20;2026-01-17;2026-01-16;5003.26;0.0;5003.26;0.0;Pago;0;TED;Compra de Mercadorias;CC-COMPRAS;2025-12;COMP0076;Conta liquidada dentro do prazo.
+CP0078;COMP0078;FOR008;Moda Sul;2025-12-21;2026-01-18;2026-01-13;13180.27;0.0;13180.27;0.0;Pago;0;PIX;Compra de Mercadorias;CC-COMPRAS;2025-12;COMP0078;Conta liquidada dentro do prazo.
+CP0079;COMP0079;FOR011;Malharia Horizonte;2025-12-22;2026-01-21;2026-01-20;2501.52;0.0;2501.52;0.0;Pago;0;Boleto;Compra de Mercadorias;CC-COMPRAS;2025-12;COMP0079;Conta liquidada dentro do prazo.
+CP0068;COMP0068;FOR008;Moda Sul;2025-12-12;2026-01-26;;6366.96;0.0;0.0;6366.96;Em atraso;186;Boleto;Compra de Mercadorias;CC-COMPRAS;2025-12;COMP0068;Título pendente de pagamento.
+CP0077;COMP0077;FOR007;ColorPrint Têxtil;2025-12-20;2026-02-03;2026-01-29;2051.81;0.0;2051.81;0.0;Pago;0;PIX;Compra de Mercadorias;CC-COMPRAS;2025-12;COMP0077;Conta liquidada dentro do prazo.
+CP0082;COMP0082;FOR013;Fashion Logistics;2026-01-07;2026-02-04;2026-02-11;20459.17;456.44;20915.61;0.0;Pago com atraso;7;PIX;Compra de Mercadorias;CC-COMPRAS;2026-01;COMP0082;Conta liquidada após o vencimento.
+CP0083;COMP0083;FOR012;Tecido Nobre;2026-01-08;2026-02-05;2026-02-04;4488.96;0.0;4488.96;0.0;Pago;0;TED;Compra de Mercadorias;CC-COMPRAS;2026-01;COMP0083;Conta liquidada dentro do prazo.
+CP0084;COMP0084;FOR013;Fashion Logistics;2026-01-09;2026-02-08;2026-02-26;9478.57;245.87;9724.44;0.0;Pago com atraso;18;TED;Compra de Mercadorias;CC-COMPRAS;2026-01;COMP0084;Conta liquidada após o vencimento.
+CP0085;COMP0085;FOR008;Moda Sul;2026-01-09;2026-02-08;2026-02-03;1819.7;0.0;1819.7;0.0;Pago;0;TED;Compra de Mercadorias;CC-COMPRAS;2026-01;COMP0085;Conta liquidada dentro do prazo.
+CP0088;COMP0088;FOR013;Fashion Logistics;2026-01-15;2026-02-12;2026-02-09;19171.73;0.0;19171.73;0.0;Pago;0;TED;Compra de Mercadorias;CC-COMPRAS;2026-01;COMP0088;Conta liquidada dentro do prazo.
+CP0080;COMP0080;FOR002;Denim Brasil;2025-12-30;2026-02-13;2026-02-08;16093.06;0.0;16093.06;0.0;Pago;0;TED;Compra de Mercadorias;CC-COMPRAS;2025-12;COMP0080;Conta liquidada dentro do prazo.
+CP0091;COMP0091;FOR014;Cabides Brasil;2026-01-16;2026-02-13;2026-02-12;4919.84;0.0;4919.84;0.0;Pago;0;PIX;Compra de Mercadorias;CC-COMPRAS;2026-01;COMP0091;Conta liquidada dentro do prazo.
+CP0081;COMP0081;FOR013;Fashion Logistics;2025-12-31;2026-02-14;2026-02-09;4757.77;0.0;4757.77;0.0;Pago;0;Boleto;Compra de Mercadorias;CC-COMPRAS;2025-12;COMP0081;Conta liquidada dentro do prazo.
+CP0093;COMP0093;FOR005;Style Buttons;2026-01-19;2026-02-16;2026-02-12;2226.51;0.0;2226.51;0.0;Pago;0;PIX;Compra de Mercadorias;CC-COMPRAS;2026-01;COMP0093;Conta liquidada dentro do prazo.
+CP0092;COMP0092;FOR004;Urban Cotton;2026-01-18;2026-02-17;2026-02-13;4390.83;0.0;4390.83;0.0;Pago;0;Boleto;Compra de Mercadorias;CC-COMPRAS;2026-01;COMP0092;Conta liquidada dentro do prazo.
+CP0096;COMP0096;FOR006;ZipMaster;2026-01-22;2026-02-21;2026-02-20;9906.89;0.0;9906.89;0.0;Pago;0;Boleto;Compra de Mercadorias;CC-COMPRAS;2026-01;COMP0096;Conta liquidada dentro do prazo.
+CP0100;COMP0100;FOR014;Cabides Brasil;2026-01-25;2026-02-22;2026-02-21;1196.1;0.0;1196.1;0.0;Pago;0;TED;Compra de Mercadorias;CC-COMPRAS;2026-01;COMP0100;Conta liquidada dentro do prazo.
+CP0101;COMP0101;FOR013;Fashion Logistics;2026-01-29;2026-02-26;2026-03-08;21208.19;494.15;21702.34;0.0;Pago com atraso;10;Boleto;Compra de Mercadorias;CC-COMPRAS;2026-01;COMP0101;Conta liquidada após o vencimento.
+CP0102;COMP0102;FOR007;ColorPrint Têxtil;2026-01-30;2026-02-27;2026-02-24;1871.53;0.0;1871.53;0.0;Pago;0;TED;Compra de Mercadorias;CC-COMPRAS;2026-01;COMP0102;Conta liquidada dentro do prazo.
+CP0086;COMP0086;FOR017;Trend Imports;2026-01-14;2026-02-28;2026-02-25;4282.84;0.0;4282.84;0.0;Pago;0;Boleto;Compra de Mercadorias;CC-COMPRAS;2026-01;COMP0086;Conta liquidada dentro do prazo.
+CP0087;COMP0087;FOR010;Etiqueta&Cia;2026-01-15;2026-03-01;2026-02-27;2069.53;0.0;2069.53;0.0;Pago;0;PIX;Compra de Mercadorias;CC-COMPRAS;2026-01;COMP0087;Conta liquidada dentro do prazo.
+CP0089;COMP0089;FOR010;Etiqueta&Cia;2026-01-15;2026-03-01;2026-02-25;16484.11;0.0;16484.11;0.0;Pago;0;TED;Compra de Mercadorias;CC-COMPRAS;2026-01;COMP0089;Conta liquidada dentro do prazo.
+CP0090;COMP0090;FOR003;Tecidos Paulista;2026-01-16;2026-03-02;2026-03-01;3878.64;0.0;3878.64;0.0;Pago;0;Boleto;Compra de Mercadorias;CC-COMPRAS;2026-01;COMP0090;Conta liquidada dentro do prazo.
+CP0094;COMP0094;FOR011;Malharia Horizonte;2026-01-20;2026-03-06;2026-03-03;8410.01;0.0;8410.01;0.0;Pago;0;Boleto;Compra de Mercadorias;CC-COMPRAS;2026-01;COMP0094;Conta liquidada dentro do prazo.
+CP0103;COMP0103;FOR004;Urban Cotton;2026-02-04;2026-03-06;2026-03-05;8136.44;0.0;8136.44;0.0;Pago;0;Boleto;Compra de Mercadorias;CC-COMPRAS;2026-02;COMP0103;Conta liquidada dentro do prazo.
+CP0095;COMP0095;FOR004;Urban Cotton;2026-01-21;2026-03-07;2026-03-05;15785.72;0.0;15785.72;0.0;Pago;0;Boleto;Compra de Mercadorias;CC-COMPRAS;2026-01;COMP0095;Conta liquidada dentro do prazo.
+CP0097;COMP0097;FOR003;Tecidos Paulista;2026-01-23;2026-03-09;2026-03-24;1182.82;29.51;1212.33;0.0;Pago com atraso;15;PIX;Compra de Mercadorias;CC-COMPRAS;2026-01;COMP0097;Conta liquidada após o vencimento.
+CP0098;COMP0098;FOR006;ZipMaster;2026-01-23;2026-03-09;2026-03-05;1918.01;0.0;1918.01;0.0;Pago;0;PIX;Compra de Mercadorias;CC-COMPRAS;2026-01;COMP0098;Conta liquidada dentro do prazo.
+CP0106;COMP0106;FOR008;Moda Sul;2026-02-09;2026-03-09;2026-03-06;5283.29;0.0;5283.29;0.0;Pago;0;TED;Compra de Mercadorias;CC-COMPRAS;2026-02;COMP0106;Conta liquidada dentro do prazo.
+CP0099;COMP0099;FOR002;Denim Brasil;2026-01-25;2026-03-11;2026-03-11;2298.06;0.0;2298.06;0.0;Pago;0;Boleto;Compra de Mercadorias;CC-COMPRAS;2026-01;COMP0099;Conta liquidada dentro do prazo.
+CP0108;COMP0108;FOR015;Embalagens Premium;2026-02-11;2026-03-13;2026-03-10;3283.33;0.0;3283.33;0.0;Pago;0;Boleto;Compra de Mercadorias;CC-COMPRAS;2026-02;COMP0108;Conta liquidada dentro do prazo.
+CP0110;COMP0110;FOR003;Tecidos Paulista;2026-02-14;2026-03-14;2026-03-11;3785.11;0.0;3785.11;0.0;Pago;0;TED;Compra de Mercadorias;CC-COMPRAS;2026-02;COMP0110;Conta liquidada dentro do prazo.
+CP0115;COMP0115;FOR001;FashionTex Malhas;2026-02-17;2026-03-17;2026-03-12;4918.33;0.0;4918.33;0.0;Pago;0;PIX;Compra de Mercadorias;CC-COMPRAS;2026-02;COMP0115;Conta liquidada dentro do prazo.
+CP0116;COMP0116;FOR005;Style Buttons;2026-02-20;2026-03-20;2026-03-20;6910.37;0.0;6910.37;0.0;Pago;0;PIX;Compra de Mercadorias;CC-COMPRAS;2026-02;COMP0116;Conta liquidada dentro do prazo.
+CP0104;COMP0104;FOR001;FashionTex Malhas;2026-02-04;2026-03-21;2026-03-17;5561.54;0.0;5561.54;0.0;Pago;0;Boleto;Compra de Mercadorias;CC-COMPRAS;2026-02;COMP0104;Conta liquidada dentro do prazo.
+CP0105;COMP0105;FOR014;Cabides Brasil;2026-02-08;2026-03-25;2026-03-22;1822.37;0.0;1822.37;0.0;Pago;0;PIX;Compra de Mercadorias;CC-COMPRAS;2026-02;COMP0105;Conta liquidada dentro do prazo.
+CP0119;COMP0119;FOR006;ZipMaster;2026-02-23;2026-03-25;2026-03-22;3199.5;0.0;3199.5;0.0;Pago;0;TED;Compra de Mercadorias;CC-COMPRAS;2026-02;COMP0119;Conta liquidada dentro do prazo.
+CP0107;COMP0107;FOR016;Tecelagem Aurora;2026-02-10;2026-03-27;2026-03-30;6771.17;142.13;6913.3;0.0;Pago com atraso;3;PIX;Compra de Mercadorias;CC-COMPRAS;2026-02;COMP0107;Conta liquidada após o vencimento.
+CP0122;COMP0122;FOR011;Malharia Horizonte;2026-02-27;2026-03-29;2026-03-27;7924.26;0.0;7924.26;0.0;Pago;0;PIX;Compra de Mercadorias;CC-COMPRAS;2026-02;COMP0122;Conta liquidada dentro do prazo.
+CP0125;COMP0125;FOR003;Tecidos Paulista;2026-03-01;2026-03-29;2026-03-27;5171.89;0.0;5171.89;0.0;Pago;0;TED;Compra de Mercadorias;CC-COMPRAS;2026-03;COMP0125;Conta liquidada dentro do prazo.
+CP0109;COMP0109;FOR014;Cabides Brasil;2026-02-13;2026-03-30;2026-04-09;3899.72;90.86;3990.58;0.0;Pago com atraso;10;Boleto;Compra de Mercadorias;CC-COMPRAS;2026-02;COMP0109;Conta liquidada após o vencimento.
+CP0123;COMP0123;FOR011;Malharia Horizonte;2026-02-28;2026-03-30;2026-03-25;11419.56;0.0;11419.56;0.0;Pago;0;TED;Compra de Mercadorias;CC-COMPRAS;2026-02;COMP0123;Conta liquidada dentro do prazo.
+CP0126;COMP0126;FOR008;Moda Sul;2026-03-02;2026-03-30;2026-03-27;5243.12;0.0;5243.12;0.0;Pago;0;TED;Compra de Mercadorias;CC-COMPRAS;2026-03;COMP0126;Conta liquidada dentro do prazo.
+CP0111;COMP0111;FOR016;Tecelagem Aurora;2026-02-14;2026-03-31;2026-03-28;19200.9;0.0;19200.9;0.0;Pago;0;PIX;Compra de Mercadorias;CC-COMPRAS;2026-02;COMP0111;Conta liquidada dentro do prazo.
+CP0112;COMP0112;FOR016;Tecelagem Aurora;2026-02-15;2026-04-01;2026-03-31;5624.21;0.0;5624.21;0.0;Pago;0;Boleto;Compra de Mercadorias;CC-COMPRAS;2026-02;COMP0112;Conta liquidada dentro do prazo.
+CP0113;COMP0113;FOR003;Tecidos Paulista;2026-02-17;2026-04-03;2026-04-01;7007.38;0.0;7007.38;0.0;Pago;0;Boleto;Compra de Mercadorias;CC-COMPRAS;2026-02;COMP0113;Conta liquidada dentro do prazo.
+CP0114;COMP0114;FOR006;ZipMaster;2026-02-17;2026-04-03;2026-03-31;7463.58;0.0;7463.58;0.0;Pago;0;Boleto;Compra de Mercadorias;CC-COMPRAS;2026-02;COMP0114;Conta liquidada dentro do prazo.
+CP0117;COMP0117;FOR013;Fashion Logistics;2026-02-21;2026-04-07;2026-04-04;17191.84;0.0;17191.84;0.0;Pago;0;TED;Compra de Mercadorias;CC-COMPRAS;2026-02;COMP0117;Conta liquidada dentro do prazo.
+CP0118;COMP0118;FOR009;Confecções Prime;2026-02-22;2026-04-08;2026-04-07;4303.28;0.0;4303.28;0.0;Pago;0;Boleto;Compra de Mercadorias;CC-COMPRAS;2026-02;COMP0118;Conta liquidada dentro do prazo.
+CP0131;COMP0131;FOR008;Moda Sul;2026-03-09;2026-04-08;2026-04-07;4033.77;0.0;4033.77;0.0;Pago;0;Boleto;Compra de Mercadorias;CC-COMPRAS;2026-03;COMP0131;Conta liquidada dentro do prazo.
+CP0132;COMP0132;FOR003;Tecidos Paulista;2026-03-09;2026-04-08;2026-04-03;3543.84;0.0;3543.84;0.0;Pago;0;PIX;Compra de Mercadorias;CC-COMPRAS;2026-03;COMP0132;Conta liquidada dentro do prazo.
+CP0133;COMP0133;FOR003;Tecidos Paulista;2026-03-10;2026-04-09;2026-04-16;3237.41;72.23;3309.64;0.0;Pago com atraso;7;PIX;Compra de Mercadorias;CC-COMPRAS;2026-03;COMP0133;Conta liquidada após o vencimento.
+CP0134;COMP0134;FOR006;ZipMaster;2026-03-12;2026-04-09;2026-04-05;13488.76;0.0;13488.76;0.0;Pago;0;Boleto;Compra de Mercadorias;CC-COMPRAS;2026-03;COMP0134;Conta liquidada dentro do prazo.
+CP0120;COMP0120;FOR012;Tecido Nobre;2026-02-25;2026-04-11;2026-04-24;8141.42;197.76;8339.18;0.0;Pago com atraso;13;TED;Compra de Mercadorias;CC-COMPRAS;2026-02;COMP0120;Conta liquidada após o vencimento.
+CP0135;COMP0135;FOR012;Tecido Nobre;2026-03-14;2026-04-11;2026-04-07;20322.04;0.0;20322.04;0.0;Pago;0;PIX;Compra de Mercadorias;CC-COMPRAS;2026-03;COMP0135;Conta liquidada dentro do prazo.
+CP0121;COMP0121;FOR003;Tecidos Paulista;2026-02-26;2026-04-12;2026-04-07;4504.5;0.0;4504.5;0.0;Pago;0;PIX;Compra de Mercadorias;CC-COMPRAS;2026-02;COMP0121;Conta liquidada dentro do prazo.
+CP0137;COMP0137;FOR015;Embalagens Premium;2026-03-15;2026-04-12;2026-04-11;1455.31;0.0;1455.31;0.0;Pago;0;Boleto;Compra de Mercadorias;CC-COMPRAS;2026-03;COMP0137;Conta liquidada dentro do prazo.
+CP0138;COMP0138;FOR010;Etiqueta&Cia;2026-03-15;2026-04-12;2026-04-09;5820.5;0.0;5820.5;0.0;Pago;0;Boleto;Compra de Mercadorias;CC-COMPRAS;2026-03;COMP0138;Conta liquidada dentro do prazo.
+CP0124;COMP0124;FOR012;Tecido Nobre;2026-02-28;2026-04-14;;1959.42;0.0;0.0;1959.42;Em atraso;108;PIX;Compra de Mercadorias;CC-COMPRAS;2026-02;COMP0124;Título pendente de pagamento.
+CP0139;COMP0139;FOR010;Etiqueta&Cia;2026-03-15;2026-04-14;2026-04-10;10694.95;0.0;10694.95;0.0;Pago;0;PIX;Compra de Mercadorias;CC-COMPRAS;2026-03;COMP0139;Conta liquidada dentro do prazo.
+CP0140;COMP0140;FOR003;Tecidos Paulista;2026-03-16;2026-04-15;2026-04-10;938.27;0.0;938.27;0.0;Pago;0;TED;Compra de Mercadorias;CC-COMPRAS;2026-03;COMP0140;Conta liquidada dentro do prazo.
+CP0141;COMP0141;FOR011;Malharia Horizonte;2026-03-16;2026-04-15;2026-04-23;5126.72;116.07;5242.79;0.0;Pago com atraso;8;TED;Compra de Mercadorias;CC-COMPRAS;2026-03;COMP0141;Conta liquidada após o vencimento.
+CP0143;COMP0143;FOR013;Fashion Logistics;2026-03-18;2026-04-17;2026-04-14;18017.65;0.0;18017.65;0.0;Pago;0;PIX;Compra de Mercadorias;CC-COMPRAS;2026-03;COMP0143;Conta liquidada dentro do prazo.
+CP0144;COMP0144;FOR003;Tecidos Paulista;2026-03-20;2026-04-17;2026-04-15;8426.72;0.0;8426.72;0.0;Pago;0;TED;Compra de Mercadorias;CC-COMPRAS;2026-03;COMP0144;Conta liquidada dentro do prazo.
+CP0127;COMP0127;FOR011;Malharia Horizonte;2026-03-04;2026-04-18;2026-04-23;16339.77;353.76;16693.53;0.0;Pago com atraso;5;Boleto;Compra de Mercadorias;CC-COMPRAS;2026-03;COMP0127;Conta liquidada após o vencimento.
+CP0128;COMP0128;FOR011;Malharia Horizonte;2026-03-05;2026-04-19;;8243.2;0.0;0.0;8243.2;Em atraso;103;PIX;Compra de Mercadorias;CC-COMPRAS;2026-03;COMP0128;Título pendente de pagamento.
+CP0129;COMP0129;FOR012;Tecido Nobre;2026-03-07;2026-04-21;2026-04-21;3519.6;0.0;3519.6;0.0;Pago;0;Boleto;Compra de Mercadorias;CC-COMPRAS;2026-03;COMP0129;Conta liquidada dentro do prazo.
+CP0130;COMP0130;FOR017;Trend Imports;2026-03-08;2026-04-22;2026-04-21;4130.92;0.0;4130.92;0.0;Pago;0;TED;Compra de Mercadorias;CC-COMPRAS;2026-03;COMP0130;Conta liquidada dentro do prazo.
+CP0146;COMP0146;FOR011;Malharia Horizonte;2026-03-27;2026-04-24;2026-04-19;1680.8;0.0;1680.8;0.0;Pago;0;PIX;Compra de Mercadorias;CC-COMPRAS;2026-03;COMP0146;Conta liquidada dentro do prazo.
+CP0136;COMP0136;FOR008;Moda Sul;2026-03-14;2026-04-28;2026-04-23;22701.25;0.0;22701.25;0.0;Pago;0;TED;Compra de Mercadorias;CC-COMPRAS;2026-03;COMP0136;Conta liquidada dentro do prazo.
+CP0147;COMP0147;FOR013;Fashion Logistics;2026-03-30;2026-04-29;2026-04-28;6333.91;0.0;6333.91;0.0;Pago;0;TED;Compra de Mercadorias;CC-COMPRAS;2026-03;COMP0147;Conta liquidada dentro do prazo.
+CP0142;COMP0142;FOR014;Cabides Brasil;2026-03-16;2026-04-30;2026-04-25;4041.88;0.0;4041.88;0.0;Pago;0;Boleto;Compra de Mercadorias;CC-COMPRAS;2026-03;COMP0142;Conta liquidada dentro do prazo.
+CP0148;COMP0148;FOR013;Fashion Logistics;2026-03-31;2026-04-30;2026-05-16;6689.76;169.12;6858.88;0.0;Pago com atraso;16;Boleto;Compra de Mercadorias;CC-COMPRAS;2026-03;COMP0148;Conta liquidada após o vencimento.
+CP0149;COMP0149;FOR009;Confecções Prime;2026-04-03;2026-05-01;2026-04-27;4369.28;0.0;4369.28;0.0;Pago;0;TED;Compra de Mercadorias;CC-COMPRAS;2026-04;COMP0149;Conta liquidada dentro do prazo.
+CP0150;COMP0150;FOR013;Fashion Logistics;2026-04-03;2026-05-03;2026-05-03;7532.17;0.0;7532.17;0.0;Pago;0;Boleto;Compra de Mercadorias;CC-COMPRAS;2026-04;COMP0150;Conta liquidada dentro do prazo.
+CP0145;COMP0145;FOR008;Moda Sul;2026-03-21;2026-05-05;2026-05-05;2252.34;0.0;2252.34;0.0;Pago;0;TED;Compra de Mercadorias;CC-COMPRAS;2026-03;COMP0145;Conta liquidada dentro do prazo.
+CP0152;COMP0152;FOR013;Fashion Logistics;2026-04-07;2026-05-05;2026-04-30;4956.07;0.0;4956.07;0.0;Pago;0;PIX;Compra de Mercadorias;CC-COMPRAS;2026-04;COMP0152;Conta liquidada dentro do prazo.
+CP0151;COMP0151;FOR013;Fashion Logistics;2026-04-06;2026-05-06;2026-05-05;2720.39;0.0;2720.39;0.0;Pago;0;Boleto;Compra de Mercadorias;CC-COMPRAS;2026-04;COMP0151;Conta liquidada dentro do prazo.
+CP0154;COMP0154;FOR004;Urban Cotton;2026-04-08;2026-05-06;2026-05-06;2901.74;0.0;2901.74;0.0;Pago;0;Boleto;Compra de Mercadorias;CC-COMPRAS;2026-04;COMP0154;Conta liquidada dentro do prazo.
+CP0156;COMP0156;FOR014;Cabides Brasil;2026-04-10;2026-05-08;2026-05-04;2752.2;0.0;2752.2;0.0;Pago;0;PIX;Compra de Mercadorias;CC-COMPRAS;2026-04;COMP0156;Conta liquidada dentro do prazo.
+CP0157;COMP0157;FOR014;Cabides Brasil;2026-04-13;2026-05-11;2026-05-28;5466.97;140.01;5606.98;0.0;Pago com atraso;17;PIX;Compra de Mercadorias;CC-COMPRAS;2026-04;COMP0157;Conta liquidada após o vencimento.
+CP0158;COMP0158;FOR007;ColorPrint Têxtil;2026-04-14;2026-05-14;2026-05-09;4630.33;0.0;4630.33;0.0;Pago;0;TED;Compra de Mercadorias;CC-COMPRAS;2026-04;COMP0158;Conta liquidada dentro do prazo.
+CP0159;COMP0159;FOR008;Moda Sul;2026-04-16;2026-05-14;2026-05-27;4264.93;103.6;4368.53;0.0;Pago com atraso;13;TED;Compra de Mercadorias;CC-COMPRAS;2026-04;COMP0159;Conta liquidada após o vencimento.
+CP0161;COMP0161;FOR016;Tecelagem Aurora;2026-04-18;2026-05-16;2026-06-03;8154.56;211.53;8366.09;0.0;Pago com atraso;18;TED;Compra de Mercadorias;CC-COMPRAS;2026-04;COMP0161;Conta liquidada após o vencimento.
+CP0163;COMP0163;FOR011;Malharia Horizonte;2026-04-21;2026-05-19;2026-05-18;13567.79;0.0;13567.79;0.0;Pago;0;PIX;Compra de Mercadorias;CC-COMPRAS;2026-04;COMP0163;Conta liquidada dentro do prazo.
+CP0165;COMP0165;FOR009;Confecções Prime;2026-04-22;2026-05-20;;4385.59;0.0;0.0;4385.59;Em atraso;72;Boleto;Compra de Mercadorias;CC-COMPRAS;2026-04;COMP0165;Título pendente de pagamento.
+CP0166;COMP0166;FOR016;Tecelagem Aurora;2026-04-22;2026-05-20;2026-05-15;4146.6;0.0;4146.6;0.0;Pago;0;TED;Compra de Mercadorias;CC-COMPRAS;2026-04;COMP0166;Conta liquidada dentro do prazo.
+CP0167;COMP0167;FOR013;Fashion Logistics;2026-04-23;2026-05-21;2026-05-21;6779.73;0.0;6779.73;0.0;Pago;0;PIX;Compra de Mercadorias;CC-COMPRAS;2026-04;COMP0167;Conta liquidada dentro do prazo.
+CP0170;COMP0170;FOR008;Moda Sul;2026-04-24;2026-05-22;2026-05-22;12780.73;0.0;12780.73;0.0;Pago;0;TED;Compra de Mercadorias;CC-COMPRAS;2026-04;COMP0170;Conta liquidada dentro do prazo.
+CP0153;COMP0153;FOR008;Moda Sul;2026-04-08;2026-05-23;2026-05-22;3492.28;0.0;3492.28;0.0;Pago;0;PIX;Compra de Mercadorias;CC-COMPRAS;2026-04;COMP0153;Conta liquidada dentro do prazo.
+CP0168;COMP0168;FOR013;Fashion Logistics;2026-04-23;2026-05-23;2026-05-19;2127.91;0.0;2127.91;0.0;Pago;0;PIX;Compra de Mercadorias;CC-COMPRAS;2026-04;COMP0168;Conta liquidada dentro do prazo.
+CP0155;COMP0155;FOR014;Cabides Brasil;2026-04-10;2026-05-25;2026-05-22;11214.77;0.0;11214.77;0.0;Pago;0;TED;Compra de Mercadorias;CC-COMPRAS;2026-04;COMP0155;Conta liquidada dentro do prazo.
+CP0173;COMP0173;FOR011;Malharia Horizonte;2026-04-26;2026-05-26;2026-05-25;8027.29;0.0;8027.29;0.0;Pago;0;PIX;Compra de Mercadorias;CC-COMPRAS;2026-04;COMP0173;Conta liquidada dentro do prazo.
+CP0160;COMP0160;FOR002;Denim Brasil;2026-04-16;2026-05-31;2026-06-15;12578.65;313.84;12892.49;0.0;Pago com atraso;15;PIX;Compra de Mercadorias;CC-COMPRAS;2026-04;COMP0160;Conta liquidada após o vencimento.
+CP0176;COMP0176;FOR003;Tecidos Paulista;2026-05-04;2026-06-03;;1808.2;0.0;0.0;1808.2;Em atraso;58;PIX;Compra de Mercadorias;CC-COMPRAS;2026-05;COMP0176;Título pendente de pagamento.
+CP0177;COMP0177;FOR002;Denim Brasil;2026-05-07;2026-06-04;2026-06-03;12143.83;0.0;12143.83;0.0;Pago;0;TED;Compra de Mercadorias;CC-COMPRAS;2026-05;COMP0177;Conta liquidada dentro do prazo.
+CP0162;COMP0162;FOR009;Confecções Prime;2026-04-21;2026-06-05;2026-06-05;5544.55;0.0;5544.55;0.0;Pago;0;Boleto;Compra de Mercadorias;CC-COMPRAS;2026-04;COMP0162;Conta liquidada dentro do prazo.
+CP0164;COMP0164;FOR006;ZipMaster;2026-04-21;2026-06-05;2026-06-05;9356.97;0.0;9356.97;0.0;Pago;0;PIX;Compra de Mercadorias;CC-COMPRAS;2026-04;COMP0164;Conta liquidada dentro do prazo.
+CP0169;COMP0169;FOR008;Moda Sul;2026-04-23;2026-06-07;2026-06-04;6800.91;0.0;6800.91;0.0;Pago;0;PIX;Compra de Mercadorias;CC-COMPRAS;2026-04;COMP0169;Conta liquidada dentro do prazo.
+CP0178;COMP0178;FOR013;Fashion Logistics;2026-05-10;2026-06-07;2026-06-03;6096.24;0.0;6096.24;0.0;Pago;0;Boleto;Compra de Mercadorias;CC-COMPRAS;2026-05;COMP0178;Conta liquidada dentro do prazo.
+CP0171;COMP0171;FOR002;Denim Brasil;2026-04-24;2026-06-08;2026-06-06;7708.82;0.0;7708.82;0.0;Pago;0;Boleto;Compra de Mercadorias;CC-COMPRAS;2026-04;COMP0171;Conta liquidada dentro do prazo.
+CP0172;COMP0172;FOR017;Trend Imports;2026-04-25;2026-06-09;2026-06-06;4338.7;0.0;4338.7;0.0;Pago;0;TED;Compra de Mercadorias;CC-COMPRAS;2026-04;COMP0172;Conta liquidada dentro do prazo.
+CP0179;COMP0179;FOR005;Style Buttons;2026-05-12;2026-06-09;2026-06-04;10249.92;0.0;10249.92;0.0;Pago;0;PIX;Compra de Mercadorias;CC-COMPRAS;2026-05;COMP0179;Conta liquidada dentro do prazo.
+CP0181;COMP0181;FOR018;Linha Forte Aviamentos;2026-05-14;2026-06-13;2026-06-10;884.6;0.0;884.6;0.0;Pago;0;Boleto;Compra de Mercadorias;CC-COMPRAS;2026-05;COMP0181;Conta liquidada dentro do prazo.
+CP0182;COMP0182;FOR012;Tecido Nobre;2026-05-17;2026-06-14;2026-06-11;3784.61;0.0;3784.61;0.0;Pago;0;Boleto;Compra de Mercadorias;CC-COMPRAS;2026-05;COMP0182;Conta liquidada dentro do prazo.
+CP0183;COMP0183;FOR013;Fashion Logistics;2026-05-18;2026-06-15;2026-06-12;1827.92;0.0;1827.92;0.0;Pago;0;PIX;Compra de Mercadorias;CC-COMPRAS;2026-05;COMP0183;Conta liquidada dentro do prazo.
+CP0184;COMP0184;FOR008;Moda Sul;2026-05-19;2026-06-16;2026-06-15;8316.3;0.0;8316.3;0.0;Pago;0;Boleto;Compra de Mercadorias;CC-COMPRAS;2026-05;COMP0184;Conta liquidada dentro do prazo.
+CP0174;COMP0174;FOR009;Confecções Prime;2026-05-03;2026-06-17;2026-06-17;4764.52;0.0;4764.52;0.0;Pago;0;TED;Compra de Mercadorias;CC-COMPRAS;2026-05;COMP0174;Conta liquidada dentro do prazo.
+CP0185;COMP0185;FOR015;Embalagens Premium;2026-05-20;2026-06-17;2026-06-23;6812.31;149.73;6962.04;0.0;Pago com atraso;6;Boleto;Compra de Mercadorias;CC-COMPRAS;2026-05;COMP0185;Conta liquidada após o vencimento.
+CP0175;COMP0175;FOR006;ZipMaster;2026-05-04;2026-06-18;2026-06-16;3117.71;0.0;3117.71;0.0;Pago;0;Boleto;Compra de Mercadorias;CC-COMPRAS;2026-05;COMP0175;Conta liquidada dentro do prazo.
+CP0186;COMP0186;FOR004;Urban Cotton;2026-05-23;2026-06-20;2026-06-18;15918.29;0.0;15918.29;0.0;Pago;0;Boleto;Compra de Mercadorias;CC-COMPRAS;2026-05;COMP0186;Conta liquidada dentro do prazo.
+CP0180;COMP0180;FOR013;Fashion Logistics;2026-05-12;2026-06-26;2026-06-22;3272.64;0.0;3272.64;0.0;Pago;0;PIX;Compra de Mercadorias;CC-COMPRAS;2026-05;COMP0180;Conta liquidada dentro do prazo.
+CP0189;COMP0189;FOR001;FashionTex Malhas;2026-05-27;2026-06-26;2026-06-22;19936.11;0.0;19936.11;0.0;Pago;0;Boleto;Compra de Mercadorias;CC-COMPRAS;2026-05;COMP0189;Conta liquidada dentro do prazo.
+CP0191;COMP0191;FOR001;FashionTex Malhas;2026-06-01;2026-06-29;2026-06-25;4194.42;0.0;4194.42;0.0;Pago;0;TED;Compra de Mercadorias;CC-COMPRAS;2026-06;COMP0191;Conta liquidada dentro do prazo.
+CP0192;COMP0192;FOR002;Denim Brasil;2026-06-02;2026-06-30;2026-06-28;16436.79;0.0;16436.79;0.0;Pago;0;PIX;Compra de Mercadorias;CC-COMPRAS;2026-06;COMP0192;Conta liquidada dentro do prazo.
+CP0193;COMP0193;FOR013;Fashion Logistics;2026-06-03;2026-07-03;;4069.48;0.0;0.0;4069.48;Em aberto;0;TED;Compra de Mercadorias;CC-COMPRAS;2026-06;COMP0193;Título pendente de pagamento.
+CP0196;COMP0196;FOR008;Moda Sul;2026-06-07;2026-07-05;2026-07-01;5692.07;0.0;5692.07;0.0;Pago;0;Boleto;Compra de Mercadorias;CC-COMPRAS;2026-06;COMP0196;Conta liquidada dentro do prazo.
+CP0195;COMP0195;FOR002;Denim Brasil;2026-06-07;2026-07-07;2026-07-03;15891.8;0.0;15891.8;0.0;Pago;0;TED;Compra de Mercadorias;CC-COMPRAS;2026-06;COMP0195;Conta liquidada dentro do prazo.
+CP0187;COMP0187;FOR006;ZipMaster;2026-05-24;2026-07-08;2026-07-08;11267.18;0.0;11267.18;0.0;Pago;0;TED;Compra de Mercadorias;CC-COMPRAS;2026-05;COMP0187;Conta liquidada dentro do prazo.
+CP0188;COMP0188;FOR006;ZipMaster;2026-05-26;2026-07-10;2026-07-06;5992.82;0.0;5992.82;0.0;Pago;0;Boleto;Compra de Mercadorias;CC-COMPRAS;2026-05;COMP0188;Conta liquidada dentro do prazo.
+CP0199;COMP0199;FOR011;Malharia Horizonte;2026-06-13;2026-07-11;2026-07-09;4962.57;0.0;4962.57;0.0;Pago;0;TED;Compra de Mercadorias;CC-COMPRAS;2026-06;COMP0199;Conta liquidada dentro do prazo.
+CP0190;COMP0190;FOR014;Cabides Brasil;2026-05-28;2026-07-12;;2827.53;0.0;0.0;2827.53;Em aberto;0;PIX;Compra de Mercadorias;CC-COMPRAS;2026-05;COMP0190;Título pendente de pagamento.
+CP0198;COMP0198;FOR009;Confecções Prime;2026-06-13;2026-07-13;2026-07-13;2134.86;0.0;2134.86;0.0;Pago;0;Boleto;Compra de Mercadorias;CC-COMPRAS;2026-06;COMP0198;Conta liquidada dentro do prazo.
+CP0200;COMP0200;FOR014;Cabides Brasil;2026-06-16;2026-07-14;;1742.53;0.0;0.0;1742.53;Em aberto;0;Boleto;Compra de Mercadorias;CC-COMPRAS;2026-06;COMP0200;Título pendente de pagamento.
+CP0201;COMP0201;FOR004;Urban Cotton;2026-06-19;2026-07-19;;18106.4;0.0;0.0;18106.4;Em aberto;0;TED;Compra de Mercadorias;CC-COMPRAS;2026-06;COMP0201;Título pendente de pagamento.
+CP0194;COMP0194;FOR008;Moda Sul;2026-06-05;2026-07-20;;6648.45;0.0;0.0;6648.45;Em aberto;0;PIX;Compra de Mercadorias;CC-COMPRAS;2026-06;COMP0194;Título pendente de pagamento.
+CP0202;COMP0202;FOR009;Confecções Prime;2026-06-21;2026-07-21;;2152.81;0.0;0.0;2152.81;Em atraso;10;TED;Compra de Mercadorias;CC-COMPRAS;2026-06;COMP0202;Título pendente de pagamento.
+CP0203;COMP0203;FOR013;Fashion Logistics;2026-06-22;2026-07-22;;20846.73;0.0;0.0;20846.73;Em aberto;0;PIX;Compra de Mercadorias;CC-COMPRAS;2026-06;COMP0203;Título pendente de pagamento.
+CP0204;COMP0204;FOR014;Cabides Brasil;2026-06-24;2026-07-22;;8562.77;0.0;0.0;8562.77;Em aberto;0;PIX;Compra de Mercadorias;CC-COMPRAS;2026-06;COMP0204;Título pendente de pagamento.
+CP0197;COMP0197;FOR016;Tecelagem Aurora;2026-06-11;2026-07-26;;7588.86;0.0;0.0;7588.86;Em aberto;0;Boleto;Compra de Mercadorias;CC-COMPRAS;2026-06;COMP0197;Título pendente de pagamento.
+CP0205;COMP0205;FOR009;Confecções Prime;2026-07-02;2026-07-30;2026-07-30;3085.32;0.0;3085.32;0.0;Pago;0;TED;Compra de Mercadorias;CC-COMPRAS;2026-07;COMP0205;Conta liquidada dentro do prazo.
+CP0207;COMP0207;FOR013;Fashion Logistics;2026-07-06;2026-08-05;2026-07-31;13705.42;0.0;13705.42;0.0;Pago;0;Boleto;Compra de Mercadorias;CC-COMPRAS;2026-07;COMP0207;Conta liquidada dentro do prazo.
+CP0211;COMP0211;FOR017;Trend Imports;2026-07-10;2026-08-09;2026-08-06;5322.72;0.0;5322.72;0.0;Pago;0;TED;Compra de Mercadorias;CC-COMPRAS;2026-07;COMP0211;Conta liquidada dentro do prazo.
+CP0212;COMP0212;FOR014;Cabides Brasil;2026-07-12;2026-08-09;2026-08-08;4322.53;0.0;4322.53;0.0;Pago;0;Boleto;Compra de Mercadorias;CC-COMPRAS;2026-07;COMP0212;Conta liquidada dentro do prazo.
+CP0213;COMP0213;FOR018;Linha Forte Aviamentos;2026-07-18;2026-08-15;;2911.83;0.0;0.0;2911.83;Em aberto;0;TED;Compra de Mercadorias;CC-COMPRAS;2026-07;COMP0213;Título pendente de pagamento.
+CP0215;COMP0215;FOR004;Urban Cotton;2026-07-20;2026-08-17;;3859.46;0.0;0.0;3859.46;Em aberto;0;TED;Compra de Mercadorias;CC-COMPRAS;2026-07;COMP0215;Título pendente de pagamento.
+CP0214;COMP0214;FOR011;Malharia Horizonte;2026-07-19;2026-08-18;2026-08-14;24951.02;0.0;24951.02;0.0;Pago;0;TED;Compra de Mercadorias;CC-COMPRAS;2026-07;COMP0214;Conta liquidada dentro do prazo.
+CP0206;COMP0206;FOR007;ColorPrint Têxtil;2026-07-05;2026-08-19;2026-08-18;3595.95;0.0;3595.95;0.0;Pago;0;PIX;Compra de Mercadorias;CC-COMPRAS;2026-07;COMP0206;Conta liquidada dentro do prazo.
+CP0208;COMP0208;FOR012;Tecido Nobre;2026-07-09;2026-08-23;2026-08-20;13980.3;0.0;13980.3;0.0;Pago;0;Boleto;Compra de Mercadorias;CC-COMPRAS;2026-07;COMP0208;Conta liquidada dentro do prazo.
+CP0209;COMP0209;FOR008;Moda Sul;2026-07-09;2026-08-23;2026-08-18;12639.35;0.0;12639.35;0.0;Pago;0;TED;Compra de Mercadorias;CC-COMPRAS;2026-07;COMP0209;Conta liquidada dentro do prazo.
+CP0210;COMP0210;FOR008;Moda Sul;2026-07-10;2026-08-24;;10416.59;0.0;0.0;10416.59;Em aberto;0;TED;Compra de Mercadorias;CC-COMPRAS;2026-07;COMP0210;Título pendente de pagamento.
+CP0217;COMP0217;FOR015;Embalagens Premium;2026-07-27;2026-08-24;;5263.07;0.0;0.0;5263.07;Em aberto;0;PIX;Compra de Mercadorias;CC-COMPRAS;2026-07;COMP0217;Título pendente de pagamento.
+CP0218;COMP0218;FOR014;Cabides Brasil;2026-07-30;2026-08-27;;2888.86;0.0;0.0;2888.86;Em atraso;1;PIX;Compra de Mercadorias;CC-COMPRAS;2026-07;COMP0218;Título pendente de pagamento.
+CP0216;COMP0216;FOR016;Tecelagem Aurora;2026-07-22;2026-09-05;2026-09-04;1332.88;0.0;1332.88;0.0;Pago;0;PIX;Compra de Mercadorias;CC-COMPRAS;2026-07;COMP0216;Conta liquidada dentro do prazo.
+CP0219;COMP0219;FOR004;Urban Cotton;2026-07-31;2026-09-14;2026-09-13;13726.53;0.0;13726.53;0.0;Pago;0;PIX;Compra de Mercadorias;CC-COMPRAS;2026-07;COMP0219;Conta liquidada dentro do prazo.
+CP0220;COMP0220;FOR013;Fashion Logistics;2026-07-31;2026-09-14;2026-09-09;4947.61;0.0;4947.61;0.0;Pago;0;PIX;Compra de Mercadorias;CC-COMPRAS;2026-07;COMP0220;Conta liquidada dentro do prazo.

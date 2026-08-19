@@ -1,0 +1,451 @@
+﻿id_movimentacao;data_movimentacao;tipo;categoria;descricao;valor;origem;origem_id;centro_custo;status;forma_pagamento;observacoes
+MOV0001;2025-08-01;Receita;Vendas;Recebimento referente à venda VEN0001;514.34;Venda;VEN0001;CC-COMERCIAL;Realizado;Boleto;Receita gerada por venda concluída.
+MOV0002;2025-08-01;Receita;Vendas;Recebimento referente à venda VEN0002;533.28;Venda;VEN0002;CC-COMERCIAL;Realizado;PIX;Receita gerada por venda concluída.
+MOV0003;2025-08-01;Despesa;Impostos;Pagamento de impostos;18563.82;Financeiro;;CC-FINANCEIRO;Realizado;TED;Movimentação financeira complementar.
+MOV0004;2025-08-05;Despesa;Folha de Pagamento;Folha de pagamento 08/2025;326900.0;RH;FOLHA-2025-08;CC-RH;Realizado;TED;Inclui salários e benefícios mensais.
+MOV0005;2025-08-06;Despesa;Frete;Pagamento de frete;10022.72;Financeiro;;CC-FINANCEIRO;Realizado;TED;Movimentação financeira complementar.
+MOV0006;2025-08-07;Receita;Vendas;Recebimento referente à venda VEN0008;137.27;Venda;VEN0008;CC-COMERCIAL;Realizado;Cartão de Crédito;Receita gerada por venda concluída.
+MOV0007;2025-08-08;Receita;Vendas;Recebimento referente à venda VEN0010;139.54;Venda;VEN0010;CC-COMERCIAL;Realizado;Cartão de Crédito;Receita gerada por venda concluída.
+MOV0008;2025-08-08;Despesa;Aluguel;Despesa mensal de aluguel;31009.34;Operacional;;CC-ADMIN;Realizado;Boleto;Despesa operacional recorrente.
+MOV0009;2025-08-10;Despesa;Energia;Despesa mensal de energia;8541.07;Operacional;;CC-OPERACAO;Realizado;TED;Despesa operacional recorrente.
+MOV0010;2025-08-10;Despesa;Marketing;Despesa mensal de marketing;16591.98;Operacional;;CC-MARKETING;Realizado;Boleto;Despesa operacional recorrente.
+MOV0011;2025-08-14;Receita;Vendas;Recebimento referente à venda VEN0026;321.94;Venda;VEN0026;CC-COMERCIAL;Realizado;Boleto;Receita gerada por venda concluída.
+MOV0012;2025-08-15;Despesa;Compra de Mercadorias;Pagamento referente à compra COMP0007;5403.03;Compra;COMP0007;CC-COMPRAS;Realizado;PIX;Despesa vinculada à aquisição de mercadorias.
+MOV0013;2025-08-15;Despesa;Tecnologia;Despesa mensal de tecnologia;6966.16;Operacional;;CC-TI;Realizado;Boleto;Despesa operacional recorrente.
+MOV0014;2025-08-17;Receita;Vendas;Recebimento referente à venda VEN0031;293.22;Venda;VEN0031;CC-COMERCIAL;Realizado;PIX;Receita gerada por venda concluída.
+MOV0015;2025-08-19;Receita;Vendas;Recebimento referente à venda VEN0036;294.47;Venda;VEN0036;CC-COMERCIAL;Realizado;Boleto;Receita gerada por venda concluída.
+MOV0016;2025-08-19;Receita;Vendas;Recebimento referente à venda VEN0034;866.77;Venda;VEN0034;CC-COMERCIAL;Realizado;PIX;Receita gerada por venda concluída.
+MOV0017;2025-08-19;Receita;Vendas;Recebimento referente à venda VEN0033;386.26;Venda;VEN0033;CC-COMERCIAL;Realizado;Cartão de Crédito;Receita gerada por venda concluída.
+MOV0018;2025-08-20;Despesa;Compra de Mercadorias;Pagamento referente à compra COMP0009;2827.24;Compra;COMP0009;CC-COMPRAS;Realizado;PIX;Despesa vinculada à aquisição de mercadorias.
+MOV0019;2025-08-20;Despesa;Manutenção;Despesa mensal de manutenção;4820.81;Operacional;;CC-OPERACAO;Realizado;TED;Despesa operacional recorrente.
+MOV0020;2025-08-22;Receita;Vendas;Recebimento referente à venda VEN0039;205.66;Venda;VEN0039;CC-COMERCIAL;Realizado;PIX;Receita gerada por venda concluída.
+MOV0021;2025-08-22;Receita;Vendas;Recebimento referente à venda VEN0040;374.42;Venda;VEN0040;CC-COMERCIAL;Realizado;Cartão de Crédito;Receita gerada por venda concluída.
+MOV0022;2025-08-22;Receita;Vendas;Recebimento referente à venda VEN0041;137.27;Venda;VEN0041;CC-COMERCIAL;Realizado;Cartão de Crédito;Receita gerada por venda concluída.
+MOV0023;2025-08-23;Receita;Vendas;Recebimento referente à venda VEN0042;258.44;Venda;VEN0042;CC-COMERCIAL;Realizado;Cartão de Crédito;Receita gerada por venda concluída.
+MOV0024;2025-08-27;Receita;Vendas;Recebimento referente à venda VEN0048;204.42;Venda;VEN0048;CC-COMERCIAL;Realizado;PIX;Receita gerada por venda concluída.
+MOV0025;2025-08-27;Despesa;Compra de Mercadorias;Pagamento referente à compra COMP0011;1981.86;Compra;COMP0011;CC-COMPRAS;Realizado;PIX;Despesa vinculada à aquisição de mercadorias.
+MOV0026;2025-09-03;Receita;Vendas;Recebimento referente à venda VEN0060;224.4;Venda;VEN0060;CC-COMERCIAL;Realizado;PIX;Receita gerada por venda concluída.
+MOV0027;2025-09-05;Despesa;Compra de Mercadorias;Pagamento referente à compra COMP0015;7685.83;Compra;COMP0015;CC-COMPRAS;Realizado;PIX;Despesa vinculada à aquisição de mercadorias.
+MOV0028;2025-09-05;Despesa;Folha de Pagamento;Folha de pagamento 09/2025;327880.7;RH;FOLHA-2025-09;CC-RH;Realizado;TED;Inclui salários e benefícios mensais.
+MOV0029;2025-09-06;Receita;Vendas;Recebimento referente à venda VEN0071;403.68;Venda;VEN0071;CC-COMERCIAL;Realizado;PIX;Receita gerada por venda concluída.
+MOV0030;2025-09-07;Despesa;Compra de Mercadorias;Pagamento referente à compra COMP0017;17771.2;Compra;COMP0017;CC-COMPRAS;Realizado;Boleto;Despesa vinculada à aquisição de mercadorias.
+MOV0031;2025-09-10;Despesa;Marketing;Despesa mensal de marketing;14975.42;Operacional;;CC-MARKETING;Realizado;Boleto;Despesa operacional recorrente.
+MOV0032;2025-09-11;Receita;Vendas;Recebimento referente à venda VEN0080;926.49;Venda;VEN0080;CC-COMERCIAL;Realizado;Cartão de Débito;Receita gerada por venda concluída.
+MOV0033;2025-09-11;Despesa;Compra de Mercadorias;Pagamento referente à compra COMP0018;1075.16;Compra;COMP0018;CC-COMPRAS;Realizado;TED;Despesa vinculada à aquisição de mercadorias.
+MOV0034;2025-09-12;Despesa;Compra de Mercadorias;Pagamento referente à compra COMP0019;24201.99;Compra;COMP0019;CC-COMPRAS;Realizado;PIX;Despesa vinculada à aquisição de mercadorias.
+MOV0035;2025-09-12;Despesa;Energia;Despesa mensal de energia;8005.81;Operacional;;CC-OPERACAO;Realizado;PIX;Despesa operacional recorrente.
+MOV0036;2025-09-12;Despesa;Manutenção;Despesa mensal de manutenção;4446.29;Operacional;;CC-OPERACAO;Realizado;Boleto;Despesa operacional recorrente.
+MOV0037;2025-09-15;Receita;Vendas;Recebimento referente à venda VEN0087;177.76;Venda;VEN0087;CC-COMERCIAL;Realizado;Cartão de Crédito;Receita gerada por venda concluída.
+MOV0038;2025-09-16;Receita;Vendas;Recebimento referente à venda VEN0089;608.26;Venda;VEN0089;CC-COMERCIAL;Realizado;PIX;Receita gerada por venda concluída.
+MOV0039;2025-09-17;Receita;Vendas;Recebimento referente à venda VEN0091;171.78;Venda;VEN0091;CC-COMERCIAL;Realizado;Boleto;Receita gerada por venda concluída.
+MOV0040;2025-09-18;Despesa;Compra de Mercadorias;Pagamento referente à compra COMP0024;8946.66;Compra;COMP0024;CC-COMPRAS;Realizado;TED;Despesa vinculada à aquisição de mercadorias.
+MOV0041;2025-09-20;Despesa;Aluguel;Despesa mensal de aluguel;29432.85;Operacional;;CC-ADMIN;Realizado;Boleto;Despesa operacional recorrente.
+MOV0042;2025-09-20;Despesa;Tecnologia;Despesa mensal de tecnologia;6924.89;Operacional;;CC-TI;Realizado;PIX;Despesa operacional recorrente.
+MOV0043;2025-09-21;Receita;Vendas;Recebimento referente à venda VEN0098;288.92;Venda;VEN0098;CC-COMERCIAL;Realizado;Cartão de Débito;Receita gerada por venda concluída.
+MOV0044;2025-09-22;Despesa;Compra de Mercadorias;Pagamento referente à compra COMP0025;3906.1;Compra;COMP0025;CC-COMPRAS;Realizado;PIX;Despesa vinculada à aquisição de mercadorias.
+MOV0045;2025-09-22;Despesa;Frete;Pagamento de frete;8553.96;Financeiro;;CC-FINANCEIRO;Realizado;TED;Movimentação financeira complementar.
+MOV0046;2025-09-23;Receita;Vendas;Recebimento referente à venda VEN0101;164.97;Venda;VEN0101;CC-COMERCIAL;Realizado;Boleto;Receita gerada por venda concluída.
+MOV0047;2025-09-23;Receita;Vendas;Recebimento referente à venda VEN0102;277.85;Venda;VEN0102;CC-COMERCIAL;Realizado;Cartão de Crédito;Receita gerada por venda concluída.
+MOV0048;2025-09-24;Receita;Vendas;Recebimento referente à venda VEN0105;1158.78;Venda;VEN0105;CC-COMERCIAL;Realizado;Boleto;Receita gerada por venda concluída.
+MOV0049;2025-09-24;Receita;Vendas;Recebimento referente à venda VEN0107;298.41;Venda;VEN0107;CC-COMERCIAL;Realizado;Boleto;Receita gerada por venda concluída.
+MOV0050;2025-09-26;Despesa;Impostos;Pagamento de impostos;14640.12;Financeiro;;CC-FINANCEIRO;Realizado;Boleto;Movimentação financeira complementar.
+MOV0051;2025-09-29;Receita;Vendas;Recebimento referente à venda VEN0121;57.41;Venda;VEN0121;CC-COMERCIAL;Realizado;Cartão de Débito;Receita gerada por venda concluída.
+MOV0052;2025-09-30;Receita;Vendas;Recebimento referente à venda VEN0123;300.12;Venda;VEN0123;CC-COMERCIAL;Realizado;PIX;Receita gerada por venda concluída.
+MOV0053;2025-09-30;Receita;Vendas;Recebimento referente à venda VEN0126;175.88;Venda;VEN0126;CC-COMERCIAL;Realizado;Cartão de Débito;Receita gerada por venda concluída.
+MOV0054;2025-09-30;Receita;Vendas;Recebimento referente à venda VEN0125;696.3;Venda;VEN0125;CC-COMERCIAL;Realizado;Cartão de Crédito;Receita gerada por venda concluída.
+MOV0055;2025-09-30;Despesa;Compra de Mercadorias;Pagamento referente à compra COMP0028;1418.04;Compra;COMP0028;CC-COMPRAS;Realizado;TED;Despesa vinculada à aquisição de mercadorias.
+MOV0056;2025-10-01;Receita;Vendas;Recebimento referente à venda VEN0128;281.02;Venda;VEN0128;CC-COMERCIAL;Realizado;PIX;Receita gerada por venda concluída.
+MOV0057;2025-10-02;Receita;Vendas;Recebimento referente à venda VEN0129;300.12;Venda;VEN0129;CC-COMERCIAL;Realizado;Cartão de Crédito;Receita gerada por venda concluída.
+MOV0058;2025-10-02;Despesa;Compra de Mercadorias;Pagamento referente à compra COMP0031;3254.56;Compra;COMP0031;CC-COMPRAS;Realizado;TED;Despesa vinculada à aquisição de mercadorias.
+MOV0059;2025-10-03;Receita;Vendas;Recebimento referente à venda VEN0132;294.47;Venda;VEN0132;CC-COMERCIAL;Realizado;Cartão de Crédito;Receita gerada por venda concluída.
+MOV0060;2025-10-04;Despesa;Compra de Mercadorias;Pagamento referente à compra COMP0032;3531.11;Compra;COMP0032;CC-COMPRAS;Realizado;TED;Despesa vinculada à aquisição de mercadorias.
+MOV0061;2025-10-05;Despesa;Folha de Pagamento;Folha de pagamento 10/2025;328861.4;RH;FOLHA-2025-10;CC-RH;Realizado;TED;Inclui salários e benefícios mensais.
+MOV0062;2025-10-06;Receita;Vendas;Recebimento referente à venda VEN0136;481.91;Venda;VEN0136;CC-COMERCIAL;Realizado;Cartão de Crédito;Receita gerada por venda concluída.
+MOV0063;2025-10-08;Receita;Vendas;Recebimento referente à venda VEN0139;212.68;Venda;VEN0139;CC-COMERCIAL;Realizado;PIX;Receita gerada por venda concluída.
+MOV0064;2025-10-08;Despesa;Tecnologia;Despesa mensal de tecnologia;7125.17;Operacional;;CC-TI;Realizado;PIX;Despesa operacional recorrente.
+MOV0065;2025-10-09;Receita;Vendas;Recebimento referente à venda VEN0141;298.41;Venda;VEN0141;CC-COMERCIAL;Realizado;Cartão de Crédito;Receita gerada por venda concluída.
+MOV0066;2025-10-10;Despesa;Manutenção;Despesa mensal de manutenção;4528.21;Operacional;;CC-OPERACAO;Realizado;TED;Despesa operacional recorrente.
+MOV0067;2025-10-11;Despesa;Compra de Mercadorias;Pagamento referente à compra COMP0036;7115.4;Compra;COMP0036;CC-COMPRAS;Realizado;Boleto;Despesa vinculada à aquisição de mercadorias.
+MOV0068;2025-10-15;Receita;Vendas;Recebimento referente à venda VEN0155;219.02;Venda;VEN0155;CC-COMERCIAL;Realizado;Cartão de Crédito;Receita gerada por venda concluída.
+MOV0069;2025-10-16;Despesa;Compra de Mercadorias;Pagamento referente à compra COMP0038;7182.91;Compra;COMP0038;CC-COMPRAS;Realizado;PIX;Despesa vinculada à aquisição de mercadorias.
+MOV0070;2025-10-16;Despesa;Compra de Mercadorias;Pagamento referente à compra COMP0039;8851.1;Compra;COMP0039;CC-COMPRAS;Realizado;PIX;Despesa vinculada à aquisição de mercadorias.
+MOV0071;2025-10-17;Despesa;Compra de Mercadorias;Pagamento referente à compra COMP0041;6896.37;Compra;COMP0041;CC-COMPRAS;Realizado;Boleto;Despesa vinculada à aquisição de mercadorias.
+MOV0072;2025-10-18;Receita;Vendas;Recebimento referente à venda VEN0164;850.83;Venda;VEN0164;CC-COMERCIAL;Realizado;Boleto;Receita gerada por venda concluída.
+MOV0073;2025-10-20;Despesa;Aluguel;Despesa mensal de aluguel;27287.18;Operacional;;CC-ADMIN;Realizado;TED;Despesa operacional recorrente.
+MOV0074;2025-10-20;Despesa;Energia;Despesa mensal de energia;9189.06;Operacional;;CC-OPERACAO;Realizado;Boleto;Despesa operacional recorrente.
+MOV0075;2025-10-20;Despesa;Marketing;Despesa mensal de marketing;20019.79;Operacional;;CC-MARKETING;Realizado;Boleto;Despesa operacional recorrente.
+MOV0076;2025-10-20;Despesa;Frete;Pagamento de frete;7131.53;Financeiro;;CC-FINANCEIRO;Realizado;Boleto;Movimentação financeira complementar.
+MOV0077;2025-10-21;Receita;Vendas;Recebimento referente à venda VEN0175;320.3;Venda;VEN0175;CC-COMERCIAL;Realizado;PIX;Receita gerada por venda concluída.
+MOV0078;2025-10-21;Despesa;Compra de Mercadorias;Pagamento referente à compra COMP0042;12243.33;Compra;COMP0042;CC-COMPRAS;Realizado;TED;Despesa vinculada à aquisição de mercadorias.
+MOV0079;2025-10-22;Receita;Vendas;Recebimento referente à venda VEN0176;366.05;Venda;VEN0176;CC-COMERCIAL;Realizado;Boleto;Receita gerada por venda concluída.
+MOV0080;2025-10-23;Receita;Vendas;Recebimento referente à venda VEN0177;1123.26;Venda;VEN0177;CC-COMERCIAL;Realizado;Cartão de Crédito;Receita gerada por venda concluída.
+MOV0081;2025-10-24;Receita;Vendas;Recebimento referente à venda VEN0180;374.42;Venda;VEN0180;CC-COMERCIAL;Realizado;PIX;Receita gerada por venda concluída.
+MOV0082;2025-10-24;Despesa;Compra de Mercadorias;Pagamento referente à compra COMP0045;3337.75;Compra;COMP0045;CC-COMPRAS;Realizado;TED;Despesa vinculada à aquisição de mercadorias.
+MOV0083;2025-10-25;Receita;Vendas;Recebimento referente à venda VEN0186;373.62;Venda;VEN0186;CC-COMERCIAL;Realizado;Cartão de Crédito;Receita gerada por venda concluída.
+MOV0084;2025-10-25;Receita;Vendas;Recebimento referente à venda VEN0184;726.82;Venda;VEN0184;CC-COMERCIAL;Realizado;Cartão de Crédito;Receita gerada por venda concluída.
+MOV0085;2025-10-25;Despesa;Compra de Mercadorias;Pagamento referente à compra COMP0046;19318.04;Compra;COMP0046;CC-COMPRAS;Realizado;Boleto;Despesa vinculada à aquisição de mercadorias.
+MOV0086;2025-10-26;Receita;Vendas;Recebimento referente à venda VEN0189;80.85;Venda;VEN0189;CC-COMERCIAL;Realizado;PIX;Receita gerada por venda concluída.
+MOV0087;2025-10-26;Receita;Vendas;Recebimento referente à venda VEN0190;481.91;Venda;VEN0190;CC-COMERCIAL;Realizado;Cartão de Crédito;Receita gerada por venda concluída.
+MOV0088;2025-10-27;Receita;Vendas;Recebimento referente à venda VEN0191;808.38;Venda;VEN0191;CC-COMERCIAL;Realizado;Cartão de Débito;Receita gerada por venda concluída.
+MOV0089;2025-10-27;Despesa;Compra de Mercadorias;Pagamento referente à compra COMP0047;10251.25;Compra;COMP0047;CC-COMPRAS;Realizado;PIX;Despesa vinculada à aquisição de mercadorias.
+MOV0090;2025-10-29;Receita;Vendas;Recebimento referente à venda VEN0194;562.04;Venda;VEN0194;CC-COMERCIAL;Realizado;Boleto;Receita gerada por venda concluída.
+MOV0091;2025-10-29;Despesa;Compra de Mercadorias;Pagamento referente à compra COMP0049;15990.98;Compra;COMP0049;CC-COMPRAS;Realizado;TED;Despesa vinculada à aquisição de mercadorias.
+MOV0092;2025-10-30;Despesa;Compra de Mercadorias;Pagamento referente à compra COMP0050;1954.55;Compra;COMP0050;CC-COMPRAS;Realizado;TED;Despesa vinculada à aquisição de mercadorias.
+MOV0093;2025-11-01;Receita;Vendas;Recebimento referente à venda VEN0203;457.81;Venda;VEN0203;CC-COMERCIAL;Realizado;Cartão de Crédito;Receita gerada por venda concluída.
+MOV0094;2025-11-01;Despesa;Compra de Mercadorias;Pagamento referente à compra COMP0051;10062.77;Compra;COMP0051;CC-COMPRAS;Realizado;PIX;Despesa vinculada à aquisição de mercadorias.
+MOV0095;2025-11-02;Receita;Vendas;Recebimento referente à venda VEN0205;249.24;Venda;VEN0205;CC-COMERCIAL;Realizado;Cartão de Crédito;Receita gerada por venda concluída.
+MOV0096;2025-11-02;Receita;Vendas;Recebimento referente à venda VEN0210;470.99;Venda;VEN0210;CC-COMERCIAL;Realizado;Boleto;Receita gerada por venda concluída.
+MOV0097;2025-11-02;Despesa;Compra de Mercadorias;Pagamento referente à compra COMP0052;9782.3;Compra;COMP0052;CC-COMPRAS;Realizado;Boleto;Despesa vinculada à aquisição de mercadorias.
+MOV0098;2025-11-03;Receita;Vendas;Recebimento referente à venda VEN0212;304.28;Venda;VEN0212;CC-COMERCIAL;Realizado;Cartão de Débito;Receita gerada por venda concluída.
+MOV0099;2025-11-03;Receita;Vendas;Recebimento referente à venda VEN0214;143.58;Venda;VEN0214;CC-COMERCIAL;Realizado;Cartão de Crédito;Receita gerada por venda concluída.
+MOV0100;2025-11-03;Receita;Vendas;Recebimento referente à venda VEN0211;350.04;Venda;VEN0211;CC-COMERCIAL;Realizado;PIX;Receita gerada por venda concluída.
+MOV0101;2025-11-04;Despesa;Impostos;Pagamento de impostos;19661.86;Financeiro;;CC-FINANCEIRO;Realizado;TED;Movimentação financeira complementar.
+MOV0102;2025-11-05;Despesa;Folha de Pagamento;Folha de pagamento 11/2025;329842.1;RH;FOLHA-2025-11;CC-RH;Realizado;TED;Inclui salários e benefícios mensais.
+MOV0103;2025-11-06;Receita;Vendas;Recebimento referente à venda VEN0221;54.4;Venda;VEN0221;CC-COMERCIAL;Realizado;Cartão de Débito;Receita gerada por venda concluída.
+MOV0104;2025-11-06;Receita;Vendas;Recebimento referente à venda VEN0219;355.7;Venda;VEN0219;CC-COMERCIAL;Realizado;Cartão de Crédito;Receita gerada por venda concluída.
+MOV0105;2025-11-06;Receita;Vendas;Recebimento referente à venda VEN0216;420.67;Venda;VEN0216;CC-COMERCIAL;Realizado;Cartão de Crédito;Receita gerada por venda concluída.
+MOV0106;2025-11-06;Despesa;Compra de Mercadorias;Pagamento referente à compra COMP0055;2790.96;Compra;COMP0055;CC-COMPRAS;Realizado;TED;Despesa vinculada à aquisição de mercadorias.
+MOV0107;2025-11-06;Despesa;Impostos;Pagamento de impostos;25516.04;Financeiro;;CC-FINANCEIRO;Realizado;Boleto;Movimentação financeira complementar.
+MOV0108;2025-11-07;Receita;Vendas;Recebimento referente à venda VEN0225;357.92;Venda;VEN0225;CC-COMERCIAL;Realizado;Cartão de Crédito;Receita gerada por venda concluída.
+MOV0109;2025-11-08;Receita;Vendas;Recebimento referente à venda VEN0227;462.91;Venda;VEN0227;CC-COMERCIAL;Realizado;PIX;Receita gerada por venda concluída.
+MOV0110;2025-11-08;Receita;Vendas;Recebimento referente à venda VEN0229;399.69;Venda;VEN0229;CC-COMERCIAL;Realizado;Cartão de Crédito;Receita gerada por venda concluída.
+MOV0111;2025-11-08;Despesa;Energia;Despesa mensal de energia;9808.37;Operacional;;CC-OPERACAO;Realizado;Boleto;Despesa operacional recorrente.
+MOV0112;2025-11-08;Despesa;Tecnologia;Despesa mensal de tecnologia;7270.46;Operacional;;CC-TI;Realizado;TED;Despesa operacional recorrente.
+MOV0113;2025-11-11;Receita;Vendas;Recebimento referente à venda VEN0237;317.58;Venda;VEN0237;CC-COMERCIAL;Realizado;PIX;Receita gerada por venda concluída.
+MOV0114;2025-11-12;Despesa;Aluguel;Despesa mensal de aluguel;26563.6;Operacional;;CC-ADMIN;Realizado;PIX;Despesa operacional recorrente.
+MOV0115;2025-11-12;Despesa;Manutenção;Despesa mensal de manutenção;4344.25;Operacional;;CC-OPERACAO;Realizado;TED;Despesa operacional recorrente.
+MOV0116;2025-11-14;Receita;Vendas;Recebimento referente à venda VEN0247;653.84;Venda;VEN0247;CC-COMERCIAL;Realizado;PIX;Receita gerada por venda concluída.
+MOV0117;2025-11-15;Despesa;Marketing;Despesa mensal de marketing;23913.63;Operacional;;CC-MARKETING;Realizado;TED;Despesa operacional recorrente.
+MOV0118;2025-11-16;Receita;Vendas;Recebimento referente à venda VEN0255;272.25;Venda;VEN0255;CC-COMERCIAL;Realizado;Boleto;Receita gerada por venda concluída.
+MOV0119;2025-11-16;Receita;Vendas;Recebimento referente à venda VEN0257;363.31;Venda;VEN0257;CC-COMERCIAL;Realizado;Cartão de Crédito;Receita gerada por venda concluída.
+MOV0120;2025-11-16;Receita;Vendas;Recebimento referente à venda VEN0252;224.25;Venda;VEN0252;CC-COMERCIAL;Realizado;PIX;Receita gerada por venda concluída.
+MOV0121;2025-11-17;Despesa;Compra de Mercadorias;Pagamento referente à compra COMP0057;15582.26;Compra;COMP0057;CC-COMPRAS;Realizado;Boleto;Despesa vinculada à aquisição de mercadorias.
+MOV0122;2025-11-18;Receita;Vendas;Recebimento referente à venda VEN0262;247.09;Venda;VEN0262;CC-COMERCIAL;Realizado;Cartão de Crédito;Receita gerada por venda concluída.
+MOV0123;2025-11-18;Receita;Vendas;Recebimento referente à venda VEN0261;327.07;Venda;VEN0261;CC-COMERCIAL;Realizado;Boleto;Receita gerada por venda concluída.
+MOV0124;2025-11-19;Receita;Vendas;Recebimento referente à venda VEN0263;194.2;Venda;VEN0263;CC-COMERCIAL;Realizado;Cartão de Débito;Receita gerada por venda concluída.
+MOV0125;2025-11-20;Receita;Vendas;Recebimento referente à venda VEN0269;619.55;Venda;VEN0269;CC-COMERCIAL;Realizado;Cartão de Débito;Receita gerada por venda concluída.
+MOV0126;2025-11-21;Receita;Vendas;Recebimento referente à venda VEN0270;235.57;Venda;VEN0270;CC-COMERCIAL;Realizado;PIX;Receita gerada por venda concluída.
+MOV0127;2025-11-22;Receita;Vendas;Recebimento referente à venda VEN0274;118.18;Venda;VEN0274;CC-COMERCIAL;Realizado;Boleto;Receita gerada por venda concluída.
+MOV0128;2025-11-22;Receita;Vendas;Recebimento referente à venda VEN0272;118.71;Venda;VEN0272;CC-COMERCIAL;Realizado;Boleto;Receita gerada por venda concluída.
+MOV0129;2025-11-22;Receita;Vendas;Recebimento referente à venda VEN0273;695.27;Venda;VEN0273;CC-COMERCIAL;Realizado;Cartão de Débito;Receita gerada por venda concluída.
+MOV0130;2025-11-22;Receita;Vendas;Recebimento referente à venda VEN0277;530.05;Venda;VEN0277;CC-COMERCIAL;Realizado;Cartão de Crédito;Receita gerada por venda concluída.
+MOV0131;2025-11-24;Receita;Vendas;Recebimento referente à venda VEN0282;418.78;Venda;VEN0282;CC-COMERCIAL;Realizado;PIX;Receita gerada por venda concluída.
+MOV0132;2025-11-24;Receita;Vendas;Recebimento referente à venda VEN0281;733.89;Venda;VEN0281;CC-COMERCIAL;Realizado;Boleto;Receita gerada por venda concluída.
+MOV0133;2025-11-24;Despesa;Compra de Mercadorias;Pagamento referente à compra COMP0060;3227.84;Compra;COMP0060;CC-COMPRAS;Realizado;PIX;Despesa vinculada à aquisição de mercadorias.
+MOV0134;2025-11-24;Despesa;Frete;Pagamento de frete;6649.83;Financeiro;;CC-FINANCEIRO;Realizado;PIX;Movimentação financeira complementar.
+MOV0135;2025-11-25;Receita;Vendas;Recebimento referente à venda VEN0287;304.28;Venda;VEN0287;CC-COMERCIAL;Realizado;Boleto;Receita gerada por venda concluída.
+MOV0136;2025-11-26;Despesa;Taxas Bancárias;Pagamento de taxas bancárias;1059.93;Financeiro;;CC-FINANCEIRO;Realizado;TED;Movimentação financeira complementar.
+MOV0137;2025-11-29;Receita;Vendas;Recebimento referente à venda VEN0295;159.98;Venda;VEN0295;CC-COMERCIAL;Realizado;PIX;Receita gerada por venda concluída.
+MOV0138;2025-11-30;Receita;Vendas;Recebimento referente à venda VEN0297;56.08;Venda;VEN0297;CC-COMERCIAL;Realizado;Cartão de Crédito;Receita gerada por venda concluída.
+MOV0139;2025-11-30;Despesa;Compra de Mercadorias;Pagamento referente à compra COMP0062;2257.81;Compra;COMP0062;CC-COMPRAS;Realizado;PIX;Despesa vinculada à aquisição de mercadorias.
+MOV0140;2025-12-01;Receita;Vendas;Recebimento referente à venda VEN0301;277.95;Venda;VEN0301;CC-COMERCIAL;Realizado;PIX;Receita gerada por venda concluída.
+MOV0141;2025-12-02;Receita;Vendas;Recebimento referente à venda VEN0302;109.84;Venda;VEN0302;CC-COMERCIAL;Realizado;Cartão de Débito;Receita gerada por venda concluída.
+MOV0142;2025-12-02;Despesa;Compra de Mercadorias;Pagamento referente à compra COMP0064;3173.17;Compra;COMP0064;CC-COMPRAS;Realizado;Boleto;Despesa vinculada à aquisição de mercadorias.
+MOV0143;2025-12-03;Receita;Vendas;Recebimento referente à venda VEN0309;604.35;Venda;VEN0309;CC-COMERCIAL;Realizado;Cartão de Débito;Receita gerada por venda concluída.
+MOV0144;2025-12-03;Despesa;Compra de Mercadorias;Pagamento referente à compra COMP0065;7205.54;Compra;COMP0065;CC-COMPRAS;Realizado;Boleto;Despesa vinculada à aquisição de mercadorias.
+MOV0145;2025-12-04;Receita;Vendas;Recebimento referente à venda VEN0313;655.78;Venda;VEN0313;CC-COMERCIAL;Realizado;PIX;Receita gerada por venda concluída.
+MOV0146;2025-12-04;Receita;Vendas;Recebimento referente à venda VEN0310;319.95;Venda;VEN0310;CC-COMERCIAL;Realizado;Cartão de Débito;Receita gerada por venda concluída.
+MOV0147;2025-12-05;Receita;Vendas;Recebimento referente à venda VEN0316;673.96;Venda;VEN0316;CC-COMERCIAL;Realizado;PIX;Receita gerada por venda concluída.
+MOV0148;2025-12-05;Receita;Vendas;Recebimento referente à venda VEN0317;183.98;Venda;VEN0317;CC-COMERCIAL;Realizado;PIX;Receita gerada por venda concluída.
+MOV0149;2025-12-05;Despesa;Folha de Pagamento;Folha de pagamento 12/2025;330822.8;RH;FOLHA-2025-12;CC-RH;Realizado;TED;Inclui salários e benefícios mensais.
+MOV0150;2025-12-06;Receita;Vendas;Recebimento referente à venda VEN0322;288.92;Venda;VEN0322;CC-COMERCIAL;Realizado;Cartão de Crédito;Receita gerada por venda concluída.
+MOV0151;2025-12-06;Receita;Vendas;Recebimento referente à venda VEN0319;240.81;Venda;VEN0319;CC-COMERCIAL;Realizado;Cartão de Crédito;Receita gerada por venda concluída.
+MOV0152;2025-12-07;Receita;Vendas;Recebimento referente à venda VEN0324;241.07;Venda;VEN0324;CC-COMERCIAL;Realizado;Cartão de Crédito;Receita gerada por venda concluída.
+MOV0153;2025-12-08;Receita;Vendas;Recebimento referente à venda VEN0331;142.12;Venda;VEN0331;CC-COMERCIAL;Realizado;Boleto;Receita gerada por venda concluída.
+MOV0154;2025-12-08;Despesa;Compra de Mercadorias;Pagamento referente à compra COMP0067;3933.08;Compra;COMP0067;CC-COMPRAS;Realizado;Boleto;Despesa vinculada à aquisição de mercadorias.
+MOV0155;2025-12-08;Despesa;Marketing;Despesa mensal de marketing;20698.46;Operacional;;CC-MARKETING;Realizado;Boleto;Despesa operacional recorrente.
+MOV0156;2025-12-09;Receita;Vendas;Recebimento referente à venda VEN0336;413.03;Venda;VEN0336;CC-COMERCIAL;Realizado;Boleto;Receita gerada por venda concluída.
+MOV0157;2025-12-10;Receita;Vendas;Recebimento referente à venda VEN0337;457.81;Venda;VEN0337;CC-COMERCIAL;Realizado;Boleto;Receita gerada por venda concluída.
+MOV0158;2025-12-10;Despesa;Aluguel;Despesa mensal de aluguel;26899.92;Operacional;;CC-ADMIN;Realizado;TED;Despesa operacional recorrente.
+MOV0159;2025-12-11;Receita;Vendas;Recebimento referente à venda VEN0338;130.41;Venda;VEN0338;CC-COMERCIAL;Realizado;Cartão de Débito;Receita gerada por venda concluída.
+MOV0160;2025-12-12;Receita;Vendas;Recebimento referente à venda VEN0343;368.02;Venda;VEN0343;CC-COMERCIAL;Realizado;Cartão de Crédito;Receita gerada por venda concluída.
+MOV0161;2025-12-12;Receita;Vendas;Recebimento referente à venda VEN0346;130.41;Venda;VEN0346;CC-COMERCIAL;Realizado;PIX;Receita gerada por venda concluída.
+MOV0162;2025-12-13;Receita;Vendas;Recebimento referente à venda VEN0347;314.03;Venda;VEN0347;CC-COMERCIAL;Realizado;Cartão de Débito;Receita gerada por venda concluída.
+MOV0163;2025-12-14;Receita;Vendas;Recebimento referente à venda VEN0352;253.52;Venda;VEN0352;CC-COMERCIAL;Realizado;Cartão de Débito;Receita gerada por venda concluída.
+MOV0164;2025-12-14;Receita;Vendas;Recebimento referente à venda VEN0358;189.14;Venda;VEN0358;CC-COMERCIAL;Realizado;PIX;Receita gerada por venda concluída.
+MOV0165;2025-12-14;Receita;Vendas;Recebimento referente à venda VEN0353;317.58;Venda;VEN0353;CC-COMERCIAL;Realizado;Cartão de Débito;Receita gerada por venda concluída.
+MOV0166;2025-12-14;Receita;Vendas;Recebimento referente à venda VEN0357;579.2;Venda;VEN0357;CC-COMERCIAL;Realizado;Cartão de Débito;Receita gerada por venda concluída.
+MOV0167;2025-12-15;Receita;Vendas;Recebimento referente à venda VEN0361;236.17;Venda;VEN0361;CC-COMERCIAL;Realizado;Cartão de Débito;Receita gerada por venda concluída.
+MOV0168;2025-12-16;Receita;Vendas;Recebimento referente à venda VEN0364;273.65;Venda;VEN0364;CC-COMERCIAL;Realizado;Cartão de Débito;Receita gerada por venda concluída.
+MOV0169;2025-12-16;Receita;Vendas;Recebimento referente à venda VEN0363;359.27;Venda;VEN0363;CC-COMERCIAL;Realizado;Cartão de Crédito;Receita gerada por venda concluída.
+MOV0170;2025-12-16;Despesa;Compra de Mercadorias;Pagamento referente à compra COMP0072;1181.35;Compra;COMP0072;CC-COMPRAS;Realizado;PIX;Despesa vinculada à aquisição de mercadorias.
+MOV0171;2025-12-16;Despesa;Compra de Mercadorias;Pagamento referente à compra COMP0074;1335.71;Compra;COMP0074;CC-COMPRAS;Realizado;TED;Despesa vinculada à aquisição de mercadorias.
+MOV0172;2025-12-18;Receita;Vendas;Recebimento referente à venda VEN0369;305.61;Venda;VEN0369;CC-COMERCIAL;Realizado;Cartão de Crédito;Receita gerada por venda concluída.
+MOV0173;2025-12-18;Receita;Vendas;Recebimento referente à venda VEN0366;295.52;Venda;VEN0366;CC-COMERCIAL;Realizado;Boleto;Receita gerada por venda concluída.
+MOV0174;2025-12-19;Receita;Vendas;Recebimento referente à venda VEN0375;187.26;Venda;VEN0375;CC-COMERCIAL;Realizado;PIX;Receita gerada por venda concluída.
+MOV0175;2025-12-20;Receita;Vendas;Recebimento referente à venda VEN0378;250.3;Venda;VEN0378;CC-COMERCIAL;Realizado;Boleto;Receita gerada por venda concluída.
+MOV0176;2025-12-20;Despesa;Compra de Mercadorias;Pagamento referente à compra COMP0077;2051.81;Compra;COMP0077;CC-COMPRAS;Realizado;PIX;Despesa vinculada à aquisição de mercadorias.
+MOV0177;2025-12-20;Despesa;Energia;Despesa mensal de energia;9699.32;Operacional;;CC-OPERACAO;Realizado;TED;Despesa operacional recorrente.
+MOV0178;2025-12-20;Despesa;Tecnologia;Despesa mensal de tecnologia;7816.49;Operacional;;CC-TI;Realizado;PIX;Despesa operacional recorrente.
+MOV0179;2025-12-20;Despesa;Manutenção;Despesa mensal de manutenção;4934.39;Operacional;;CC-OPERACAO;Realizado;Boleto;Despesa operacional recorrente.
+MOV0180;2025-12-21;Receita;Vendas;Recebimento referente à venda VEN0387;148.47;Venda;VEN0387;CC-COMERCIAL;Realizado;Cartão de Crédito;Receita gerada por venda concluída.
+MOV0181;2025-12-21;Receita;Vendas;Recebimento referente à venda VEN0384;86.88;Venda;VEN0384;CC-COMERCIAL;Realizado;Boleto;Receita gerada por venda concluída.
+MOV0182;2025-12-21;Receita;Vendas;Recebimento referente à venda VEN0382;137.8;Venda;VEN0382;CC-COMERCIAL;Realizado;PIX;Receita gerada por venda concluída.
+MOV0183;2025-12-21;Receita;Vendas;Recebimento referente à venda VEN0386;253.52;Venda;VEN0386;CC-COMERCIAL;Realizado;Boleto;Receita gerada por venda concluída.
+MOV0184;2025-12-22;Receita;Vendas;Recebimento referente à venda VEN0388;395.98;Venda;VEN0388;CC-COMERCIAL;Realizado;Cartão de Crédito;Receita gerada por venda concluída.
+MOV0185;2025-12-22;Receita;Vendas;Recebimento referente à venda VEN0391;144.69;Venda;VEN0391;CC-COMERCIAL;Realizado;PIX;Receita gerada por venda concluída.
+MOV0186;2025-12-22;Receita;Vendas;Recebimento referente à venda VEN0389;363.77;Venda;VEN0389;CC-COMERCIAL;Realizado;Cartão de Débito;Receita gerada por venda concluída.
+MOV0187;2025-12-22;Despesa;Compra de Mercadorias;Pagamento referente à compra COMP0079;2501.52;Compra;COMP0079;CC-COMPRAS;Realizado;Boleto;Despesa vinculada à aquisição de mercadorias.
+MOV0188;2025-12-23;Receita;Vendas;Recebimento referente à venda VEN0396;201.96;Venda;VEN0396;CC-COMERCIAL;Realizado;PIX;Receita gerada por venda concluída.
+MOV0189;2025-12-25;Receita;Vendas;Recebimento referente à venda VEN0405;184.14;Venda;VEN0405;CC-COMERCIAL;Realizado;Cartão de Crédito;Receita gerada por venda concluída.
+MOV0190;2025-12-26;Receita;Vendas;Recebimento referente à venda VEN0410;383.98;Venda;VEN0410;CC-COMERCIAL;Realizado;Cartão de Débito;Receita gerada por venda concluída.
+MOV0191;2025-12-27;Receita;Vendas;Recebimento referente à venda VEN0416;314.03;Venda;VEN0416;CC-COMERCIAL;Realizado;Cartão de Débito;Receita gerada por venda concluída.
+MOV0192;2025-12-28;Receita;Vendas;Recebimento referente à venda VEN0425;347.63;Venda;VEN0425;CC-COMERCIAL;Realizado;Boleto;Receita gerada por venda concluída.
+MOV0193;2025-12-28;Receita;Vendas;Recebimento referente à venda VEN0420;203.8;Venda;VEN0420;CC-COMERCIAL;Realizado;PIX;Receita gerada por venda concluída.
+MOV0194;2025-12-28;Receita;Vendas;Recebimento referente à venda VEN0424;157.0;Venda;VEN0424;CC-COMERCIAL;Realizado;Cartão de Crédito;Receita gerada por venda concluída.
+MOV0195;2025-12-28;Receita;Vendas;Recebimento referente à venda VEN0423;218.59;Venda;VEN0423;CC-COMERCIAL;Realizado;Boleto;Receita gerada por venda concluída.
+MOV0196;2025-12-29;Receita;Vendas;Recebimento referente à venda VEN0430;709.88;Venda;VEN0430;CC-COMERCIAL;Realizado;Boleto;Receita gerada por venda concluída.
+MOV0197;2025-12-30;Receita;Vendas;Recebimento referente à venda VEN0433;201.96;Venda;VEN0433;CC-COMERCIAL;Realizado;PIX;Receita gerada por venda concluída.
+MOV0198;2025-12-30;Despesa;Compra de Mercadorias;Pagamento referente à compra COMP0080;16093.06;Compra;COMP0080;CC-COMPRAS;Realizado;TED;Despesa vinculada à aquisição de mercadorias.
+MOV0199;2025-12-31;Receita;Vendas;Recebimento referente à venda VEN0438;383.98;Venda;VEN0438;CC-COMERCIAL;Realizado;PIX;Receita gerada por venda concluída.
+MOV0200;2026-01-01;Receita;Vendas;Recebimento referente à venda VEN0445;232.1;Venda;VEN0445;CC-COMERCIAL;Realizado;Cartão de Crédito;Receita gerada por venda concluída.
+MOV0201;2026-01-05;Receita;Vendas;Recebimento referente à venda VEN0450;898.18;Venda;VEN0450;CC-COMERCIAL;Realizado;Boleto;Receita gerada por venda concluída.
+MOV0202;2026-01-05;Despesa;Folha de Pagamento;Folha de pagamento 01/2026;331803.5;RH;FOLHA-2026-01;CC-RH;Realizado;TED;Inclui salários e benefícios mensais.
+MOV0203;2026-01-06;Receita;Vendas;Recebimento referente à venda VEN0455;59.03;Venda;VEN0455;CC-COMERCIAL;Realizado;Boleto;Receita gerada por venda concluída.
+MOV0204;2026-01-06;Receita;Vendas;Recebimento referente à venda VEN0453;711.0;Venda;VEN0453;CC-COMERCIAL;Realizado;Cartão de Crédito;Receita gerada por venda concluída.
+MOV0205;2026-01-08;Receita;Vendas;Recebimento referente à venda VEN0460;160.15;Venda;VEN0460;CC-COMERCIAL;Realizado;Boleto;Receita gerada por venda concluída.
+MOV0206;2026-01-08;Despesa;Compra de Mercadorias;Pagamento referente à compra COMP0083;4488.96;Compra;COMP0083;CC-COMPRAS;Realizado;TED;Despesa vinculada à aquisição de mercadorias.
+MOV0207;2026-01-09;Despesa;Compra de Mercadorias;Pagamento referente à compra COMP0085;1819.7;Compra;COMP0085;CC-COMPRAS;Realizado;TED;Despesa vinculada à aquisição de mercadorias.
+MOV0208;2026-01-10;Receita;Vendas;Recebimento referente à venda VEN0469;144.71;Venda;VEN0469;CC-COMERCIAL;Realizado;Cartão de Crédito;Receita gerada por venda concluída.
+MOV0209;2026-01-10;Receita;Vendas;Recebimento referente à venda VEN0467;449.09;Venda;VEN0467;CC-COMERCIAL;Realizado;PIX;Receita gerada por venda concluída.
+MOV0210;2026-01-10;Receita;Vendas;Recebimento referente à venda VEN0470;478.59;Venda;VEN0470;CC-COMERCIAL;Realizado;Cartão de Débito;Receita gerada por venda concluída.
+MOV0211;2026-01-10;Despesa;Aluguel;Despesa mensal de aluguel;27711.75;Operacional;;CC-ADMIN;Realizado;PIX;Despesa operacional recorrente.
+MOV0212;2026-01-11;Despesa;Taxas Bancárias;Pagamento de taxas bancárias;1595.05;Financeiro;;CC-FINANCEIRO;Realizado;Boleto;Movimentação financeira complementar.
+MOV0213;2026-01-12;Receita;Vendas;Recebimento referente à venda VEN0477;376.76;Venda;VEN0477;CC-COMERCIAL;Realizado;Cartão de Crédito;Receita gerada por venda concluída.
+MOV0214;2026-01-12;Despesa;Taxas Bancárias;Pagamento de taxas bancárias;1232.69;Financeiro;;CC-FINANCEIRO;Realizado;TED;Movimentação financeira complementar.
+MOV0215;2026-01-14;Despesa;Frete;Pagamento de frete;6205.56;Financeiro;;CC-FINANCEIRO;Realizado;PIX;Movimentação financeira complementar.
+MOV0216;2026-01-15;Despesa;Compra de Mercadorias;Pagamento referente à compra COMP0087;2069.53;Compra;COMP0087;CC-COMPRAS;Realizado;PIX;Despesa vinculada à aquisição de mercadorias.
+MOV0217;2026-01-15;Despesa;Marketing;Despesa mensal de marketing;14894.04;Operacional;;CC-MARKETING;Realizado;PIX;Despesa operacional recorrente.
+MOV0218;2026-01-15;Despesa;Tecnologia;Despesa mensal de tecnologia;6955.18;Operacional;;CC-TI;Realizado;PIX;Despesa operacional recorrente.
+MOV0219;2026-01-15;Despesa;Manutenção;Despesa mensal de manutenção;4535.06;Operacional;;CC-OPERACAO;Realizado;Boleto;Despesa operacional recorrente.
+MOV0220;2026-01-16;Receita;Vendas;Recebimento referente à venda VEN0481;485.92;Venda;VEN0481;CC-COMERCIAL;Realizado;Cartão de Crédito;Receita gerada por venda concluída.
+MOV0221;2026-01-16;Despesa;Compra de Mercadorias;Pagamento referente à compra COMP0091;4919.84;Compra;COMP0091;CC-COMPRAS;Realizado;PIX;Despesa vinculada à aquisição de mercadorias.
+MOV0222;2026-01-18;Despesa;Compra de Mercadorias;Pagamento referente à compra COMP0092;4390.83;Compra;COMP0092;CC-COMPRAS;Realizado;Boleto;Despesa vinculada à aquisição de mercadorias.
+MOV0223;2026-01-19;Despesa;Compra de Mercadorias;Pagamento referente à compra COMP0093;2226.51;Compra;COMP0093;CC-COMPRAS;Realizado;PIX;Despesa vinculada à aquisição de mercadorias.
+MOV0224;2026-01-20;Despesa;Compra de Mercadorias;Pagamento referente à compra COMP0094;8410.01;Compra;COMP0094;CC-COMPRAS;Realizado;Boleto;Despesa vinculada à aquisição de mercadorias.
+MOV0225;2026-01-20;Despesa;Energia;Despesa mensal de energia;9573.73;Operacional;;CC-OPERACAO;Realizado;TED;Despesa operacional recorrente.
+MOV0226;2026-01-22;Despesa;Compra de Mercadorias;Pagamento referente à compra COMP0096;9906.89;Compra;COMP0096;CC-COMPRAS;Realizado;Boleto;Despesa vinculada à aquisição de mercadorias.
+MOV0227;2026-01-23;Despesa;Compra de Mercadorias;Pagamento referente à compra COMP0098;1918.01;Compra;COMP0098;CC-COMPRAS;Realizado;PIX;Despesa vinculada à aquisição de mercadorias.
+MOV0228;2026-01-25;Receita;Vendas;Recebimento referente à venda VEN0494;449.09;Venda;VEN0494;CC-COMERCIAL;Realizado;PIX;Receita gerada por venda concluída.
+MOV0229;2026-01-25;Despesa;Compra de Mercadorias;Pagamento referente à compra COMP0099;2298.06;Compra;COMP0099;CC-COMPRAS;Realizado;Boleto;Despesa vinculada à aquisição de mercadorias.
+MOV0230;2026-01-26;Receita;Vendas;Recebimento referente à venda VEN0497;278.06;Venda;VEN0497;CC-COMERCIAL;Realizado;Cartão de Crédito;Receita gerada por venda concluída.
+MOV0231;2026-01-29;Receita;Vendas;Recebimento referente à venda VEN0500;481.91;Venda;VEN0500;CC-COMERCIAL;Realizado;Cartão de Crédito;Receita gerada por venda concluída.
+MOV0232;2026-01-29;Despesa;Compra de Mercadorias;Pagamento referente à compra COMP0101;21208.19;Compra;COMP0101;CC-COMPRAS;Realizado;Boleto;Despesa vinculada à aquisição de mercadorias.
+MOV0233;2026-01-31;Receita;Vendas;Recebimento referente à venda VEN0503;239.51;Venda;VEN0503;CC-COMERCIAL;Realizado;Boleto;Receita gerada por venda concluída.
+MOV0234;2026-02-01;Receita;Vendas;Recebimento referente à venda VEN0505;409.2;Venda;VEN0505;CC-COMERCIAL;Realizado;PIX;Receita gerada por venda concluída.
+MOV0235;2026-02-03;Receita;Vendas;Recebimento referente à venda VEN0509;317.58;Venda;VEN0509;CC-COMERCIAL;Realizado;Boleto;Receita gerada por venda concluída.
+MOV0236;2026-02-05;Receita;Vendas;Recebimento referente à venda VEN0514;252.12;Venda;VEN0514;CC-COMERCIAL;Realizado;Cartão de Débito;Receita gerada por venda concluída.
+MOV0237;2026-02-05;Receita;Vendas;Recebimento referente à venda VEN0515;177.09;Venda;VEN0515;CC-COMERCIAL;Realizado;Cartão de Crédito;Receita gerada por venda concluída.
+MOV0238;2026-02-05;Despesa;Folha de Pagamento;Folha de pagamento 02/2026;332784.2;RH;FOLHA-2026-02;CC-RH;Realizado;TED;Inclui salários e benefícios mensais.
+MOV0239;2026-02-08;Receita;Vendas;Recebimento referente à venda VEN0517;283.61;Venda;VEN0517;CC-COMERCIAL;Realizado;PIX;Receita gerada por venda concluída.
+MOV0240;2026-02-08;Despesa;Aluguel;Despesa mensal de aluguel;26081.4;Operacional;;CC-ADMIN;Realizado;TED;Despesa operacional recorrente.
+MOV0241;2026-02-08;Despesa;Marketing;Despesa mensal de marketing;17860.77;Operacional;;CC-MARKETING;Realizado;Boleto;Despesa operacional recorrente.
+MOV0242;2026-02-09;Despesa;Compra de Mercadorias;Pagamento referente à compra COMP0106;5283.29;Compra;COMP0106;CC-COMPRAS;Realizado;TED;Despesa vinculada à aquisição de mercadorias.
+MOV0243;2026-02-10;Receita;Vendas;Recebimento referente à venda VEN0522;588.94;Venda;VEN0522;CC-COMERCIAL;Realizado;PIX;Receita gerada por venda concluída.
+MOV0244;2026-02-10;Despesa;Tecnologia;Despesa mensal de tecnologia;6471.21;Operacional;;CC-TI;Realizado;PIX;Despesa operacional recorrente.
+MOV0245;2026-02-11;Despesa;Compra de Mercadorias;Pagamento referente à compra COMP0108;3283.33;Compra;COMP0108;CC-COMPRAS;Realizado;Boleto;Despesa vinculada à aquisição de mercadorias.
+MOV0246;2026-02-14;Receita;Vendas;Recebimento referente à venda VEN0526;738.9;Venda;VEN0526;CC-COMERCIAL;Realizado;PIX;Receita gerada por venda concluída.
+MOV0247;2026-02-14;Despesa;Compra de Mercadorias;Pagamento referente à compra COMP0111;19200.9;Compra;COMP0111;CC-COMPRAS;Realizado;PIX;Despesa vinculada à aquisição de mercadorias.
+MOV0248;2026-02-14;Despesa;Compra de Mercadorias;Pagamento referente à compra COMP0110;3785.11;Compra;COMP0110;CC-COMPRAS;Realizado;TED;Despesa vinculada à aquisição de mercadorias.
+MOV0249;2026-02-15;Receita;Vendas;Recebimento referente à venda VEN0527;578.84;Venda;VEN0527;CC-COMERCIAL;Realizado;Cartão de Débito;Receita gerada por venda concluída.
+MOV0250;2026-02-15;Despesa;Energia;Despesa mensal de energia;10241.1;Operacional;;CC-OPERACAO;Realizado;PIX;Despesa operacional recorrente.
+MOV0251;2026-02-15;Despesa;Manutenção;Despesa mensal de manutenção;4496.94;Operacional;;CC-OPERACAO;Realizado;Boleto;Despesa operacional recorrente.
+MOV0252;2026-02-17;Despesa;Compra de Mercadorias;Pagamento referente à compra COMP0115;4918.33;Compra;COMP0115;CC-COMPRAS;Realizado;PIX;Despesa vinculada à aquisição de mercadorias.
+MOV0253;2026-02-18;Receita;Vendas;Recebimento referente à venda VEN0532;416.14;Venda;VEN0532;CC-COMERCIAL;Realizado;Cartão de Débito;Receita gerada por venda concluída.
+MOV0254;2026-02-19;Receita;Vendas;Recebimento referente à venda VEN0536;321.7;Venda;VEN0536;CC-COMERCIAL;Realizado;PIX;Receita gerada por venda concluída.
+MOV0255;2026-02-19;Receita;Vendas;Recebimento referente à venda VEN0535;219.02;Venda;VEN0535;CC-COMERCIAL;Realizado;Cartão de Crédito;Receita gerada por venda concluída.
+MOV0256;2026-02-21;Despesa;Compra de Mercadorias;Pagamento referente à compra COMP0117;17191.84;Compra;COMP0117;CC-COMPRAS;Realizado;TED;Despesa vinculada à aquisição de mercadorias.
+MOV0257;2026-02-22;Receita;Vendas;Recebimento referente à venda VEN0537;643.56;Venda;VEN0537;CC-COMERCIAL;Realizado;PIX;Receita gerada por venda concluída.
+MOV0258;2026-02-25;Receita;Vendas;Recebimento referente à venda VEN0547;225.1;Venda;VEN0547;CC-COMERCIAL;Realizado;PIX;Receita gerada por venda concluída.
+MOV0259;2026-02-26;Receita;Vendas;Recebimento referente à venda VEN0548;146.88;Venda;VEN0548;CC-COMERCIAL;Realizado;PIX;Receita gerada por venda concluída.
+MOV0260;2026-02-27;Receita;Vendas;Recebimento referente à venda VEN0550;241.43;Venda;VEN0550;CC-COMERCIAL;Realizado;Boleto;Receita gerada por venda concluída.
+MOV0261;2026-02-27;Despesa;Compra de Mercadorias;Pagamento referente à compra COMP0122;7924.26;Compra;COMP0122;CC-COMPRAS;Realizado;PIX;Despesa vinculada à aquisição de mercadorias.
+MOV0262;2026-02-28;Despesa;Frete;Pagamento de frete;11765.64;Financeiro;;CC-FINANCEIRO;Realizado;PIX;Movimentação financeira complementar.
+MOV0263;2026-03-02;Despesa;Compra de Mercadorias;Pagamento referente à compra COMP0126;5243.12;Compra;COMP0126;CC-COMPRAS;Realizado;TED;Despesa vinculada à aquisição de mercadorias.
+MOV0264;2026-03-03;Receita;Vendas;Recebimento referente à venda VEN0556;72.5;Venda;VEN0556;CC-COMERCIAL;Realizado;Cartão de Débito;Receita gerada por venda concluída.
+MOV0265;2026-03-03;Receita;Vendas;Recebimento referente à venda VEN0557;329.94;Venda;VEN0557;CC-COMERCIAL;Realizado;Cartão de Crédito;Receita gerada por venda concluída.
+MOV0266;2026-03-03;Receita;Vendas;Recebimento referente à venda VEN0558;120.51;Venda;VEN0558;CC-COMERCIAL;Realizado;PIX;Receita gerada por venda concluída.
+MOV0267;2026-03-04;Despesa;Compra de Mercadorias;Pagamento referente à compra COMP0127;16339.77;Compra;COMP0127;CC-COMPRAS;Realizado;Boleto;Despesa vinculada à aquisição de mercadorias.
+MOV0268;2026-03-05;Receita;Vendas;Recebimento referente à venda VEN0563;578.84;Venda;VEN0563;CC-COMERCIAL;Realizado;Cartão de Débito;Receita gerada por venda concluída.
+MOV0269;2026-03-05;Despesa;Folha de Pagamento;Folha de pagamento 03/2026;333764.9;RH;FOLHA-2026-03;CC-RH;Realizado;TED;Inclui salários e benefícios mensais.
+MOV0270;2026-03-07;Despesa;Compra de Mercadorias;Pagamento referente à compra COMP0129;3519.6;Compra;COMP0129;CC-COMPRAS;Realizado;Boleto;Despesa vinculada à aquisição de mercadorias.
+MOV0271;2026-03-08;Receita;Vendas;Recebimento referente à venda VEN0571;252.12;Venda;VEN0571;CC-COMERCIAL;Realizado;Cartão de Débito;Receita gerada por venda concluída.
+MOV0272;2026-03-08;Despesa;Marketing;Despesa mensal de marketing;17349.76;Operacional;;CC-MARKETING;Realizado;TED;Despesa operacional recorrente.
+MOV0273;2026-03-09;Receita;Vendas;Recebimento referente à venda VEN0574;239.77;Venda;VEN0574;CC-COMERCIAL;Realizado;Boleto;Receita gerada por venda concluída.
+MOV0274;2026-03-09;Despesa;Compra de Mercadorias;Pagamento referente à compra COMP0132;3543.84;Compra;COMP0132;CC-COMPRAS;Realizado;PIX;Despesa vinculada à aquisição de mercadorias.
+MOV0275;2026-03-09;Despesa;Compra de Mercadorias;Pagamento referente à compra COMP0131;4033.77;Compra;COMP0131;CC-COMPRAS;Realizado;Boleto;Despesa vinculada à aquisição de mercadorias.
+MOV0276;2026-03-10;Despesa;Compra de Mercadorias;Pagamento referente à compra COMP0133;3237.41;Compra;COMP0133;CC-COMPRAS;Realizado;PIX;Despesa vinculada à aquisição de mercadorias.
+MOV0277;2026-03-11;Receita;Vendas;Recebimento referente à venda VEN0577;175.88;Venda;VEN0577;CC-COMERCIAL;Realizado;Cartão de Débito;Receita gerada por venda concluída.
+MOV0278;2026-03-12;Receita;Vendas;Recebimento referente à venda VEN0581;145.08;Venda;VEN0581;CC-COMERCIAL;Realizado;Cartão de Débito;Receita gerada por venda concluída.
+MOV0279;2026-03-12;Receita;Vendas;Recebimento referente à venda VEN0579;1153.83;Venda;VEN0579;CC-COMERCIAL;Realizado;PIX;Receita gerada por venda concluída.
+MOV0280;2026-03-12;Despesa;Compra de Mercadorias;Pagamento referente à compra COMP0134;13488.76;Compra;COMP0134;CC-COMPRAS;Realizado;Boleto;Despesa vinculada à aquisição de mercadorias.
+MOV0281;2026-03-12;Despesa;Tecnologia;Despesa mensal de tecnologia;7627.79;Operacional;;CC-TI;Realizado;TED;Despesa operacional recorrente.
+MOV0282;2026-03-13;Receita;Vendas;Recebimento referente à venda VEN0586;479.54;Venda;VEN0586;CC-COMERCIAL;Realizado;Cartão de Crédito;Receita gerada por venda concluída.
+MOV0283;2026-03-14;Receita;Vendas;Recebimento referente à venda VEN0590;232.1;Venda;VEN0590;CC-COMERCIAL;Realizado;Boleto;Receita gerada por venda concluída.
+MOV0284;2026-03-14;Despesa;Compra de Mercadorias;Pagamento referente à compra COMP0135;20322.04;Compra;COMP0135;CC-COMPRAS;Realizado;PIX;Despesa vinculada à aquisição de mercadorias.
+MOV0285;2026-03-15;Despesa;Energia;Despesa mensal de energia;8511.25;Operacional;;CC-OPERACAO;Realizado;PIX;Despesa operacional recorrente.
+MOV0286;2026-03-15;Despesa;Manutenção;Despesa mensal de manutenção;4657.18;Operacional;;CC-OPERACAO;Realizado;TED;Despesa operacional recorrente.
+MOV0287;2026-03-16;Despesa;Compra de Mercadorias;Pagamento referente à compra COMP0140;938.27;Compra;COMP0140;CC-COMPRAS;Realizado;TED;Despesa vinculada à aquisição de mercadorias.
+MOV0288;2026-03-16;Despesa;Compra de Mercadorias;Pagamento referente à compra COMP0142;4041.88;Compra;COMP0142;CC-COMPRAS;Realizado;Boleto;Despesa vinculada à aquisição de mercadorias.
+MOV0289;2026-03-16;Despesa;Compra de Mercadorias;Pagamento referente à compra COMP0141;5126.72;Compra;COMP0141;CC-COMPRAS;Realizado;TED;Despesa vinculada à aquisição de mercadorias.
+MOV0290;2026-03-17;Receita;Vendas;Recebimento referente à venda VEN0594;57.26;Venda;VEN0594;CC-COMERCIAL;Realizado;Cartão de Débito;Receita gerada por venda concluída.
+MOV0291;2026-03-17;Receita;Vendas;Recebimento referente à venda VEN0593;374.42;Venda;VEN0593;CC-COMERCIAL;Realizado;Cartão de Débito;Receita gerada por venda concluída.
+MOV0292;2026-03-18;Receita;Vendas;Recebimento referente à venda VEN0596;395.33;Venda;VEN0596;CC-COMERCIAL;Realizado;PIX;Receita gerada por venda concluída.
+MOV0293;2026-03-18;Receita;Vendas;Recebimento referente à venda VEN0595;144.71;Venda;VEN0595;CC-COMERCIAL;Realizado;Boleto;Receita gerada por venda concluída.
+MOV0294;2026-03-20;Receita;Vendas;Recebimento referente à venda VEN0602;514.34;Venda;VEN0602;CC-COMERCIAL;Realizado;Boleto;Receita gerada por venda concluída.
+MOV0295;2026-03-20;Despesa;Compra de Mercadorias;Pagamento referente à compra COMP0144;8426.72;Compra;COMP0144;CC-COMPRAS;Realizado;TED;Despesa vinculada à aquisição de mercadorias.
+MOV0296;2026-03-20;Despesa;Aluguel;Despesa mensal de aluguel;27363.99;Operacional;;CC-ADMIN;Realizado;Boleto;Despesa operacional recorrente.
+MOV0297;2026-03-22;Receita;Vendas;Recebimento referente à venda VEN0605;497.31;Venda;VEN0605;CC-COMERCIAL;Realizado;Boleto;Receita gerada por venda concluída.
+MOV0298;2026-03-23;Receita;Vendas;Recebimento referente à venda VEN0609;175.88;Venda;VEN0609;CC-COMERCIAL;Realizado;PIX;Receita gerada por venda concluída.
+MOV0299;2026-03-26;Receita;Vendas;Recebimento referente à venda VEN0616;158.79;Venda;VEN0616;CC-COMERCIAL;Realizado;Cartão de Débito;Receita gerada por venda concluída.
+MOV0300;2026-03-27;Despesa;Compra de Mercadorias;Pagamento referente à compra COMP0146;1680.8;Compra;COMP0146;CC-COMPRAS;Realizado;PIX;Despesa vinculada à aquisição de mercadorias.
+MOV0301;2026-03-30;Receita;Vendas;Recebimento referente à venda VEN0618;465.86;Venda;VEN0618;CC-COMERCIAL;Realizado;Boleto;Receita gerada por venda concluída.
+MOV0302;2026-03-30;Despesa;Compra de Mercadorias;Pagamento referente à compra COMP0147;6333.91;Compra;COMP0147;CC-COMPRAS;Realizado;TED;Despesa vinculada à aquisição de mercadorias.
+MOV0303;2026-03-31;Receita;Vendas;Recebimento referente à venda VEN0622;400.84;Venda;VEN0622;CC-COMERCIAL;Realizado;Cartão de Débito;Receita gerada por venda concluída.
+MOV0304;2026-03-31;Receita;Vendas;Recebimento referente à venda VEN0620;290.1;Venda;VEN0620;CC-COMERCIAL;Realizado;Boleto;Receita gerada por venda concluída.
+MOV0305;2026-04-03;Receita;Vendas;Recebimento referente à venda VEN0631;102.21;Venda;VEN0631;CC-COMERCIAL;Realizado;PIX;Receita gerada por venda concluída.
+MOV0306;2026-04-05;Despesa;Folha de Pagamento;Folha de pagamento 04/2026;334745.6;RH;FOLHA-2026-04;CC-RH;Realizado;TED;Inclui salários e benefícios mensais.
+MOV0307;2026-04-06;Receita;Vendas;Recebimento referente à venda VEN0637;160.85;Venda;VEN0637;CC-COMERCIAL;Realizado;Cartão de Débito;Receita gerada por venda concluída.
+MOV0308;2026-04-08;Despesa;Marketing;Despesa mensal de marketing;17563.81;Operacional;;CC-MARKETING;Realizado;Boleto;Despesa operacional recorrente.
+MOV0309;2026-04-09;Receita;Vendas;Recebimento referente à venda VEN0642;369.45;Venda;VEN0642;CC-COMERCIAL;Realizado;Cartão de Débito;Receita gerada por venda concluída.
+MOV0310;2026-04-10;Receita;Vendas;Recebimento referente à venda VEN0645;144.71;Venda;VEN0645;CC-COMERCIAL;Realizado;Cartão de Débito;Receita gerada por venda concluída.
+MOV0311;2026-04-11;Receita;Vendas;Recebimento referente à venda VEN0650;432.96;Venda;VEN0650;CC-COMERCIAL;Realizado;Boleto;Receita gerada por venda concluída.
+MOV0312;2026-04-11;Receita;Vendas;Recebimento referente à venda VEN0647;204.6;Venda;VEN0647;CC-COMERCIAL;Realizado;Boleto;Receita gerada por venda concluída.
+MOV0313;2026-04-11;Receita;Vendas;Recebimento referente à venda VEN0651;124.41;Venda;VEN0651;CC-COMERCIAL;Realizado;Cartão de Crédito;Receita gerada por venda concluída.
+MOV0314;2026-04-12;Despesa;Tecnologia;Despesa mensal de tecnologia;7821.15;Operacional;;CC-TI;Realizado;PIX;Despesa operacional recorrente.
+MOV0315;2026-04-13;Receita;Vendas;Recebimento referente à venda VEN0655;278.06;Venda;VEN0655;CC-COMERCIAL;Realizado;Cartão de Débito;Receita gerada por venda concluída.
+MOV0316;2026-04-13;Despesa;Compra de Mercadorias;Pagamento referente à compra COMP0157;5466.97;Compra;COMP0157;CC-COMPRAS;Realizado;PIX;Despesa vinculada à aquisição de mercadorias.
+MOV0317;2026-04-14;Despesa;Compra de Mercadorias;Pagamento referente à compra COMP0158;4630.33;Compra;COMP0158;CC-COMPRAS;Realizado;TED;Despesa vinculada à aquisição de mercadorias.
+MOV0318;2026-04-15;Receita;Vendas;Recebimento referente à venda VEN0659;319.06;Venda;VEN0659;CC-COMERCIAL;Realizado;PIX;Receita gerada por venda concluída.
+MOV0319;2026-04-15;Despesa;Aluguel;Despesa mensal de aluguel;26110.72;Operacional;;CC-ADMIN;Realizado;Boleto;Despesa operacional recorrente.
+MOV0320;2026-04-16;Receita;Vendas;Recebimento referente à venda VEN0661;57.26;Venda;VEN0661;CC-COMERCIAL;Realizado;Cartão de Débito;Receita gerada por venda concluída.
+MOV0321;2026-04-16;Despesa;Compra de Mercadorias;Pagamento referente à compra COMP0160;12578.65;Compra;COMP0160;CC-COMPRAS;Realizado;PIX;Despesa vinculada à aquisição de mercadorias.
+MOV0322;2026-04-18;Despesa;Compra de Mercadorias;Pagamento referente à compra COMP0161;8154.56;Compra;COMP0161;CC-COMPRAS;Realizado;TED;Despesa vinculada à aquisição de mercadorias.
+MOV0323;2026-04-20;Receita;Vendas;Recebimento referente à venda VEN0668;450.2;Venda;VEN0668;CC-COMERCIAL;Realizado;Cartão de Crédito;Receita gerada por venda concluída.
+MOV0324;2026-04-20;Despesa;Energia;Despesa mensal de energia;9067.12;Operacional;;CC-OPERACAO;Realizado;PIX;Despesa operacional recorrente.
+MOV0325;2026-04-20;Despesa;Manutenção;Despesa mensal de manutenção;4945.68;Operacional;;CC-OPERACAO;Realizado;PIX;Despesa operacional recorrente.
+MOV0326;2026-04-20;Despesa;Frete;Pagamento de frete;11100.52;Financeiro;;CC-FINANCEIRO;Realizado;Boleto;Movimentação financeira complementar.
+MOV0327;2026-04-23;Receita;Vendas;Recebimento referente à venda VEN0679;233.84;Venda;VEN0679;CC-COMERCIAL;Realizado;PIX;Receita gerada por venda concluída.
+MOV0328;2026-04-23;Receita;Vendas;Recebimento referente à venda VEN0677;150.85;Venda;VEN0677;CC-COMERCIAL;Realizado;PIX;Receita gerada por venda concluída.
+MOV0329;2026-04-23;Despesa;Compra de Mercadorias;Pagamento referente à compra COMP0167;6779.73;Compra;COMP0167;CC-COMPRAS;Realizado;PIX;Despesa vinculada à aquisição de mercadorias.
+MOV0330;2026-04-23;Despesa;Compra de Mercadorias;Pagamento referente à compra COMP0169;6800.91;Compra;COMP0169;CC-COMPRAS;Realizado;PIX;Despesa vinculada à aquisição de mercadorias.
+MOV0331;2026-04-24;Despesa;Compra de Mercadorias;Pagamento referente à compra COMP0170;12780.73;Compra;COMP0170;CC-COMPRAS;Realizado;TED;Despesa vinculada à aquisição de mercadorias.
+MOV0332;2026-04-25;Receita;Vendas;Recebimento referente à venda VEN0682;178.96;Venda;VEN0682;CC-COMERCIAL;Realizado;Cartão de Débito;Receita gerada por venda concluída.
+MOV0333;2026-04-26;Receita;Vendas;Recebimento referente à venda VEN0683;409.2;Venda;VEN0683;CC-COMERCIAL;Realizado;PIX;Receita gerada por venda concluída.
+MOV0334;2026-04-28;Receita;Vendas;Recebimento referente à venda VEN0686;321.94;Venda;VEN0686;CC-COMERCIAL;Realizado;PIX;Receita gerada por venda concluída.
+MOV0335;2026-05-01;Receita;Vendas;Recebimento referente à venda VEN0688;151.55;Venda;VEN0688;CC-COMERCIAL;Realizado;Boleto;Receita gerada por venda concluída.
+MOV0336;2026-05-01;Receita;Vendas;Recebimento referente à venda VEN0691;152.14;Venda;VEN0691;CC-COMERCIAL;Realizado;Cartão de Débito;Receita gerada por venda concluída.
+MOV0337;2026-05-03;Receita;Vendas;Recebimento referente à venda VEN0694;373.23;Venda;VEN0694;CC-COMERCIAL;Realizado;PIX;Receita gerada por venda concluída.
+MOV0338;2026-05-03;Despesa;Compra de Mercadorias;Pagamento referente à compra COMP0174;4764.52;Compra;COMP0174;CC-COMPRAS;Realizado;TED;Despesa vinculada à aquisição de mercadorias.
+MOV0339;2026-05-03;Despesa;Impostos;Pagamento de impostos;14718.44;Financeiro;;CC-FINANCEIRO;Realizado;Boleto;Movimentação financeira complementar.
+MOV0340;2026-05-04;Receita;Vendas;Recebimento referente à venda VEN0697;300.12;Venda;VEN0697;CC-COMERCIAL;Realizado;PIX;Receita gerada por venda concluída.
+MOV0341;2026-05-04;Receita;Vendas;Recebimento referente à venda VEN0695;317.58;Venda;VEN0695;CC-COMERCIAL;Realizado;PIX;Receita gerada por venda concluída.
+MOV0342;2026-05-04;Despesa;Compra de Mercadorias;Pagamento referente à compra COMP0176;1808.2;Compra;COMP0176;CC-COMPRAS;Realizado;PIX;Despesa vinculada à aquisição de mercadorias.
+MOV0343;2026-05-05;Receita;Vendas;Recebimento referente à venda VEN0698;242.96;Venda;VEN0698;CC-COMERCIAL;Realizado;Boleto;Receita gerada por venda concluída.
+MOV0344;2026-05-05;Despesa;Folha de Pagamento;Folha de pagamento 05/2026;335726.3;RH;FOLHA-2026-05;CC-RH;Realizado;TED;Inclui salários e benefícios mensais.
+MOV0345;2026-05-06;Receita;Vendas;Recebimento referente à venda VEN0702;562.04;Venda;VEN0702;CC-COMERCIAL;Realizado;Cartão de Crédito;Receita gerada por venda concluída.
+MOV0346;2026-05-07;Receita;Vendas;Recebimento referente à venda VEN0705;305.84;Venda;VEN0705;CC-COMERCIAL;Realizado;PIX;Receita gerada por venda concluída.
+MOV0347;2026-05-07;Despesa;Compra de Mercadorias;Pagamento referente à compra COMP0177;12143.83;Compra;COMP0177;CC-COMPRAS;Realizado;TED;Despesa vinculada à aquisição de mercadorias.
+MOV0348;2026-05-10;Despesa;Compra de Mercadorias;Pagamento referente à compra COMP0178;6096.24;Compra;COMP0178;CC-COMPRAS;Realizado;Boleto;Despesa vinculada à aquisição de mercadorias.
+MOV0349;2026-05-11;Receita;Vendas;Recebimento referente à venda VEN0712;164.97;Venda;VEN0712;CC-COMERCIAL;Realizado;PIX;Receita gerada por venda concluída.
+MOV0350;2026-05-12;Receita;Vendas;Recebimento referente à venda VEN0717;374.42;Venda;VEN0717;CC-COMERCIAL;Realizado;PIX;Receita gerada por venda concluída.
+MOV0351;2026-05-12;Receita;Vendas;Recebimento referente à venda VEN0713;449.09;Venda;VEN0713;CC-COMERCIAL;Realizado;Boleto;Receita gerada por venda concluída.
+MOV0352;2026-05-12;Despesa;Compra de Mercadorias;Pagamento referente à compra COMP0179;10249.92;Compra;COMP0179;CC-COMPRAS;Realizado;PIX;Despesa vinculada à aquisição de mercadorias.
+MOV0353;2026-05-12;Despesa;Manutenção;Despesa mensal de manutenção;4428.93;Operacional;;CC-OPERACAO;Realizado;Boleto;Despesa operacional recorrente.
+MOV0354;2026-05-13;Receita;Vendas;Recebimento referente à venda VEN0721;120.51;Venda;VEN0721;CC-COMERCIAL;Realizado;PIX;Receita gerada por venda concluída.
+MOV0355;2026-05-13;Receita;Vendas;Recebimento referente à venda VEN0720;912.39;Venda;VEN0720;CC-COMERCIAL;Realizado;Cartão de Crédito;Receita gerada por venda concluída.
+MOV0356;2026-05-13;Receita;Vendas;Recebimento referente à venda VEN0719;711.04;Venda;VEN0719;CC-COMERCIAL;Realizado;Boleto;Receita gerada por venda concluída.
+MOV0357;2026-05-15;Receita;Vendas;Recebimento referente à venda VEN0724;801.68;Venda;VEN0724;CC-COMERCIAL;Realizado;Cartão de Débito;Receita gerada por venda concluída.
+MOV0358;2026-05-15;Despesa;Energia;Despesa mensal de energia;9103.11;Operacional;;CC-OPERACAO;Realizado;Boleto;Despesa operacional recorrente.
+MOV0359;2026-05-15;Despesa;Marketing;Despesa mensal de marketing;17097.85;Operacional;;CC-MARKETING;Realizado;Boleto;Despesa operacional recorrente.
+MOV0360;2026-05-16;Receita;Vendas;Recebimento referente à venda VEN0728;373.62;Venda;VEN0728;CC-COMERCIAL;Realizado;Cartão de Débito;Receita gerada por venda concluída.
+MOV0361;2026-05-17;Receita;Vendas;Recebimento referente à venda VEN0730;895.23;Venda;VEN0730;CC-COMERCIAL;Realizado;Cartão de Débito;Receita gerada por venda concluída.
+MOV0362;2026-05-19;Despesa;Compra de Mercadorias;Pagamento referente à compra COMP0184;8316.3;Compra;COMP0184;CC-COMPRAS;Realizado;Boleto;Despesa vinculada à aquisição de mercadorias.
+MOV0363;2026-05-19;Despesa;Frete;Pagamento de frete;14772.72;Financeiro;;CC-FINANCEIRO;Realizado;Boleto;Movimentação financeira complementar.
+MOV0364;2026-05-20;Receita;Vendas;Recebimento referente à venda VEN0738;1133.96;Venda;VEN0738;CC-COMERCIAL;Realizado;Boleto;Receita gerada por venda concluída.
+MOV0365;2026-05-20;Receita;Vendas;Recebimento referente à venda VEN0736;726.82;Venda;VEN0736;CC-COMERCIAL;Realizado;Boleto;Receita gerada por venda concluída.
+MOV0366;2026-05-20;Despesa;Aluguel;Despesa mensal de aluguel;26177.58;Operacional;;CC-ADMIN;Realizado;Boleto;Despesa operacional recorrente.
+MOV0367;2026-05-20;Despesa;Tecnologia;Despesa mensal de tecnologia;7768.58;Operacional;;CC-TI;Realizado;Boleto;Despesa operacional recorrente.
+MOV0368;2026-05-21;Receita;Vendas;Recebimento referente à venda VEN0742;172.09;Venda;VEN0742;CC-COMERCIAL;Realizado;Cartão de Crédito;Receita gerada por venda concluída.
+MOV0369;2026-05-22;Receita;Vendas;Recebimento referente à venda VEN0745;383.98;Venda;VEN0745;CC-COMERCIAL;Realizado;Cartão de Débito;Receita gerada por venda concluída.
+MOV0370;2026-05-24;Despesa;Compra de Mercadorias;Pagamento referente à compra COMP0187;11267.18;Compra;COMP0187;CC-COMPRAS;Realizado;TED;Despesa vinculada à aquisição de mercadorias.
+MOV0371;2026-05-28;Despesa;Compra de Mercadorias;Pagamento referente à compra COMP0190;2827.53;Compra;COMP0190;CC-COMPRAS;Realizado;PIX;Despesa vinculada à aquisição de mercadorias.
+MOV0372;2026-05-29;Receita;Vendas;Recebimento referente à venda VEN0753;283.61;Venda;VEN0753;CC-COMERCIAL;Realizado;Cartão de Débito;Receita gerada por venda concluída.
+MOV0373;2026-05-30;Receita;Vendas;Recebimento referente à venda VEN0754;57.26;Venda;VEN0754;CC-COMERCIAL;Realizado;Cartão de Débito;Receita gerada por venda concluída.
+MOV0374;2026-05-31;Receita;Vendas;Recebimento referente à venda VEN0757;597.28;Venda;VEN0757;CC-COMERCIAL;Realizado;Cartão de Débito;Receita gerada por venda concluída.
+MOV0375;2026-06-01;Receita;Vendas;Recebimento referente à venda VEN0764;293.39;Venda;VEN0764;CC-COMERCIAL;Realizado;Cartão de Débito;Receita gerada por venda concluída.
+MOV0376;2026-06-01;Receita;Vendas;Recebimento referente à venda VEN0763;54.54;Venda;VEN0763;CC-COMERCIAL;Realizado;Cartão de Débito;Receita gerada por venda concluída.
+MOV0377;2026-06-01;Receita;Vendas;Recebimento referente à venda VEN0760;567.22;Venda;VEN0760;CC-COMERCIAL;Realizado;Cartão de Débito;Receita gerada por venda concluída.
+MOV0378;2026-06-01;Despesa;Compra de Mercadorias;Pagamento referente à compra COMP0191;4194.42;Compra;COMP0191;CC-COMPRAS;Realizado;TED;Despesa vinculada à aquisição de mercadorias.
+MOV0379;2026-06-02;Despesa;Compra de Mercadorias;Pagamento referente à compra COMP0192;16436.79;Compra;COMP0192;CC-COMPRAS;Previsto;PIX;Despesa vinculada à aquisição de mercadorias.
+MOV0380;2026-06-03;Receita;Vendas;Recebimento referente à venda VEN0769;210.16;Venda;VEN0769;CC-COMERCIAL;Realizado;Cartão de Débito;Receita gerada por venda concluída.
+MOV0381;2026-06-03;Despesa;Compra de Mercadorias;Pagamento referente à compra COMP0193;4069.48;Compra;COMP0193;CC-COMPRAS;Realizado;TED;Despesa vinculada à aquisição de mercadorias.
+MOV0382;2026-06-04;Receita;Vendas;Recebimento referente à venda VEN0773;83.54;Venda;VEN0773;CC-COMERCIAL;Realizado;Cartão de Crédito;Receita gerada por venda concluída.
+MOV0383;2026-06-05;Despesa;Folha de Pagamento;Folha de pagamento 06/2026;336707.0;RH;FOLHA-2026-06;CC-RH;Realizado;TED;Inclui salários e benefícios mensais.
+MOV0384;2026-06-07;Receita;Vendas;Recebimento referente à venda VEN0776;203.76;Venda;VEN0776;CC-COMERCIAL;Realizado;Cartão de Débito;Receita gerada por venda concluída.
+MOV0385;2026-06-07;Despesa;Compra de Mercadorias;Pagamento referente à compra COMP0196;5692.07;Compra;COMP0196;CC-COMPRAS;Previsto;Boleto;Despesa vinculada à aquisição de mercadorias.
+MOV0386;2026-06-08;Despesa;Energia;Despesa mensal de energia;9174.44;Operacional;;CC-OPERACAO;Realizado;Boleto;Despesa operacional recorrente.
+MOV0387;2026-06-10;Receita;Vendas;Recebimento referente à venda VEN0779;643.56;Venda;VEN0779;CC-COMERCIAL;Realizado;PIX;Receita gerada por venda concluída.
+MOV0388;2026-06-10;Receita;Vendas;Recebimento referente à venda VEN0780;277.85;Venda;VEN0780;CC-COMERCIAL;Realizado;PIX;Receita gerada por venda concluída.
+MOV0389;2026-06-10;Despesa;Tecnologia;Despesa mensal de tecnologia;7564.32;Operacional;;CC-TI;Realizado;PIX;Despesa operacional recorrente.
+MOV0390;2026-06-11;Receita;Vendas;Recebimento referente à venda VEN0784;233.84;Venda;VEN0784;CC-COMERCIAL;Realizado;PIX;Receita gerada por venda concluída.
+MOV0391;2026-06-11;Despesa;Compra de Mercadorias;Pagamento referente à compra COMP0197;7588.86;Compra;COMP0197;CC-COMPRAS;Realizado;Boleto;Despesa vinculada à aquisição de mercadorias.
+MOV0392;2026-06-13;Despesa;Compra de Mercadorias;Pagamento referente à compra COMP0198;2134.86;Compra;COMP0198;CC-COMPRAS;Realizado;Boleto;Despesa vinculada à aquisição de mercadorias.
+MOV0393;2026-06-15;Receita;Vendas;Recebimento referente à venda VEN0793;87.94;Venda;VEN0793;CC-COMERCIAL;Realizado;Cartão de Crédito;Receita gerada por venda concluída.
+MOV0394;2026-06-15;Despesa;Aluguel;Despesa mensal de aluguel;28757.33;Operacional;;CC-ADMIN;Realizado;TED;Despesa operacional recorrente.
+MOV0395;2026-06-15;Despesa;Marketing;Despesa mensal de marketing;15514.88;Operacional;;CC-MARKETING;Realizado;TED;Despesa operacional recorrente.
+MOV0396;2026-06-15;Despesa;Manutenção;Despesa mensal de manutenção;4224.21;Operacional;;CC-OPERACAO;Realizado;Boleto;Despesa operacional recorrente.
+MOV0397;2026-06-16;Receita;Vendas;Recebimento referente à venda VEN0797;304.13;Venda;VEN0797;CC-COMERCIAL;Realizado;PIX;Receita gerada por venda concluída.
+MOV0398;2026-06-16;Despesa;Compra de Mercadorias;Pagamento referente à compra COMP0200;1742.53;Compra;COMP0200;CC-COMPRAS;Realizado;Boleto;Despesa vinculada à aquisição de mercadorias.
+MOV0399;2026-06-17;Receita;Vendas;Recebimento referente à venda VEN0801;321.94;Venda;VEN0801;CC-COMERCIAL;Realizado;PIX;Receita gerada por venda concluída.
+MOV0400;2026-06-17;Receita;Vendas;Recebimento referente à venda VEN0800;114.52;Venda;VEN0800;CC-COMERCIAL;Realizado;Cartão de Débito;Receita gerada por venda concluída.
+MOV0401;2026-06-18;Receita;Vendas;Recebimento referente à venda VEN0803;59.03;Venda;VEN0803;CC-COMERCIAL;Realizado;Cartão de Débito;Receita gerada por venda concluída.
+MOV0402;2026-06-19;Receita;Vendas;Recebimento referente à venda VEN0809;110.81;Venda;VEN0809;CC-COMERCIAL;Realizado;PIX;Receita gerada por venda concluída.
+MOV0403;2026-06-19;Receita;Vendas;Recebimento referente à venda VEN0807;374.42;Venda;VEN0807;CC-COMERCIAL;Realizado;Boleto;Receita gerada por venda concluída.
+MOV0404;2026-06-20;Receita;Vendas;Recebimento referente à venda VEN0810;152.14;Venda;VEN0810;CC-COMERCIAL;Realizado;Cartão de Débito;Receita gerada por venda concluída.
+MOV0405;2026-06-21;Despesa;Compra de Mercadorias;Pagamento referente à compra COMP0202;2152.81;Compra;COMP0202;CC-COMPRAS;Previsto;TED;Despesa vinculada à aquisição de mercadorias.
+MOV0406;2026-06-22;Despesa;Compra de Mercadorias;Pagamento referente à compra COMP0203;20846.73;Compra;COMP0203;CC-COMPRAS;Previsto;PIX;Despesa vinculada à aquisição de mercadorias.
+MOV0407;2026-06-23;Receita;Vendas;Recebimento referente à venda VEN0816;420.32;Venda;VEN0816;CC-COMERCIAL;Realizado;Cartão de Débito;Receita gerada por venda concluída.
+MOV0408;2026-06-24;Receita;Vendas;Recebimento referente à venda VEN0819;150.85;Venda;VEN0819;CC-COMERCIAL;Realizado;Boleto;Receita gerada por venda concluída.
+MOV0409;2026-06-26;Despesa;Frete;Pagamento de frete;9257.82;Financeiro;;CC-FINANCEIRO;Realizado;TED;Movimentação financeira complementar.
+MOV0410;2026-06-28;Receita;Vendas;Recebimento referente à venda VEN0825;269.43;Venda;VEN0825;CC-COMERCIAL;Realizado;Boleto;Receita gerada por venda concluída.
+MOV0411;2026-06-29;Receita;Vendas;Recebimento referente à venda VEN0827;608.26;Venda;VEN0827;CC-COMERCIAL;Realizado;Boleto;Receita gerada por venda concluída.
+MOV0412;2026-06-30;Receita;Vendas;Recebimento referente à venda VEN0830;317.58;Venda;VEN0830;CC-COMERCIAL;Realizado;Cartão de Débito;Receita gerada por venda concluída.
+MOV0413;2026-07-01;Receita;Vendas;Recebimento referente à venda VEN0834;261.74;Venda;VEN0834;CC-COMERCIAL;Realizado;Boleto;Receita gerada por venda concluída.
+MOV0414;2026-07-01;Receita;Vendas;Recebimento referente à venda VEN0831;608.26;Venda;VEN0831;CC-COMERCIAL;Realizado;PIX;Receita gerada por venda concluída.
+MOV0415;2026-07-01;Receita;Vendas;Recebimento referente à venda VEN0832;144.71;Venda;VEN0832;CC-COMERCIAL;Realizado;Cartão de Débito;Receita gerada por venda concluída.
+MOV0416;2026-07-03;Receita;Vendas;Recebimento referente à venda VEN0838;298.41;Venda;VEN0838;CC-COMERCIAL;Realizado;Boleto;Receita gerada por venda concluída.
+MOV0417;2026-07-03;Despesa;Impostos;Pagamento de impostos;15049.24;Financeiro;;CC-FINANCEIRO;Realizado;TED;Movimentação financeira complementar.
+MOV0418;2026-07-04;Receita;Vendas;Recebimento referente à venda VEN0840;551.3;Venda;VEN0840;CC-COMERCIAL;Realizado;Boleto;Receita gerada por venda concluída.
+MOV0419;2026-07-05;Receita;Vendas;Recebimento referente à venda VEN0841;321.78;Venda;VEN0841;CC-COMERCIAL;Realizado;Boleto;Receita gerada por venda concluída.
+MOV0420;2026-07-05;Despesa;Compra de Mercadorias;Pagamento referente à compra COMP0206;3595.95;Compra;COMP0206;CC-COMPRAS;Previsto;PIX;Despesa vinculada à aquisição de mercadorias.
+MOV0421;2026-07-05;Despesa;Folha de Pagamento;Folha de pagamento 07/2026;337687.7;RH;FOLHA-2026-07;CC-RH;Realizado;TED;Inclui salários e benefícios mensais.
+MOV0422;2026-07-06;Receita;Vendas;Recebimento referente à venda VEN0844;384.61;Venda;VEN0844;CC-COMERCIAL;Realizado;Cartão de Débito;Receita gerada por venda concluída.
+MOV0423;2026-07-07;Receita;Vendas;Recebimento referente à venda VEN0845;281.02;Venda;VEN0845;CC-COMERCIAL;Realizado;Cartão de Crédito;Receita gerada por venda concluída.
+MOV0424;2026-07-07;Receita;Vendas;Recebimento referente à venda VEN0846;102.21;Venda;VEN0846;CC-COMERCIAL;Realizado;Cartão de Débito;Receita gerada por venda concluída.
+MOV0425;2026-07-08;Despesa;Aluguel;Despesa mensal de aluguel;29466.45;Operacional;;CC-ADMIN;Realizado;Boleto;Despesa operacional recorrente.
+MOV0426;2026-07-08;Despesa;Marketing;Despesa mensal de marketing;16174.52;Operacional;;CC-MARKETING;Realizado;TED;Despesa operacional recorrente.
+MOV0427;2026-07-10;Despesa;Compra de Mercadorias;Pagamento referente à compra COMP0211;5322.72;Compra;COMP0211;CC-COMPRAS;Realizado;TED;Despesa vinculada à aquisição de mercadorias.
+MOV0428;2026-07-12;Receita;Vendas;Recebimento referente à venda VEN0857;597.28;Venda;VEN0857;CC-COMERCIAL;Realizado;Cartão de Crédito;Receita gerada por venda concluída.
+MOV0429;2026-07-12;Despesa;Compra de Mercadorias;Pagamento referente à compra COMP0212;4322.53;Compra;COMP0212;CC-COMPRAS;Realizado;Boleto;Despesa vinculada à aquisição de mercadorias.
+MOV0430;2026-07-12;Despesa;Tecnologia;Despesa mensal de tecnologia;6595.33;Operacional;;CC-TI;Realizado;PIX;Despesa operacional recorrente.
+MOV0431;2026-07-15;Receita;Vendas;Recebimento referente à venda VEN0863;675.3;Venda;VEN0863;CC-COMERCIAL;Realizado;PIX;Receita gerada por venda concluída.
+MOV0432;2026-07-15;Receita;Vendas;Recebimento referente à venda VEN0864;233.84;Venda;VEN0864;CC-COMERCIAL;Realizado;PIX;Receita gerada por venda concluída.
+MOV0433;2026-07-15;Despesa;Energia;Despesa mensal de energia;8780.07;Operacional;;CC-OPERACAO;Realizado;PIX;Despesa operacional recorrente.
+MOV0434;2026-07-17;Receita;Vendas;Recebimento referente à venda VEN0869;248.82;Venda;VEN0869;CC-COMERCIAL;Realizado;Cartão de Crédito;Receita gerada por venda concluída.
+MOV0435;2026-07-17;Receita;Vendas;Recebimento referente à venda VEN0868;711.0;Venda;VEN0868;CC-COMERCIAL;Realizado;Boleto;Receita gerada por venda concluída.
+MOV0436;2026-07-19;Receita;Vendas;Recebimento referente à venda VEN0875;184.7;Venda;VEN0875;CC-COMERCIAL;Realizado;Boleto;Receita gerada por venda concluída.
+MOV0437;2026-07-19;Receita;Vendas;Recebimento referente à venda VEN0872;281.02;Venda;VEN0872;CC-COMERCIAL;Realizado;PIX;Receita gerada por venda concluída.
+MOV0438;2026-07-19;Despesa;Compra de Mercadorias;Pagamento referente à compra COMP0214;24951.02;Compra;COMP0214;CC-COMPRAS;Previsto;TED;Despesa vinculada à aquisição de mercadorias.
+MOV0439;2026-07-20;Receita;Vendas;Recebimento referente à venda VEN0878;373.62;Venda;VEN0878;CC-COMERCIAL;Realizado;Boleto;Receita gerada por venda concluída.
+MOV0440;2026-07-20;Despesa;Manutenção;Despesa mensal de manutenção;5024.56;Operacional;;CC-OPERACAO;Realizado;Boleto;Despesa operacional recorrente.
+MOV0441;2026-07-25;Receita;Vendas;Recebimento referente à venda VEN0885;298.41;Venda;VEN0885;CC-COMERCIAL;Realizado;Boleto;Receita gerada por venda concluída.
+MOV0442;2026-07-26;Receita;Vendas;Recebimento referente à venda VEN0889;373.62;Venda;VEN0889;CC-COMERCIAL;Realizado;Cartão de Débito;Receita gerada por venda concluída.
+MOV0443;2026-07-26;Receita;Vendas;Recebimento referente à venda VEN0890;801.68;Venda;VEN0890;CC-COMERCIAL;Realizado;Cartão de Crédito;Receita gerada por venda concluída.
+MOV0444;2026-07-27;Despesa;Compra de Mercadorias;Pagamento referente à compra COMP0217;5263.07;Compra;COMP0217;CC-COMPRAS;Realizado;PIX;Despesa vinculada à aquisição de mercadorias.
+MOV0445;2026-07-28;Receita;Vendas;Recebimento referente à venda VEN0896;354.94;Venda;VEN0896;CC-COMERCIAL;Realizado;PIX;Receita gerada por venda concluída.
+MOV0446;2026-07-28;Receita;Vendas;Recebimento referente à venda VEN0897;241.02;Venda;VEN0897;CC-COMERCIAL;Realizado;Boleto;Receita gerada por venda concluída.
+MOV0447;2026-07-30;Despesa;Compra de Mercadorias;Pagamento referente à compra COMP0218;2888.86;Compra;COMP0218;CC-COMPRAS;Realizado;PIX;Despesa vinculada à aquisição de mercadorias.
+MOV0448;2026-07-31;Receita;Vendas;Recebimento referente à venda VEN0900;257.17;Venda;VEN0900;CC-COMERCIAL;Realizado;Boleto;Receita gerada por venda concluída.
+MOV0449;2026-07-31;Despesa;Compra de Mercadorias;Pagamento referente à compra COMP0219;13726.53;Compra;COMP0219;CC-COMPRAS;Realizado;PIX;Despesa vinculada à aquisição de mercadorias.
+MOV0450;2026-07-31;Despesa;Compra de Mercadorias;Pagamento referente à compra COMP0220;4947.61;Compra;COMP0220;CC-COMPRAS;Realizado;PIX;Despesa vinculada à aquisição de mercadorias.
