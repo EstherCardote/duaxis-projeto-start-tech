@@ -78,14 +78,14 @@
           <a
             href="diretor-virtual.html"
             class="menu-lateral__item"
-            title="Diretor Virtual"
+            title="Copiloto Corporativo"
           >
             <span class="menu-lateral__item-icone"
               ><i data-lucide="bot" class="icone icone--pequeno"></i
             ></span>
             <span class="menu-lateral__item-texto">
-              <div class="menu-lateral__item-titulo">Diretor Virtual</div>
-              <div class="menu-lateral__item-subtitulo">Copiloto IA</div>
+              <div class="menu-lateral__item-titulo">Copiloto Corporativo</div>
+              <div class="menu-lateral__item-subtitulo">IA</div>
             </span>
           </a>
 
@@ -100,16 +100,6 @@
             <span class="menu-lateral__item-texto">
               <div class="menu-lateral__item-titulo">Fontes de Dados</div>
               <div class="menu-lateral__item-subtitulo">Conexões</div>
-            </span>
-          </a>
-
-          <a href="alertas.html" class="menu-lateral__item" title="Alertas">
-            <span class="menu-lateral__item-icone"
-              ><i data-lucide="bell" class="icone icone--pequeno"></i
-            ></span>
-            <span class="menu-lateral__item-texto">
-              <div class="menu-lateral__item-titulo">Alertas</div>
-              <div class="menu-lateral__item-subtitulo">Central de alertas</div>
             </span>
           </a>
 
@@ -150,14 +140,6 @@
             </div>
           </div>
           <div class="cabecalho-principal__acoes">
-            <a
-              href="alertas.html"
-              class="botao-notificacao"
-              aria-label="Notificações"
-            >
-              <i data-lucide="bell" class="icone icone--medio"></i>
-              <span class="botao-notificacao__indicador"></span>
-            </a>
             <button
               id="alternar-tema"
               class="alternador-tema"
@@ -177,24 +159,10 @@
         </header>
 
         <div class="conteudo-pagina">
-          <a href="alertas.html" class="banner-alerta">
-            <div class="banner-alerta__conteudo">
-              <i
-                data-lucide="bell"
-                class="banner-alerta__icone icon icone--pequeno"
-              ></i>
-              <span>Você possui <strong>7 alertas</strong> não lidos.</span>
-            </div>
-            <i
-              data-lucide="chevron-right"
-              class="icone icone--pequeno text-text-muted"
-            ></i>
-          </a>
-
           <section class="saudacao">
             <h2 class="saudacao__titulo">Bom dia!</h2>
             <p class="saudacao__texto">
-              Seu Diretor Virtual analisou os dados da empresa e preparou os
+              Seu Copiloto Corporativo analisou os dados da empresa e preparou os
               principais insights para hoje.
             </p>
           </section>
@@ -206,7 +174,7 @@
               </div>
               <div>
                 <h3 class="cartao-chat__titulo">
-                  Converse com o Diretor Virtual
+                  Converse com o Copiloto Corporativo
                 </h3>
                 <p class="cartao-chat__subtitulo">
                   Faça uma pergunta e a IA analisará os dados da empresa
@@ -242,14 +210,6 @@
               <button
                 class="etiqueta"
                 type="button"
-                data-sugestao="Quanto gastei com folha este mês?"
-              >
-                <i data-lucide="sparkles" class="icone icone--pequeno"></i>
-                Quanto gastei com folha este mês?
-              </button>
-              <button
-                class="etiqueta"
-                type="button"
                 data-sugestao="Quais produtos precisam de reposição?"
               >
                 <i data-lucide="sparkles" class="icone icone--pequeno"></i>
@@ -279,9 +239,6 @@
                   data-filtro="financeiro"
                 >
                   Financeiro
-                </button>
-                <button class="etiqueta-filtro" type="button" data-filtro="rh">
-                  RH
                 </button>
                 <button
                   class="etiqueta-filtro"
@@ -327,44 +284,6 @@
                 </div>
                 <div class="cartao-indicador__valor">R$ 237.960</div>
                 <div class="cartao-indicador__rotulo">Lucro Líquido</div>
-                <div class="cartao-indicador__rodape">vs. mês anterior</div>
-              </article>
-
-              <article class="cartao-indicador" data-categoria="rh">
-                <div class="cartao-indicador__cabecalho">
-                  <span
-                    class="cartao-indicador__icone cartao-indicador__icone--escuro"
-                    ><i data-lucide="users" class="icone icone--pequeno"></i
-                  ></span>
-                  <svg
-                    class="minigrafico"
-                    viewBox="0 0 48 20"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="1.5"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  >
-                    <polyline points="0,12 8,10 16,14 24,6 32,8 40,12 48,4" />
-                  </svg>
-                </div>
-                <div class="cartao-indicador__valor">50</div>
-                <div class="cartao-indicador__rotulo">Colaboradores Ativos</div>
-                <div class="cartao-indicador__rodape">vs. mês anterior</div>
-              </article>
-
-              <article class="cartao-indicador" data-categoria="rh">
-                <div class="cartao-indicador__cabecalho">
-                  <span
-                    class="cartao-indicador__icone cartao-indicador__icone--azul"
-                    ><i data-lucide="wallet" class="icone icone--pequeno"></i
-                  ></span>
-                  <span class="indicador-tendencia indicador-tendencia--alta"
-                    >+1,2%</span
-                  >
-                </div>
-                <div class="cartao-indicador__valor">R$ 555.000</div>
-                <div class="cartao-indicador__rotulo">Folha de Pagamento</div>
                 <div class="cartao-indicador__rodape">vs. mês anterior</div>
               </article>
 
@@ -947,251 +866,6 @@
                       font-size="9"
                     >
                       2026
-                    </text>
-                  </svg>
-                </div>
-              </article>
-            </div>
-          </section>
-
-          <!-- RH -->
-          <section class="secao-painel">
-            <h2 class="secao-painel__titulo">Recursos Humanos</h2>
-            <div class="grade-painel">
-              <article class="painel-grafico">
-                <div class="painel-grafico__cabecalho">
-                  <div class="painel-grafico__titulo-grupo">
-                    <span class="painel-grafico__icone"
-                      ><i data-lucide="wallet" class="icone icone--pequeno"></i
-                    ></span>
-                    <h3 class="painel-grafico__titulo">
-                      Folha por Departamento
-                    </h3>
-                  </div>
-                </div>
-                <div class="painel-grafico__estatisticas">
-                  <span>Total da folha: <strong>R$ 555.000</strong></span>
-                  <span>Maior custo: <strong>Produção (33%)</strong></span>
-                </div>
-                <div class="painel-grafico__grafico">
-                  <svg viewBox="0 0 400 160" aria-hidden="true">
-                    <line
-                      x1="40"
-                      y1="20"
-                      x2="40"
-                      y2="130"
-                      stroke="#e5e7eb"
-                      stroke-width="1"
-                    />
-                    <line
-                      x1="40"
-                      y1="130"
-                      x2="380"
-                      y2="130"
-                      stroke="#e5e7eb"
-                      stroke-width="1"
-                    />
-                    <rect
-                      x="55"
-                      y="30"
-                      width="35"
-                      height="100"
-                      rx="3"
-                      fill="#2563eb"
-                    />
-                    <rect
-                      x="115"
-                      y="55"
-                      width="35"
-                      height="75"
-                      rx="3"
-                      fill="#2563eb"
-                      opacity="0.85"
-                    />
-                    <rect
-                      x="175"
-                      y="80"
-                      width="35"
-                      height="50"
-                      rx="3"
-                      fill="#2563eb"
-                      opacity="0.7"
-                    />
-                    <rect
-                      x="235"
-                      y="95"
-                      width="35"
-                      height="35"
-                      rx="3"
-                      fill="#2563eb"
-                      opacity="0.6"
-                    />
-                    <rect
-                      x="295"
-                      y="105"
-                      width="35"
-                      height="25"
-                      rx="3"
-                      fill="#2563eb"
-                      opacity="0.5"
-                    />
-                    <text
-                      x="72"
-                      y="148"
-                      text-anchor="middle"
-                      fill="#9ca3af"
-                      font-size="8"
-                    >
-                      Produção
-                    </text>
-                    <text
-                      x="132"
-                      y="148"
-                      text-anchor="middle"
-                      fill="#9ca3af"
-                      font-size="8"
-                    >
-                      Comercial
-                    </text>
-                    <text
-                      x="192"
-                      y="148"
-                      text-anchor="middle"
-                      fill="#9ca3af"
-                      font-size="8"
-                    >
-                      Admin
-                    </text>
-                    <text
-                      x="252"
-                      y="148"
-                      text-anchor="middle"
-                      fill="#9ca3af"
-                      font-size="8"
-                    >
-                      Logíst.
-                    </text>
-                    <text
-                      x="312"
-                      y="148"
-                      text-anchor="middle"
-                      fill="#9ca3af"
-                      font-size="8"
-                    >
-                      TI
-                    </text>
-                  </svg>
-                </div>
-              </article>
-
-              <article class="painel-grafico">
-                <div class="painel-grafico__cabecalho">
-                  <div class="painel-grafico__titulo-grupo">
-                    <span class="painel-grafico__icone"
-                      ><i data-lucide="users" class="icone icone--pequeno"></i
-                    ></span>
-                    <h3 class="painel-grafico__titulo">Headcount por Área</h3>
-                  </div>
-                </div>
-                <div class="painel-grafico__estatisticas">
-                  <span>Total de colaboradores: <strong>50</strong></span>
-                  <span
-                    >Admissões no mês:
-                    <span class="painel-grafico__destaque--positivo"
-                      >+2</span
-                    ></span
-                  >
-                </div>
-                <div class="painel-grafico__grafico">
-                  <svg viewBox="0 0 400 160" aria-hidden="true">
-                    <rect
-                      x="120"
-                      y="15"
-                      width="216"
-                      height="14"
-                      rx="3"
-                      fill="#2563eb"
-                    />
-                    <text
-                      x="110"
-                      y="26"
-                      text-anchor="end"
-                      fill="#6b7280"
-                      font-size="9"
-                    >
-                      Produção (18)
-                    </text>
-                    <rect
-                      x="120"
-                      y="37"
-                      width="144"
-                      height="14"
-                      rx="3"
-                      fill="#2563eb"
-                      opacity="0.85"
-                    />
-                    <text
-                      x="110"
-                      y="48"
-                      text-anchor="end"
-                      fill="#6b7280"
-                      font-size="9"
-                    >
-                      Comercial (12)
-                    </text>
-                    <rect
-                      x="120"
-                      y="59"
-                      width="120"
-                      height="14"
-                      rx="3"
-                      fill="#2563eb"
-                      opacity="0.7"
-                    />
-                    <text
-                      x="110"
-                      y="70"
-                      text-anchor="end"
-                      fill="#6b7280"
-                      font-size="9"
-                    >
-                      Admin (10)
-                    </text>
-                    <rect
-                      x="120"
-                      y="81"
-                      width="72"
-                      height="14"
-                      rx="3"
-                      fill="#2563eb"
-                      opacity="0.6"
-                    />
-                    <text
-                      x="110"
-                      y="92"
-                      text-anchor="end"
-                      fill="#6b7280"
-                      font-size="9"
-                    >
-                      Logíst. (6)
-                    </text>
-                    <rect
-                      x="120"
-                      y="103"
-                      width="48"
-                      height="14"
-                      rx="3"
-                      fill="#2563eb"
-                      opacity="0.5"
-                    />
-                    <text
-                      x="110"
-                      y="114"
-                      text-anchor="end"
-                      fill="#6b7280"
-                      font-size="9"
-                    >
-                      TI (4)
                     </text>
                   </svg>
                 </div>
