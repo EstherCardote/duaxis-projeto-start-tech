@@ -8,8 +8,6 @@ document.addEventListener("DOMContentLoaded", () => {
   inicializarEtiquetasSugestao();
   inicializarFiltrosSugestoesDv();
   inicializarFiltrosIndicadores();
-  inicializarFiltrosAlertas();
-  inicializarAtualizacaoAlertas();
   inicializarBotaoValidacao();
   inicializarAbasPainel();
 });
@@ -151,7 +149,7 @@ function inicializarEtiquetasSugestao() {
     });
 }
 
-// Filtra sugestões de perguntas do Diretor Virtual por base
+// Filtra sugestões de perguntas do Copiloto Corporativo por base
 function inicializarFiltrosSugestoesDv() {
   const container = document.getElementById("sugestoes-dv-container");
   if (!container) return;
@@ -212,89 +210,6 @@ function aplicarFiltroIndicadores(cartoes, filtro) {
     const categoria = cartao.dataset.categoria || "";
     const corresponde = filtro === "todos" || categoria === filtro;
     cartao.style.display = corresponde ? "" : "none";
-  });
-}
-
-// Configura busca e filtros da página de alertas
-function inicializarFiltrosAlertas() {
-  const gradeAlertas = document.getElementById("grade-alertas");
-  if (!gradeAlertas) return;
-
-  const conteudo = gradeAlertas.closest(".conteudo-pagina");
-  const etiquetasFiltro = conteudo
-    ? conteudo.querySelectorAll(
-        ".filtros-etiquetas:not(.secao-indicadores__filtros) .etiqueta-filtro",
-      )
-    : [];
-  const cartoesAlerta = gradeAlertas.querySelectorAll(".cartao-alerta");
-
-  if (!etiquetasFiltro.length || !cartoesAlerta.length) return;
-
-  let filtroAtivo = "todos";
-  let termoBusca = "";
-
-  const campoBuscaAlertas = document.getElementById("busca-alertas");
-  if (campoBuscaAlertas) {
-    campoBuscaAlertas.addEventListener("input", () => {
-      termoBusca = campoBuscaAlertas.value.toLowerCase().trim();
-      aplicarFiltrosAlertas(cartoesAlerta, filtroAtivo, termoBusca);
-    });
-  }
-
-  etiquetasFiltro.forEach((etiqueta) => {
-    etiqueta.addEventListener("click", () => {
-      etiquetasFiltro.forEach((e) =>
-        e.classList.remove("etiqueta-filtro--ativo"),
-      );
-      etiqueta.classList.add("etiqueta-filtro--ativo");
-      filtroAtivo = etiqueta.dataset.filtro || "todos";
-      aplicarFiltrosAlertas(cartoesAlerta, filtroAtivo, termoBusca);
-    });
-  });
-}
-
-// Mostra ou esconde cartões conforme filtro e busca
-function aplicarFiltrosAlertas(cartoes, filtro, termoBusca) {
-  cartoes.forEach((cartao) => {
-    const categoria = cartao.dataset.categoria || "";
-    const texto = cartao.textContent.toLowerCase();
-
-    let correspondeFiltro = true;
-
-    switch (filtro) {
-      case "financeiro":
-        correspondeFiltro = categoria === "financeiro";
-        break;
-      case "rh":
-        correspondeFiltro = categoria === "rh";
-        break;
-      case "logistica":
-        correspondeFiltro = categoria === "logistica";
-        break;
-      default:
-        correspondeFiltro = true;
-    }
-
-    const correspondeBusca = !termoBusca || texto.includes(termoBusca);
-    cartao.style.display = correspondeFiltro && correspondeBusca ? "" : "none";
-  });
-}
-
-// Simula atualização da lista de alertas
-function inicializarAtualizacaoAlertas() {
-  const botaoAtualizar = document.getElementById("botao-atualizar-alertas");
-  const textoAtualizar = document.getElementById("texto-atualizar-alertas");
-
-  if (!botaoAtualizar || !textoAtualizar) return;
-
-  botaoAtualizar.addEventListener("click", () => {
-    textoAtualizar.textContent = "Atualizado";
-    botaoAtualizar.disabled = true;
-
-    setTimeout(() => {
-      textoAtualizar.textContent = "Atualizar";
-      botaoAtualizar.disabled = false;
-    }, 2000);
   });
 }
 

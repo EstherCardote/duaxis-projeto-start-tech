@@ -226,28 +226,8 @@
     @apply hidden;
   }
 
-  .botao-notificacao {
-    @apply relative flex h-10 w-10 cursor-pointer items-center justify-center rounded-xl border border-border bg-bg-card text-text-secondary no-underline transition-colors duration-200 hover:bg-alert-bg;
-  }
-
-  .botao-notificacao__indicador {
-    @apply absolute top-2 right-2 h-2 w-2 rounded-full bg-success;
-  }
-
   .conteudo-pagina {
     @apply flex flex-1 flex-col gap-4 p-4 sm:gap-6 sm:p-6;
-  }
-
-  .banner-alerta {
-    @apply flex cursor-pointer items-center justify-between gap-2 rounded-xl border border-border bg-alert-bg px-3 py-2.5 no-underline transition-colors hover:bg-border/50 sm:px-4 sm:py-3;
-  }
-
-  .banner-alerta__conteudo {
-    @apply flex items-center gap-3 text-sm text-text-primary;
-  }
-
-  .banner-alerta__icone {
-    @apply text-warning;
   }
 
   .saudacao__titulo {
@@ -492,7 +472,7 @@
     @apply bg-danger-text;
   }
 
-  /* Diretor Virtual layout */
+  /* Copiloto Corporativo layout */
   .app-principal--completo {
     @apply bg-bg-page;
   }
@@ -746,71 +726,6 @@
     @apply inline-flex cursor-pointer items-center gap-2 rounded-xl border border-border bg-bg-card px-5 py-2.5 text-sm font-medium text-text-primary transition-colors hover:bg-alert-bg;
   }
 
-  /* Alertas */
-  .resumo-alertas {
-    @apply rounded-2xl border border-border bg-bg-card p-4 sm:p-6;
-  }
-
-  .resumo-alertas__titulo {
-    @apply mb-5 text-base font-bold text-text-primary;
-  }
-
-  .resumo-alertas__grade {
-    @apply grid grid-cols-2 gap-3 sm:gap-4 md:grid-cols-4;
-  }
-
-  .resumo-alertas__item {
-    @apply flex flex-col items-center gap-2 rounded-xl border border-border px-3 py-5 sm:px-4 sm:py-6;
-  }
-
-  .resumo-alertas__item-icone-wrap {
-    @apply flex h-10 w-10 items-center justify-center rounded-full bg-alert-bg;
-  }
-
-  .resumo-alertas__item-icone-wrap--critico {
-    @apply bg-danger-bg;
-  }
-
-  .resumo-alertas__item-icone-wrap--resolvido {
-    @apply bg-alert-bg;
-  }
-
-  .resumo-alertas__item-icone {
-    @apply text-text-primary;
-  }
-
-  .resumo-alertas__item-icone--critico {
-    @apply text-danger-text;
-  }
-
-  .resumo-alertas__item-icone--resolvido {
-    @apply text-text-muted;
-  }
-
-  .resumo-alertas__item-valor {
-    @apply text-2xl font-bold leading-none text-text-primary;
-  }
-
-  .resumo-alertas__item-valor--critico {
-    @apply text-danger-text;
-  }
-
-  .resumo-alertas__item-valor--resolvido {
-    @apply text-text-muted;
-  }
-
-  .resumo-alertas__item-rotulo {
-    @apply text-xs text-text-secondary;
-  }
-
-  .barra-busca {
-    @apply flex items-center gap-2 rounded-full border border-border bg-bg-card px-4 py-2.5;
-  }
-
-  .barra-busca__campo {
-    @apply flex-1 bg-transparent text-sm text-text-primary outline-none placeholder:text-text-muted;
-  }
-
   .filtros-etiquetas {
     @apply flex flex-wrap items-center gap-2;
   }
@@ -821,62 +736,6 @@
 
   .etiqueta-filtro--ativo {
     @apply bg-brand-blue text-white hover:bg-brand-blue;
-  }
-
-  .grade-alertas {
-    @apply grid grid-cols-1 gap-4 lg:grid-cols-2;
-  }
-
-  .cartao-alerta {
-    @apply relative flex gap-4 rounded-xl border border-border bg-bg-card p-4 transition-all duration-200 ease-in-out;
-  }
-
-  .cartao-alerta--nao-lido {
-    @apply border-l-4 border-l-brand-blue;
-  }
-
-  .cartao-alerta__icone {
-    @apply flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-brand-blue/10 text-brand-blue;
-  }
-
-  .cartao-alerta__corpo {
-    @apply min-w-0 flex-1 pr-14;
-  }
-
-  .cartao-alerta__titulo {
-    @apply text-sm font-bold text-text-primary;
-  }
-
-  .cartao-alerta__descricao {
-    @apply mt-1 text-xs text-text-secondary;
-  }
-
-  .cartao-alerta__meta {
-    @apply mt-2.5 flex items-center gap-2 text-[10px] text-text-muted;
-  }
-
-  .cartao-alerta__status--nao-lido {
-    @apply rounded-full bg-brand-blue/10 px-2 py-0.5 font-medium text-brand-blue;
-  }
-
-  .cartao-alerta__status--lido {
-    @apply rounded-full bg-alert-bg px-2 py-0.5 font-medium text-text-secondary;
-  }
-
-  .indicador-prioridade {
-    @apply absolute top-4 right-4 shrink-0 rounded-full px-2.5 py-0.5 text-xs font-semibold;
-  }
-
-  .indicador-prioridade--alta {
-    @apply bg-danger-bg text-danger-text;
-  }
-
-  .indicador-prioridade--media {
-    @apply bg-alert-bg text-text-secondary;
-  }
-
-  .indicador-prioridade--baixa {
-    @apply bg-alert-bg text-text-muted;
   }
 
   /* Configurações */
