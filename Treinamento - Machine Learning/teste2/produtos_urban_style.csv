@@ -1,0 +1,81 @@
+﻿id;sku;nome;categoria;cor;tamanho;fornecedor_id;custo_base;preco_base;estoque_minimo;demanda_base_mensal;perfil_sazonal;tendencia_mensal;popularidade;ativo
+PROD001;US-1001;Básica Branca Preto G;Camisetas;Preto;G;FOR017;28.78;67.4;11;17;verao;0.0053;1.057;True
+PROD002;US-1002;Wide Leg Cinza M;Calças;Cinza;M;FOR009;56.44;135.07;8;10;estavel;0.0025;1.124;True
+PROD003;US-1003;Canelado Rosa PP;Vestidos;Rosa;PP;FOR017;83.03;176.66;10;15;verao;-0.0015;1.036;True
+PROD004;US-1004;Puffer Preto M;Jaquetas;Preto;M;FOR009;131.07;259.98;9;13;inverno;0.0098;1.2;True
+PROD005;US-1005;Jeans Azul P;Bermudas;Azul;P;FOR009;46.9;93.61;11;16;verao;-0.0006;1.038;True
+PROD006;US-1006;Midi Bege M;Saias;Bege;M;FOR009;61.07;130.96;8;12;verao;0.0072;1.005;True
+PROD007;US-1007;Linho Preto M;Camisas;Preto;M;FOR006;65.27;126.35;9;14;estavel;-0.0032;1.079;True
+PROD008;US-1008;Tricô Branco GG;Blusas;Branco;GG;FOR004;76.12;145.52;8;9;inverno;-0.001;1.232;True
+PROD009;US-1009;Boné Rosa Único;Acessórios;Rosa;Único;FOR015;21.13;48.23;14;21;fim_ano;-0.0012;1.17;True
+PROD010;US-1010;Estampada Azul GG;Camisetas;Azul;GG;FOR003;52.26;134.03;18;26;verao;0.0024;1.071;True
+PROD011;US-1011;Sarja Rosa G;Calças;Rosa;G;FOR015;65.58;125.38;12;18;estavel;-0.0043;0.901;True
+PROD012;US-1012;Curto Vermelho GG;Vestidos;Vermelho;GG;FOR007;92.34;208.03;8;12;verao;0.0044;1.104;True
+PROD013;US-1013;Couro Sintético Cinza M;Jaquetas;Cinza;M;FOR018;101.38;203.49;8;11;inverno;0.0084;1.006;True
+PROD014;US-1014;Jeans Verde GG;Bermudas;Verde;GG;FOR006;46.15;107.97;8;12;verao;0.0057;1.216;True
+PROD015;US-1015;Midi Vermelho M;Saias;Vermelho;M;FOR004;70.93;161.35;8;9;verao;0.0096;1.156;True
+PROD016;US-1016;Linho Rosa P;Camisas;Rosa;P;FOR008;62.9;122.22;8;8;estavel;0.0119;1.109;True
+PROD017;US-1017;Tricô Cinza PP;Blusas;Cinza;PP;FOR014;65.98;139.68;8;11;inverno;0.0047;1.046;True
+PROD018;US-1018;Carteira Bege Único;Acessórios;Bege;Único;FOR001;24.63;52.59;12;18;fim_ano;0.0095;1.01;True
+PROD019;US-1019;Básica Preta Bege G;Camisetas;Bege;G;FOR010;34.27;79.51;11;17;verao;0.003;1.144;True
+PROD020;US-1020;Sarja Preto G;Calças;Preto;G;FOR004;85.22;177.39;10;15;estavel;-0.0031;0.922;True
+PROD021;US-1021;Canelado Branco GG;Vestidos;Branco;GG;FOR004;68.34;160.19;11;16;verao;-0.0006;1.106;True
+PROD022;US-1022;Corta Vento Preto M;Jaquetas;Preto;M;FOR015;131.44;249.18;8;12;inverno;0.0;1.107;True
+PROD023;US-1023;Jeans Cinza P;Bermudas;Cinza;P;FOR015;63.01;144.21;8;10;verao;0.003;1.174;True
+PROD024;US-1024;Jeans Vermelho PP;Saias;Vermelho;PP;FOR018;80.41;189.85;9;13;verao;0.0073;0.993;True
+PROD025;US-1025;Linho Preto P;Camisas;Preto;P;FOR012;65.26;129.84;9;14;estavel;0.0018;1.24;True
+PROD026;US-1026;Canelada Rosa GG;Blusas;Rosa;GG;FOR016;86.63;210.97;9;14;inverno;0.0023;1.016;True
+PROD027;US-1027;Carteira Bege Único;Acessórios;Bege;Único;FOR002;64.08;162.01;10;15;fim_ano;-0.0008;0.881;True
+PROD028;US-1028;Básica Branca Cinza PP;Camisetas;Cinza;PP;FOR015;54.68;122.1;14;20;verao;-0.0031;1.198;True
+PROD029;US-1029;Sarja Bege PP;Calças;Bege;PP;FOR014;69.72;154.2;9;13;estavel;-0.0036;1.125;True
+PROD030;US-1030;Canelado Rosa G;Vestidos;Rosa;G;FOR001;108.78;233.78;11;16;verao;0.0017;1.204;True
+PROD031;US-1031;Jeans Verde PP;Jaquetas;Verde;PP;FOR016;116.21;252.39;8;12;inverno;0.0088;1.043;True
+PROD032;US-1032;Sarja Azul G;Bermudas;Azul;G;FOR004;48.54;111.72;8;8;verao;0.0044;1.197;True
+PROD033;US-1033;Midi Cinza M;Saias;Cinza;M;FOR016;83.1;192.0;8;8;verao;0.0062;1.055;True
+PROD034;US-1034;Xadrez Branco P;Camisas;Branco;P;FOR002;53.87;115.82;8;12;estavel;0.0003;1.183;True
+PROD035;US-1035;Moletom Cinza G;Blusas;Cinza;G;FOR008;72.98;155.64;8;9;inverno;0.009;0.971;True
+PROD036;US-1036;Carteira Bege Único;Acessórios;Bege;Único;FOR004;34.27;72.92;8;11;fim_ano;0.0118;1.084;True
+PROD037;US-1037;Estampada Azul P;Camisetas;Azul;P;FOR006;47.06;119.65;13;19;verao;-0.0055;1.155;True
+PROD038;US-1038;Sarja Branco G;Calças;Branco;G;FOR016;67.27;138.95;9;13;estavel;0.0069;1.117;True
+PROD039;US-1039;Curto Cinza G;Vestidos;Cinza;G;FOR011;97.81;234.59;8;12;verao;0.012;1.033;True
+PROD040;US-1040;Jeans Preto GG;Jaquetas;Preto;GG;FOR002;108.98;241.73;8;8;inverno;-0.0013;0.871;True
+PROD041;US-1041;Jeans Rosa G;Bermudas;Rosa;G;FOR017;73.2;153.52;8;10;verao;0.0106;1.241;True
+PROD042;US-1042;Midi Bege M;Saias;Bege;M;FOR009;74.94;150.14;8;12;verao;0.0103;1.235;True
+PROD043;US-1043;Linho Rosa P;Camisas;Rosa;P;FOR002;83.61;182.91;8;12;estavel;0.0064;0.91;True
+PROD044;US-1044;Moletom Cinza P;Blusas;Cinza;P;FOR001;56.33;120.25;9;13;inverno;0.0059;1.179;True
+PROD045;US-1045;Bolsa Branco Único;Acessórios;Branco;Único;FOR017;27.24;74.45;15;22;fim_ano;0.0084;1.173;True
+PROD046;US-1046;Oversized Rosa GG;Camisetas;Rosa;GG;FOR001;50.67;128.6;15;22;verao;0.0058;1.064;True
+PROD047;US-1047;Sarja Azul GG;Calças;Azul;GG;FOR009;64.87;128.43;9;14;estavel;0.005;0.977;True
+PROD048;US-1048;Curto Azul PP;Vestidos;Azul;PP;FOR015;63.78;129.21;9;13;verao;-0.0015;1.139;True
+PROD049;US-1049;Couro Sintético Rosa M;Jaquetas;Rosa;M;FOR012;107.66;242.31;8;8;inverno;-0.0007;0.965;True
+PROD050;US-1050;Jeans Rosa GG;Bermudas;Rosa;GG;FOR010;72.31;142.34;9;14;verao;-0.0043;0.873;True
+PROD051;US-1051;Midi Rosa G;Saias;Rosa;G;FOR008;71.94;177.28;8;10;verao;0.0021;1.226;True
+PROD052;US-1052;Linho Azul PP;Camisas;Azul;PP;FOR007;72.93;168.06;11;16;estavel;0.0104;0.91;True
+PROD053;US-1053;Canelada Cinza PP;Blusas;Cinza;PP;FOR002;68.55;154.87;10;15;inverno;-0.001;1.191;True
+PROD054;US-1054;Boné Azul Único;Acessórios;Azul;Único;FOR011;27.34;57.31;14;20;fim_ano;0.0023;1.191;True
+PROD055;US-1055;Básica Preta Azul GG;Camisetas;Azul;GG;FOR015;35.37;90.64;13;19;verao;-0.0029;1.212;True
+PROD056;US-1056;Jeans Slim Cinza GG;Calças;Cinza;GG;FOR005;64.43;153.91;11;17;estavel;0.0093;1.071;True
+PROD057;US-1057;Midi Cinza PP;Vestidos;Cinza;PP;FOR017;99.86;211.99;12;18;verao;0.0064;0.871;True
+PROD058;US-1058;Jeans Verde PP;Jaquetas;Verde;PP;FOR014;140.92;298.89;8;12;inverno;0.0049;0.875;True
+PROD059;US-1059;Jeans Bege M;Bermudas;Bege;M;FOR016;51.76;116.02;11;16;verao;0.0048;0.956;True
+PROD060;US-1060;Plissada Preto P;Saias;Preto;P;FOR003;82.65;167.93;9;13;verao;-0.0047;1.021;True
+PROD061;US-1061;Social Branca Vermelho GG;Camisas;Vermelho;GG;FOR007;54.84;122.5;9;14;estavel;-0.0046;0.988;True
+PROD062;US-1062;Tricô Verde GG;Blusas;Verde;GG;FOR004;67.54;166.84;11;17;inverno;0.0057;1.121;True
+PROD063;US-1063;Boné Verde Único;Acessórios;Verde;Único;FOR005;56.92;142.33;13;19;fim_ano;0.0052;0.912;True
+PROD064;US-1064;Básica Branca Branco M;Camisetas;Branco;M;FOR002;41.14;103.89;17;25;verao;-0.0011;1.117;True
+PROD065;US-1065;Jeans Reta Verde M;Calças;Verde;M;FOR010;78.04;152.16;13;19;estavel;0.0034;1.162;True
+PROD066;US-1066;Curto Azul G;Vestidos;Azul;G;FOR018;68.51;163.55;12;18;verao;0.0082;1.065;True
+PROD067;US-1067;Corta Vento Branco M;Jaquetas;Branco;M;FOR015;117.57;264.86;8;6;inverno;0.0036;0.851;True
+PROD068;US-1068;Sarja Cinza P;Bermudas;Cinza;P;FOR014;74.23;148.58;8;12;verao;-0.0015;1.193;True
+PROD069;US-1069;Jeans Azul GG;Saias;Azul;GG;FOR011;82.77;170.83;9;14;verao;-0.0045;1.1;True
+PROD070;US-1070;Xadrez Azul GG;Camisas;Azul;GG;FOR012;87.64;193.39;8;9;estavel;-0.0059;0.984;True
+PROD071;US-1071;Moletom Verde PP;Blusas;Verde;PP;FOR015;62.93;139.09;8;10;inverno;0.0065;1.205;True
+PROD072;US-1072;Boné Vermelho Único;Acessórios;Vermelho;Único;FOR014;23.91;58.03;8;12;fim_ano;-0.0025;0.968;True
+PROD073;US-1073;Oversized Vermelho G;Camisetas;Vermelho;G;FOR005;43.44;103.64;14;20;verao;0.0041;1.201;True
+PROD074;US-1074;Jeans Slim Vermelho P;Calças;Vermelho;P;FOR017;63.92;129.24;11;16;estavel;0.0059;1.0;True
+PROD075;US-1075;Canelado Rosa M;Vestidos;Rosa;M;FOR011;76.05;182.48;11;16;verao;0.0032;1.147;True
+PROD076;US-1076;Puffer Rosa G;Jaquetas;Rosa;G;FOR002;145.11;288.63;8;9;inverno;-0.0059;0.922;True
+PROD077;US-1077;Jeans Preto M;Bermudas;Preto;M;FOR018;68.79;153.14;8;9;verao;-0.0045;1.199;True
+PROD078;US-1078;Midi Bege PP;Saias;Bege;PP;FOR011;73.81;145.95;8;12;verao;0.0106;0.864;True
+PROD079;US-1079;Social Branca Preto M;Camisas;Preto;M;FOR014;63.8;132.26;9;13;estavel;-0.0002;1.068;True
+PROD080;US-1080;Canelada Bege M;Blusas;Bege;M;FOR001;48.27;109.49;8;10;inverno;0.0059;0.876;True
