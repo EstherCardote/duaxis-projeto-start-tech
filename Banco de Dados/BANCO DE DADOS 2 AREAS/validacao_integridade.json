@@ -1,0 +1,31 @@
+{
+  "empresa": "Urban Style",
+  "sistema": "DUAXIS",
+  "periodo": "2023-08 a 2026-07",
+  "bases": {
+    "produtos": 80,
+    "clientes": 120,
+    "fornecedores": 18,
+    "vendas": 30730,
+    "compras": 2660,
+    "estoque": 80,
+    "movimentacoes_estoque": 33470,
+    "contas_a_receber": 39848,
+    "contas_a_pagar": 2660,
+    "movimentacoes_financeiras": 42724
+  },
+  "checagens": [
+    "Todas as vendas referenciam produtos e clientes existentes.",
+    "Todas as compras referenciam produtos e fornecedores existentes.",
+    "Toda compra recebida gera entrada de estoque.",
+    "Toda venda concluída gera saída de estoque.",
+    "Compras geram contas a pagar e despesas financeiras.",
+    "Vendas geram contas a receber e receitas financeiras.",
+    "Nenhum estoque final possui quantidade negativa."
+  ],
+  "validacao_ml_inicial": {
+    "mae_baseline": 2.513,
+    "mae_random_forest": 2.37,
+    "r2_random_forest": 0.748
+  }
+}

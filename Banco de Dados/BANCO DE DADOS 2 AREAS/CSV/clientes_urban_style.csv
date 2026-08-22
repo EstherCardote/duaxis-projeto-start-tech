@@ -1,121 +1,121 @@
-﻿id;nome;tipo;cpf;email;telefone;cidade;estado;data_cadastro;status;faixa_renda;limite_credito;score_relacionamento;vendedor_responsavel;canal_preferencial;ultima_compra;frequencia_compras_ano;ticket_medio;total_gasto;categoria
-CLI001;Vanessa Oliveira;Pessoa Física;001.***.***-**;vanessa.oliveira1@email.com;(11) 9XXXX-XXXX;Barueri;SP;2021-09-07;Inativo;+R$15 mil;10000;64;FUN030;Loja Física;2026-07-02;12;58.08;697;Bronze
-CLI002;Helena Souza;Pessoa Física;002.***.***-**;helena.souza2@email.com;(11) 9XXXX-XXXX;São Paulo;SP;2022-01-18;Ativo;R$7-15 mil;10000;69;FUN026;WhatsApp;2026-05-18;13;2223.92;28911;Ouro
-CLI003;Yasmin Oliveira;Pessoa Física;003.***.***-**;yasmin.oliveira3@email.com;(11) 9XXXX-XXXX;Barueri;SP;2026-02-19;Inativo;R$3-7 mil;10000;94;FUN036;E-commerce;2026-08-19;4;709.75;2839;Bronze
-CLI004;Rodrigo Costa;Pessoa Física;004.***.***-**;rodrigo.costa4@email.com;(11) 9XXXX-XXXX;Santo André;SP;2025-08-11;Ativo;R$7-15 mil;1000;67;FUN039;E-commerce;2026-03-25;19;65.05;1236;Bronze
-CLI005;Eduardo Oliveira;Pessoa Física;005.***.***-**;eduardo.oliveira5@email.com;(11) 9XXXX-XXXX;Santo André;SP;2023-12-12;Ativo;+R$15 mil;1000;65;FUN031;E-commerce;2026-02-02;19;660.21;12544;Ouro
-CLI006;Thiago Ribeiro;Pessoa Física;006.***.***-**;thiago.ribeiro6@email.com;(11) 9XXXX-XXXX;São Paulo;SP;2024-06-06;Ativo;+R$15 mil;1000;73;FUN032;Loja Física;2026-04-13;12;6151.75;73821;Diamante
-CLI007;Vinicius Ferreira;Pessoa Física;007.***.***-**;vinicius.ferreira7@email.com;(11) 9XXXX-XXXX;Guarulhos;SP;2025-05-23;Ativo;R$7-15 mil;10000;74;FUN027;Loja Física;2026-03-05;5;467.8;2339;Bronze
-CLI008;Beatriz Santos;Pessoa Física;008.***.***-**;beatriz.santos8@email.com;(11) 9XXXX-XXXX;Osasco;SP;2024-09-12;Ativo;R$7-15 mil;3000;92;FUN024;E-commerce;2026-07-13;1;2913.0;2913;Bronze
-CLI009;Vinicius Almeida;Pessoa Física;009.***.***-**;vinicius.almeida9@email.com;(11) 9XXXX-XXXX;Guarulhos;SP;2022-02-11;Ativo;Até R$3 mil;1000;96;FUN027;WhatsApp;2026-02-12;7;305.71;2140;Bronze
-CLI010;Daniel Silva;Pessoa Física;010.***.***-**;daniel.silva10@email.com;(11) 9XXXX-XXXX;Santo André;SP;2023-10-12;Ativo;Até R$3 mil;10000;89;FUN038;E-commerce;2026-05-03;21;64.33;1351;Bronze
-CLI011;Rafael Souza;Pessoa Física;011.***.***-**;rafael.souza11@email.com;(11) 9XXXX-XXXX;Osasco;SP;2025-06-05;Ativo;Até R$3 mil;5000;65;FUN031;WhatsApp;2026-06-06;1;6921.0;6921;Prata
-CLI012;Paula Santos;Pessoa Física;012.***.***-**;paula.santos12@email.com;(11) 9XXXX-XXXX;Osasco;SP;2024-12-26;Ativo;+R$15 mil;5000;61;FUN023;E-commerce;2026-08-09;7;814.43;5701;Prata
-CLI013;Aline Ribeiro;Pessoa Física;013.***.***-**;aline.ribeiro13@email.com;(11) 9XXXX-XXXX;Osasco;SP;2021-04-16;Ativo;R$3-7 mil;10000;99;FUN023;E-commerce;2026-06-26;3;17965.67;53897;Diamante
-CLI014;Cláudia Souza;Pessoa Física;014.***.***-**;cláudia.souza14@email.com;(11) 9XXXX-XXXX;Guarulhos;SP;2026-06-03;Ativo;+R$15 mil;10000;85;FUN025;WhatsApp;2026-03-06;6;2755.33;16532;Ouro
-CLI015;Patricia Silva;Pessoa Física;015.***.***-**;patricia.silva15@email.com;(11) 9XXXX-XXXX;Guarulhos;SP;2026-06-05;Ativo;R$3-7 mil;1000;60;FUN026;WhatsApp;2026-03-14;20;120.3;2406;Bronze
-CLI016;Aline Santos;Pessoa Física;016.***.***-**;aline.santos16@email.com;(11) 9XXXX-XXXX;Santo André;SP;2023-09-14;Ativo;Até R$3 mil;5000;89;FUN039;E-commerce;2026-03-18;19;72.16;1371;Bronze
-CLI017;Rafael Gomes;Pessoa Física;017.***.***-**;rafael.gomes17@email.com;(11) 9XXXX-XXXX;Osasco;SP;2022-03-16;Ativo;Até R$3 mil;1000;80;FUN039;WhatsApp;2026-08-26;1;9362.0;9362;Prata
-CLI018;Fernanda Gomes;Pessoa Física;018.***.***-**;fernanda.gomes18@email.com;(11) 9XXXX-XXXX;Guarulhos;SP;2025-01-25;Ativo;Até R$3 mil;10000;80;FUN039;WhatsApp;2026-04-23;17;75.47;1283;Bronze
-CLI019;Gustavo Ferreira;Pessoa Física;019.***.***-**;gustavo.ferreira19@email.com;(11) 9XXXX-XXXX;Santo André;SP;2025-04-27;Ativo;+R$15 mil;1000;85;FUN037;E-commerce;2026-02-22;17;421.18;7160;Prata
-CLI020;Diego Almeida;Pessoa Física;020.***.***-**;diego.almeida20@email.com;(11) 9XXXX-XXXX;São Bernardo;SP;2026-06-05;Ativo;R$3-7 mil;10000;74;FUN026;E-commerce;2026-08-06;23;75.65;1740;Bronze
-CLI021;Henrique Santos;Pessoa Física;021.***.***-**;henrique.santos21@email.com;(11) 9XXXX-XXXX;Osasco;SP;2023-06-03;Ativo;Até R$3 mil;5000;95;FUN037;E-commerce;2026-01-13;14;161.93;2267;Bronze
-CLI022;Eduardo Gomes;Pessoa Física;022.***.***-**;eduardo.gomes22@email.com;(11) 9XXXX-XXXX;São Paulo;SP;2023-05-02;Ativo;R$3-7 mil;5000;68;FUN036;WhatsApp;2026-05-13;4;881.75;3527;Prata
-CLI023;Rafael Gomes;Pessoa Física;023.***.***-**;rafael.gomes23@email.com;(11) 9XXXX-XXXX;São Paulo;SP;2026-03-14;Ativo;R$7-15 mil;1000;100;FUN025;E-commerce;2026-02-20;9;2301.89;20717;Ouro
-CLI024;Beatriz Souza;Pessoa Física;024.***.***-**;beatriz.souza24@email.com;(11) 9XXXX-XXXX;Guarulhos;SP;2023-10-05;Inativo;R$3-7 mil;1000;70;FUN031;Loja Física;2026-03-07;18;55.44;998;Bronze
-CLI025;Thiago Lima;Pessoa Física;025.***.***-**;thiago.lima25@email.com;(11) 9XXXX-XXXX;Osasco;SP;2023-06-26;Inativo;R$7-15 mil;1000;60;FUN023;WhatsApp;2026-04-17;22;244.36;5376;Prata
-CLI026;Priscila Santos;Pessoa Física;026.***.***-**;priscila.santos26@email.com;(11) 9XXXX-XXXX;Barueri;SP;2024-09-10;Ativo;R$3-7 mil;5000;72;FUN027;E-commerce;2026-06-02;16;1510.12;24162;Ouro
-CLI027;Patricia Silva;Pessoa Física;027.***.***-**;patricia.silva27@email.com;(11) 9XXXX-XXXX;São Bernardo;SP;2024-09-22;Ativo;R$3-7 mil;5000;62;FUN037;Loja Física;2026-03-09;3;515.33;1546;Bronze
-CLI028;Natália Silva;Pessoa Física;028.***.***-**;natália.silva28@email.com;(11) 9XXXX-XXXX;Santo André;SP;2022-06-06;Inativo;+R$15 mil;1000;90;FUN031;WhatsApp;2026-04-08;2;923.5;1847;Bronze
-CLI029;Amanda Silva;Pessoa Física;029.***.***-**;amanda.silva29@email.com;(11) 9XXXX-XXXX;Guarulhos;SP;2021-05-10;Ativo;Até R$3 mil;3000;98;FUN035;E-commerce;2026-08-05;2;433.5;867;Bronze
-CLI030;Renata Ribeiro;Pessoa Física;030.***.***-**;renata.ribeiro30@email.com;(11) 9XXXX-XXXX;São Bernardo;SP;2026-09-05;Ativo;Até R$3 mil;3000;65;FUN023;Loja Física;2026-03-21;14;697.0;9758;Prata
-CLI031;Leonardo Souza;Pessoa Física;031.***.***-**;leonardo.souza31@email.com;(11) 9XXXX-XXXX;São Bernardo;SP;2025-11-08;Ativo;Até R$3 mil;10000;64;FUN039;WhatsApp;2026-02-22;1;2348.0;2348;Bronze
-CLI032;Igor Souza;Pessoa Física;032.***.***-**;igor.souza32@email.com;(11) 9XXXX-XXXX;São Bernardo;SP;2022-04-24;Ativo;+R$15 mil;10000;84;FUN025;E-commerce;2026-05-25;8;633.25;5066;Prata
-CLI033;Mariana Ribeiro;Pessoa Física;033.***.***-**;mariana.ribeiro33@email.com;(11) 9XXXX-XXXX;Santo André;SP;2026-12-23;Ativo;R$3-7 mil;1000;90;FUN024;E-commerce;2026-05-22;11;330.45;3635;Prata
-CLI034;Fernanda Santos;Pessoa Física;034.***.***-**;fernanda.santos34@email.com;(11) 9XXXX-XXXX;Guarulhos;SP;2024-02-18;Ativo;Até R$3 mil;10000;61;FUN032;E-commerce;2026-02-27;15;587.2;8808;Prata
-CLI035;Amanda Ferreira;Pessoa Física;035.***.***-**;amanda.ferreira35@email.com;(11) 9XXXX-XXXX;São Paulo;SP;2022-12-17;Ativo;R$7-15 mil;3000;98;FUN039;E-commerce;2026-02-23;19;1836.32;34890;Diamante
-CLI036;Leonardo Santos;Pessoa Física;036.***.***-**;leonardo.santos36@email.com;(11) 9XXXX-XXXX;Guarulhos;SP;2026-08-13;Ativo;R$3-7 mil;10000;82;FUN035;E-commerce;2026-02-27;1;6229.0;6229;Prata
-CLI037;Eduardo Silva;Pessoa Física;037.***.***-**;eduardo.silva37@email.com;(11) 9XXXX-XXXX;São Bernardo;SP;2021-12-10;Ativo;Até R$3 mil;10000;84;FUN025;E-commerce;2026-07-25;7;269.29;1885;Bronze
-CLI038;Gustavo Silva;Pessoa Física;038.***.***-**;gustavo.silva38@email.com;(11) 9XXXX-XXXX;Osasco;SP;2023-07-17;Ativo;R$7-15 mil;10000;61;FUN035;WhatsApp;2026-04-24;5;142.2;711;Bronze
-CLI039;Lucas Silva;Pessoa Física;039.***.***-**;lucas.silva39@email.com;(11) 9XXXX-XXXX;Guarulhos;SP;2021-09-05;Ativo;+R$15 mil;5000;78;FUN032;E-commerce;2026-05-13;10;1454.1;14541;Ouro
-CLI040;Cláudia Santos;Pessoa Física;040.***.***-**;cláudia.santos40@email.com;(11) 9XXXX-XXXX;São Bernardo;SP;2022-02-07;Ativo;+R$15 mil;3000;88;FUN033;E-commerce;2026-07-05;6;463.67;2782;Bronze
-CLI041;Caio Santos;Pessoa Física;041.***.***-**;caio.santos41@email.com;(11) 9XXXX-XXXX;Osasco;SP;2023-05-26;Ativo;Até R$3 mil;10000;84;FUN036;WhatsApp;2026-04-13;11;110.45;1215;Bronze
-CLI042;Gustavo Costa;Pessoa Física;042.***.***-**;gustavo.costa42@email.com;(11) 9XXXX-XXXX;São Bernardo;SP;2025-09-21;Ativo;R$3-7 mil;1000;77;FUN030;E-commerce;2026-07-21;5;5763.8;28819;Ouro
-CLI043;Natália Almeida;Pessoa Física;043.***.***-**;natália.almeida43@email.com;(11) 9XXXX-XXXX;Guarulhos;SP;2025-08-01;Inativo;+R$15 mil;10000;75;FUN026;Loja Física;2026-03-05;23;2515.91;57866;Diamante
-CLI044;Igor Souza;Pessoa Física;044.***.***-**;igor.souza44@email.com;(11) 9XXXX-XXXX;Osasco;SP;2022-10-02;Ativo;R$7-15 mil;3000;100;FUN031;WhatsApp;2026-07-23;1;28072.0;28072;Ouro
-CLI045;Bruno Souza;Pessoa Física;045.***.***-**;bruno.souza45@email.com;(11) 9XXXX-XXXX;Osasco;SP;2025-01-01;Ativo;+R$15 mil;5000;80;FUN030;E-commerce;2026-04-18;9;294.22;2648;Bronze
-CLI046;Diego Silva;Pessoa Física;046.***.***-**;diego.silva46@email.com;(11) 9XXXX-XXXX;São Bernardo;SP;2026-07-03;Ativo;+R$15 mil;5000;74;FUN038;Loja Física;2026-06-23;16;2670.12;42722;Diamante
-CLI047;Carolina Costa;Pessoa Física;047.***.***-**;carolina.costa47@email.com;(11) 9XXXX-XXXX;São Paulo;SP;2022-08-07;Ativo;R$3-7 mil;3000;89;FUN030;E-commerce;2026-05-04;17;179.76;3056;Prata
-CLI048;Daniel Ferreira;Pessoa Física;048.***.***-**;daniel.ferreira48@email.com;(11) 9XXXX-XXXX;Barueri;SP;2022-07-02;Ativo;R$3-7 mil;10000;63;FUN024;Loja Física;2026-07-15;2;3487.0;6974;Prata
-CLI049;Vanessa Souza;Pessoa Física;049.***.***-**;vanessa.souza49@email.com;(11) 9XXXX-XXXX;Barueri;SP;2026-08-02;Ativo;+R$15 mil;5000;81;FUN037;Loja Física;2026-02-01;21;2007.52;42158;Diamante
-CLI050;Lucas Lima;Pessoa Física;050.***.***-**;lucas.lima50@email.com;(11) 9XXXX-XXXX;Guarulhos;SP;2023-05-27;Ativo;Até R$3 mil;1000;90;FUN029;E-commerce;2026-08-07;7;317.29;2221;Bronze
-CLI051;Vanessa Costa;Pessoa Física;051.***.***-**;vanessa.costa51@email.com;(11) 9XXXX-XXXX;Guarulhos;SP;2021-07-02;Ativo;Até R$3 mil;5000;72;FUN025;WhatsApp;2026-06-12;21;154.71;3249;Prata
-CLI052;Gustavo Costa;Pessoa Física;052.***.***-**;gustavo.costa52@email.com;(11) 9XXXX-XXXX;São Paulo;SP;2026-10-26;Ativo;Até R$3 mil;1000;74;FUN026;E-commerce;2026-08-25;10;4806.4;48064;Diamante
-CLI053;Bianca Lima;Pessoa Física;053.***.***-**;bianca.lima53@email.com;(11) 9XXXX-XXXX;São Bernardo;SP;2023-12-25;Ativo;R$3-7 mil;5000;80;FUN037;E-commerce;2026-02-17;1;26271.0;26271;Ouro
-CLI054;Aline Almeida;Pessoa Física;054.***.***-**;aline.almeida54@email.com;(11) 9XXXX-XXXX;Guarulhos;SP;2025-09-11;Ativo;+R$15 mil;1000;64;FUN031;WhatsApp;2026-02-07;2;6061.0;12122;Ouro
-CLI055;Fernanda Almeida;Pessoa Física;055.***.***-**;fernanda.almeida55@email.com;(11) 9XXXX-XXXX;Guarulhos;SP;2025-11-08;Ativo;Até R$3 mil;5000;78;FUN031;WhatsApp;2026-05-12;14;315.64;4419;Prata
-CLI056;Larissa Lima;Pessoa Física;056.***.***-**;larissa.lima56@email.com;(11) 9XXXX-XXXX;Santo André;SP;2025-04-11;Inativo;R$7-15 mil;3000;92;FUN039;Loja Física;2026-02-21;5;302.6;1513;Bronze
-CLI057;Rodrigo Silva;Pessoa Física;057.***.***-**;rodrigo.silva57@email.com;(11) 9XXXX-XXXX;São Paulo;SP;2023-04-04;Inativo;R$3-7 mil;1000;83;FUN039;Loja Física;2026-08-20;12;203.67;2444;Bronze
-CLI058;Larissa Silva;Pessoa Física;058.***.***-**;larissa.silva58@email.com;(11) 9XXXX-XXXX;Santo André;SP;2023-03-02;Ativo;R$7-15 mil;1000;98;FUN029;Loja Física;2026-06-14;2;1470.5;2941;Bronze
-CLI059;Yasmin Costa;Pessoa Física;059.***.***-**;yasmin.costa59@email.com;(11) 9XXXX-XXXX;Barueri;SP;2024-02-14;Ativo;+R$15 mil;3000;100;FUN025;WhatsApp;2026-03-13;16;111.12;1778;Bronze
-CLI060;Gustavo Almeida;Pessoa Física;060.***.***-**;gustavo.almeida60@email.com;(11) 9XXXX-XXXX;Barueri;SP;2023-07-14;Inativo;R$7-15 mil;3000;85;FUN035;Loja Física;2026-01-14;24;2102.96;50471;Diamante
-CLI061;Camila Almeida;Pessoa Física;061.***.***-**;camila.almeida61@email.com;(11) 9XXXX-XXXX;Osasco;SP;2022-01-02;Ativo;+R$15 mil;1000;96;FUN034;WhatsApp;2026-03-05;15;58.0;870;Bronze
-CLI062;Paula Lima;Pessoa Física;062.***.***-**;paula.lima62@email.com;(11) 9XXXX-XXXX;Osasco;SP;2023-03-27;Ativo;+R$15 mil;5000;63;FUN035;Loja Física;2026-03-21;16;75.19;1203;Bronze
-CLI063;Beatriz Ribeiro;Pessoa Física;063.***.***-**;beatriz.ribeiro63@email.com;(11) 9XXXX-XXXX;Osasco;SP;2021-07-17;Ativo;R$7-15 mil;1000;69;FUN030;WhatsApp;2026-04-02;19;515.42;9793;Prata
-CLI064;Caio Silva;Pessoa Física;064.***.***-**;caio.silva64@email.com;(11) 9XXXX-XXXX;Barueri;SP;2026-05-21;Ativo;R$3-7 mil;10000;84;FUN034;E-commerce;2026-08-06;15;264.33;3965;Prata
-CLI065;Carlos Silva;Pessoa Física;065.***.***-**;carlos.silva65@email.com;(11) 9XXXX-XXXX;Guarulhos;SP;2022-08-13;Ativo;R$3-7 mil;5000;87;FUN034;Loja Física;2026-08-17;20;340.6;6812;Prata
-CLI066;Amanda Silva;Pessoa Física;066.***.***-**;amanda.silva66@email.com;(11) 9XXXX-XXXX;São Paulo;SP;2021-09-13;Ativo;R$3-7 mil;1000;64;FUN026;Loja Física;2026-03-16;17;60.76;1033;Bronze
-CLI067;Renata Oliveira;Pessoa Física;067.***.***-**;renata.oliveira67@email.com;(11) 9XXXX-XXXX;Osasco;SP;2023-10-09;Ativo;+R$15 mil;3000;76;FUN039;E-commerce;2026-04-19;9;393.0;3537;Prata
-CLI068;Larissa Ribeiro;Pessoa Física;068.***.***-**;larissa.ribeiro68@email.com;(11) 9XXXX-XXXX;Guarulhos;SP;2022-11-09;Ativo;+R$15 mil;3000;76;FUN026;WhatsApp;2026-01-21;6;1008.33;6050;Prata
-CLI069;Leonardo Ferreira;Pessoa Física;069.***.***-**;leonardo.ferreira69@email.com;(11) 9XXXX-XXXX;São Bernardo;SP;2024-12-26;Ativo;+R$15 mil;5000;96;FUN027;E-commerce;2026-06-25;18;480.17;8643;Prata
-CLI070;Lucas Ferreira;Pessoa Física;070.***.***-**;lucas.ferreira70@email.com;(11) 9XXXX-XXXX;São Bernardo;SP;2025-11-11;Ativo;Até R$3 mil;3000;69;FUN032;WhatsApp;2026-07-14;10;69.7;697;Bronze
-CLI071;Amanda Costa;Pessoa Física;071.***.***-**;amanda.costa71@email.com;(11) 9XXXX-XXXX;São Paulo;SP;2021-01-01;Ativo;R$7-15 mil;1000;93;FUN034;WhatsApp;2026-04-14;21;830.81;17447;Ouro
-CLI072;Fábio Lima;Pessoa Física;072.***.***-**;fábio.lima72@email.com;(11) 9XXXX-XXXX;São Paulo;SP;2022-12-05;Ativo;Até R$3 mil;3000;77;FUN035;E-commerce;2026-01-02;5;1200.2;6001;Prata
-CLI073;Cláudia Gomes;Pessoa Física;073.***.***-**;cláudia.gomes73@email.com;(11) 9XXXX-XXXX;Barueri;SP;2026-08-08;Ativo;Até R$3 mil;1000;63;FUN023;E-commerce;2026-03-08;20;1447.8;28956;Ouro
-CLI074;Camila Silva;Pessoa Física;074.***.***-**;camila.silva74@email.com;(11) 9XXXX-XXXX;Osasco;SP;2024-04-17;Ativo;+R$15 mil;3000;92;FUN032;Loja Física;2026-05-21;7;4007.57;28053;Ouro
-CLI075;João Ferreira;Pessoa Física;075.***.***-**;joão.ferreira75@email.com;(11) 9XXXX-XXXX;São Paulo;SP;2026-11-15;Ativo;Até R$3 mil;5000;74;FUN024;Loja Física;2026-06-24;15;404.93;6074;Prata
-CLI076;Larissa Silva;Pessoa Física;076.***.***-**;larissa.silva76@email.com;(11) 9XXXX-XXXX;Santo André;SP;2023-11-07;Inativo;Até R$3 mil;3000;76;FUN030;WhatsApp;2026-04-06;17;162.82;2768;Bronze
-CLI077;Vanessa Santos;Pessoa Física;077.***.***-**;vanessa.santos77@email.com;(11) 9XXXX-XXXX;São Bernardo;SP;2026-09-16;Ativo;Até R$3 mil;1000;87;FUN030;WhatsApp;2026-05-26;21;849.43;17838;Ouro
-CLI078;Ricardo Almeida;Pessoa Física;078.***.***-**;ricardo.almeida78@email.com;(11) 9XXXX-XXXX;São Paulo;SP;2021-02-20;Ativo;R$7-15 mil;3000;61;FUN023;Loja Física;2026-03-23;2;3815.5;7631;Prata
-CLI079;Cláudia Silva;Pessoa Física;079.***.***-**;cláudia.silva79@email.com;(11) 9XXXX-XXXX;Osasco;SP;2025-11-03;Ativo;+R$15 mil;1000;75;FUN029;Loja Física;2026-02-02;12;294.92;3539;Prata
-CLI080;Mariana Souza;Pessoa Física;080.***.***-**;mariana.souza80@email.com;(11) 9XXXX-XXXX;São Bernardo;SP;2022-05-11;Ativo;R$7-15 mil;1000;82;FUN031;E-commerce;2026-01-23;4;3318.25;13273;Ouro
-CLI081;Leonardo Costa;Pessoa Física;081.***.***-**;leonardo.costa81@email.com;(11) 9XXXX-XXXX;São Bernardo;SP;2021-07-01;Ativo;Até R$3 mil;5000;90;FUN024;WhatsApp;2026-04-23;20;1280.05;25601;Ouro
-CLI082;Lucas Ribeiro;Pessoa Física;082.***.***-**;lucas.ribeiro82@email.com;(11) 9XXXX-XXXX;Santo André;SP;2021-01-12;Ativo;+R$15 mil;3000;91;FUN034;WhatsApp;2026-05-19;7;1434.71;10043;Ouro
-CLI083;Camila Lima;Pessoa Física;083.***.***-**;camila.lima83@email.com;(11) 9XXXX-XXXX;São Paulo;SP;2024-12-18;Ativo;R$7-15 mil;5000;66;FUN035;E-commerce;2026-02-14;21;734.9;15433;Ouro
-CLI084;Cláudia Silva;Pessoa Física;084.***.***-**;cláudia.silva84@email.com;(11) 9XXXX-XXXX;Osasco;SP;2024-11-08;Ativo;R$3-7 mil;1000;82;FUN033;WhatsApp;2026-03-28;17;102.41;1741;Bronze
-CLI085;Natália Gomes;Pessoa Física;085.***.***-**;natália.gomes85@email.com;(11) 9XXXX-XXXX;Barueri;SP;2022-03-11;Ativo;R$3-7 mil;3000;77;FUN032;WhatsApp;2026-03-24;9;755.0;6795;Prata
-CLI086;Rafael Santos;Pessoa Física;086.***.***-**;rafael.santos86@email.com;(11) 9XXXX-XXXX;Santo André;SP;2022-05-24;Ativo;R$3-7 mil;1000;72;FUN035;Loja Física;2026-03-26;8;909.75;7278;Prata
-CLI087;Thiago Lima;Pessoa Física;087.***.***-**;thiago.lima87@email.com;(11) 9XXXX-XXXX;Guarulhos;SP;2024-01-01;Ativo;+R$15 mil;3000;92;FUN032;E-commerce;2026-01-05;7;556.57;3896;Prata
-CLI088;Larissa Ribeiro;Pessoa Física;088.***.***-**;larissa.ribeiro88@email.com;(11) 9XXXX-XXXX;Barueri;SP;2025-12-21;Ativo;R$3-7 mil;3000;71;FUN026;E-commerce;2026-07-11;23;394.35;9070;Prata
-CLI089;Larissa Souza;Pessoa Física;089.***.***-**;larissa.souza89@email.com;(11) 9XXXX-XXXX;São Bernardo;SP;2022-05-28;Ativo;+R$15 mil;1000;99;FUN036;WhatsApp;2026-03-21;23;1004.87;23112;Ouro
-CLI090;Vanessa Silva;Pessoa Física;090.***.***-**;vanessa.silva90@email.com;(11) 9XXXX-XXXX;Osasco;SP;2022-12-26;Ativo;R$3-7 mil;5000;66;FUN037;WhatsApp;2026-04-23;18;139.22;2506;Bronze
-CLI091;Priscila Gomes;Pessoa Física;091.***.***-**;priscila.gomes91@email.com;(11) 9XXXX-XXXX;Guarulhos;SP;2022-11-06;Ativo;Até R$3 mil;5000;100;FUN024;E-commerce;2026-05-13;24;83.96;2015;Bronze
-CLI092;Vinicius Silva;Pessoa Física;092.***.***-**;vinicius.silva92@email.com;(11) 9XXXX-XXXX;São Paulo;SP;2022-05-24;Ativo;R$3-7 mil;10000;89;FUN029;Loja Física;2026-03-25;9;246.0;2214;Bronze
-CLI093;Juliana Santos;Pessoa Física;093.***.***-**;juliana.santos93@email.com;(11) 9XXXX-XXXX;São Bernardo;SP;2026-07-15;Ativo;R$3-7 mil;10000;82;FUN030;E-commerce;2026-07-22;12;742.08;8905;Prata
-CLI094;Larissa Almeida;Pessoa Física;094.***.***-**;larissa.almeida94@email.com;(11) 9XXXX-XXXX;São Bernardo;SP;2023-06-16;Ativo;Até R$3 mil;5000;69;FUN032;E-commerce;2026-01-03;8;377.88;3023;Prata
-CLI095;Helena Costa;Pessoa Física;095.***.***-**;helena.costa95@email.com;(11) 9XXXX-XXXX;São Paulo;SP;2026-01-07;Ativo;R$7-15 mil;5000;98;FUN026;WhatsApp;2026-03-28;19;1121.58;21310;Ouro
-CLI096;Beatriz Oliveira;Pessoa Física;096.***.***-**;beatriz.oliveira96@email.com;(11) 9XXXX-XXXX;Barueri;SP;2022-10-23;Ativo;Até R$3 mil;5000;72;FUN038;WhatsApp;2026-04-17;13;1154.08;15003;Ouro
-CLI097;Lucas Ferreira;Pessoa Física;097.***.***-**;lucas.ferreira97@email.com;(11) 9XXXX-XXXX;Osasco;SP;2022-08-16;Ativo;+R$15 mil;10000;69;FUN038;Loja Física;2026-08-06;14;539.14;7548;Prata
-CLI098;Sofia Ribeiro;Pessoa Física;098.***.***-**;sofia.ribeiro98@email.com;(11) 9XXXX-XXXX;Barueri;SP;2024-11-10;Ativo;R$7-15 mil;10000;86;FUN025;Loja Física;2026-06-21;23;891.7;20509;Ouro
-CLI099;Cláudia Silva;Pessoa Física;099.***.***-**;cláudia.silva99@email.com;(11) 9XXXX-XXXX;Guarulhos;SP;2024-03-02;Ativo;+R$15 mil;3000;81;FUN026;WhatsApp;2026-06-11;17;40.41;687;Bronze
-CLI100;Priscila Gomes;Pessoa Física;100.***.***-**;priscila.gomes100@email.com;(11) 9XXXX-XXXX;Santo André;SP;2025-01-27;Ativo;R$7-15 mil;10000;85;FUN033;WhatsApp;2026-05-28;14;380.57;5328;Prata
-CLI101;Amanda Costa;Pessoa Física;101.***.***-**;amanda.costa101@email.com;(11) 9XXXX-XXXX;Santo André;SP;2026-05-05;Ativo;Até R$3 mil;1000;85;FUN035;WhatsApp;2026-01-13;7;7383.71;51686;Diamante
-CLI102;Thiago Souza;Pessoa Física;102.***.***-**;thiago.souza102@email.com;(11) 9XXXX-XXXX;São Paulo;SP;2025-09-20;Ativo;R$3-7 mil;1000;73;FUN024;WhatsApp;2026-08-21;22;58.05;1277;Bronze
-CLI103;Felipe Souza;Pessoa Física;103.***.***-**;felipe.souza103@email.com;(11) 9XXXX-XXXX;Santo André;SP;2022-05-18;Ativo;R$7-15 mil;3000;86;FUN024;E-commerce;2026-01-14;1;6454.0;6454;Prata
-CLI104;Helena Ribeiro;Pessoa Física;104.***.***-**;helena.ribeiro104@email.com;(11) 9XXXX-XXXX;São Paulo;SP;2024-10-23;Ativo;+R$15 mil;1000;60;FUN035;WhatsApp;2026-03-16;2;14298.5;28597;Ouro
-CLI105;Carolina Gomes;Pessoa Física;105.***.***-**;carolina.gomes105@email.com;(11) 9XXXX-XXXX;Guarulhos;SP;2021-01-22;Ativo;Até R$3 mil;3000;67;FUN027;E-commerce;2026-01-09;1;2434.0;2434;Bronze
-CLI106;Helena Santos;Pessoa Física;106.***.***-**;helena.santos106@email.com;(11) 9XXXX-XXXX;São Bernardo;SP;2022-12-25;Inativo;+R$15 mil;10000;76;FUN024;WhatsApp;2026-01-01;23;148.3;3411;Prata
-CLI107;João Silva;Pessoa Física;107.***.***-**;joão.silva107@email.com;(11) 9XXXX-XXXX;Barueri;SP;2022-08-20;Inativo;R$7-15 mil;10000;90;FUN028;Loja Física;2026-02-12;24;841.38;20193;Ouro
-CLI108;Cláudia Oliveira;Pessoa Física;108.***.***-**;cláudia.oliveira108@email.com;(11) 9XXXX-XXXX;Barueri;SP;2023-05-09;Inativo;R$7-15 mil;1000;69;FUN032;WhatsApp;2026-07-08;9;767.56;6908;Prata
-CLI109;Bianca Almeida;Pessoa Física;109.***.***-**;bianca.almeida109@email.com;(11) 9XXXX-XXXX;São Bernardo;SP;2021-06-09;Ativo;R$3-7 mil;1000;78;FUN027;WhatsApp;2026-03-09;10;932.0;9320;Prata
-CLI110;Caio Ferreira;Pessoa Física;110.***.***-**;caio.ferreira110@email.com;(11) 9XXXX-XXXX;Osasco;SP;2026-04-10;Ativo;+R$15 mil;10000;73;FUN031;WhatsApp;2026-01-26;13;65.23;848;Bronze
-CLI111;Bianca Ferreira;Pessoa Física;111.***.***-**;bianca.ferreira111@email.com;(11) 9XXXX-XXXX;Guarulhos;SP;2025-09-09;Ativo;R$7-15 mil;10000;92;FUN029;Loja Física;2026-04-07;8;1201.0;9608;Prata
-CLI112;Lucas Oliveira;Pessoa Física;112.***.***-**;lucas.oliveira112@email.com;(11) 9XXXX-XXXX;Guarulhos;SP;2025-03-08;Inativo;+R$15 mil;5000;66;FUN034;WhatsApp;2026-08-26;12;2411.33;28936;Ouro
-CLI113;Lucas Oliveira;Pessoa Física;113.***.***-**;lucas.oliveira113@email.com;(11) 9XXXX-XXXX;São Paulo;SP;2021-01-07;Ativo;+R$15 mil;3000;76;FUN031;E-commerce;2026-02-15;20;31.2;624;Bronze
-CLI114;Fábio Ribeiro;Pessoa Física;114.***.***-**;fábio.ribeiro114@email.com;(11) 9XXXX-XXXX;Osasco;SP;2024-02-01;Inativo;R$7-15 mil;10000;91;FUN025;WhatsApp;2026-07-04;7;7458.14;52207;Diamante
-CLI115;Lucas Lima;Pessoa Física;115.***.***-**;lucas.lima115@email.com;(11) 9XXXX-XXXX;Guarulhos;SP;2022-08-28;Ativo;R$3-7 mil;3000;71;FUN024;E-commerce;2026-06-02;17;85.59;1455;Bronze
-CLI116;Caio Silva;Pessoa Física;116.***.***-**;caio.silva116@email.com;(11) 9XXXX-XXXX;São Bernardo;SP;2024-01-04;Ativo;Até R$3 mil;3000;79;FUN037;WhatsApp;2026-02-16;24;1117.54;26821;Ouro
-CLI117;Vanessa Costa;Pessoa Física;117.***.***-**;vanessa.costa117@email.com;(11) 9XXXX-XXXX;Guarulhos;SP;2022-03-22;Ativo;+R$15 mil;3000;62;FUN028;Loja Física;2026-02-20;6;168.0;1008;Bronze
-CLI118;Leonardo Oliveira;Pessoa Física;118.***.***-**;leonardo.oliveira118@email.com;(11) 9XXXX-XXXX;Guarulhos;SP;2023-06-27;Ativo;Até R$3 mil;5000;69;FUN033;Loja Física;2026-01-06;3;3571.0;10713;Ouro
-CLI119;Natália Gomes;Pessoa Física;119.***.***-**;natália.gomes119@email.com;(11) 9XXXX-XXXX;Osasco;SP;2022-01-09;Ativo;R$7-15 mil;5000;70;FUN031;E-commerce;2026-02-11;14;1337.86;18730;Ouro
-CLI120;Rodrigo Ferreira;Pessoa Física;120.***.***-**;rodrigo.ferreira120@email.com;(11) 9XXXX-XXXX;Santo André;SP;2021-05-25;Ativo;R$7-15 mil;10000;76;FUN030;Loja Física;2026-02-13;16;162.69;2603;Bronze
+﻿id;nome;cidade;estado;categoria;canal_preferencial;status
+CLI001;Camila Almeida;Barueri;SP;Bronze;Loja Física;Ativo
+CLI002;Mariana Costa;São Bernardo do Campo;SP;Ouro;Loja Física;Ativo
+CLI003;Patrícia Almeida;São Bernardo do Campo;SP;Ouro;E-commerce;Ativo
+CLI004;Gabriel Lima;São Bernardo do Campo;SP;Prata;Loja Física;Ativo
+CLI005;Mateus Costa;São Bernardo do Campo;SP;Prata;Loja Física;Ativo
+CLI006;Paula Costa;São Bernardo do Campo;SP;Prata;Loja Física;Ativo
+CLI007;Mateus Ferreira;Barueri;SP;Diamante;Loja Física;Ativo
+CLI008;Mateus Ribeiro;São Paulo;SP;Ouro;E-commerce;Ativo
+CLI009;Amanda Souza;Santo André;SP;Ouro;Loja Física;Ativo
+CLI010;Carlos Ferreira;São Paulo;SP;Bronze;E-commerce;Ativo
+CLI011;Igor Santos;Guarulhos;SP;Ouro;WhatsApp;Ativo
+CLI012;Mateus Ferreira;Santo André;SP;Bronze;E-commerce;Ativo
+CLI013;Daniel Almeida;São Bernardo do Campo;SP;Bronze;Loja Física;Ativo
+CLI014;Mariana Almeida;Santo André;SP;Bronze;E-commerce;Ativo
+CLI015;Renata Oliveira;Campinas;SP;Prata;Loja Física;Ativo
+CLI016;Beatriz Ferreira;Guarulhos;SP;Bronze;Loja Física;Ativo
+CLI017;Marcelo Souza;São Paulo;SP;Bronze;Loja Física;Inativo
+CLI018;Camila Gomes;São Paulo;SP;Bronze;E-commerce;Ativo
+CLI019;Renata Gomes;Osasco;SP;Bronze;E-commerce;Ativo
+CLI020;Larissa Gomes;Campinas;SP;Prata;Loja Física;Ativo
+CLI021;Leonardo Ribeiro;Barueri;SP;Ouro;Loja Física;Ativo
+CLI022;Lucas Lima;Guarulhos;SP;Bronze;Loja Física;Ativo
+CLI023;Natália Ferreira;Campinas;SP;Prata;E-commerce;Ativo
+CLI024;Lucas Ribeiro;Osasco;SP;Prata;Loja Física;Ativo
+CLI025;Thiago Ribeiro;Barueri;SP;Ouro;E-commerce;Ativo
+CLI026;Vinícius Lima;São Paulo;SP;Bronze;Loja Física;Ativo
+CLI027;Rafael Gomes;Santo André;SP;Prata;E-commerce;Ativo
+CLI028;Juliana Almeida;São Paulo;SP;Bronze;Loja Física;Ativo
+CLI029;Leonardo Oliveira;Barueri;SP;Bronze;E-commerce;Ativo
+CLI030;Fábio Ribeiro;Santo André;SP;Bronze;Loja Física;Ativo
+CLI031;Patrícia Silva;Guarulhos;SP;Ouro;Loja Física;Ativo
+CLI032;Mateus Lima;Osasco;SP;Prata;Loja Física;Inativo
+CLI033;Patrícia Silva;São Paulo;SP;Bronze;Loja Física;Ativo
+CLI034;Sofia Silva;Guarulhos;SP;Bronze;WhatsApp;Ativo
+CLI035;Renata Ribeiro;São Paulo;SP;Prata;Loja Física;Inativo
+CLI036;Beatriz Almeida;Campinas;SP;Prata;Loja Física;Ativo
+CLI037;Fernanda Oliveira;Barueri;SP;Prata;Loja Física;Ativo
+CLI038;Isabela Costa;Osasco;SP;Prata;Loja Física;Inativo
+CLI039;Beatriz Ferreira;São Paulo;SP;Bronze;Loja Física;Ativo
+CLI040;Amanda Oliveira;Osasco;SP;Diamante;E-commerce;Ativo
+CLI041;Ana Oliveira;Santo André;SP;Bronze;E-commerce;Ativo
+CLI042;Leonardo Ferreira;Campinas;SP;Ouro;Loja Física;Ativo
+CLI043;Lucas Gomes;Osasco;SP;Prata;Loja Física;Ativo
+CLI044;Bruno Santos;São Bernardo do Campo;SP;Ouro;E-commerce;Ativo
+CLI045;Fernanda Costa;Campinas;SP;Ouro;E-commerce;Ativo
+CLI046;Ricardo Silva;Barueri;SP;Prata;E-commerce;Ativo
+CLI047;Bianca Gomes;Barueri;SP;Diamante;Loja Física;Inativo
+CLI048;Carolina Gomes;Barueri;SP;Ouro;E-commerce;Ativo
+CLI049;Rodrigo Santos;São Bernardo do Campo;SP;Diamante;E-commerce;Ativo
+CLI050;Carlos Gomes;Campinas;SP;Bronze;Loja Física;Ativo
+CLI051;Natália Lima;São Paulo;SP;Prata;Loja Física;Ativo
+CLI052;Bruno Almeida;Santo André;SP;Ouro;Loja Física;Ativo
+CLI053;Bruno Gomes;Barueri;SP;Prata;Loja Física;Ativo
+CLI054;Lucas Costa;Barueri;SP;Ouro;WhatsApp;Ativo
+CLI055;Mateus Costa;Osasco;SP;Ouro;Loja Física;Ativo
+CLI056;Carolina Ferreira;Guarulhos;SP;Prata;Loja Física;Ativo
+CLI057;Mateus Gomes;São Bernardo do Campo;SP;Bronze;Loja Física;Ativo
+CLI058;Leonardo Lima;São Bernardo do Campo;SP;Prata;Loja Física;Ativo
+CLI059;Igor Ribeiro;Osasco;SP;Bronze;Loja Física;Ativo
+CLI060;Sofia Gomes;Barueri;SP;Bronze;Loja Física;Ativo
+CLI061;Fernanda Silva;Santo André;SP;Prata;Loja Física;Ativo
+CLI062;Thiago Ferreira;Barueri;SP;Bronze;Loja Física;Ativo
+CLI063;Diego Silva;Osasco;SP;Bronze;Loja Física;Ativo
+CLI064;Thiago Lima;Campinas;SP;Bronze;Loja Física;Ativo
+CLI065;Marcelo Almeida;Guarulhos;SP;Ouro;WhatsApp;Ativo
+CLI066;Amanda Gomes;Guarulhos;SP;Ouro;E-commerce;Ativo
+CLI067;Isabela Costa;Osasco;SP;Bronze;Loja Física;Inativo
+CLI068;Aline Ribeiro;São Paulo;SP;Prata;E-commerce;Ativo
+CLI069;Vinícius Almeida;Barueri;SP;Ouro;Loja Física;Ativo
+CLI070;Leonardo Ribeiro;Barueri;SP;Ouro;E-commerce;Ativo
+CLI071;Gustavo Gomes;São Paulo;SP;Bronze;E-commerce;Inativo
+CLI072;Diego Almeida;São Bernardo do Campo;SP;Bronze;E-commerce;Ativo
+CLI073;Camila Santos;São Paulo;SP;Bronze;E-commerce;Ativo
+CLI074;João Costa;Osasco;SP;Prata;Loja Física;Ativo
+CLI075;João Almeida;Santo André;SP;Bronze;E-commerce;Ativo
+CLI076;Henrique Silva;Osasco;SP;Ouro;Loja Física;Ativo
+CLI077;João Souza;Barueri;SP;Prata;Loja Física;Ativo
+CLI078;Caio Gomes;Barueri;SP;Prata;WhatsApp;Ativo
+CLI079;Gustavo Oliveira;Osasco;SP;Ouro;Loja Física;Ativo
+CLI080;Lucas Gomes;São Bernardo do Campo;SP;Prata;Loja Física;Ativo
+CLI081;Renata Oliveira;Campinas;SP;Bronze;E-commerce;Ativo
+CLI082;Renata Almeida;São Bernardo do Campo;SP;Bronze;WhatsApp;Ativo
+CLI083;Thiago Ribeiro;Santo André;SP;Prata;Loja Física;Ativo
+CLI084;Vanessa Santos;Santo André;SP;Prata;Loja Física;Inativo
+CLI085;Cláudia Silva;Barueri;SP;Prata;Loja Física;Inativo
+CLI086;Amanda Almeida;Campinas;SP;Bronze;E-commerce;Ativo
+CLI087;Beatriz Lima;Guarulhos;SP;Bronze;Loja Física;Ativo
+CLI088;Sofia Almeida;São Paulo;SP;Ouro;E-commerce;Ativo
+CLI089;Cláudia Almeida;Osasco;SP;Prata;Loja Física;Ativo
+CLI090;Fábio Ferreira;São Paulo;SP;Prata;Loja Física;Ativo
+CLI091;Marcelo Gomes;São Bernardo do Campo;SP;Ouro;E-commerce;Inativo
+CLI092;Daniel Silva;Osasco;SP;Ouro;Loja Física;Ativo
+CLI093;Cláudia Almeida;Campinas;SP;Prata;WhatsApp;Ativo
+CLI094;Diego Silva;Santo André;SP;Bronze;E-commerce;Ativo
+CLI095;Rafael Oliveira;Santo André;SP;Ouro;Loja Física;Ativo
+CLI096;Bruno Ribeiro;Santo André;SP;Prata;Loja Física;Ativo
+CLI097;Vinícius Santos;Santo André;SP;Diamante;Loja Física;Ativo
+CLI098;Cláudia Ferreira;São Paulo;SP;Ouro;Loja Física;Ativo
+CLI099;Yasmin Almeida;Barueri;SP;Bronze;E-commerce;Ativo
+CLI100;Mateus Ferreira;São Paulo;SP;Bronze;E-commerce;Ativo
+CLI101;Vanessa Santos;Osasco;SP;Diamante;E-commerce;Inativo
+CLI102;Carlos Souza;Guarulhos;SP;Ouro;WhatsApp;Ativo
+CLI103;Ricardo Almeida;São Bernardo do Campo;SP;Prata;E-commerce;Ativo
+CLI104;Vinícius Oliveira;Campinas;SP;Ouro;Loja Física;Ativo
+CLI105;Cláudia Ferreira;Santo André;SP;Prata;E-commerce;Ativo
+CLI106;Fernanda Gomes;São Paulo;SP;Prata;Loja Física;Ativo
+CLI107;Marcelo Ferreira;Campinas;SP;Bronze;Loja Física;Ativo
+CLI108;Ricardo Gomes;São Bernardo do Campo;SP;Bronze;Loja Física;Ativo
+CLI109;Cláudia Costa;Barueri;SP;Bronze;Loja Física;Ativo
+CLI110;Lucas Ferreira;São Bernardo do Campo;SP;Prata;WhatsApp;Ativo
+CLI111;Lucas Ribeiro;Guarulhos;SP;Ouro;Loja Física;Ativo
+CLI112;Larissa Lima;Santo André;SP;Ouro;E-commerce;Ativo
+CLI113;Lucas Oliveira;Campinas;SP;Prata;E-commerce;Ativo
+CLI114;Igor Souza;Osasco;SP;Diamante;E-commerce;Ativo
+CLI115;Daniel Santos;São Bernardo do Campo;SP;Bronze;Loja Física;Ativo
+CLI116;Ricardo Almeida;Guarulhos;SP;Ouro;Loja Física;Ativo
+CLI117;Eduardo Souza;Campinas;SP;Bronze;E-commerce;Ativo
+CLI118;Mateus Santos;Guarulhos;SP;Bronze;Loja Física;Ativo
+CLI119;Sofia Oliveira;Guarulhos;SP;Prata;Loja Física;Ativo
+CLI120;Eduardo Costa;São Paulo;SP;Bronze;Loja Física;Ativo
