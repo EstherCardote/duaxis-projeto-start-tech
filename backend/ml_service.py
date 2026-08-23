@@ -7,60 +7,35 @@ import pandas as pd
 BASE_DIR = Path(__file__).resolve().parent
 
 
-modelo = joblib.load(
-    BASE_DIR
+modelo = joblib.load(BASE_DIR
     / "modelos"
-    / "modelo_demanda_duaxis_final.pkl"
-)
+    / "modelo_demanda_duaxis_final.pkl")
 
-features = joblib.load(
-    BASE_DIR
+features = joblib.load(BASE_DIR
     / "modelos"
-    / "features_demanda_duaxis_final.pkl"
-)
+    / "features_demanda_duaxis_final.pkl")
 
-
-vendas = pd.read_csv(
-    BASE_DIR
+vendas = pd.read_csv(BASE_DIR
     / "dados"
-    / "vendas_urban_style.csv",
-    sep=";"
-)
+    / "vendas_urban_style.csv",sep=";")
 
-produtos = pd.read_csv(
-    BASE_DIR
+produtos = pd.read_csv(BASE_DIR
     / "dados"
-    / "produtos_urban_style.csv",
-    sep=";"
-)
+    / "produtos_urban_style.csv",sep=";")
 
-estoque = pd.read_csv(
-    BASE_DIR
+estoque = pd.read_csv(BASE_DIR
     / "dados"
-    / "estoque_urban_style.csv",
-    sep=";"
-)
+    / "estoque_urban_style.csv",sep=";")
 
 def prever_demanda(produto_id):
 
-    historico_produto = vendas[
-        vendas["produto_id"] == produto_id
-    ].copy()
+    historico_produto = vendas[vendas["produto_id"] == produto_id].copy()
 
-    historico_produto["data_venda"] = pd.to_datetime(
-        historico_produto["data_venda"]
-    )
+    historico_produto["data_venda"] = pd.to_datetime(historico_produto["data_venda"])
 
-    historico_produto["periodo"] = (
-        historico_produto["data_venda"]
-        .dt.to_period("M")
-    )
+    historico_produto["periodo"] = (historico_produto["data_venda"].dt.to_period("M"))
 
-    mensal = (
-        historico_produto
-        .groupby("periodo")["quantidade"]
-        .sum()
-    )
+    mensal = (historico_produto.groupby("periodo")["quantidade"].sum())
 
     maio = mensal.get(
         pd.Period("2026-05"),
@@ -123,3 +98,104 @@ def prever_demanda(produto_id):
 resultado = prever_demanda("PROD017")
 
 print(resultado)
+
+def analisar_reposicao(produto_id):
+
+    demanda_prevista = prever_demanda(produto_id)
+
+    estoque_produto = estoque[
+        estoque["produto_id"] == produto_id
+    ]
+
+    if estoque_produto.empty:
+        raise ValueError(
+            f"Produto {produto_id} não encontrado no estoque."
+        )
+
+    estoque_produto = estoque_produto.iloc[0]
+
+    estoque_atual = estoque_produto["estoque_atual"]
+
+    estoque_minimo = estoque_produto["estoque_minimo"]
+
+    lead_time_dias = estoque_produto["lead_time_dias"]
+
+    quantidade_recomendada = (
+        demanda_prevista
+        + estoque_minimo
+        - estoque_atual
+    )
+
+    quantidade_recomendada = max(
+        0,
+        quantidade_recomendada
+    )
+
+    demanda_diaria = demanda_prevista / 30
+
+    if demanda_diaria > 0:
+        cobertura_estoque_dias = (
+            estoque_atual
+            / demanda_diaria
+        )
+    else:
+        cobertura_estoque_dias = float("inf")
+
+    if cobertura_estoque_dias <= lead_time_dias:
+        risco_ruptura = "Alto"
+
+    elif cobertura_estoque_dias <= lead_time_dias + 7:
+        risco_ruptura = "Médio"
+
+    else:
+        risco_ruptura = "Baixo"
+
+    produto = produtos[
+        produtos["id"] == produto_id
+    ]
+
+    if produto.empty:
+        raise ValueError(
+            f"Produto {produto_id} não encontrado no cadastro de produtos."
+        )
+
+    produto = produto.iloc[0]
+
+    custo_base = produto["custo_base"]
+
+    impacto_financeiro = (
+        quantidade_recomendada
+        * custo_base
+    )
+
+    impacto_financeiro = round(
+        impacto_financeiro,
+        2
+    )
+
+    return {
+        "produto_id": produto_id,
+        "demanda_prevista": demanda_prevista,
+        "estoque_atual": int(estoque_atual),
+        "estoque_minimo": int(estoque_minimo),
+        "lead_time_dias": int(lead_time_dias),
+        "cobertura_estoque_dias": float(round(cobertura_estoque_dias, 2)),
+        "quantidade_recomendada": int(quantidade_recomendada),
+        "custo_base": float(custo_base),
+        "impacto_financeiro": float(impacto_financeiro),
+        "risco_ruptura_imediato": risco_ruptura
+    }
+
+resultado = analisar_reposicao(
+    
+    "PROD017"
+)
+
+print(resultado)    
+    
+
+    
+
+
+
+

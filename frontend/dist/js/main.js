@@ -10,6 +10,8 @@ document.addEventListener("DOMContentLoaded", () => {
   inicializarFiltrosIndicadores();
   inicializarBotaoValidacao();
   inicializarAbasPainel();
+
+  inicializarChatDuaxis();
 });
 
 // Renderiza os ícones Lucide na página
@@ -255,4 +257,138 @@ function inicializarAbasPainel() {
       });
     });
   });
+}
+
+function inicializarChatDuaxis() {
+
+  const campoChat = document.getElementById("campo-chat-dv");
+
+  const botaoEnviar = document.querySelector(
+    ".barra-entrada-dv__enviar"
+  );
+
+  if (!campoChat || !botaoEnviar) {
+    return;
+  }
+
+  botaoEnviar.addEventListener(
+    "click",
+    () => enviarPerguntaDuaxis(campoChat)
+  );
+
+}
+
+async function enviarPerguntaDuaxis(campoChat) {
+
+  const pergunta = campoChat.value.trim();
+
+  if (!pergunta) {
+    return;
+  }
+
+  // Mostra a mensagem do usuário no chat
+  adicionarMensagemChat(
+    "usuario",
+    pergunta
+  );
+
+  // Limpa o campo depois do envio
+  campoChat.value = "";
+
+  const produtoEncontrado = pergunta.match(
+    /PROD\d{3}/i
+  );
+
+  if (!produtoEncontrado) {
+
+    adicionarMensagemChat(
+      "duaxis",
+      "Não consegui identificar o código do produto. Informe um código como PROD017."
+    );
+
+    return;
+  }
+
+  const produtoId =
+    produtoEncontrado[0].toUpperCase();
+
+  try {
+
+    const resposta = await fetch(
+      `http://127.0.0.1:8000/api/previsao/${produtoId}`
+    );
+
+    if (!resposta.ok) {
+      throw new Error(
+        `Erro HTTP: ${resposta.status}`
+      );
+    }
+
+    const dados = await resposta.json();
+
+    const respostaDuaxis =
+      montarRespostaReposicao(dados);
+
+    adicionarMensagemChat(
+      "duaxis",
+      respostaDuaxis
+    );
+
+  } catch (erro) {
+
+    console.error(
+      "Erro ao chamar a API:",
+      erro
+    );
+
+    adicionarMensagemChat(
+      "duaxis",
+      "Não foi possível consultar os dados neste momento."
+    );
+  }
+}
+
+function adicionarMensagemChat(tipo, texto) {
+
+  const chatInterno = document.querySelector(
+    ".chat-dv__interno"
+  );
+
+  if (!chatInterno) {
+    return;
+  }
+
+  const mensagem = document.createElement("div");
+
+  mensagem.classList.add(
+    "mensagem-chat",
+    `mensagem-chat--${tipo}`
+  );
+
+  mensagem.textContent = texto;
+
+  chatInterno.appendChild(mensagem);
+}
+
+function montarRespostaReposicao(dados) {
+
+  const impactoFormatado =
+    dados.impacto_financeiro.toLocaleString(
+      "pt-BR",
+      {
+        style: "currency",
+        currency: "BRL"
+      }
+    );
+
+  return (
+    `Para o ${dados.produto_id}, ` +
+    `a demanda prevista para agosto é de aproximadamente ` +
+    `${dados.demanda_prevista} unidades. ` +
+    `O estoque atual é de ${dados.estoque_atual} unidades ` +
+    `e o estoque mínimo é de ${dados.estoque_minimo}. ` +
+    `Recomenda-se adquirir ${dados.quantidade_recomendada} unidades, ` +
+    `com impacto financeiro estimado de ${impactoFormatado}. ` +
+    `O risco imediato de ruptura é ${dados.risco_ruptura_imediato.toLowerCase()}.`
+  );
 }
