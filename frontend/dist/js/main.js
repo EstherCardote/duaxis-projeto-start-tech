@@ -286,13 +286,10 @@ async function enviarPerguntaDuaxis(campoChat) {
     return;
   }
 
-  // Mostra a mensagem do usuário no chat
-  adicionarMensagemChat(
-    "usuario",
+  adicionarMensagemUsuario(
     pergunta
   );
 
-  // Limpa o campo depois do envio
   campoChat.value = "";
 
   const produtoEncontrado = pergunta.match(
@@ -301,9 +298,8 @@ async function enviarPerguntaDuaxis(campoChat) {
 
   if (!produtoEncontrado) {
 
-    adicionarMensagemChat(
-      "duaxis",
-      "Não consegui identificar o código do produto. Informe um código como PROD017."
+    console.log(
+      "Nenhum produto encontrado."
     );
 
     return;
@@ -320,54 +316,315 @@ async function enviarPerguntaDuaxis(campoChat) {
 
     if (!resposta.ok) {
       throw new Error(
-        `Erro HTTP: ${resposta.status}`
+        `Erro HTTP ${resposta.status}`
       );
     }
 
     const dados = await resposta.json();
 
-    const respostaDuaxis =
-      montarRespostaReposicao(dados);
-
-    adicionarMensagemChat(
-      "duaxis",
-      respostaDuaxis
+    adicionarRespostaDuaxis(
+      dados
     );
 
   } catch (erro) {
 
     console.error(
-      "Erro ao chamar a API:",
+      "Erro ao consultar DUAXIS:",
       erro
-    );
-
-    adicionarMensagemChat(
-      "duaxis",
-      "Não foi possível consultar os dados neste momento."
     );
   }
 }
 
-function adicionarMensagemChat(tipo, texto) {
+function adicionarMensagemUsuario(texto) {
 
-  const chatInterno = document.querySelector(
-    ".chat-dv__interno"
+  const container = document.getElementById(
+    "mensagens-chat-dv"
   );
 
-  if (!chatInterno) {
+  if (!container) {
     return;
   }
 
   const mensagem = document.createElement("div");
 
-  mensagem.classList.add(
-    "mensagem-chat",
-    `mensagem-chat--${tipo}`
-  );
+  mensagem.className =
+    "mensagem-chat mensagem-chat--usuario";
 
   mensagem.textContent = texto;
 
-  chatInterno.appendChild(mensagem);
+  container.appendChild(mensagem);
+}
+
+function adicionarRespostaDuaxis(dados) {
+
+  const container = document.getElementById(
+    "mensagens-chat-dv"
+  );
+
+  if (!container) {
+    return;
+  }
+
+  const impactoFormatado =
+    dados.impacto_financeiro.toLocaleString(
+      "pt-BR",
+      {
+        style: "currency",
+        currency: "BRL"
+      }
+    );
+
+  const bloco = document.createElement("div");
+
+  bloco.className = "resposta-duaxis";
+
+  bloco.innerHTML = `
+        <section class="resposta-duaxis__secao">
+
+            <div class="resposta-duaxis__cabecalho">
+                <i data-lucide="file-text"></i>
+                <span>RESUMO EXECUTIVO</span>
+            </div>
+
+            <div class="resposta-duaxis__conteudo">
+
+                Para o produto
+                <strong>${dados.produto_id}</strong>,
+                a demanda prevista para agosto é de
+                aproximadamente
+                <strong>${dados.demanda_prevista} unidades</strong>.
+
+                Recomenda-se adquirir
+                <strong>${dados.quantidade_recomendada} unidades</strong>,
+                com impacto financeiro estimado de
+                <strong>${impactoFormatado}</strong>.
+
+            </div>
+
+        </section>
+
+
+        <section class="resposta-duaxis__secao">
+
+            <div class="resposta-duaxis__cabecalho">
+                <i data-lucide="search"></i>
+                <span>ANÁLISE</span>
+            </div>
+
+            <div class="resposta-duaxis__conteudo">
+
+                <ul class="resposta-duaxis__lista">
+
+                    <li>
+                        O estoque atual do produto é de
+                        <strong>${dados.estoque_atual} unidades</strong>,
+                        enquanto o estoque mínimo definido é de
+                        <strong>${dados.estoque_minimo} unidades</strong>.
+                    </li>
+
+                    <li>
+                        Com base na demanda prevista, o estoque atual
+                        oferece aproximadamente
+                        <strong>${dados.cobertura_estoque_dias} dias</strong>
+                        de cobertura.
+                    </li>
+
+                    <li>
+                        O prazo médio de reposição do fornecedor é de
+                        <strong>${dados.lead_time_dias} dias</strong>.
+                    </li>
+
+                </ul>
+
+            </div>
+
+        </section>
+
+
+        <section class="resposta-duaxis__secao">
+
+            <div class="resposta-duaxis__cabecalho">
+                <i data-lucide="lightbulb"></i>
+                <span>RECOMENDAÇÕES</span>
+            </div>
+
+            <div class="resposta-duaxis__conteudo">
+
+                <ul class="
+                    resposta-duaxis__lista
+                    resposta-duaxis__lista--recomendacoes
+                ">
+
+                    <li>
+                        Adquirir aproximadamente
+                        <strong>
+                            ${dados.quantidade_recomendada} unidades
+                        </strong>
+                        do ${dados.produto_id}.
+                    </li>
+
+                    <li>
+                        A compra terá impacto financeiro estimado de
+                        <strong>${impactoFormatado}</strong>.
+                    </li>
+
+                    <li>
+                        Monitorar o estoque durante o mês,
+                        principalmente se ocorrer aumento inesperado
+                        da demanda.
+                    </li>
+
+                </ul>
+
+            </div>
+
+        </section>
+
+
+        <section class="
+            resposta-duaxis__secao
+            resposta-duaxis__secao--confiabilidade
+        ">
+
+            <div class="resposta-duaxis__cabecalho">
+                <i data-lucide="shield-check"></i>
+                <span>CONFIABILIDADE DA ANÁLISE</span>
+            </div>
+
+            <div class="resposta-duaxis__conteudo">
+
+                <div class="confiabilidade-grade">
+
+                    <div class="confiabilidade-card">
+
+                        <span class="confiabilidade-card__rotulo">
+                            Modelo utilizado
+                        </span>
+
+                        <strong>
+                            Random Forest
+                        </strong>
+
+                    </div>
+
+
+                    <div class="confiabilidade-card">
+
+                        <span class="confiabilidade-card__rotulo">
+                            R² do modelo
+                        </span>
+
+                        <strong>
+                            0,76
+                        </strong>
+
+                    </div>
+
+
+                    <div class="confiabilidade-card">
+
+                        <span class="confiabilidade-card__rotulo">
+                            Risco imediato de ruptura
+                        </span>
+
+                        <strong>
+                            ${dados.risco_ruptura_imediato}
+                        </strong>
+
+                    </div>
+
+
+                    <div class="confiabilidade-card">
+
+                        <span class="confiabilidade-card__rotulo">
+                            Fontes utilizadas
+                        </span>
+
+                        <strong>
+                            Logística + Financeiro
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                <div class="confiabilidade-limitacao">
+
+                    <strong>Possíveis limitações</strong>
+
+                    <p>
+                        A previsão é baseada no histórico disponível
+                        e pode não considerar eventos futuros não
+                        registrados, como promoções inesperadas,
+                        mudanças de comportamento do consumidor ou
+                        atrasos extraordinários de fornecedores.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <section class="
+            resposta-duaxis__secao
+            resposta-duaxis__secao--sugestoes
+        ">
+
+            <div class="resposta-duaxis__conteudo">
+
+                <strong>
+                    ✨ Você também pode perguntar:
+                </strong>
+
+                <button
+                    type="button"
+                    class="resposta-duaxis__sugestao"
+                    data-pergunta="Quais produtos precisam de reposição?"
+                >
+                    → Quais produtos precisam de reposição?
+                </button>
+
+                <button
+                    type="button"
+                    class="resposta-duaxis__sugestao"
+                    data-pergunta="Qual produto tem maior risco de ruptura?"
+                >
+                    → Qual produto tem maior risco de ruptura?
+                </button>
+
+                <button
+                    type="button"
+                    class="resposta-duaxis__sugestao"
+                    data-pergunta="Qual o impacto financeiro das reposições?"
+                >
+                    → Qual o impacto financeiro das reposições?
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <button
+            type="button"
+            class="resposta-duaxis__relatorio"
+        >
+            <i data-lucide="file-text"></i>
+            Gerar Relatório
+        </button>
+    `;
+
+  container.appendChild(bloco);
+
+  inicializarIconesLucide();
+
+  bloco.scrollIntoView({
+    behavior: "smooth",
+    block: "end"
+  });
 }
 
 function montarRespostaReposicao(dados) {

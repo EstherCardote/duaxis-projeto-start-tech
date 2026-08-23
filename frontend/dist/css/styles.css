@@ -2489,6 +2489,297 @@
     background: #1e293b;
     color: #f8fafc;
   }
+
+  /* ==================================================
+   CHAT - MENSAGENS
+================================================== */
+
+  .mensagens-chat-dv {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-top: 20px;
+    margin-bottom: 24px;
+  }
+
+  .mensagem-chat {
+    max-width: 75%;
+    padding: 12px 16px;
+    border-radius: 14px;
+    line-height: 1.5;
+    font-size: 14px;
+  }
+
+  .mensagem-chat--usuario {
+    align-self: flex-end;
+    background: #2563eb;
+    color: #ffffff;
+    border-bottom-right-radius: 5px;
+  }
+
+  /* ==================================================
+   RESPOSTA DO DUAXIS
+================================================== */
+
+  .resposta-duaxis {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+  }
+
+  .resposta-duaxis__secao {
+    overflow: hidden;
+    border: 1px solid #dbe3ef;
+    border-radius: 12px;
+    background: #ffffff;
+  }
+
+  .resposta-duaxis__cabecalho {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    padding: 10px 14px;
+
+    border-bottom: 1px solid #dbe3ef;
+
+    font-size: 12px;
+    font-weight: 700;
+
+    color: #0f172a;
+  }
+
+  .resposta-duaxis__cabecalho svg {
+    width: 15px;
+    height: 15px;
+
+    color: #2563eb;
+  }
+
+  .resposta-duaxis__conteudo {
+    padding: 14px;
+
+    font-size: 14px;
+    line-height: 1.7;
+
+    color: #475569;
+  }
+
+  .resposta-duaxis__lista {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    margin: 0;
+    padding-left: 20px;
+  }
+
+  .resposta-duaxis__lista li::marker {
+    color: #2563eb;
+  }
+
+  /* Recomendações */
+
+  .resposta-duaxis__lista--recomendacoes {
+    list-style: none;
+    padding-left: 0;
+  }
+
+
+  .resposta-duaxis__lista--recomendacoes li {
+    position: relative;
+
+    padding-left: 26px;
+  }
+
+  .resposta-duaxis__lista--recomendacoes li::before {
+    content: "✓";
+
+    position: absolute;
+    left: 0;
+    top: 1px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 16px;
+    height: 16px;
+
+    border: 1px solid #14b8a6;
+    border-radius: 50%;
+
+    color: #14b8a6;
+
+    font-size: 10px;
+    font-weight: 700;
+  }
+
+  /* ==================================================
+   CONFIABILIDADE
+================================================== */
+
+  .resposta-duaxis__secao--confiabilidade {
+    background: #f8fbff;
+  }
+
+  .confiabilidade-grade {
+    display: grid;
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+
+    gap: 10px;
+  }
+
+  .confiabilidade-card {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+
+    padding: 12px;
+
+    border: 1px solid #dbe3ef;
+    border-radius: 10px;
+
+    background: #ffffff;
+  }
+
+  .confiabilidade-card__rotulo {
+    font-size: 11px;
+    color: #64748b;
+  }
+
+  .confiabilidade-card strong {
+    color: #0f172a;
+    font-size: 15px;
+  }
+
+  .confiabilidade-limitacao {
+    margin-top: 10px;
+
+    padding: 12px;
+
+    border: 1px solid #dbe3ef;
+    border-radius: 10px;
+
+    background: #ffffff;
+  }
+
+  .confiabilidade-limitacao strong {
+    color: #0f172a;
+  }
+
+  .confiabilidade-limitacao p {
+    margin: 5px 0 0;
+
+    font-size: 12px;
+    line-height: 1.6;
+  }
+
+  /* ==================================================
+   PERGUNTAS SUGERIDAS
+================================================== */
+
+  .resposta-duaxis__secao--sugestoes {
+    background: #ffffff;
+  }
+
+  .resposta-duaxis__sugestao {
+    display: block;
+
+    margin-top: 8px;
+    padding: 0;
+
+    border: none;
+    background: transparent;
+
+    color: #2563eb;
+
+    font-size: 13px;
+    text-align: left;
+
+    cursor: pointer;
+  }
+
+  .resposta-duaxis__sugestao:hover {
+    text-decoration: underline;
+  }
+
+  /* ==================================================
+   GERAR RELATÓRIO
+================================================== */
+
+  .resposta-duaxis__relatorio {
+    align-self: flex-start;
+
+    display: flex;
+    align-items: center;
+    gap: 7px;
+
+    padding: 9px 14px;
+
+    border: 1px solid #dbe3ef;
+    border-radius: 10px;
+
+    background: #ffffff;
+
+    color: #0f172a;
+
+    font-size: 13px;
+    font-weight: 600;
+
+    cursor: pointer;
+  }
+
+  .resposta-duaxis__relatorio svg {
+    width: 15px;
+    height: 15px;
+
+    color: #2563eb;
+  }
+
+  .resposta-duaxis__relatorio:hover {
+    background: #f8fafc;
+  }
+
+  /* ==================================================
+   MODO DARK
+================================================== */
+  .dark .resposta-duaxis__secao {
+    background: #0f172a;
+    border-color: #334155;
+  }
+
+  .dark .resposta-duaxis__cabecalho {
+    border-color: #334155;
+    color: #f8fafc;
+  }
+
+  .dark .resposta-duaxis__conteudo {
+    color: #cbd5e1;
+  }
+
+  .dark .resposta-duaxis__secao--confiabilidade {
+    background: #111827;
+  }
+
+  .dark .confiabilidade-card,
+  .dark .confiabilidade-limitacao {
+    background: #1e293b;
+    border-color: #334155;
+  }
+
+  .dark .confiabilidade-card strong,
+  .dark .confiabilidade-limitacao strong {
+    color: #f8fafc;
+  }
+
+  .dark .resposta-duaxis__relatorio {
+    background: #1e293b;
+    border-color: #334155;
+    color: #f8fafc;
+  }
 }
 
 @property --tw-rotate-x {
