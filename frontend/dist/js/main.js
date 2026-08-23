@@ -275,6 +275,21 @@ function inicializarChatDuaxis() {
     "click",
     () => enviarPerguntaDuaxis(campoChat)
   );
+  campoChat.addEventListener(
+    "keydown",
+    (evento) => {
+
+      if (evento.key === "Enter") {
+
+        evento.preventDefault();
+
+        enviarPerguntaDuaxis(
+          campoChat
+        );
+      }
+
+    }
+  );
 
 }
 
@@ -298,8 +313,9 @@ async function enviarPerguntaDuaxis(campoChat) {
 
   if (!produtoEncontrado) {
 
-    console.log(
-      "Nenhum produto encontrado."
+    adicionarMensagemSistema(
+      "Não consegui identificar qual produto você deseja analisar. " +
+      "Informe o código do produto, por exemplo: PROD017."
     );
 
     return;
@@ -332,6 +348,11 @@ async function enviarPerguntaDuaxis(campoChat) {
       "Erro ao consultar DUAXIS:",
       erro
     );
+
+    adicionarMensagemSistema(
+      "Não foi possível consultar os dados neste momento. " +
+      "Verifique se o backend está ativo e tente novamente."
+    );
   }
 }
 
@@ -345,14 +366,49 @@ function adicionarMensagemUsuario(texto) {
     return;
   }
 
+  const linhaMensagem = document.createElement("div");
+
+  linhaMensagem.className =
+    "linha-chat linha-chat--usuario";
+
+  linhaMensagem.innerHTML = `
+    <div class="mensagem-chat mensagem-chat--usuario">
+      ${texto}
+    </div>
+
+    <div class="avatar-chat avatar-chat--usuario">
+      <i data-lucide="user"></i>
+    </div>
+  `;
+
+  container.appendChild(linhaMensagem);
+
+  inicializarIconesLucide();
+}
+
+function adicionarMensagemSistema(texto) {
+
+  const container = document.getElementById(
+    "mensagens-chat-dv"
+  );
+
+  if (!container) {
+    return;
+  }
+
   const mensagem = document.createElement("div");
 
   mensagem.className =
-    "mensagem-chat mensagem-chat--usuario";
+    "mensagem-chat mensagem-chat--duaxis";
 
   mensagem.textContent = texto;
 
   container.appendChild(mensagem);
+
+  mensagem.scrollIntoView({
+    behavior: "smooth",
+    block: "end"
+  });
 }
 
 function adicionarRespostaDuaxis(dados) {
@@ -373,6 +429,31 @@ function adicionarRespostaDuaxis(dados) {
         currency: "BRL"
       }
     );
+
+  const textoRecomendacao =
+    dados.quantidade_recomendada > 0
+      ? `Adquirir aproximadamente
+       <strong>${dados.quantidade_recomendada} unidades</strong>
+       do ${dados.produto_id}.`
+      : `Não há necessidade de reposição do
+       <strong>${dados.produto_id}</strong>
+       neste momento.`;
+
+  const linhaResposta = document.createElement("div");
+
+  linhaResposta.className =
+    "linha-chat linha-chat--duaxis";
+
+
+  const avatarDuaxis = document.createElement("div");
+
+  avatarDuaxis.className =
+    "avatar-chat avatar-chat--duaxis";
+
+  avatarDuaxis.innerHTML = `
+  <i data-lucide="bot"></i>
+`;
+
 
   const bloco = document.createElement("div");
 
@@ -456,13 +537,9 @@ function adicionarRespostaDuaxis(dados) {
                 ">
 
                     <li>
-                        Adquirir aproximadamente
-                        <strong>
-                            ${dados.quantidade_recomendada} unidades
-                        </strong>
-                        do ${dados.produto_id}.
+                        ${textoRecomendacao}
                     </li>
-
+                    
                     <li>
                         A compra terá impacto financeiro estimado de
                         <strong>${impactoFormatado}</strong>.
@@ -511,7 +588,7 @@ function adicionarRespostaDuaxis(dados) {
                     <div class="confiabilidade-card">
 
                         <span class="confiabilidade-card__rotulo">
-                            R² do modelo
+                            Desempenho do modelo (R²)
                         </span>
 
                         <strong>
@@ -617,9 +694,40 @@ function adicionarRespostaDuaxis(dados) {
         </button>
     `;
 
-  container.appendChild(bloco);
+  linhaResposta.appendChild(
+    avatarDuaxis
+  );
+
+  linhaResposta.appendChild(
+    bloco
+  );
+
+  container.appendChild(
+    linhaResposta
+  );
 
   inicializarIconesLucide();
+
+  bloco
+    .querySelectorAll(".resposta-duaxis__sugestao")
+    .forEach((botao) => {
+
+      botao.addEventListener("click", () => {
+
+        const campoChat =
+          document.getElementById("campo-chat-dv");
+
+        if (!campoChat) {
+          return;
+        }
+
+        campoChat.value =
+          botao.dataset.pergunta || "";
+
+        campoChat.focus();
+      });
+
+    });
 
   bloco.scrollIntoView({
     behavior: "smooth",

@@ -2780,6 +2780,93 @@
     border-color: #334155;
     color: #f8fafc;
   }
+
+  .mensagem-chat--duaxis {
+    align-self: flex-start;
+    background: #f1f5f9;
+    color: #1e293b;
+    border-bottom-left-radius: 5px;
+  }
+
+  .resposta-duaxis__conteudo strong {
+    color: #0f172a;
+    font-weight: 600;
+  }
+
+  .dark .resposta-duaxis__conteudo strong {
+    color: #f8fafc;
+  }
+
+  .dark .avatar-chat--duaxis {
+    background: #1e293b;
+    color: #60a5fa;
+  }
+
+  .resposta-duaxis__secao {
+    transition:
+      border-color 0.2s ease,
+      box-shadow 0.2s ease;
+  }
+
+  .resposta-duaxis__secao:hover {
+    border-color: #c7d2fe;
+  }
+
+  /* ==================================================
+   CHAT - LINHAS E AVATARES
+================================================== */
+
+  .linha-chat {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    width: 100%;
+  }
+
+  .linha-chat--usuario {
+    justify-content: flex-end;
+  }
+
+  .linha-chat--duaxis {
+    justify-content: flex-start;
+  }
+
+  .avatar-chat {
+    flex-shrink: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 34px;
+    height: 34px;
+
+    border-radius: 50%;
+  }
+
+  .avatar-chat svg {
+    width: 17px;
+    height: 17px;
+  }
+
+  .avatar-chat--usuario {
+    background: #2563eb;
+    color: #ffffff;
+  }
+
+  .avatar-chat--duaxis {
+    background: #e0e7ff;
+    color: #2563eb;
+  }
+
+  .linha-chat--usuario .mensagem-chat {
+    margin-left: auto;
+  }
+
+  .linha-chat--duaxis .resposta-duaxis {
+    flex: 1;
+    min-width: 0;
+  }
 }
 
 @property --tw-rotate-x {
