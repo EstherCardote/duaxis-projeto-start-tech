@@ -421,12 +421,14 @@ function adicionarRespostaListaReposicao(dados) {
             <div class="produto-reposicao__info">
 
               <strong>
-                ${produto.produto_id}
+                ${produto.nome_produto}
               </strong>
 
               <span>
-                ${produto.quantidade_recomendada}
-                unidades recomendadas
+                 ${produto.produto_id}
+                  •
+                  ${produto.quantidade_recomendada}
+                  unidades recomendadas
               </span>
 
             </div>
@@ -459,10 +461,12 @@ function adicionarRespostaListaReposicao(dados) {
           <div class="produto-reposicao__info">
 
             <strong>
-              ${produto.produto_id}
+              ${produto.nome_produto}
             </strong>
 
             <span>
+              ${produto.produto_id}
+              •
               ${produto.quantidade_recomendada}
               unidades recomendadas
             </span>
@@ -859,9 +863,11 @@ function adicionarRespostaDuaxis(dados) {
     dados.quantidade_recomendada > 0
       ? `Adquirir aproximadamente
        <strong>${dados.quantidade_recomendada} unidades</strong>
-       do ${dados.produto_id}.`
-      : `Não há necessidade de reposição do
-       <strong>${dados.produto_id}</strong>
+       de <strong>${dados.nome_produto}</strong>
+       (${dados.produto_id}).`
+      : `Não há necessidade de reposição de
+       <strong>${dados.nome_produto}</strong>
+       (${dados.produto_id})
        neste momento.`;
 
   const linhaResposta = document.createElement("div");
@@ -895,7 +901,8 @@ function adicionarRespostaDuaxis(dados) {
             <div class="resposta-duaxis__conteudo">
 
                 Para o produto
-                <strong>${dados.produto_id}</strong>,
+                <strong>${dados.nome_produto}
+  (${dados.produto_id})</strong>,
                 a demanda prevista para agosto é de
                 aproximadamente
                 <strong>${dados.demanda_prevista} unidades</strong>.

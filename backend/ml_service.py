@@ -157,6 +157,8 @@ def analisar_reposicao(produto_id):
 
     produto = produto.iloc[0]
 
+    nome_produto = produto["nome"]
+
     custo_base = produto["custo_base"]
 
     impacto_financeiro = (
@@ -171,6 +173,7 @@ def analisar_reposicao(produto_id):
 
     return {
         "produto_id": produto_id,
+        "nome_produto": str(nome_produto),
         "demanda_prevista": demanda_prevista,
         "estoque_atual": int(estoque_atual),
         "estoque_minimo": int(estoque_minimo),

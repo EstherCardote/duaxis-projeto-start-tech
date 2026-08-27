@@ -174,7 +174,7 @@
     @apply flex min-h-screen flex-1 flex-col transition-all duration-300 ease-in-out ml-0 lg:ml-[260px];
   }
 
-  .menu-lateral--recolhido ~ .app-principal {
+  .menu-lateral--recolhido~.app-principal {
     @apply lg:ml-[72px];
   }
 
@@ -477,7 +477,7 @@
     @apply bg-bg-page;
   }
 
-  .app-principal > .layout-dv {
+  .app-principal>.layout-dv {
     @apply min-h-0 flex-1;
   }
 
@@ -893,5 +893,42 @@
 
   .botao-secundario__texto {
     @apply hidden sm:inline;
+  }
+
+  /* Lista de produtos que precisam de reposição */
+  .reposicao-intro {
+    @apply mb-3;
+  }
+
+  .lista-produtos-reposicao {
+    @apply flex flex-col gap-2;
+  }
+
+  .lista-produtos-reposicao--oculta {
+    display: none;
+  }
+
+  .produto-reposicao {
+    @apply flex items-center justify-between gap-4 rounded-xl border border-border bg-bg-page px-3 py-2;
+  }
+
+  .produto-reposicao__info {
+    @apply flex min-w-0 flex-col gap-1;
+  }
+
+  .produto-reposicao__info strong {
+    @apply text-sm font-semibold text-text-primary;
+  }
+
+  .produto-reposicao__info span {
+    @apply text-xs text-text-secondary;
+  }
+
+  .produto-reposicao__impacto {
+    @apply shrink-0 text-sm font-semibold text-text-primary;
+  }
+
+  .botao-ver-todos-reposicao {
+    @apply mt-3 cursor-pointer rounded-xl border border-border bg-bg-page px-3 py-2 text-sm font-medium text-brand-blue transition-colors hover:bg-brand-blue/5;
   }
 }
