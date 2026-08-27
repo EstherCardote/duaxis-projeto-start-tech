@@ -3,7 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 
 from ml_service import analisar_reposicao
-from ia_service import processar_pergunta_usuario
+from ia_service import processar_pergunta_com_tools
 
 
 app = FastAPI()
@@ -42,7 +42,7 @@ def previsao_produto(produto_id: str):
 @app.post("/api/chat")
 def chat(pergunta: PerguntaChat):
 
-    resultado = processar_pergunta_usuario(
+    resultado = processar_pergunta_com_tools(
         pergunta.mensagem
     )
 
