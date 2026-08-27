@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "tailwindcss -i ./FRONTEND/src/input.css -o ./dist/css/styles.css",
-    "dev": "tailwindcss -i ./FRONTEND/src/input.css -o ./dist/css/styles.css --watch"
+    "build": "tailwindcss -i ./FRONTEND/src/input.css -o ./FRONTEND/dist/css/styles.css",
+    "dev": "tailwindcss -i ./FRONTEND/src/input.css -o ./FRONTEND/dist/css/styles.css --watch"
   },
   "repository": {
     "type": "git",
