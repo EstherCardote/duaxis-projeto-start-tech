@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from ml_service import analisar_reposicao
+from .ml_service import analisar_reposicao
 
 
 app = FastAPI()
