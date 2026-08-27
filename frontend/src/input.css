@@ -609,6 +609,122 @@
     @apply mx-auto mt-2 max-w-3xl text-center text-[10px] text-text-muted;
   }
 
+  .mensagens-chat-dv {
+    @apply mb-8 flex flex-col gap-4;
+  }
+
+  .linha-chat {
+    @apply flex max-w-3xl items-end gap-3;
+  }
+
+  .linha-chat--usuario {
+    @apply ml-auto;
+  }
+
+  .linha-chat--duaxis {
+    @apply mr-auto;
+  }
+
+  .avatar-chat {
+    @apply flex h-9 w-9 shrink-0 items-center justify-center rounded-full;
+  }
+
+  .avatar-chat svg {
+    @apply h-4 w-4;
+  }
+
+  .avatar-chat--usuario {
+    @apply bg-alert-bg text-text-secondary;
+  }
+
+  .avatar-chat--duaxis {
+    @apply bg-brand-blue text-white;
+  }
+
+  .mensagem-chat {
+    @apply max-w-[min(100%,36rem)] rounded-2xl px-4 py-3 text-sm leading-relaxed;
+  }
+
+  .mensagem-chat--usuario {
+    @apply rounded-br-md bg-brand-blue text-white;
+  }
+
+  .mensagem-chat--duaxis {
+    @apply rounded-bl-md border border-brand-blue/20 bg-brand-blue/5 text-text-primary;
+  }
+
+  .resposta-duaxis {
+    @apply flex w-full max-w-3xl flex-col gap-4 rounded-2xl border border-border bg-bg-card p-4 sm:p-5;
+  }
+
+  .resposta-duaxis__secao {
+    @apply flex flex-col gap-2;
+  }
+
+  .resposta-duaxis__cabecalho {
+    @apply flex items-center gap-2 text-[11px] font-semibold tracking-widest text-brand-blue uppercase;
+  }
+
+  .resposta-duaxis__cabecalho svg {
+    @apply h-4 w-4;
+  }
+
+  .resposta-duaxis__conteudo {
+    @apply text-sm leading-relaxed text-text-primary;
+  }
+
+  .resposta-duaxis__lista {
+    @apply flex list-disc flex-col gap-2 pl-5 text-sm text-text-primary;
+  }
+
+  .resposta-duaxis__lista--recomendacoes {
+    @apply list-none pl-0;
+  }
+
+  .resposta-duaxis__lista--recomendacoes li {
+    @apply rounded-xl bg-brand-blue/5 px-3 py-2;
+  }
+
+  .resposta-duaxis__secao--confiabilidade {
+    @apply rounded-xl border border-border bg-bg-page p-4;
+  }
+
+  .resposta-duaxis__secao--sugestoes {
+    @apply gap-3 border-t border-border pt-4;
+  }
+
+  .resposta-duaxis__sugestao {
+    @apply mt-2 flex w-full cursor-pointer rounded-xl border border-border bg-bg-page px-3 py-2 text-left text-sm text-text-secondary transition-colors hover:border-brand-blue/30 hover:bg-brand-blue/5 hover:text-brand-blue;
+  }
+
+  .resposta-duaxis__relatorio {
+    @apply inline-flex cursor-pointer items-center justify-center gap-2 rounded-xl bg-brand-blue px-4 py-2.5 text-sm font-medium text-white transition-colors hover:bg-brand-blue-light;
+  }
+
+  .resposta-duaxis__relatorio svg {
+    @apply h-4 w-4;
+  }
+
+  .confiabilidade-grade {
+    @apply mt-2 grid grid-cols-1 gap-3 sm:grid-cols-2;
+  }
+
+  .confiabilidade-card {
+    @apply flex flex-col gap-1 rounded-xl border border-border bg-bg-card px-3 py-2.5;
+  }
+
+  .confiabilidade-card__rotulo {
+    @apply text-[10px] font-medium tracking-wide text-text-muted uppercase;
+  }
+
+  .confiabilidade-limitacao {
+    @apply mt-3 rounded-xl bg-warning-bg/60 p-3 text-sm text-text-secondary;
+  }
+
+  .confiabilidade-limitacao strong {
+    @apply mb-1 block text-text-primary;
+  }
+
   /* Fontes de Dados */
   .grade-fontes {
     @apply grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3;

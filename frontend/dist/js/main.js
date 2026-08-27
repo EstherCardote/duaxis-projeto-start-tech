@@ -367,23 +367,26 @@ function adicionarMensagemUsuario(texto) {
   }
 
   const linhaMensagem = document.createElement("div");
+  linhaMensagem.className = "linha-chat linha-chat--usuario";
 
-  linhaMensagem.className =
-    "linha-chat linha-chat--usuario";
+  const mensagem = document.createElement("div");
+  mensagem.className = "mensagem-chat mensagem-chat--usuario";
+  mensagem.textContent = texto;
 
-  linhaMensagem.innerHTML = `
-    <div class="mensagem-chat mensagem-chat--usuario">
-      ${texto}
-    </div>
+  const avatar = document.createElement("div");
+  avatar.className = "avatar-chat avatar-chat--usuario";
+  avatar.innerHTML = '<i data-lucide="user"></i>';
 
-    <div class="avatar-chat avatar-chat--usuario">
-      <i data-lucide="user"></i>
-    </div>
-  `;
-
+  linhaMensagem.appendChild(mensagem);
+  linhaMensagem.appendChild(avatar);
   container.appendChild(linhaMensagem);
 
   inicializarIconesLucide();
+
+  linhaMensagem.scrollIntoView({
+    behavior: "smooth",
+    block: "end"
+  });
 }
 
 function adicionarMensagemSistema(texto) {
@@ -396,16 +399,24 @@ function adicionarMensagemSistema(texto) {
     return;
   }
 
+  const linhaMensagem = document.createElement("div");
+  linhaMensagem.className = "linha-chat linha-chat--duaxis";
+
+  const avatar = document.createElement("div");
+  avatar.className = "avatar-chat avatar-chat--duaxis";
+  avatar.innerHTML = '<i data-lucide="bot"></i>';
+
   const mensagem = document.createElement("div");
-
-  mensagem.className =
-    "mensagem-chat mensagem-chat--duaxis";
-
+  mensagem.className = "mensagem-chat mensagem-chat--duaxis";
   mensagem.textContent = texto;
 
-  container.appendChild(mensagem);
+  linhaMensagem.appendChild(avatar);
+  linhaMensagem.appendChild(mensagem);
+  container.appendChild(linhaMensagem);
 
-  mensagem.scrollIntoView({
+  inicializarIconesLucide();
+
+  linhaMensagem.scrollIntoView({
     behavior: "smooth",
     block: "end"
   });
