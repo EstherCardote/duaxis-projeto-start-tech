@@ -1,7 +1,7 @@
 node_modules
 .venv/
 .vscode/
-FRONTEND/dist/css/styles.css
-BACKEND/__pycache__/
+frontend/dist/css/styles.css
+backend/__pycache__/
 *.pyc
 .env
