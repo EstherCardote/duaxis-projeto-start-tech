@@ -182,8 +182,33 @@ def analisar_reposicao(produto_id):
         "risco_ruptura_imediato": risco_ruptura
     }
 
-    
+def listar_produtos_reposicao():
 
+    produtos_reposicao = []
+
+    for produto_id in produtos["id"]:
+
+        resultado = analisar_reposicao(
+            produto_id
+        )
+
+        if resultado["quantidade_recomendada"] > 0:
+
+            produtos_reposicao.append(
+                resultado
+            )
+
+    produtos_reposicao.sort(
+        key=lambda produto:
+        produto["quantidade_recomendada"],
+        reverse=True
+    )
+
+    return {
+    "total_analisados": len(produtos),
+    "produtos_reposicao": produtos_reposicao
+}
+    
 
 
 

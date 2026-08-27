@@ -301,46 +301,68 @@ async function enviarPerguntaDuaxis(campoChat) {
     return;
   }
 
+  // Mostra a pergunta do usuário na tela
   adicionarMensagemUsuario(
     pergunta
   );
 
+  // Limpa o campo
   campoChat.value = "";
-
-  const produtoEncontrado = pergunta.match(
-    /PROD\d{3}/i
-  );
-
-  if (!produtoEncontrado) {
-
-    adicionarMensagemSistema(
-      "Não consegui identificar qual produto você deseja analisar. " +
-      "Informe o código do produto, por exemplo: PROD017."
-    );
-
-    return;
-  }
-
-  const produtoId =
-    produtoEncontrado[0].toUpperCase();
 
   try {
 
+    // Envia a pergunta inteira para o backend
     const resposta = await fetch(
-      `http://127.0.0.1:8000/api/previsao/${produtoId}`
+      "http://127.0.0.1:8000/api/chat",
+      {
+        method: "POST",
+
+        headers: {
+          "Content-Type": "application/json"
+        },
+
+        // Envia a pergunta como JSON no corpo da requisição
+        body: JSON.stringify({
+          mensagem: pergunta
+        })
+      }
     );
 
+    // Verifica se a API respondeu corretamente
     if (!resposta.ok) {
       throw new Error(
         `Erro HTTP ${resposta.status}`
       );
     }
 
+    // Converte o JSON recebido em objeto JavaScript
     const dados = await resposta.json();
 
-    adicionarRespostaDuaxis(
+    console.log(
+      "Resposta do DUAXIS:",
       dados
     );
+
+    if (dados.tipo_resposta === "reposicao_individual") {
+
+      adicionarRespostaDuaxis(
+        dados
+      );
+
+    } else if (dados.tipo_resposta === "lista_reposicao") {
+
+      adicionarRespostaListaReposicao(
+        dados
+      );
+
+    } else {
+
+      adicionarMensagemSistema(
+        dados.mensagem ||
+        "Não consegui apresentar essa resposta."
+      );
+
+    }
 
   } catch (erro) {
 
@@ -350,10 +372,402 @@ async function enviarPerguntaDuaxis(campoChat) {
     );
 
     adicionarMensagemSistema(
-      "Não foi possível consultar os dados neste momento. " +
-      "Verifique se o backend está ativo e tente novamente."
+      "Não foi possível consultar os dados neste momento."
     );
   }
+}
+
+function adicionarRespostaListaReposicao(dados) {
+
+  const container = document.getElementById(
+    "mensagens-chat-dv"
+  );
+
+  if (!container) {
+    return;
+  }
+
+  const impactoTotalFormatado =
+    dados.impacto_total.toLocaleString(
+      "pt-BR",
+      {
+        style: "currency",
+        currency: "BRL"
+      }
+    );
+
+  const produtosPrincipais =
+    dados.produtos.slice(0, 5);
+
+  const produtosRestantes =
+    dados.produtos.slice(5);
+
+  const linhasProdutos =
+    produtosPrincipais
+      .map((produto) => {
+
+        const impacto =
+          produto.impacto_financeiro.toLocaleString(
+            "pt-BR",
+            {
+              style: "currency",
+              currency: "BRL"
+            }
+          );
+
+        return `
+          <div class="produto-reposicao">
+
+            <div class="produto-reposicao__info">
+
+              <strong>
+                ${produto.produto_id}
+              </strong>
+
+              <span>
+                ${produto.quantidade_recomendada}
+                unidades recomendadas
+              </span>
+
+            </div>
+
+            <div class="produto-reposicao__impacto">
+              ${impacto}
+            </div>
+
+          </div>
+        `;
+      })
+      .join("");
+
+  const linhasProdutosRestantes =
+    produtosRestantes
+      .map((produto) => {
+
+        const impacto =
+          produto.impacto_financeiro.toLocaleString(
+            "pt-BR",
+            {
+              style: "currency",
+              currency: "BRL"
+            }
+          );
+
+        return `
+        <div class="produto-reposicao">
+
+          <div class="produto-reposicao__info">
+
+            <strong>
+              ${produto.produto_id}
+            </strong>
+
+            <span>
+              ${produto.quantidade_recomendada}
+              unidades recomendadas
+            </span>
+
+          </div>
+
+          <div class="produto-reposicao__impacto">
+            ${impacto}
+          </div>
+
+        </div>
+      `;
+      })
+      .join("");
+
+  const linhaResposta =
+    document.createElement("div");
+
+  linhaResposta.className =
+    "linha-chat linha-chat--duaxis";
+
+  const avatarDuaxis =
+    document.createElement("div");
+
+  avatarDuaxis.className =
+    "avatar-chat avatar-chat--duaxis";
+
+  avatarDuaxis.innerHTML = `
+    <i data-lucide="bot"></i>
+  `;
+
+  const bloco =
+    document.createElement("div");
+
+  bloco.className =
+    "resposta-duaxis resposta-duaxis--lista";
+
+  bloco.innerHTML = `
+
+    <section class="resposta-duaxis__secao">
+
+      <div class="resposta-duaxis__cabecalho">
+        <i data-lucide="package-search"></i>
+        <span>RESUMO EXECUTIVO</span>
+      </div>
+
+      <div class="resposta-duaxis__conteudo">
+
+        Foram identificados
+        <strong>
+          ${dados.total_produtos} produtos
+        </strong>
+        com necessidade de reposição.
+
+        O impacto financeiro estimado para
+        realizar todas as reposições é de
+        <strong>
+          ${impactoTotalFormatado}
+        </strong>.
+
+      </div>
+
+    </section>
+
+
+    <section class="resposta-duaxis__secao">
+
+      <div class="resposta-duaxis__cabecalho">
+        <i data-lucide="list-ordered"></i>
+        <span>PRIORIDADE DE REPOSIÇÃO</span>
+      </div>
+
+      <div class="resposta-duaxis__conteudo">
+
+        <p class="reposicao-intro">
+          Os produtos com maior quantidade
+          recomendada de reposição são:
+        </p>
+
+        <div class="lista-produtos-reposicao">
+          ${linhasProdutos}
+        </div>
+
+        <div
+  class="lista-produtos-reposicao lista-produtos-reposicao--oculta"
+>
+  ${linhasProdutosRestantes}
+</div>
+
+        ${dados.total_produtos > 5
+      ? `
+              <button
+                type="button"
+                class="botao-ver-todos-reposicao"
+              >
+                Ver todos os
+                ${dados.total_produtos} produtos
+              </button>
+            `
+      : ""
+    }
+
+      </div>
+
+    </section>
+
+
+    <section class="resposta-duaxis__secao">
+
+      <div class="resposta-duaxis__cabecalho">
+        <i data-lucide="lightbulb"></i>
+        <span>RECOMENDAÇÃO</span>
+      </div>
+
+      <div class="resposta-duaxis__conteudo">
+
+        <ul class="
+          resposta-duaxis__lista
+          resposta-duaxis__lista--recomendacoes
+        ">
+
+          <li>
+            Priorizar os produtos com maior
+            necessidade de reposição.
+          </li>
+
+          <li>
+            Considerar o impacto financeiro total
+            antes de efetuar todas as compras.
+          </li>
+
+          <li>
+            Acompanhar a demanda prevista e os
+            prazos dos fornecedores durante o mês.
+          </li>
+
+        </ul>
+
+      </div>
+
+    </section>
+
+
+    <section class="
+      resposta-duaxis__secao
+      resposta-duaxis__secao--confiabilidade
+    ">
+
+      <div class="resposta-duaxis__cabecalho">
+        <i data-lucide="shield-check"></i>
+        <span>CONFIABILIDADE DA ANÁLISE</span>
+      </div>
+
+      <div class="resposta-duaxis__conteudo">
+
+        <div class="confiabilidade-grade">
+
+          <div class="confiabilidade-card">
+
+            <span class="confiabilidade-card__rotulo">
+              Produtos analisados
+            </span>
+
+            <strong>
+              ${dados.total_analisados}
+            </strong>
+
+          </div>
+
+          <div class="confiabilidade-card">
+
+            <span class="confiabilidade-card__rotulo">
+              Produtos com reposição
+            </span>
+
+            <strong>
+              ${dados.total_produtos}
+            </strong>
+
+          </div>
+
+          <div class="confiabilidade-card">
+
+            <span class="confiabilidade-card__rotulo">
+              Modelo
+            </span>
+
+            <strong>
+              Random Forest
+            </strong>
+
+          </div>
+
+          <div class="confiabilidade-card">
+
+            <span class="confiabilidade-card__rotulo">
+              Desempenho do modelo (R²)
+            </span>
+
+            <strong>
+              0,76
+            </strong>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <section class="
+      resposta-duaxis__secao
+      resposta-duaxis__secao--sugestoes
+    ">
+
+      <div class="resposta-duaxis__conteudo">
+
+        <strong>
+          ✨ Você também pode perguntar:
+        </strong>
+
+        <button
+          type="button"
+          class="resposta-duaxis__sugestao"
+          data-pergunta="Quanto devo comprar do PROD017?"
+        >
+          → Quanto devo comprar do PROD017?
+        </button>
+
+        <button
+          type="button"
+          class="resposta-duaxis__sugestao"
+          data-pergunta="Qual produto tem maior risco de ruptura?"
+        >
+          → Qual produto tem maior risco de ruptura?
+        </button>
+
+      </div>
+
+    </section>
+
+  `;
+
+  linhaResposta.appendChild(
+    avatarDuaxis
+  );
+
+  linhaResposta.appendChild(
+    bloco
+  );
+
+  container.appendChild(
+    linhaResposta
+  );
+
+  const botaoVerTodos =
+    bloco.querySelector(
+      ".botao-ver-todos-reposicao"
+    );
+
+  if (botaoVerTodos) {
+
+    botaoVerTodos.addEventListener(
+      "click",
+      () => {
+
+        const listaOculta =
+          bloco.querySelector(
+            ".lista-produtos-reposicao--oculta"
+          );
+
+        if (!listaOculta) {
+          return;
+        }
+
+        const estaOculta =
+          listaOculta.style.display !== "flex";
+
+        if (estaOculta) {
+
+          listaOculta.style.display = "flex";
+
+          botaoVerTodos.textContent =
+            "Mostrar menos";
+
+        } else {
+
+          listaOculta.style.display = "none";
+
+          botaoVerTodos.textContent =
+            `Ver todos os ${dados.total_produtos} produtos`;
+        }
+
+      }
+    );
+  }
+
+  inicializarIconesLucide();
+
+  linhaResposta.scrollIntoView({
+    behavior: "smooth",
+    block: "end"
+  });
 }
 
 function adicionarMensagemUsuario(texto) {

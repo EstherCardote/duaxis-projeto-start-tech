@@ -4,7 +4,10 @@ import os
 # Biblioteca para manipulação de arquivos JSON
 import json
 
-from ml_service import analisar_reposicao
+from ml_service import (
+    analisar_reposicao,
+    listar_produtos_reposicao
+)
 
 # lê o .env
 from dotenv import load_dotenv
@@ -42,27 +45,46 @@ def interpretar_pergunta(pergunta):
             {
                 # Contexto do que o modelo deve fazer
                 "role": "system",
-                "content": """
+    "content": """
 Você é o interpretador de intenções do sistema DUAXIS.
 
 Sua função é identificar o que o usuário deseja fazer.
 
-Neste momento, você conhece apenas uma intenção:
+Você conhece atualmente duas intenções:
 
-analisar_reposicao
+1. analisar_reposicao
 
-Essa intenção deve ser utilizada quando o usuário quiser saber
-se precisa comprar, repor ou adquirir determinado produto.
+Use quando o usuário estiver perguntando sobre a reposição,
+compra, estoque ou necessidade de compra de UM produto específico.
 
-Identifique também o ID do produto mencionado pelo usuário.
+Quando houver um produto específico, identifique também seu ID.
 
-Responda somente com um JSON no seguinte formato:
+Exemplos:
+"Quanto devo comprar do PROD017?"
+"Preciso repor o PROD004?"
+"O estoque do PROD045 está suficiente?"
+
+2. listar_produtos_reposicao
+
+Use quando o usuário quiser saber QUAIS produtos precisam
+de reposição, sem perguntar especificamente sobre um único produto.
+
+Exemplos:
+"Quais produtos precisam de reposição?"
+"O que preciso comprar para o estoque?"
+"Quais itens devo repor?"
+"Mostre os produtos que precisam ser comprados."
+
+Responda sempre em JSON utilizando exatamente esta estrutura:
 
 {
-    "intencao": "analisar_reposicao",
+    "intencao": "nome_da_intencao",
     "produto_id": "PROD017"
 }
+
+Quando não houver um produto específico, produto_id deve ser null.
 """
+
             },
             {
                 # Pergunta do usuário
@@ -85,7 +107,6 @@ Responda somente com um JSON no seguinte formato:
 
     return resultado
 
-# Função que processa a pergunta do usuário e retorna o resultado da análise de reposição
 def processar_pergunta_usuario(pergunta):
 
     interpretacao = interpretar_pergunta(pergunta)
@@ -99,15 +120,33 @@ def processar_pergunta_usuario(pergunta):
             produto_id
         )
 
+        resultado["tipo_resposta"] = "reposicao_individual"
+
         return resultado
 
-    return {
-        "erro": "Intenção ainda não suportada."
-    }
+    if intencao == "listar_produtos_reposicao":
 
+        analise_reposicao = listar_produtos_reposicao()
+        produtos_reposicao = analise_reposicao[
+    "produtos_reposicao"
+]
 
-resultado = processar_pergunta_usuario(
-    "Preciso repor o PROD004?"
+        impacto_total = sum(
+    produto["impacto_financeiro"]
+    for produto in produtos_reposicao
 )
 
-print(resultado)
+        return {
+    "tipo_resposta": "lista_reposicao",
+    "total_analisados": analise_reposicao[
+        "total_analisados"
+    ],
+    "total_produtos": len(produtos_reposicao),
+    "impacto_total": round(impacto_total, 2),
+    "produtos": produtos_reposicao
+}
+
+    return {
+        "tipo_resposta": "erro",
+        "mensagem": "Intenção ainda não suportada."
+    }
