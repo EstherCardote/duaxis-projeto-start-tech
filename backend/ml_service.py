@@ -95,10 +95,6 @@ def prever_demanda(produto_id):
     # Retorna a previsão arredondada
     return round(previsao)
 
-resultado = prever_demanda("PROD017")
-
-print(resultado)
-
 def analisar_reposicao(produto_id):
 
     demanda_prevista = prever_demanda(produto_id)
@@ -139,7 +135,7 @@ def analisar_reposicao(produto_id):
             / demanda_diaria
         )
     else:
-        cobertura_estoque_dias = float("inf")
+        cobertura_estoque_dias = float(999.0)
 
     if cobertura_estoque_dias <= lead_time_dias:
         risco_ruptura = "Alto"
@@ -185,14 +181,6 @@ def analisar_reposicao(produto_id):
         "impacto_financeiro": float(impacto_financeiro),
         "risco_ruptura_imediato": risco_ruptura
     }
-
-resultado = analisar_reposicao(
-    
-    "PROD017"
-)
-
-print(resultado)    
-    
 
     
 
