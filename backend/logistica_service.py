@@ -275,41 +275,29 @@ def consultar_pedidos_atrasados():
 # TESTE TEMPORÁRIO
 # =========================================================
 
-resultado = consultar_pedidos_atrasados()
+if __name__ == "__main__":
 
-
-print(
-    "Total de pedidos atualmente atrasados:",
-    resultado["total_atrasados"]
-)
-
-
-for pedido in resultado["pedidos"][:10]:
+    resultado = consultar_pedidos_atrasados()
 
     print(
-
-        pedido["id_compra"],
-
-        "- produto:",
-
-        pedido["nome_produto"],
-
-        f"({pedido['produto_id']})",
-
-        "- fornecedor:",
-
-        pedido["nome_fornecedor"],
-
-        f"({pedido['fornecedor_id']})",
-
-        "- status:",
-
-        pedido["status"],
-
-        "- atraso:",
-
-        pedido["dias_atraso"],
-
-        "dias"
-
+        "Total de pedidos atualmente atrasados:",
+        resultado["total_atrasados"]
     )
+
+    for pedido in resultado["pedidos"][:10]:
+
+        print(
+            pedido["id_compra"],
+            "- produto:",
+            pedido["nome_produto"],
+            f"({pedido['produto_id']})",
+            "- fornecedor:",
+            
+            pedido["nome_fornecedor"],
+            f"({pedido['fornecedor_id']})",
+            "- status:",
+            pedido["status"],
+            "- atraso:",
+            pedido["dias_atraso"],
+            "dias"
+        )

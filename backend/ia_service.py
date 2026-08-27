@@ -16,6 +16,119 @@ from dotenv import load_dotenv
 # Classe que cria nosso cliente para conversar com o modelo
 from groq import Groq
 
+tools = [
+
+    {
+        "type": "function",
+
+        "function": {
+
+            "name": "analisar_reposicao",
+
+            "description": (
+                "Analisa a necessidade de reposição de um "
+                "produto específico. Use quando o usuário "
+                "perguntar sobre estoque, necessidade de compra "
+                "ou quantidade recomendada de reposição de um "
+                "produto identificado por produto_id."
+            ),
+
+            "parameters": {
+
+                "type": "object",
+
+                "properties": {
+
+                    "produto_id": {
+
+                        "type": "string",
+
+                        "description": (
+                            "Código do produto no formato PROD017."
+                        )
+                    }
+
+                },
+
+                "required": [
+                    "produto_id"
+                ]
+
+            }
+
+        }
+
+    },
+
+
+    {
+        "type": "function",
+
+        "function": {
+
+            "name": "listar_produtos_reposicao",
+
+            "description": (
+                "Analisa todos os produtos e identifica quais "
+                "precisam de reposição. Use quando o usuário "
+                "perguntar de forma geral quais produtos, itens "
+                "ou mercadorias precisam ser comprados ou repostos."
+            ),
+
+            "parameters": {
+
+                "type": "object",
+
+                "properties": {}
+
+            }
+
+        }
+
+    },
+
+
+    {
+        "type": "function",
+
+        "function": {
+
+            "name": "consultar_pedidos_atrasados",
+
+            "description": (
+                "Consulta os pedidos de compra atualmente "
+                "atrasados, ou seja, pedidos ainda não recebidos "
+                "cuja data prevista de entrega já foi ultrapassada."
+            ),
+
+            "parameters": {
+
+                "type": "object",
+
+                "properties": {}
+
+            }
+
+        }
+
+    }
+
+]
+
+funcoes_disponiveis = {
+
+    "analisar_reposicao":
+        analisar_reposicao,
+
+    "listar_produtos_reposicao":
+        listar_produtos_reposicao,
+
+    "consultar_pedidos_atrasados":
+        consultar_pedidos_atrasados
+
+}
+
+
 load_dotenv()
 
 api_key = os.getenv("GROQ_API_KEY")
@@ -177,24 +290,61 @@ def processar_pergunta_usuario(pergunta):
         "mensagem": "Intenção ainda não suportada."
     }
 
+def processar_pergunta_com_tools(pergunta):
 
-resultado = processar_pergunta_usuario(
-    "Tem algum produto ainda atrasado?"
-)
+    mensagens = [
 
-print(resultado["tipo_resposta"])
-print(resultado["total_atrasados"])
+        {
+            "role": "system",
 
-for pedido in resultado["pedidos"][:5]:
-    print(
-        pedido["id_compra"],
-        "- produto:",
-        pedido["nome_produto"],
-        f"({pedido['produto_id']})",
-        "- fornecedor:",
-        pedido["nome_fornecedor"],
-        f"({pedido['fornecedor_id']})",
-        "- atraso:",
-        pedido["dias_atraso"],
-        "dias"
+            "content": """
+Você é o copiloto corporativo DUAXIS.
+
+Ajude gestores a consultar informações financeiras
+e logísticas da empresa.
+
+Sempre utilize as ferramentas disponíveis quando
+a pergunta depender de dados da empresa.
+
+Nunca invente valores, produtos, fornecedores,
+estoques, previsões ou resultados financeiros.
+"""
+        },
+
+        {
+            "role": "user",
+            "content": pergunta
+        }
+
+    ]
+
+
+    resposta = cliente.chat.completions.create(
+
+        model="openai/gpt-oss-20b",
+
+        messages=mensagens,
+
+        tools=tools,
+
+        tool_choice="auto",
+
+        temperature=0
     )
+
+
+    mensagem_modelo = (
+        resposta
+        .choices[0]
+        .message
+    )
+
+
+    print(
+        mensagem_modelo.tool_calls
+    )
+
+processar_pergunta_com_tools(
+    "Tenho algum pedido atrasado?"
+)
+    
