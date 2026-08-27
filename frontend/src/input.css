@@ -931,4 +931,71 @@
   .botao-ver-todos-reposicao {
     @apply mt-3 cursor-pointer rounded-xl border border-border bg-bg-page px-3 py-2 text-sm font-medium text-brand-blue transition-colors hover:bg-brand-blue/5;
   }
+
+  /* ==================================================
+   PEDIDOS RECEBIDOS COM ATRASO
+================================================== */
+
+  .lista-pedidos-atrasados {
+    @apply flex flex-col gap-2;
+  }
+
+  .lista-pedidos-atrasados--oculta {
+    display: none;
+    margin-top: 0.5rem;
+  }
+
+  .pedido-atrasado {
+    @apply rounded-xl border border-border bg-bg-page p-3;
+  }
+
+  .pedido-atrasado__cabecalho {
+    @apply flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between;
+  }
+
+  .pedido-atrasado__id {
+    @apply block text-sm font-semibold text-text-primary;
+  }
+
+  .pedido-atrasado__produto {
+    @apply mt-1 text-sm text-text-primary;
+  }
+
+  .pedido-atrasado__produto span {
+    @apply text-xs text-text-muted;
+  }
+
+  .pedido-atrasado__dias {
+    @apply shrink-0 rounded-full bg-danger-bg px-2.5 py-1 text-xs font-semibold text-danger-text;
+  }
+
+  .pedido-atrasado__detalhes {
+    @apply mt-3 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-5;
+  }
+
+  .pedido-atrasado__detalhes>div {
+    @apply flex min-w-0 flex-col gap-1;
+  }
+
+  .pedido-atrasado__rotulo {
+    @apply text-[10px] font-medium tracking-wide text-text-muted uppercase;
+  }
+
+  .pedido-atrasado__detalhes strong {
+    @apply text-xs font-semibold text-text-primary;
+  }
+
+  .pedido-atrasado__detalhes small {
+    @apply text-[10px] text-text-muted;
+  }
+
+  .botao-ver-todos-atrasados {
+    @apply mt-3 cursor-pointer rounded-xl border border-border bg-bg-page px-3 py-2 text-sm font-medium text-brand-blue transition-colors hover:border-brand-blue/30 hover:bg-brand-blue/5;
+  }
+
+  .resposta-duaxis--atrasos {
+    @apply w-full;
+  }
+
+
 }

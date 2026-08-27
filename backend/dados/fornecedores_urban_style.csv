@@ -1,0 +1,19 @@
+﻿id;razao_social;nome_fantasia;categoria;prazo_medio_entrega_dias;prazo_pagamento_dias;indice_atraso_percentual;score_fornecedor;status
+FOR001;FashionTex Malhas Ltda.;FashionTex Malhas;Tecidos;15;28;2.2;82;Ativo
+FOR002;Denim Brasil Ltda.;Denim Brasil;Jeans;7;28;3.4;98;Ativo
+FOR003;Tecidos Paulista Ltda.;Tecidos Paulista;Tecidos;7;28;5.5;98;Ativo
+FOR004;Urban Cotton Ltda.;Urban Cotton;Tecidos;20;45;1.2;90;Ativo
+FOR005;Style Buttons Ltda.;Style Buttons;Aviamentos;20;28;6.1;88;Ativo
+FOR006;ZipMaster Ltda.;ZipMaster;Aviamentos;5;30;9.8;94;Ativo
+FOR007;ColorPrint Têxtil Ltda.;ColorPrint Têxtil;Confecção;5;30;1.3;88;Ativo
+FOR008;Moda Sul Ltda.;Moda Sul;Confecção;15;28;2.5;84;Ativo
+FOR009;Confecções Prime Ltda.;Confecções Prime;Confecção;10;45;3.6;88;Ativo
+FOR010;Etiqueta&Cia Ltda.;Etiqueta&Cia;Aviamentos;15;28;5.8;79;Ativo
+FOR011;Malharia Horizonte Ltda.;Malharia Horizonte;Tecidos;12;30;4.5;84;Ativo
+FOR012;Tecido Nobre Ltda.;Tecido Nobre;Tecidos;7;30;4.0;81;Ativo
+FOR013;Fashion Logistics Ltda.;Fashion Logistics;Logística;15;28;8.4;92;Ativo
+FOR014;Cabides Brasil Ltda.;Cabides Brasil;Acessórios;10;45;4.1;86;Ativo
+FOR015;Embalagens Premium Ltda.;Embalagens Premium;Embalagens;15;30;1.7;92;Ativo
+FOR016;Tecelagem Aurora Ltda.;Tecelagem Aurora;Tecidos;20;45;9.0;87;Ativo
+FOR017;Trend Imports Ltda.;Trend Imports;Importação;15;28;7.9;98;Ativo
+FOR018;Linha Forte Aviamentos Ltda.;Linha Forte Aviamentos;Aviamentos;5;45;6.7;79;Ativo
