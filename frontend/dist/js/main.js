@@ -301,17 +301,14 @@ async function enviarPerguntaDuaxis(campoChat) {
     return;
   }
 
-  // Mostra a pergunta do usuário na tela
   adicionarMensagemUsuario(
     pergunta
   );
 
-  // Limpa o campo
   campoChat.value = "";
 
   try {
 
-    // Envia a pergunta inteira para o backend
     const resposta = await fetch(
       "http://127.0.0.1:8000/api/chat",
       {
@@ -321,21 +318,18 @@ async function enviarPerguntaDuaxis(campoChat) {
           "Content-Type": "application/json"
         },
 
-        // Envia a pergunta como JSON no corpo da requisição
         body: JSON.stringify({
           mensagem: pergunta
         })
       }
     );
 
-    // Verifica se a API respondeu corretamente
     if (!resposta.ok) {
       throw new Error(
         `Erro HTTP ${resposta.status}`
       );
     }
 
-    // Converte o JSON recebido em objeto JavaScript
     const dados = await resposta.json();
 
     console.log(
@@ -343,33 +337,79 @@ async function enviarPerguntaDuaxis(campoChat) {
       dados
     );
 
-    if (dados.tipo_resposta === "reposicao_individual") {
+
+    // ==================================================
+    // NOVA LÓGICA DE RESPOSTA
+    // ==================================================
+
+    if (dados.tipo_resposta === "texto") {
+
+      adicionarRespostaTextoIa(
+        dados.resposta_ia
+      );
+
+      return;
+    }
+
+
+    if (
+      !dados.ferramentas_utilizadas ||
+      dados.ferramentas_utilizadas.length === 0
+    ) {
+
+      adicionarRespostaTextoIa(
+        dados.resposta_ia ||
+        "Não consegui apresentar essa resposta."
+      );
+
+      return;
+    }
+
+
+    const ferramentaUtilizada =
+      dados.ferramentas_utilizadas[0];
+
+    const nomeFerramenta =
+      ferramentaUtilizada.ferramenta;
+
+    const resultadoFerramenta =
+      ferramentaUtilizada.resultado;
+
+
+    if (nomeFerramenta === "analisar_reposicao") {
 
       adicionarRespostaDuaxis(
-        dados
+        resultadoFerramenta,
+        dados.resposta_ia
       );
 
-    } else if (dados.tipo_resposta === "lista_reposicao") {
+    } else if (
+      nomeFerramenta === "listar_produtos_reposicao"
+    ) {
 
       adicionarRespostaListaReposicao(
-        dados
+        resultadoFerramenta,
+        dados.resposta_ia
       );
 
-
-    } else if (dados.tipo_resposta === "pedidos_atrasados") {
+    } else if (
+      nomeFerramenta === "consultar_pedidos_atrasados"
+    ) {
 
       adicionarRespostaPedidosAtrasados(
-        dados
+        resultadoFerramenta,
+        dados.resposta_ia
       );
 
     } else {
 
-      adicionarMensagemSistema(
-        dados.mensagem ||
+      adicionarRespostaTextoIa(
+        dados.resposta_ia ||
         "Não consegui apresentar essa resposta."
       );
 
     }
+
 
   } catch (erro) {
 
@@ -384,7 +424,30 @@ async function enviarPerguntaDuaxis(campoChat) {
   }
 }
 
-function adicionarRespostaListaReposicao(dados) {
+function converterTextoIaParaHtml(texto) {
+
+  if (!texto) {
+    return "";
+  }
+
+  return texto
+
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+
+    .replace(
+      /\*\*(.*?)\*\*/g,
+      "<strong>$1</strong>"
+    )
+
+    .replace(
+      /\n/g,
+      "<br>"
+    );
+}
+
+function adicionarRespostaTextoIa(texto) {
 
   const container = document.getElementById(
     "mensagens-chat-dv"
@@ -394,8 +457,103 @@ function adicionarRespostaListaReposicao(dados) {
     return;
   }
 
+  const linhaResposta =
+    document.createElement("div");
+
+  linhaResposta.className =
+    "linha-chat linha-chat--duaxis";
+
+
+  const avatarDuaxis =
+    document.createElement("div");
+
+  avatarDuaxis.className =
+    "avatar-chat avatar-chat--duaxis";
+
+  avatarDuaxis.innerHTML = `
+    <i data-lucide="bot"></i>
+  `;
+
+
+  const bloco =
+    document.createElement("div");
+
+  bloco.className =
+    "resposta-duaxis";
+
+  bloco.innerHTML = `
+
+    <section class="resposta-duaxis__secao">
+
+      <div class="resposta-duaxis__cabecalho">
+
+        <i data-lucide="sparkles"></i>
+
+        <span>
+          DUAXIS
+        </span>
+
+      </div>
+
+      <div
+        class="
+          resposta-duaxis__conteudo
+          resposta-ia-texto
+        "
+      >
+        ${converterTextoIaParaHtml(texto)}
+      </div>
+
+    </section>
+
+  `;
+
+
+  linhaResposta.appendChild(
+    avatarDuaxis
+  );
+
+  linhaResposta.appendChild(
+    bloco
+  );
+
+  container.appendChild(
+    linhaResposta
+  );
+
+  inicializarIconesLucide();
+
+  linhaResposta.scrollIntoView({
+    behavior: "smooth",
+    block: "end"
+  });
+}
+
+function adicionarRespostaListaReposicao(
+  dados,
+  textoIa
+) {
+
+  const container = document.getElementById(
+    "mensagens-chat-dv"
+  );
+
+  if (!container) {
+    return;
+  }
+
+  const produtos =
+    dados.produtos_reposicao;
+
+  const impactoTotal =
+    produtos.reduce(
+      (total, produto) =>
+        total + produto.impacto_financeiro,
+      0
+    );
+
   const impactoTotalFormatado =
-    dados.impacto_total.toLocaleString(
+    impactoTotal.toLocaleString(
       "pt-BR",
       {
         style: "currency",
@@ -403,11 +561,14 @@ function adicionarRespostaListaReposicao(dados) {
       }
     );
 
+  const totalProdutos =
+    produtos.length;
+
   const produtosPrincipais =
-    dados.produtos.slice(0, 5);
+    produtos.slice(0, 5);
 
   const produtosRestantes =
-    dados.produtos.slice(5);
+    produtos.slice(5);
 
   const linhasProdutos =
     produtosPrincipais
@@ -520,20 +681,13 @@ function adicionarRespostaListaReposicao(dados) {
         <span>RESUMO EXECUTIVO</span>
       </div>
 
-      <div class="resposta-duaxis__conteudo">
-
-        Foram identificados
-        <strong>
-          ${dados.total_produtos} produtos
-        </strong>
-        com necessidade de reposição.
-
-        O impacto financeiro estimado para
-        realizar todas as reposições é de
-        <strong>
-          ${impactoTotalFormatado}
-        </strong>.
-
+      <div
+        class="
+          resposta-duaxis__conteudo
+          resposta-ia-texto
+        "
+      >
+        ${converterTextoIaParaHtml(textoIa)}
       </div>
 
     </section>
@@ -563,14 +717,14 @@ function adicionarRespostaListaReposicao(dados) {
   ${linhasProdutosRestantes}
 </div>
 
-        ${dados.total_produtos > 5
+        ${totalProdutos > 5
       ? `
               <button
                 type="button"
                 class="botao-ver-todos-reposicao"
               >
                 Ver todos os
-                ${dados.total_produtos} produtos
+                ${totalProdutos} produtos
               </button>
             `
       : ""
@@ -650,7 +804,7 @@ function adicionarRespostaListaReposicao(dados) {
             </span>
 
             <strong>
-              ${dados.total_produtos}
+              ${totalProdutos}
             </strong>
 
           </div>
@@ -766,7 +920,7 @@ function adicionarRespostaListaReposicao(dados) {
           listaOculta.style.display = "none";
 
           botaoVerTodos.textContent =
-            `Ver todos os ${dados.total_produtos} produtos`;
+            `Ver todos os ${totalProdutos} produtos`;
         }
 
       }
@@ -847,7 +1001,7 @@ function adicionarMensagemSistema(texto) {
   });
 }
 
-function adicionarRespostaDuaxis(dados) {
+function adicionarRespostaDuaxis(dados, textoIa) {
 
   const container = document.getElementById(
     "mensagens-chat-dv"
@@ -905,20 +1059,13 @@ function adicionarRespostaDuaxis(dados) {
                 <span>RESUMO EXECUTIVO</span>
             </div>
 
-            <div class="resposta-duaxis__conteudo">
-
-                Para o produto
-                <strong>${dados.nome_produto}
-  (${dados.produto_id})</strong>,
-                a demanda prevista para agosto é de
-                aproximadamente
-                <strong>${dados.demanda_prevista} unidades</strong>.
-
-                Recomenda-se adquirir
-                <strong>${dados.quantidade_recomendada} unidades</strong>,
-                com impacto financeiro estimado de
-                <strong>${impactoFormatado}</strong>.
-
+            <div
+              class="
+                resposta-duaxis__conteudo
+                resposta-ia-texto
+              "
+            >
+              ${converterTextoIaParaHtml(textoIa)}
             </div>
 
         </section>
@@ -1197,7 +1344,7 @@ function montarRespostaReposicao(dados) {
   );
 }
 
-function adicionarRespostaPedidosAtrasados(dados) {
+function adicionarRespostaPedidosAtrasados(dados, textoIa) {
 
   const container = document.getElementById(
     "mensagens-chat-dv"
@@ -1206,7 +1353,6 @@ function adicionarRespostaPedidosAtrasados(dados) {
   if (!container) {
     return;
   }
-
 
   // ==================================================
   // SEPARA OS 5 MAIORES ATRASOS
@@ -1265,11 +1411,6 @@ function adicionarRespostaPedidosAtrasados(dados) {
     const dataPrevista =
       formatarData(
         pedido.data_prevista_entrega
-      );
-
-    const dataReal =
-      formatarData(
-        pedido.data_entrega_real
       );
 
     return `
@@ -1341,11 +1482,11 @@ function adicionarRespostaPedidosAtrasados(dados) {
           <div>
 
             <span class="pedido-atrasado__rotulo">
-              Recebido
+              Status
             </span>
 
             <strong>
-              ${dataReal}
+              ${pedido.status}
             </strong>
 
           </div>
@@ -1450,17 +1591,13 @@ function adicionarRespostaPedidosAtrasados(dados) {
 
       </div>
 
-      <div class="resposta-duaxis__conteudo">
-
-        Foram identificadas
-
-        <strong>
-          ${dados.total_atrasados} pedidos
-        </strong>
-
-        que ainda não foram recebidos
-e já ultrapassaram a data prevista de entrega.
-
+      <div
+        class="
+          resposta-duaxis__conteudo
+          resposta-ia-texto
+        "
+      >
+        ${converterTextoIaParaHtml(textoIa)}
       </div>
 
     </section>
@@ -1481,7 +1618,7 @@ e já ultrapassaram a data prevista de entrega.
       <div class="resposta-duaxis__conteudo">
 
         <p class="reposicao-intro">
-          As entregas com maior atraso registrado são:
+          Os pedidos atualmente com maior atraso são:
         </p>
 
 

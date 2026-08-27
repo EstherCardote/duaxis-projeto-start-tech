@@ -499,6 +499,14 @@ da ordenação. Apenas descreva os valores apresentados.
 Depois de receber o resultado de uma ferramenta,
 responda em português claro, profissional e objetivo.
 
+Não utilize tabelas Markdown na resposta.
+
+O front-end já apresenta os dados detalhados em cards
+e listas estruturadas.
+
+Use a resposta textual apenas para resumir e explicar
+os principais resultados em parágrafos curtos.
+
 Quando houver muitos registros, apresente um resumo e
 destaque apenas os registros enviados pela ferramenta,
 informando que eles representam uma seleção da análise.
@@ -737,28 +745,31 @@ informando que eles representam uma seleção da análise.
     }
 
 # TESTE
-resultado = processar_pergunta_com_tools(
-    "Quais produtos precisam de reposição?"
-)
+if __name__ == "__main__":
 
-print(
-    resultado["resposta_ia"]
-)
+    resultado = processar_pergunta_com_tools(
+        "Quais produtos precisam de reposição?"
+    )
 
-print(
-    "Ferramenta:",
-    resultado[
-        "ferramentas_utilizadas"
-    ][0]["ferramenta"]
-)
+    print(
+        resultado["resposta_ia"]
+    )
 
-print(
-    "Quantidade completa:",
-    len(
+    print(
+        "Ferramenta:",
         resultado[
             "ferramentas_utilizadas"
-        ][0]["resultado"][
-            "produtos_reposicao"
-        ]
+        ][0]["ferramenta"]
     )
-)
+
+    print(
+        "Quantidade completa:",
+        len(
+            resultado[
+                "ferramentas_utilizadas"
+            ][0]["resultado"][
+                "produtos_reposicao"
+            ]
+        )
+    )
+    
