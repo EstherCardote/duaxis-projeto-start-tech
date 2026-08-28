@@ -1,5 +1,6 @@
-# Biblioteca pdrão do Python
+# Biblioteca padrão do Python
 import os
+from pathlib import Path
 
 # Biblioteca para manipulação de arquivos JSON
 import json
@@ -126,29 +127,32 @@ funcoes_disponiveis = {
 }
 
 
-load_dotenv()
+load_dotenv(Path(__file__).resolve().parent / ".env")
 
-api_key = os.getenv("GROQ_API_KEY")
+_cliente = None
 
-os.getenv("GROQ_API_KEY")
 
-# Se não existir chave, pare o programa com uma mensagem compreensivel
-if not api_key:
-    raise ValueError(
-        "GROQ_API_KEY não encontrada. "
-        "Verifique o arquivo .env."
-    )
+def get_cliente():
+    global _cliente
 
-# Objeto que sabe qual serviço utilizar + qual chave utilizar
-cliente = Groq(
-    api_key=api_key
-)
+    if _cliente is None:
+        api_key = os.getenv("GROQ_API_KEY")
+
+        if not api_key:
+            raise ValueError(
+                "GROQ_API_KEY não encontrada. "
+                "Configure a variável no .env local ou nas Environment Variables da Vercel."
+            )
+
+        _cliente = Groq(api_key=api_key)
+
+    return _cliente
 
 # Função que recebe uma pergunta do usuário e retorna a intenção e o ID do produto
 def interpretar_pergunta(pergunta):
 
 # Cria uma resposta do modelo de linguagem com base na pergunta do usuário
-    resposta = cliente.chat.completions.create(
+    resposta = get_cliente().chat.completions.create(
         # Modelo de linguagem que será utilizado para interpretar a pergunta do usuário
         model="openai/gpt-oss-20b",
 
@@ -532,7 +536,7 @@ informando que eles representam uma seleção da análise.
     # e decide se precisa chamar alguma delas.
     # =====================================================
 
-    resposta = cliente.chat.completions.create(
+    resposta = get_cliente().chat.completions.create(
 
         model="openai/gpt-oss-20b",
 
@@ -709,7 +713,7 @@ informando que eles representam uma seleção da análise.
     # =====================================================
 
     resposta_final = (
-        cliente.chat.completions.create(
+        get_cliente().chat.completions.create(
 
             model="openai/gpt-oss-20b",
 

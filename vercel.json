@@ -1,0 +1,10 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "functions": {
+    "backend/app.py": {
+      "maxDuration": 60,
+      "includeFiles": "{backend/dados/**,backend/modelos/**,frontend/dist/**}",
+      "excludeFiles": "{Banco de Dados/**,.github/**,frontend/src/**,**/*.md,**/*.docx,**/*.pyc}"
+    }
+  }
+}

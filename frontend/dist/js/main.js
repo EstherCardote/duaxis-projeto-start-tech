@@ -293,6 +293,16 @@ function inicializarChatDuaxis() {
 
 }
 
+function urlApiChat() {
+  const host = window.location.hostname;
+
+  if (!host || host === "localhost" || host === "127.0.0.1") {
+    return "http://127.0.0.1:8000/api/chat";
+  }
+
+  return "/api/chat";
+}
+
 async function enviarPerguntaDuaxis(campoChat) {
 
   const pergunta = campoChat.value.trim();
@@ -310,7 +320,7 @@ async function enviarPerguntaDuaxis(campoChat) {
   try {
 
     const resposta = await fetch(
-      "http://127.0.0.1:8000/api/chat",
+      urlApiChat(),
       {
         method: "POST",
 
