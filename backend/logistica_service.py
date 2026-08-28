@@ -30,6 +30,15 @@ fornecedores = pd.read_csv(
     sep=";"
 )
 
+vendas = pd.read_csv(
+    BASE_DIR / "dados" / "vendas_urban_style.csv",
+    sep=";"
+)
+
+estoque = pd.read_csv(
+    BASE_DIR / "dados" / "estoque_urban_style.csv",
+    sep=";"
+)
 
 # =========================================================
 # FUNÇÃO: CONSULTAR PEDIDOS ATUALMENTE ATRASADOS
@@ -410,6 +419,406 @@ def listar_produtos_maior_risco():
             produtos_analisados
     }
 
+# =========================================================
+# FUNÇÃO: LISTAR PRODUTOS COM MENOR GIRO
+# =========================================================
+
+def listar_produtos_baixo_giro():
+
+    dados_vendas = vendas.copy()
+
+    dados_vendas["data_venda"] = pd.to_datetime(
+    dados_vendas["data_venda"]
+)
+    dados_vendas = dados_vendas[
+    dados_vendas["status"] == "Concluída"
+    ].copy()
+    
+    dados_vendas["mes"] = (
+    dados_vendas["data_venda"]
+    .dt.to_period("M")
+)
+    vendas_mensais = (
+    dados_vendas
+    .groupby(
+        [
+            "produto_id",
+            "mes"
+        ],
+        as_index=False
+    )
+    ["quantidade"]
+    .sum()
+)
+    meses = pd.period_range(
+    start="2023-08",
+    end="2026-07",
+    freq="M"
+)
+    grade_completa = pd.MultiIndex.from_product(
+        [
+            produtos["id"],
+            meses
+        ],
+        names=[
+            "produto_id",
+            "mes"
+        ]
+    ).to_frame(
+        index=False
+    )
+
+    historico_mensal = grade_completa.merge(
+    vendas_mensais,
+    on=[
+        "produto_id",
+        "mes"
+    ],
+    how="left"
+)
+    historico_mensal["quantidade"] = (
+    historico_mensal["quantidade"]
+    .fillna(0)
+    .astype(int)
+)
+# -----------------------------------------------------
+# DEFINE OS PERÍODOS DA ANÁLISE
+# -----------------------------------------------------
+
+    mes_referencia = pd.Period(
+        "2026-07",
+        freq="M"
+    )
+    inicio_12_meses = (
+    mes_referencia - 11
+)
+    historico_12_meses = historico_mensal[
+    (
+        historico_mensal["mes"]
+        >= inicio_12_meses
+    )
+    &
+    (
+        historico_mensal["mes"]
+        <= mes_referencia
+    )
+].copy()
+    
+    vendas_12_meses = (
+    historico_12_meses
+    .groupby(
+        "produto_id",
+        as_index=False
+    )
+    ["quantidade"]
+    .sum()
+    .rename(
+        columns={
+            "quantidade":
+                "vendas_12_meses"
+        }
+    )
+)
+    vendas_12_meses[
+    "media_mensal_12_meses"
+    ] = (
+    vendas_12_meses[
+        "vendas_12_meses"
+    ] / 12
+    ).round(2)
+
+    inicio_3_meses = (
+    mes_referencia - 2
+)
+    historico_3_meses = historico_mensal[
+    (
+        historico_mensal["mes"]
+        >= inicio_3_meses
+    )
+    &
+    (
+        historico_mensal["mes"]
+        <= mes_referencia
+    )
+    ].copy()
+
+    vendas_3_meses = (
+    historico_3_meses
+    .groupby(
+        "produto_id",
+        as_index=False
+    )
+    ["quantidade"]
+    .sum()
+    .rename(
+        columns={
+            "quantidade":
+                "vendas_3_meses"
+        }
+    )
+)
+    vendas_3_meses[
+    "media_mensal_3_meses"
+] = (
+    vendas_3_meses[
+        "vendas_3_meses"
+    ] / 3
+).round(2)
+    
+    periodos_sazonais = historico_mensal[
+    historico_mensal["mes"].dt.month.isin(
+        [5, 6, 7]
+    )
+].copy()
+
+    periodos_sazonais["ano"] = (
+    periodos_sazonais["mes"].dt.year
+)
+
+    comparacao_sazonal = (
+    periodos_sazonais
+    .groupby(
+        [
+            "produto_id",
+            "ano"
+        ],
+        as_index=False
+    )
+    ["quantidade"]
+    .sum()
+)
+    historico_sazonal_anterior = (
+    comparacao_sazonal[
+        comparacao_sazonal["ano"] < 2026
+    ]
+    .groupby(
+        "produto_id",
+        as_index=False
+    )
+    ["quantidade"]
+    .mean()
+    .rename(
+        columns={
+            "quantidade":
+                "media_mesmo_periodo_historico"
+        }
+    )
+)
+    analise_sazonal = vendas_3_meses.merge(
+    historico_sazonal_anterior,
+    on="produto_id",
+    how="left"
+)
+    analise_sazonal[
+    "variacao_sazonal_percentual"
+] = (
+    (
+        analise_sazonal["vendas_3_meses"]
+        -
+        analise_sazonal[
+            "media_mesmo_periodo_historico"
+        ]
+    )
+    /
+    analise_sazonal[
+        "media_mesmo_periodo_historico"
+    ].replace(0, pd.NA)
+    *
+    100
+    ).round(2)
+
+    analise_giro = vendas_12_meses.merge(
+    analise_sazonal,
+    on="produto_id",
+    how="left"
+)
+    estoque_aux = estoque[
+    [
+        "produto_id",
+        "estoque_atual"
+    ]
+    ].copy()
+
+    analise_giro = analise_giro.merge(
+    estoque_aux,
+    on="produto_id",
+    how="left"
+)
+    analise_giro[
+    "cobertura_estoque_12m"
+] = (
+    analise_giro["estoque_atual"]
+    /
+    analise_giro[
+        "media_mensal_12_meses"
+    ].replace(0, pd.NA)
+    ).round(2)
+
+    analise_giro[
+    "cobertura_estoque_3m"
+] = (
+    analise_giro["estoque_atual"]
+    /
+    analise_giro[
+        "media_mensal_3_meses"
+    ].replace(0, pd.NA)
+    ).round(2)
+
+    analise_giro[
+    "variacao_ritmo_recente_percentual"
+] = (
+    (
+        analise_giro[
+            "media_mensal_3_meses"
+        ]
+        -
+        analise_giro[
+            "media_mensal_12_meses"
+        ]
+    )
+    /
+    analise_giro[
+        "media_mensal_12_meses"
+    ].replace(0, pd.NA)
+    *
+    100
+    ).round(2)
+
+    produtos_aux = produtos[
+    [
+        "id",
+        "nome"
+    ]
+    ].rename(
+    columns={
+        "id": "produto_id",
+        "nome": "nome_produto"
+    }
+)
+    analise_giro = analise_giro.merge(
+    produtos_aux,
+    on="produto_id",
+    how="left"
+)
+    analise_giro = analise_giro[
+    [
+        "produto_id",
+        "nome_produto",
+        "estoque_atual",
+
+        "vendas_12_meses",
+        "media_mensal_12_meses",
+
+        "vendas_3_meses",
+        "media_mensal_3_meses",
+
+        "media_mesmo_periodo_historico",
+        "variacao_sazonal_percentual",
+
+        "variacao_ritmo_recente_percentual",
+
+        "cobertura_estoque_12m",
+        "cobertura_estoque_3m"
+    ]
+]
+
+    analise_giro[
+    "ritmo_recente_desacelerando"
+] = (
+    analise_giro[
+        "variacao_ritmo_recente_percentual"
+    ] < 0
+)
+
+    analise_giro[
+    "abaixo_historico_sazonal"
+] = (
+    analise_giro[
+        "variacao_sazonal_percentual"
+    ] < 0
+)
+
+    candidatos_baixo_giro = analise_giro[
+    (
+        analise_giro[
+            "ritmo_recente_desacelerando"
+        ]
+    )
+    &
+    (
+        analise_giro[
+            "abaixo_historico_sazonal"
+        ]
+    )
+].copy()
+
+    candidatos_baixo_giro = (
+    candidatos_baixo_giro
+    .sort_values(
+        by="cobertura_estoque_3m",
+        ascending=False
+    )
+)
+    
+    candidatos_baixo_giro = (
+    candidatos_baixo_giro
+    .reset_index(
+        drop=True
+    )
+)
+    
+    candidatos_baixo_giro[
+    "posicao"
+] = (
+    candidatos_baixo_giro.index + 1
+)
+
+    colunas_retorno = [
+    "posicao",
+    "produto_id",
+    "nome_produto",
+    "estoque_atual",
+
+    "vendas_12_meses",
+    "media_mensal_12_meses",
+
+    "vendas_3_meses",
+    "media_mensal_3_meses",
+
+    "media_mesmo_periodo_historico",
+    "variacao_ritmo_recente_percentual",
+    "variacao_sazonal_percentual",
+
+    "cobertura_estoque_12m",
+    "cobertura_estoque_3m"
+]
+
+    candidatos_baixo_giro = (
+    candidatos_baixo_giro[
+        colunas_retorno
+    ]
+)
+    
+    produtos_baixo_giro = (
+    candidatos_baixo_giro
+    .to_dict(
+        orient="records"
+    )
+)
+    return {
+    "total_analisados":
+        len(analise_giro),
+
+    "total_candidatos":
+        len(produtos_baixo_giro),
+
+    "periodo_referencia":
+        "2026-05 a 2026-07",
+
+    "produtos":
+        produtos_baixo_giro
+}
+
 
 # =========================================================
 # TESTE TEMPORÁRIO
@@ -417,7 +826,7 @@ def listar_produtos_maior_risco():
 
 if __name__ == "__main__":
 
-    resultado = listar_produtos_maior_risco()
+    resultado = listar_produtos_baixo_giro()
 
     print(
         "Total analisados:",
@@ -425,40 +834,39 @@ if __name__ == "__main__":
     )
 
     print(
-        "Crítico:",
-        resultado["total_critico"]
+        "Total candidatos:",
+        resultado["total_candidatos"]
     )
 
     print(
-        "Alto:",
-        resultado["total_alto"]
+        "Período:",
+        resultado["periodo_referencia"]
     )
 
     print(
-        "Moderado:",
-        resultado["total_moderado"]
+        "\nProdutos com menor giro:\n"
     )
-
-    print(
-        "Baixo:",
-        
-        resultado["total_baixo"]
-    )
-
-    print("\nProdutos com maior risco:\n")
 
     for produto in resultado["produtos"][:10]:
 
         print(
+            produto["posicao"],
+            "-",
             produto["produto_id"],
             "-",
             produto["nome_produto"],
-            "| risco:",
-            produto["nivel_risco"],
-            "| cobertura:",
-            produto["cobertura_estoque_dias"],
-            "| lead time:",
-            produto["lead_time_dias"],
-            "| índice:",
-            produto["indice_cobertura"]
+            "| estoque:",
+            produto["estoque_atual"],
+            "| cobertura recente:",
+            produto["cobertura_estoque_3m"],
+            "| variação recente:",
+            produto[
+                "variacao_ritmo_recente_percentual"
+            ],
+            "%",
+            "| variação sazonal:",
+            produto[
+                "variacao_sazonal_percentual"
+            ],
+            "%"
         )

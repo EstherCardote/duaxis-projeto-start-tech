@@ -12,7 +12,8 @@ from ml_service import (
 
 from logistica_service import (
     consultar_pedidos_atrasados,
-    listar_produtos_maior_risco
+    listar_produtos_maior_risco,
+    listar_produtos_baixo_giro
 )
 
 # lê o .env
@@ -135,6 +136,34 @@ tools = [
         }
 
     }
+
+    },
+
+    {
+    "type": "function",
+
+    "function": {
+
+        "name": "listar_produtos_baixo_giro",
+
+        "description": (
+            "Analisa os produtos da Urban Style e identifica "
+            "candidatos a menor giro considerando o histórico "
+            "de vendas, o comportamento recente, a sazonalidade "
+            "e a cobertura de estoque. Use quando o usuário "
+            "perguntar sobre produtos com baixo giro, menor giro, "
+            "estoque parado, produtos encalhados ou itens com "
+            "desaceleração de vendas em relação ao estoque."
+        ),
+
+        "parameters": {
+            "type": "object",
+            "properties": {},
+            "required": [],
+            "additionalProperties": False
+        }
+
+    }
 }
     
 
@@ -152,7 +181,10 @@ funcoes_disponiveis = {
         consultar_pedidos_atrasados,
 
     "listar_produtos_maior_risco":
-    listar_produtos_maior_risco    
+    listar_produtos_maior_risco,
+
+    "listar_produtos_baixo_giro":
+    listar_produtos_baixo_giro   
 
 }
 
@@ -519,6 +551,59 @@ def preparar_resultado_para_ia(
                 resultado["total_baixo"]
         }
 
+        # =====================================================
+    # PRODUTOS COM MENOR GIRO
+    # =====================================================
+    #
+    # O front-end recebe todos os candidatos encontrados.
+    #
+    # A IA recebe apenas um resumo geral e alguns
+    # indicadores dos primeiros produtos do ranking.
+    #
+    # Isso evita repetir no texto todos os dados que
+    # serão apresentados visualmente pelo front-end.
+    # =====================================================
+
+    if nome_funcao == "listar_produtos_baixo_giro":
+
+        return {
+        "total_analisados":
+            resultado["total_analisados"],
+
+        "total_candidatos":
+            resultado["total_candidatos"],
+
+        "periodo_referencia":
+            resultado["periodo_referencia"],
+
+        "criterios_utilizados": {
+            "desaceleracao_recente":
+                (
+                    "Média mensal dos últimos 3 meses "
+                    "abaixo da média mensal dos últimos 12 meses."
+                ),
+
+            "comparacao_sazonal":
+                (
+                    "Vendas do período recente abaixo da média "
+                    "do mesmo período nos anos históricos comparáveis."
+                ),
+
+            "ordenacao":
+                (
+                    "Os candidatos são ordenados pela cobertura "
+                    "de estoque calculada com o ritmo médio "
+                    "dos últimos 3 meses, da maior para a menor."
+                )
+        },
+
+        "interpretacao":
+            (
+                "Os resultados representam candidatos a menor giro "
+                "e não uma classificação definitiva de estoque parado."
+            )
+    }  
+
 
     # =====================================================
     # SEGURANÇA
@@ -610,6 +695,16 @@ de níveis críticos, altos ou moderados
 Quando houver muitos registros, apresente apenas um resumo
 da situação geral. Os registros detalhados serão apresentados
 pelo front-end e não precisam ser enumerados na resposta textual.
+
+Quando a ferramenta listar_produtos_baixo_giro for utilizada,
+trate os resultados como candidatos a menor giro, e não como
+uma classificação definitiva de produtos encalhados ou estoque parado.
+
+Explique apenas os critérios explicitamente retornados pela ferramenta.
+
+Não recomende promoções, redução de compras, alterações de reposição,
+liquidação de estoque ou qualquer outra ação comercial se a ferramenta
+não tiver analisado e retornado explicitamente essa recomendação.
 """
 
         },
@@ -748,8 +843,9 @@ pelo front-end e não precisam ser enumerados na resposta textual.
         # -------------------------------------------------
         if nome_funcao in [
             "listar_produtos_reposicao",
-            "consultar_pedidos_atrasados"
-            "listar_produtos_maior_risco"
+            "consultar_pedidos_atrasados",
+            "listar_produtos_maior_risco",
+            "listar_produtos_baixo_giro"
 ]:
             resultado = funcao()
 
@@ -849,18 +945,23 @@ pelo front-end e não precisam ser enumerados na resposta textual.
 if __name__ == "__main__":
 
     resultado = processar_pergunta_com_tools(
-        "Quais produtos têm maior risco de ruptura?"
+        "Quais produtos têm menor giro?"
     )
 
     print(
-        "Resposta IA:",
+        "\nResposta IA:\n"
+    )
+
+    print(
         resultado["resposta_ia"]
     )
 
     print(
-        "\nFerramenta:",
+        "\nFerramenta utilizada:\n"
+    )
+
+    print(
         resultado[
             "ferramentas_utilizadas"
         ][0]["ferramenta"]
     )
-    
