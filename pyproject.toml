@@ -18,7 +18,7 @@ dependencies = [
 entrypoint = "backend.app:app"
 
 [tool.vercel.scripts]
-build = "npm run build"
+build = "npm install && npx tailwindcss -i ./frontend/src/input.css -o ./frontend/dist/css/styles.css"
 
 [tool.vercel.fastapi.static]
 cdn = true
