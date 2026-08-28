@@ -1,3 +1,5 @@
+/* ARQUIVO QUE PODE SER MEXIDO */
+
 @import "tailwindcss";
 
 @custom-variant dark (&:where(.dark, .dark *));
@@ -725,6 +727,64 @@
     @apply mb-1 block text-text-primary;
   }
 
+  /* Produtos com maior risco de ruptura */
+
+  .lista-produtos-risco {
+    @apply flex flex-col gap-3;
+  }
+
+  .produto-risco {
+    @apply rounded-xl border border-border bg-bg-page p-4;
+  }
+
+  .produto-risco__cabecalho {
+    @apply flex items-start justify-between gap-4;
+  }
+
+  .produto-risco__nome {
+    @apply block text-sm font-semibold text-text-primary;
+  }
+
+  .produto-risco__id {
+    @apply mt-1 block text-xs text-text-muted;
+  }
+
+  .produto-risco__nivel {
+    @apply shrink-0 rounded-full px-2.5 py-1 text-[10px] font-semibold tracking-wide uppercase;
+  }
+
+  .produto-risco__nivel--critico {
+    @apply bg-danger-bg text-danger-text;
+  }
+
+  .produto-risco__nivel--alto {
+    @apply bg-danger-bg text-danger-text;
+  }
+
+  .produto-risco__nivel--moderado {
+    @apply bg-warning-bg text-yellow-700;
+  }
+
+  .produto-risco__nivel--baixo {
+    @apply bg-success-bg text-success;
+  }
+
+  .produto-risco__detalhes {
+    @apply mt-4 grid grid-cols-2 gap-3 sm:grid-cols-4;
+  }
+
+  .produto-risco__detalhes>div {
+    @apply flex flex-col gap-1 rounded-lg border border-border bg-bg-card px-3 py-2;
+  }
+
+  .produto-risco__rotulo {
+    @apply text-[10px] font-medium tracking-wide text-text-muted uppercase;
+  }
+
+  .produto-risco__detalhes strong {
+    @apply text-sm font-semibold text-text-primary;
+  }
+
   /* Fontes de Dados */
   .grade-fontes {
     @apply grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3;
@@ -996,6 +1056,8 @@
   .resposta-duaxis--atrasos {
     @apply w-full;
   }
+
+
 
 
 }

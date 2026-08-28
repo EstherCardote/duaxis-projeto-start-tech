@@ -411,6 +411,15 @@ async function enviarPerguntaDuaxis(campoChat) {
         dados.resposta_ia
       );
 
+    } else if (
+      nomeFerramenta === "listar_produtos_maior_risco"
+    ) {
+
+      adicionarRespostaProdutosMaiorRisco(
+        resultadoFerramenta,
+        dados.resposta_ia
+      );
+
     } else {
 
       adicionarRespostaTextoIa(
@@ -1352,6 +1361,333 @@ function montarRespostaReposicao(dados) {
     `com impacto financeiro estimado de ${impactoFormatado}. ` +
     `O risco imediato de ruptura é ${dados.risco_ruptura_imediato.toLowerCase()}.`
   );
+}
+
+function adicionarRespostaProdutosMaiorRisco(
+  dados,
+  textoIa
+) {
+
+  const container = document.getElementById(
+    "mensagens-chat-dv"
+  );
+
+  if (!container) {
+    return;
+  }
+
+
+  // ==================================================
+  // FILTRA PRODUTOS COM RISCO ACIMA DE BAIXO
+  // ==================================================
+
+  const produtosMaiorRisco =
+    dados.produtos.filter(
+      (produto) =>
+        produto.nivel_risco !== "Baixo"
+    );
+
+
+  // ==================================================
+  // CRIA HTML DOS PRODUTOS
+  // ==================================================
+
+  const linhasProdutos =
+    produtosMaiorRisco
+      .map((produto) => {
+
+        const classeNivel =
+          produto.nivel_risco
+            .toLowerCase()
+            .normalize("NFD")
+            .replace(/[\u0300-\u036f]/g, "");
+
+        return `
+          <div class="produto-risco">
+
+            <div class="produto-risco__cabecalho">
+
+              <div>
+
+                <strong class="produto-risco__nome">
+                  ${produto.nome_produto}
+                </strong>
+
+                <span class="produto-risco__id">
+                  ${produto.produto_id}
+                </span>
+
+              </div>
+
+              <span class="
+                produto-risco__nivel
+                produto-risco__nivel--${classeNivel}
+              ">
+                ${produto.nivel_risco}
+              </span>
+
+            </div>
+
+
+            <div class="produto-risco__detalhes">
+
+              <div>
+
+                <span class="produto-risco__rotulo">
+                  Cobertura
+                </span>
+
+                <strong>
+                  ${produto.cobertura_estoque_dias} dias
+                </strong>
+
+              </div>
+
+
+              <div>
+
+                <span class="produto-risco__rotulo">
+                  Lead time
+                </span>
+
+                <strong>
+                  ${produto.lead_time_dias} dias
+                </strong>
+
+              </div>
+
+
+              <div>
+
+                <span class="produto-risco__rotulo">
+                  Margem de cobertura
+                </span>
+
+                <strong>
+                  ${produto.margem_cobertura_dias} dias
+                </strong>
+
+              </div>
+
+
+              <div>
+
+                <span class="produto-risco__rotulo">
+                  Índice de cobertura
+                </span>
+
+                <strong>
+                  ${produto.indice_cobertura}
+                </strong>
+
+              </div>
+
+            </div>
+
+          </div>
+        `;
+      })
+      .join("");
+
+
+  // ==================================================
+  // CRIA LINHA DO CHAT
+  // ==================================================
+
+  const linhaResposta =
+    document.createElement("div");
+
+  linhaResposta.className =
+    "linha-chat linha-chat--duaxis";
+
+
+  const avatarDuaxis =
+    document.createElement("div");
+
+  avatarDuaxis.className =
+    "avatar-chat avatar-chat--duaxis";
+
+  avatarDuaxis.innerHTML = `
+    <i data-lucide="bot"></i>
+  `;
+
+
+  const bloco =
+    document.createElement("div");
+
+  bloco.className =
+    "resposta-duaxis resposta-duaxis--risco";
+
+
+  // ==================================================
+  // CONTEÚDO
+  // ==================================================
+
+  bloco.innerHTML = `
+
+    <section class="resposta-duaxis__secao">
+
+      <div class="resposta-duaxis__cabecalho">
+
+        <i data-lucide="triangle-alert"></i>
+
+        <span>
+          RESUMO EXECUTIVO
+        </span>
+
+      </div>
+
+      <div
+        class="
+          resposta-duaxis__conteudo
+          resposta-ia-texto
+        "
+      >
+        ${converterTextoIaParaHtml(textoIa)}
+      </div>
+
+    </section>
+
+
+    <section class="resposta-duaxis__secao">
+
+      <div class="resposta-duaxis__cabecalho">
+
+        <i data-lucide="shield-alert"></i>
+
+        <span>
+          PRODUTOS MAIS EXPOSTOS
+        </span>
+
+      </div>
+
+      <div class="resposta-duaxis__conteudo">
+
+        <div class="lista-produtos-risco">
+          ${linhasProdutos}
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <section
+      class="
+        resposta-duaxis__secao
+        resposta-duaxis__secao--confiabilidade
+      "
+    >
+
+      <div class="resposta-duaxis__cabecalho">
+
+        <i data-lucide="chart-no-axes-column"></i>
+
+        <span>
+          VISÃO GERAL DO RISCO
+        </span>
+
+      </div>
+
+      <div class="resposta-duaxis__conteudo">
+
+        <div class="confiabilidade-grade">
+
+          <div class="confiabilidade-card">
+
+            <span class="confiabilidade-card__rotulo">
+              Produtos analisados
+            </span>
+
+            <strong>
+              ${dados.total_analisados}
+            </strong>
+
+          </div>
+
+
+          <div class="confiabilidade-card">
+
+            <span class="confiabilidade-card__rotulo">
+              Risco crítico
+            </span>
+
+            <strong>
+              ${dados.total_critico}
+            </strong>
+
+          </div>
+
+
+          <div class="confiabilidade-card">
+
+            <span class="confiabilidade-card__rotulo">
+              Risco alto
+            </span>
+
+            <strong>
+              ${dados.total_alto}
+            </strong>
+
+          </div>
+
+
+          <div class="confiabilidade-card">
+
+            <span class="confiabilidade-card__rotulo">
+              Risco moderado
+            </span>
+
+            <strong>
+              ${dados.total_moderado}
+            </strong>
+
+          </div>
+
+
+          <div class="confiabilidade-card">
+
+            <span class="confiabilidade-card__rotulo">
+              Risco baixo
+            </span>
+
+            <strong>
+              ${dados.total_baixo}
+            </strong>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+  `;
+
+
+  // ==================================================
+  // ADICIONA NA TELA
+  // ==================================================
+
+  linhaResposta.appendChild(
+    avatarDuaxis
+  );
+
+  linhaResposta.appendChild(
+    bloco
+  );
+
+  container.appendChild(
+    linhaResposta
+  );
+
+  inicializarIconesLucide();
+
+  linhaResposta.scrollIntoView({
+    behavior: "smooth",
+    block: "end"
+  });
 }
 
 function adicionarRespostaPedidosAtrasados(dados, textoIa) {

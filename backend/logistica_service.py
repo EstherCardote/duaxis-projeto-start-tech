@@ -2,6 +2,7 @@ from pathlib import Path
 
 import pandas as pd
 
+from ml_service import analisar_reposicao
 
 # =========================================================
 # CAMINHO BASE DO BACKEND
@@ -270,6 +271,145 @@ def consultar_pedidos_atrasados():
 
     }
 
+# =========================================================
+# FUNÇÃO: LISTAR PRODUTOS COM MAIOR RISCO DE RUPTURA
+# =========================================================
+
+def listar_produtos_maior_risco():
+
+    produtos_analisados = []
+
+    for produto_id in produtos["id"]:
+
+        analise = analisar_reposicao(
+            produto_id
+        )
+
+        cobertura = analise[
+            "cobertura_estoque_dias"
+        ]
+
+        lead_time = analise[
+            "lead_time_dias"
+        ]
+
+        margem_cobertura = (
+            cobertura - lead_time
+        )
+
+        indice_cobertura = (
+            cobertura / lead_time
+            if lead_time > 0
+            else float("inf")
+        )
+        if indice_cobertura <= 1:
+
+            nivel_risco = "Crítico"
+
+        elif indice_cobertura <= 1.5:
+
+            nivel_risco = "Alto"
+
+        elif indice_cobertura <= 2:
+
+            nivel_risco = "Moderado"
+
+        else:
+
+            nivel_risco = "Baixo"
+            
+
+        analise_risco = {
+            "produto_id":
+                analise["produto_id"],
+
+            "nome_produto":
+                analise["nome_produto"],
+
+            "demanda_prevista":
+                analise["demanda_prevista"],
+
+            "estoque_atual":
+                analise["estoque_atual"],
+
+            "estoque_minimo":
+                analise["estoque_minimo"],
+
+            "cobertura_estoque_dias":
+                cobertura,
+
+            "lead_time_dias":
+                lead_time,
+
+            "margem_cobertura_dias":
+                round(
+                    margem_cobertura,
+                    2
+                ),
+
+            "indice_cobertura":
+                round(
+                    indice_cobertura,
+                    2
+                ),
+            "nivel_risco":
+                nivel_risco    
+        }
+
+        produtos_analisados.append(
+            analise_risco
+        )
+        produtos_analisados = sorted(
+            produtos_analisados,
+            key=lambda produto:
+                produto["indice_cobertura"]
+        )
+        
+    total_critico = sum(
+    1
+    for produto in produtos_analisados
+    if produto["nivel_risco"] == "Crítico"
+)
+
+    total_alto = sum(
+        1
+        for produto in produtos_analisados
+        if produto["nivel_risco"] == "Alto"
+    )
+
+    total_moderado = sum(
+        1
+        for produto in produtos_analisados
+        if produto["nivel_risco"] == "Moderado"
+    )
+
+    total_baixo = sum(
+        1
+        for produto in produtos_analisados
+        if produto["nivel_risco"] == "Baixo"
+    )
+
+    return {
+        "total_analisados":
+            len(produtos_analisados),
+
+        "total_critico":
+            total_critico,
+
+        "total_alto":
+            total_alto,
+
+        "total_moderado":
+            total_moderado,
+
+        "total_baixo":
+            total_baixo,
+
+        "produtos":
+            
+            produtos_analisados
+    }
+
 
 # =========================================================
 # TESTE TEMPORÁRIO
@@ -277,27 +417,48 @@ def consultar_pedidos_atrasados():
 
 if __name__ == "__main__":
 
-    resultado = consultar_pedidos_atrasados()
+    resultado = listar_produtos_maior_risco()
 
     print(
-        "Total de pedidos atualmente atrasados:",
-        resultado["total_atrasados"]
+        "Total analisados:",
+        resultado["total_analisados"]
     )
 
-    for pedido in resultado["pedidos"][:10]:
+    print(
+        "Crítico:",
+        resultado["total_critico"]
+    )
+
+    print(
+        "Alto:",
+        resultado["total_alto"]
+    )
+
+    print(
+        "Moderado:",
+        resultado["total_moderado"]
+    )
+
+    print(
+        "Baixo:",
+        
+        resultado["total_baixo"]
+    )
+
+    print("\nProdutos com maior risco:\n")
+
+    for produto in resultado["produtos"][:10]:
 
         print(
-            pedido["id_compra"],
-            "- produto:",
-            pedido["nome_produto"],
-            f"({pedido['produto_id']})",
-            "- fornecedor:",
-            
-            pedido["nome_fornecedor"],
-            f"({pedido['fornecedor_id']})",
-            "- status:",
-            pedido["status"],
-            "- atraso:",
-            pedido["dias_atraso"],
-            "dias"
+            produto["produto_id"],
+            "-",
+            produto["nome_produto"],
+            "| risco:",
+            produto["nivel_risco"],
+            "| cobertura:",
+            produto["cobertura_estoque_dias"],
+            "| lead time:",
+            produto["lead_time_dias"],
+            "| índice:",
+            produto["indice_cobertura"]
         )

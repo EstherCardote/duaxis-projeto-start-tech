@@ -10,7 +10,10 @@ from ml_service import (
     listar_produtos_reposicao
 )
 
-from logistica_service import consultar_pedidos_atrasados
+from logistica_service import (
+    consultar_pedidos_atrasados,
+    listar_produtos_maior_risco
+)
 
 # lê o .env
 from dotenv import load_dotenv
@@ -108,8 +111,32 @@ tools = [
             }
 
         }
+    },
+
+    {
+    "type": "function",
+
+    "function": {
+
+        "name": "listar_produtos_maior_risco",
+
+        "description": (
+            "Analisa todos os produtos da Urban Style e identifica "
+            "quais apresentam maior risco de ruptura de estoque. "
+            "Use quando o usuário perguntar sobre produtos com maior "
+            "risco de faltar, acabar, romper estoque ou ficar sem estoque."
+        ),
+
+        "parameters": {
+            "type": "object",
+            "properties": {},
+            "required": [],
+            "additionalProperties": False
+        }
 
     }
+}
+    
 
 ]
 
@@ -122,7 +149,10 @@ funcoes_disponiveis = {
         listar_produtos_reposicao,
 
     "consultar_pedidos_atrasados":
-        consultar_pedidos_atrasados
+        consultar_pedidos_atrasados,
+
+    "listar_produtos_maior_risco":
+    listar_produtos_maior_risco    
 
 }
 
@@ -458,6 +488,36 @@ def preparar_resultado_para_ia(
             "pedidos":
                 pedidos_para_ia
         }
+# =====================================================
+# PRODUTOS COM MAIOR RISCO DE RUPTURA
+# =====================================================
+#
+# O front-end recebe os 80 produtos completos.
+#
+# A IA recebe apenas o resumo geral da análise.
+#
+# Os produtos e indicadores individuais serão
+# apresentados visualmente pelo front-end.
+# =====================================================
+
+    if nome_funcao == "listar_produtos_maior_risco":
+
+        return {
+            "total_analisados":
+                resultado["total_analisados"],
+
+            "total_critico":
+                resultado["total_critico"],
+
+            "total_alto":
+                resultado["total_alto"],
+
+            "total_moderado":
+                resultado["total_moderado"],
+
+            "total_baixo":
+                resultado["total_baixo"]
+        }
 
 
     # =====================================================
@@ -485,6 +545,24 @@ Você é o copiloto corporativo DUAXIS.
 Ajude gestores a consultar informações financeiras
 e logísticas da empresa.
 
+Você atua exclusivamente no contexto da empresa fictícia
+Urban Style e das funcionalidades do sistema DUAXIS.
+
+Não responda perguntas de conhecimento geral, entretenimento,
+esportes, política, ciência, cultura, clima, notícias,
+curiosidades ou qualquer outro assunto que não esteja
+relacionado à Urban Style ou ao DUAXIS.
+
+Se o usuário fizer uma pergunta fora desse escopo,
+não responda ao conteúdo da pergunta.
+
+Responda apenas:
+
+"Posso ajudar apenas com informações e análises relacionadas à Urban Style e às funcionalidades do DUAXIS."
+
+Perguntas sobre o próprio DUAXIS, suas funcionalidades,
+capacidades ou forma de funcionamento estão dentro do escopo.
+
 Sempre utilize as ferramentas disponíveis quando
 a pergunta depender de dados da empresa.
 
@@ -511,9 +589,27 @@ e listas estruturadas.
 Use a resposta textual apenas para resumir e explicar
 os principais resultados em parágrafos curtos.
 
-Quando houver muitos registros, apresente um resumo e
-destaque apenas os registros enviados pela ferramenta,
-informando que eles representam uma seleção da análise.
+Evite repetir na resposta textual os mesmos dados que
+serão apresentados pelo front-end.
+
+Não enumere produtos, pedidos, fornecedores ou outros
+registros quando esses registros já estiverem presentes
+no resultado estruturado da ferramenta.
+
+Não repita individualmente valores como estoque, cobertura,
+lead time, quantidade, impacto financeiro, atraso ou outros
+indicadores que serão exibidos nos cards ou listas.
+
+Priorize conclusões gerais, padrões e interpretações
+sustentadas pelos dados retornados pela ferramenta.
+
+Quando houver níveis de risco, destaque principalmente
+a situação geral da análise, como a existência ou ausência
+de níveis críticos, altos ou moderados
+
+Quando houver muitos registros, apresente apenas um resumo
+da situação geral. Os registros detalhados serão apresentados
+pelo front-end e não precisam ser enumerados na resposta textual.
 """
 
         },
@@ -653,6 +749,7 @@ informando que eles representam uma seleção da análise.
         if nome_funcao in [
             "listar_produtos_reposicao",
             "consultar_pedidos_atrasados"
+            "listar_produtos_maior_risco"
 ]:
             resultado = funcao()
 
@@ -752,28 +849,18 @@ informando que eles representam uma seleção da análise.
 if __name__ == "__main__":
 
     resultado = processar_pergunta_com_tools(
-        "Quais produtos precisam de reposição?"
+        "Quais produtos têm maior risco de ruptura?"
     )
 
     print(
+        "Resposta IA:",
         resultado["resposta_ia"]
     )
 
     print(
-        "Ferramenta:",
+        "\nFerramenta:",
         resultado[
             "ferramentas_utilizadas"
         ][0]["ferramenta"]
-    )
-
-    print(
-        "Quantidade completa:",
-        len(
-            resultado[
-                "ferramentas_utilizadas"
-            ][0]["resultado"][
-                "produtos_reposicao"
-            ]
-        )
     )
     
