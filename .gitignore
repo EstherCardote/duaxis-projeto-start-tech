@@ -1,7 +1,19 @@
-node_modules
+# dependencies / virtualenv
+node_modules/
 .venv/
+
+# editor
 .vscode/
-frontend/dist/css/styles.css
-backend/__pycache__/
-*.pyc
+
+# secrets
 .env
+.env.*
+!.env.example
+
+# python
+__pycache__/
+*.py[cod]
+*.pyo
+
+# css gerado pelo Tailwind
+frontend/dist/css/styles.css
