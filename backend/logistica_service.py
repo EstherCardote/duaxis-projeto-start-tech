@@ -55,7 +55,7 @@ movimentacoes_estoque = pd.read_csv(
 # FUNÇÃO: CONSULTAR PEDIDOS ATUALMENTE ATRASADOS
 # =========================================================
 
-def consultar_pedidos_atrasados():
+def consultar_pedidos_atrasados(data_referencia=None):
 
     # Cria uma cópia da base original
     dados = compras.copy()
@@ -75,19 +75,17 @@ def consultar_pedidos_atrasados():
     )
 
 
-    # -----------------------------------------------------
-    # DATA DE REFERÊNCIA
-    # -----------------------------------------------------
-    #
-    # Nossa base simulada termina em 31/07/2026.
-    #
-    # Portanto, analisamos quais pedidos estavam
-    # atrasados nessa data.
-    # -----------------------------------------------------
+    if data_referencia is None:
 
-    data_referencia = pd.Timestamp(
-        "2026-07-31"
-    )
+        data_referencia = pd.Timestamp(
+            "2026-07-31"
+        )
+
+    else:
+
+        data_referencia = pd.Timestamp(
+            data_referencia
+        )
 
 
     # -----------------------------------------------------
@@ -123,13 +121,11 @@ def consultar_pedidos_atrasados():
 
         (
             dados["data_entrega_real"].isna()
-        )
-
-        &
-
-        (
-            dados["status"].isin(
-                status_abertos
+            |
+            (
+                dados["data_entrega_real"]
+                >
+                data_referencia
             )
         )
 
@@ -284,7 +280,9 @@ def consultar_pedidos_atrasados():
             len(pedidos),
 
         "data_referencia":
-            "2026-07-31",
+            data_referencia.strftime(
+                "%Y-%m-%d"
+    ),
 
         "pedidos":
             pedidos
@@ -1042,17 +1040,23 @@ def listar_produtos_baixo_giro(data_inicio=None,
 
 if __name__ == "__main__":
 
-    resultado = listar_produtos_baixo_giro(
-        data_inicio="2025-11",
-        data_fim="2026-02"
+    resultado = consultar_pedidos_atrasados(
+        data_referencia="2023-10-22"
     )
 
     print(
-        "Total candidatos:",
-        resultado["total_candidatos"]
+        "\nData de referência:",
+        resultado["data_referencia"]
     )
 
     print(
-        "Primeiro candidato:",
-        resultado["produtos"][0]
+        "Total atrasados:",
+        resultado["total_atrasados"]
     )
+
+    print(
+        "\nPedidos:"
+    )
+
+    for pedido in resultado["pedidos"]:
+        print(pedido)
