@@ -99,20 +99,36 @@ tools = [
             "name": "consultar_pedidos_atrasados",
 
             "description": (
-                "Consulta os pedidos de compra atualmente "
-                "atrasados, ou seja, pedidos ainda não recebidos "
-                "cuja data prevista de entrega já foi ultrapassada."
+                "Consulta pedidos de compra que estavam atrasados "
+                "em uma determinada data de referência. "
+                "Quando o usuário informar uma data, envie "
+                "data_referencia no formato YYYY-MM-DD. "
+                "Quando nenhuma data for informada, não envie "
+                "data_referencia."
             ),
 
             "parameters": {
-                "type": "object",
-                "properties": {},
-                "required": [],
-                "additionalProperties": False
-            }
 
+            "type": "object",
+
+            "properties": {
+
+                "data_referencia": {
+                    "type": "string",
+                    "description": (
+                        "Data em que deve ser verificada a situação "
+                        "dos pedidos, no formato YYYY-MM-DD."
+                    )
+                }
+
+            },
+
+            "required": [],
+
+            "additionalProperties": False
         }
-    },
+    }
+},
 
     {
     "type": "function",
@@ -859,7 +875,6 @@ não tiver analisado e retornado explicitamente essa recomendação.
         # -------------------------------------------------
         if nome_funcao in [
             "listar_produtos_reposicao",
-            "consultar_pedidos_atrasados",
             "listar_produtos_maior_risco"
 ]:
             resultado = funcao()

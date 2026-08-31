@@ -2095,7 +2095,7 @@ function adicionarRespostaPedidosAtrasados(dados, textoIa, dataHora) {
       <div class="resposta-duaxis__conteudo">
 
         <p class="reposicao-intro">
-          Os pedidos atualmente com maior atraso são:
+          Os pedidos com maior atraso na data analisada são:
         </p>
 
 

@@ -75,7 +75,11 @@ def consultar_pedidos_atrasados(data_referencia=None):
     )
 
 
-    if data_referencia is None:
+    if (
+        data_referencia is None
+        or pd.isna(data_referencia)
+        or str(data_referencia).strip() == ""
+    ):
 
         data_referencia = pd.Timestamp(
             "2026-07-31"
