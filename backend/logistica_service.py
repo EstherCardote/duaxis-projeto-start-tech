@@ -293,6 +293,280 @@ def consultar_pedidos_atrasados(data_referencia=None):
 
     }
 
+def listar_fornecedores_atrasos(
+    data_inicio=None,
+    data_fim=None
+):
+
+    dados = compras.copy()
+
+    dados["data_compra"] = pd.to_datetime(
+        dados["data_compra"]
+    )
+
+    dados["data_prevista_entrega"] = pd.to_datetime(
+        dados["data_prevista_entrega"]
+    )
+
+    dados["data_entrega_real"] = pd.to_datetime(
+        dados["data_entrega_real"],
+        errors="coerce"
+    )
+
+
+    # =====================================================
+    # DEFINE O PERÍODO DA ANÁLISE
+    # =====================================================
+
+    periodo_base = obter_periodo_base(
+        dados,
+        "data_compra"
+    )
+
+    periodo_consulta = resolver_periodo(
+        data_minima=periodo_base["data_minima"],
+        data_maxima=periodo_base["data_maxima"],
+        data_inicio=data_inicio,
+        data_fim=data_fim,
+        meses_padrao=3
+    )
+
+    periodo_inicio = (
+        periodo_consulta["periodo_inicio"]
+    )
+
+    periodo_fim = (
+        periodo_consulta["periodo_fim"]
+    )
+
+
+    # =====================================================
+    # FILTRA AS COMPRAS REALIZADAS NO PERÍODO
+    # =====================================================
+
+    dados["periodo_compra"] = (
+        dados["data_compra"]
+        .dt.to_period("M")
+    )
+
+    compras_periodo = dados[
+        (
+            dados["periodo_compra"]
+            >= periodo_inicio
+        )
+        &
+        (
+            dados["periodo_compra"]
+            <= periodo_fim
+        )
+    ].copy()
+
+
+    # =====================================================
+    # IDENTIFICA COMPRAS ENTREGUES COM ATRASO
+    # =====================================================
+
+    compras_periodo[
+        "entregue_com_atraso"
+    ] = (
+        compras_periodo[
+            "data_entrega_real"
+        ].notna()
+        &
+        (
+            compras_periodo[
+                "data_entrega_real"
+            ]
+            >
+            compras_periodo[
+                "data_prevista_entrega"
+            ]
+        )
+    )
+
+
+    # =====================================================
+    # CALCULA DIAS DE ATRASO
+    # =====================================================
+
+    compras_periodo[
+        "dias_atraso"
+    ] = 0
+
+    compras_periodo.loc[
+        compras_periodo[
+            "entregue_com_atraso"
+        ],
+        "dias_atraso"
+    ] = (
+        compras_periodo.loc[
+            compras_periodo[
+                "entregue_com_atraso"
+            ],
+            "data_entrega_real"
+        ]
+        -
+        compras_periodo.loc[
+            compras_periodo[
+                "entregue_com_atraso"
+            ],
+            "data_prevista_entrega"
+        ]
+    ).dt.days
+
+
+    # =====================================================
+    # AGRUPA POR FORNECEDOR
+    # =====================================================
+
+    resumo = (
+        compras_periodo
+        .groupby(
+            "fornecedor_id",
+            as_index=False
+        )
+        .agg(
+            total_pedidos=(
+                "id_compra",
+                "count"
+            ),
+
+            pedidos_atrasados=(
+                "entregue_com_atraso",
+                "sum"
+            ),
+
+            media_dias_atraso=(
+                "dias_atraso",
+                lambda valores:
+                    valores[
+                        valores > 0
+                    ].mean()
+            ),
+
+            maior_atraso_dias=(
+                "dias_atraso",
+                "max"
+            )
+        )
+    )
+
+
+    # =====================================================
+    # CALCULA TAXA DE ATRASO
+    # =====================================================
+
+    resumo[
+        "taxa_atraso_percentual"
+    ] = (
+        resumo[
+            "pedidos_atrasados"
+        ]
+        /
+        resumo[
+            "total_pedidos"
+        ]
+        *
+        100
+    ).round(2)
+
+
+    resumo[
+        "media_dias_atraso"
+    ] = (
+        resumo[
+            "media_dias_atraso"
+        ]
+        .fillna(0)
+        .round(2)
+    )
+
+
+    # =====================================================
+    # ADICIONA NOME DO FORNECEDOR
+    # =====================================================
+
+    fornecedores_aux = fornecedores[
+        [
+            "id",
+            "nome_fantasia"
+        ]
+    ].rename(
+        columns={
+            "id":
+                "fornecedor_id",
+
+            "nome_fantasia":
+                "nome_fornecedor"
+        }
+    )
+
+    resumo = resumo.merge(
+        fornecedores_aux,
+        on="fornecedor_id",
+        how="left"
+    )
+
+
+    # =====================================================
+    # ORDENA PELA TAXA DE ATRASO
+    # =====================================================
+
+    resumo = resumo.sort_values(
+        by=[
+            "taxa_atraso_percentual",
+            "pedidos_atrasados",
+            "media_dias_atraso"
+        ],
+        ascending=[
+            False,
+            False,
+            False
+        ]
+    )
+
+
+    resumo = resumo.reset_index(
+        drop=True
+    )
+
+    resumo["posicao"] = (
+        resumo.index + 1
+    )
+
+
+    # =====================================================
+    # ORGANIZA COLUNAS
+    # =====================================================
+
+    resumo = resumo[
+        [
+            "posicao",
+            "fornecedor_id",
+            "nome_fornecedor",
+            "total_pedidos",
+            "pedidos_atrasados",
+            "taxa_atraso_percentual",
+            "media_dias_atraso",
+            "maior_atraso_dias"
+        ]
+    ]
+
+
+    return {
+
+        "periodo_referencia":
+            f"{periodo_inicio} a {periodo_fim}",
+
+        "total_fornecedores":
+            len(resumo),
+
+        "fornecedores":
+            resumo.to_dict(
+                orient="records"
+            )
+    }
+
 # =========================================================
 # FUNÇÃO: LISTAR PRODUTOS COM MAIOR RISCO DE RUPTURA
 # =========================================================
@@ -1044,23 +1318,101 @@ def listar_produtos_baixo_giro(data_inicio=None,
 
 if __name__ == "__main__":
 
-    resultado = consultar_pedidos_atrasados(
-        data_referencia="2023-10-22"
+    dados_teste = compras.copy()
+
+    dados_teste[
+        "data_compra"
+    ] = pd.to_datetime(
+        dados_teste["data_compra"]
+    )
+
+    dados_teste[
+        "data_prevista_entrega"
+    ] = pd.to_datetime(
+        dados_teste[
+            "data_prevista_entrega"
+        ]
+    )
+
+    dados_teste[
+        "data_entrega_real"
+    ] = pd.to_datetime(
+        dados_teste[
+            "data_entrega_real"
+        ],
+        errors="coerce"
+    )
+
+
+    # -----------------------------------------------------
+    # FILTRA FOR006 + JAN A JUN/2026
+    # -----------------------------------------------------
+
+    fornecedor_teste = dados_teste[
+        (
+            dados_teste[
+                "fornecedor_id"
+            ] == "FOR006"
+        )
+        &
+        (
+            dados_teste[
+                "data_compra"
+            ] >= "2026-01-01"
+        )
+        &
+        (
+            dados_teste[
+                "data_compra"
+            ] <= "2026-06-30"
+        )
+    ].copy()
+
+
+    fornecedor_teste[
+        "dias_atraso"
+    ] = (
+        fornecedor_teste[
+            "data_entrega_real"
+        ]
+        -
+        fornecedor_teste[
+            "data_prevista_entrega"
+        ]
+    ).dt.days
+
+
+    atrasados = fornecedor_teste[
+        fornecedor_teste[
+            "dias_atraso"
+        ] > 0
+    ]
+
+
+    print(
+        "\nTotal de pedidos FOR006:",
+        len(fornecedor_teste)
     )
 
     print(
-        "\nData de referência:",
-        resultado["data_referencia"]
+        "Pedidos atrasados:",
+        len(atrasados)
     )
 
     print(
-        "Total atrasados:",
-        resultado["total_atrasados"]
+        "\nPedidos que atrasaram:"
     )
 
     print(
-        "\nPedidos:"
+        atrasados[
+            [
+                "id_compra",
+                "data_compra",
+                "data_prevista_entrega",
+                "data_entrega_real",
+                "dias_atraso"
+            ]
+        ].to_string(
+            index=False
+        )
     )
-
-    for pedido in resultado["pedidos"]:
-        print(pedido)

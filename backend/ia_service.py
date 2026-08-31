@@ -13,7 +13,8 @@ from ml_service import (
 from logistica_service import (
     consultar_pedidos_atrasados,
     listar_produtos_maior_risco,
-    listar_produtos_baixo_giro
+    listar_produtos_baixo_giro,
+    listar_fornecedores_atrasos
 )
 
 # lê o .env
@@ -196,8 +197,54 @@ tools = [
             "additionalProperties": False
         }
     }
-}
     
+},
+{
+    "type": "function",
+
+    "function": {
+
+        "name": "listar_fornecedores_atrasos",
+
+        "description": (
+            "Analisa o desempenho dos fornecedores da Urban Style "
+            "em relação a atrasos nas entregas. "
+            "Use quando o usuário perguntar quais fornecedores "
+            "mais atrasaram entregas, quais possuem maior taxa de atraso "
+            "ou sobre o desempenho dos fornecedores em relação a prazos. "
+            "Quando o usuário informar um período, envie data_inicio "
+            "e data_fim no formato YYYY-MM."
+        ),
+
+        "parameters": {
+
+            "type": "object",
+
+            "properties": {
+
+                "data_inicio": {
+                    "type": "string",
+                    "description": (
+                        "Mês inicial das compras analisadas "
+                        "no formato YYYY-MM."
+                    )
+                },
+
+                "data_fim": {
+                    "type": "string",
+                    "description": (
+                        "Mês final das compras analisadas "
+                        "no formato YYYY-MM."
+                    )
+                }
+            },
+
+            "required": [],
+
+            "additionalProperties": False
+        }
+    }
+}   
 
 ]
 
@@ -216,7 +263,10 @@ funcoes_disponiveis = {
     listar_produtos_maior_risco,
 
     "listar_produtos_baixo_giro":
-    listar_produtos_baixo_giro   
+    listar_produtos_baixo_giro,
+
+    "listar_fornecedores_atrasos":
+    listar_fornecedores_atrasos   
 
 }
 
@@ -303,6 +353,16 @@ Responda sempre em JSON utilizando exatamente esta estrutura:
 }
 
 Quando não houver um produto específico, produto_id deve ser null.
+
+Quando a ferramenta listar_fornecedores_atrasos for utilizada,
+considere que o ranking principal é baseado na taxa percentual
+de pedidos entregues com atraso.
+
+Não confunda maior taxa de atraso com maior quantidade absoluta
+de pedidos atrasados.
+
+Use expressões como "maior taxa de atraso" ou
+"maior percentual de atrasos" ao interpretar o ranking.
 """
 
             },
@@ -634,6 +694,76 @@ def preparar_resultado_para_ia(
                 "Os resultados representam candidatos a menor giro "
                 "e não uma classificação definitiva de estoque parado."
             )
+    }
+
+    if nome_funcao == "listar_fornecedores_atrasos":
+
+        fornecedores_resultado = resultado[
+            "fornecedores"
+        ]
+
+        principais_fornecedores = []
+
+        for fornecedor in (
+            fornecedores_resultado[:5]
+        ):
+
+            principais_fornecedores.append(
+                {
+                    "fornecedor_id":
+                        fornecedor[
+                            "fornecedor_id"
+                        ],
+
+                    "nome_fornecedor":
+                        fornecedor[
+                            "nome_fornecedor"
+                        ],
+
+                    "total_pedidos":
+                        fornecedor[
+                            "total_pedidos"
+                        ],
+
+                    "pedidos_atrasados":
+                        fornecedor[
+                            "pedidos_atrasados"
+                        ],
+
+                    "taxa_atraso_percentual":
+                        fornecedor[
+                            "taxa_atraso_percentual"
+                        ],
+
+                    "media_dias_atraso":
+                        fornecedor[
+                            "media_dias_atraso"
+                        ]
+                }
+            )
+
+
+    return {
+
+        "periodo_referencia":
+            resultado[
+                "periodo_referencia"
+            ],
+
+        "total_fornecedores":
+            resultado[
+                "total_fornecedores"
+            ],
+
+        "criterio_ranking":
+            (
+                "Fornecedores ordenados principalmente "
+                "pela taxa percentual de pedidos entregues "
+                "com atraso no período analisado."
+            ),
+
+        "principais_fornecedores":
+            principais_fornecedores
     }  
 
 
