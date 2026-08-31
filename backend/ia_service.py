@@ -75,10 +75,14 @@ tools = [
             "name": "listar_produtos_reposicao",
 
             "description": (
-                "Analisa todos os produtos e identifica quais "
-                "precisam de reposição. Use quando o usuário "
-                "perguntar de forma geral quais produtos, itens "
-                "ou mercadorias precisam ser comprados ou repostos."
+                "Analisa todos os produtos da Urban Style e identifica quais "
+                "precisam de reposição, suas quantidades recomendadas e o "
+                "impacto financeiro estimado das reposições. "
+                "Use quando o usuário perguntar de forma geral quais produtos, "
+                "itens ou mercadorias precisam ser comprados ou repostos, "
+                "quantos produtos precisam de reposição, quanto custaria realizar "
+                "as reposições recomendadas ou qual é o impacto financeiro "
+                "total da reposição de estoque."
             ),
 
             "parameters": {
@@ -509,51 +513,15 @@ def preparar_resultado_para_ia(
 
     if nome_funcao == "listar_produtos_reposicao":
 
-        produtos_reposicao = resultado[
-            "produtos_reposicao"
-        ]
-
-        impacto_total = sum(
-            produto["impacto_financeiro"]
-            for produto in produtos_reposicao
-        )
-
-        principais_produtos = []
-
-        for produto in produtos_reposicao[:5]:
-
-            principais_produtos.append(
-                {
-                    "produto_id":
-                        produto["produto_id"],
-
-                    "nome_produto":
-                        produto["nome_produto"],
-
-                    "quantidade_recomendada":
-                        produto["quantidade_recomendada"],
-
-                    "impacto_financeiro":
-                        produto["impacto_financeiro"]
-                }
-            )
-
-
         return {
             "total_analisados":
                 resultado["total_analisados"],
 
             "total_produtos_reposicao":
-                len(produtos_reposicao),
+                resultado["total_reposicao"],
 
             "impacto_total_estimado":
-                round(
-                    impacto_total,
-                    2
-                ),
-
-            "principais_produtos":
-                principais_produtos
+                resultado["impacto_financeiro_total"]
         }
 
 
@@ -861,6 +829,17 @@ pelo front-end e não precisam ser enumerados na resposta textual.
 Quando a ferramenta listar_produtos_baixo_giro for utilizada,
 trate os resultados como candidatos a menor giro, e não como
 uma classificação definitiva de produtos encalhados ou estoque parado.
+
+Quando a ferramenta listar_produtos_reposicao for utilizada,
+não enumere os produtos individualmente na resposta textual,
+mesmo que os principais produtos sejam fornecidos no contexto.
+
+O front-end já exibirá os produtos, quantidades e impactos
+financeiros individuais.
+
+Na resposta textual, informe apenas os resultados agregados
+relevantes para a pergunta, como quantidade de produtos que
+precisam de reposição e impacto financeiro total estimado.
 
 Explique apenas os critérios explicitamente retornados pela ferramenta.
 

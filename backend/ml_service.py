@@ -201,17 +201,107 @@ def listar_produtos_reposicao():
                 resultado
             )
 
-    produtos_reposicao.sort(
+        produtos_reposicao.sort(
         key=lambda produto:
         produto["quantidade_recomendada"],
         reverse=True
     )
 
+    impacto_financeiro_total = sum(
+    produto["impacto_financeiro"]
+    for produto in produtos_reposicao
+)
+
+    impacto_financeiro_total = round(
+    impacto_financeiro_total,
+    2
+)
+
     return {
-    "total_analisados": len(produtos),
-    "produtos_reposicao": produtos_reposicao
+    "total_analisados":
+        len(produtos),
+
+    "total_reposicao":
+        len(produtos_reposicao),
+
+    "impacto_financeiro_total":
+        impacto_financeiro_total,
+
+    "produtos_reposicao":
+        produtos_reposicao
 }
-    
+
+# TESTE TEMPORARIO
+if __name__ == "__main__":
+
+    total_independente = 0
+    produtos_com_reposicao = 0
+
+    for produto_id in produtos["id"]:
+
+        analise = analisar_reposicao(
+            produto_id
+        )
+
+        if (
+            analise["quantidade_recomendada"]
+            > 0
+        ):
+
+            produtos_com_reposicao += 1
+
+            impacto_calculado = (
+                analise["quantidade_recomendada"]
+                *
+                analise["custo_base"]
+            )
+
+            impacto_calculado = round(
+                impacto_calculado,
+                2
+            )
+
+            if (
+                impacto_calculado
+                != analise["impacto_financeiro"]
+            ):
+
+                print(
+                    "DIVERGÊNCIA:",
+                    produto_id,
+                    impacto_calculado,
+                    analise["impacto_financeiro"]
+                )
+
+            total_independente += (
+                impacto_calculado
+            )
 
 
+    total_independente = round(
+        total_independente,
+        2
+    )
 
+
+    print(
+        "\nProdutos com reposição:",
+        produtos_com_reposicao
+    )
+
+    print(
+        "Impacto total independente:",
+        total_independente
+    )
+
+
+    resultado_agrupado = (
+        listar_produtos_reposicao()
+    )
+
+    print(
+        "Impacto retornado pela função:",
+        resultado_agrupado[
+            "impacto_financeiro_total"
+        ]
+    )

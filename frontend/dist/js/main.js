@@ -613,26 +613,22 @@ function adicionarRespostaListaReposicao(
   }
 
   const produtos =
-    dados.produtos_reposicao;
+  dados.produtos_reposicao || [];
 
-  const impactoTotal =
-    produtos.reduce(
-      (total, produto) =>
-        total + produto.impacto_financeiro,
-      0
-    );
+const impactoTotal =
+  dados.impacto_financeiro_total || 0;
 
-  const impactoTotalFormatado =
-    impactoTotal.toLocaleString(
-      "pt-BR",
-      {
-        style: "currency",
-        currency: "BRL"
-      }
-    );
+const impactoTotalFormatado =
+  impactoTotal.toLocaleString(
+    "pt-BR",
+    {
+      style: "currency",
+      currency: "BRL"
+    }
+  );
 
-  const totalProdutos =
-    produtos.length;
+const totalProdutos =
+  dados.total_reposicao || 0;
 
   const produtosPrincipais =
     produtos.slice(0, 5);
