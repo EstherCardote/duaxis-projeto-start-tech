@@ -644,7 +644,7 @@
   }
 
   .mensagem-chat {
-    @apply max-w-[min(100%, 36rem)] rounded-2xl px-4 py-3 text-sm leading-relaxed;
+    @apply max-w-[min(100%,36rem)] rounded-2xl px-4 py-3 text-sm leading-relaxed;
   }
 
   .mensagem-chat--usuario {
@@ -1060,14 +1060,28 @@
   .resposta-duaxis__identificacao {
     display: flex;
     flex-direction: column;
+    align-items: flex-start;
     gap: 2px;
   }
 
   .resposta-duaxis__data {
+    display: block;
     font-size: 11px;
     font-weight: 400;
     opacity: 0.7;
     white-space: nowrap;
+  }
+
+  .mensagem-chat--usuario {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .mensagem-chat__data {
+    margin-top: 4px;
+    font-size: 11px;
+    font-weight: 400;
+    opacity: 0.75;
   }
 
 

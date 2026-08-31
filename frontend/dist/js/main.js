@@ -311,9 +311,10 @@ async function enviarPerguntaDuaxis(campoChat) {
     return;
   }
 
-  adicionarMensagemUsuario(
-    pergunta
-  );
+  const mensagemUsuario =
+    adicionarMensagemUsuario(
+      pergunta
+    );
 
   campoChat.value = "";
 
@@ -345,6 +346,10 @@ async function enviarPerguntaDuaxis(campoChat) {
     console.log(
       "Resposta do DUAXIS:",
       dados
+    );
+    atualizarDataHoraMensagemUsuario(
+      mensagemUsuario,
+      dados.data_hora_pergunta
     );
 
 
@@ -1017,8 +1022,37 @@ function adicionarMensagemUsuario(texto) {
   linhaMensagem.className = "linha-chat linha-chat--usuario";
 
   const mensagem = document.createElement("div");
-  mensagem.className = "mensagem-chat mensagem-chat--usuario";
-  mensagem.textContent = texto;
+
+  mensagem.className =
+    "mensagem-chat mensagem-chat--usuario";
+
+
+  const textoMensagem =
+    document.createElement("div");
+
+  textoMensagem.className =
+    "mensagem-chat__texto";
+
+  textoMensagem.textContent =
+    texto;
+
+
+  const dataMensagem =
+    document.createElement("span");
+
+  dataMensagem.className =
+    "mensagem-chat__data";
+
+  dataMensagem.hidden = true;
+
+
+  mensagem.appendChild(
+    textoMensagem
+  );
+
+  mensagem.appendChild(
+    dataMensagem
+  );
 
   const avatar = document.createElement("div");
   avatar.className = "avatar-chat avatar-chat--usuario";
@@ -1034,6 +1068,24 @@ function adicionarMensagemUsuario(texto) {
     behavior: "smooth",
     block: "end"
   });
+  return dataMensagem;
+}
+
+function atualizarDataHoraMensagemUsuario(
+  elementoData,
+  dataHora
+) {
+
+  if (!elementoData || !dataHora) {
+    return;
+  }
+
+  elementoData.textContent =
+    formatarDataHoraChat(
+      dataHora
+    );
+
+  elementoData.hidden = false;
 }
 
 function adicionarMensagemSistema(texto) {
