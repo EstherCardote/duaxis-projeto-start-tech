@@ -964,9 +964,5 @@ if __name__ == "__main__":
 )
 
 print("\nResposta IA:\n")
-print(resultado["resposta_ia"])
 
 print("\nFerramenta utilizada:\n")
-print(
-    resultado["ferramentas_utilizadas"][0]["ferramenta"]
-)
