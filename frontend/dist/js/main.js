@@ -355,7 +355,8 @@ async function enviarPerguntaDuaxis(campoChat) {
     if (dados.tipo_resposta === "texto") {
 
       adicionarRespostaTextoIa(
-        dados.resposta_ia
+        dados.resposta_ia,
+        dados.data_hora_pergunta
       );
 
       return;
@@ -369,7 +370,8 @@ async function enviarPerguntaDuaxis(campoChat) {
 
       adicionarRespostaTextoIa(
         dados.resposta_ia ||
-        "Não consegui apresentar essa resposta."
+        "Não consegui apresentar essa resposta.",
+        dados.data_hora_pergunta
       );
 
       return;
@@ -390,7 +392,8 @@ async function enviarPerguntaDuaxis(campoChat) {
 
       adicionarRespostaDuaxis(
         resultadoFerramenta,
-        dados.resposta_ia
+        dados.resposta_ia,
+        dados.data_hora_pergunta
       );
 
     } else if (
@@ -399,7 +402,8 @@ async function enviarPerguntaDuaxis(campoChat) {
 
       adicionarRespostaListaReposicao(
         resultadoFerramenta,
-        dados.resposta_ia
+        dados.resposta_ia,
+        dados.data_hora_pergunta
       );
 
     } else if (
@@ -408,7 +412,8 @@ async function enviarPerguntaDuaxis(campoChat) {
 
       adicionarRespostaPedidosAtrasados(
         resultadoFerramenta,
-        dados.resposta_ia
+        dados.resposta_ia,
+        dados.data_hora_pergunta
       );
 
     } else if (
@@ -417,14 +422,16 @@ async function enviarPerguntaDuaxis(campoChat) {
 
       adicionarRespostaProdutosMaiorRisco(
         resultadoFerramenta,
-        dados.resposta_ia
+        dados.resposta_ia,
+        dados.data_hora_pergunta
       );
 
     } else {
 
       adicionarRespostaTextoIa(
         dados.resposta_ia ||
-        "Não consegui apresentar essa resposta."
+        "Não consegui apresentar essa resposta.",
+        dados.data_hora_pergunta
       );
 
     }
@@ -441,6 +448,26 @@ async function enviarPerguntaDuaxis(campoChat) {
       "Não foi possível consultar os dados neste momento."
     );
   }
+}
+
+function formatarDataHoraChat(dataHora) {
+
+  if (!dataHora) {
+    return "";
+  }
+
+  const data = new Date(dataHora);
+
+  return data.toLocaleString(
+    "pt-BR",
+    {
+      day: "2-digit",
+      month: "2-digit",
+      year: "numeric",
+      hour: "2-digit",
+      minute: "2-digit"
+    }
+  );
 }
 
 function converterTextoIaParaHtml(texto) {
@@ -466,7 +493,7 @@ function converterTextoIaParaHtml(texto) {
     );
 }
 
-function adicionarRespostaTextoIa(texto) {
+function adicionarRespostaTextoIa(texto, dataHora) {
 
   const container = document.getElementById(
     "mensagens-chat-dv"
@@ -508,9 +535,17 @@ function adicionarRespostaTextoIa(texto) {
 
         <i data-lucide="sparkles"></i>
 
-        <span>
-          DUAXIS
-        </span>
+        <div class="resposta-duaxis__identificacao">
+
+          <span>
+            DUAXIS
+          </span>
+
+          <span class="resposta-duaxis__data">
+            ${formatarDataHoraChat(dataHora)}
+          </span>
+
+        </div>
 
       </div>
 
@@ -550,7 +585,8 @@ function adicionarRespostaTextoIa(texto) {
 
 function adicionarRespostaListaReposicao(
   dados,
-  textoIa
+  textoIa,
+  dataHora
 ) {
 
   const container = document.getElementById(
@@ -696,9 +732,22 @@ function adicionarRespostaListaReposicao(
     <section class="resposta-duaxis__secao">
 
       <div class="resposta-duaxis__cabecalho">
+
         <i data-lucide="package-search"></i>
-        <span>RESUMO EXECUTIVO</span>
-      </div>
+
+        <div class="resposta-duaxis__identificacao">
+
+          <span>
+            RESUMO EXECUTIVO
+          </span>
+
+          <span class="resposta-duaxis__data">
+            ${formatarDataHoraChat(dataHora)}
+          </span>
+
+        </div>
+
+      </div>  
 
       <div
         class="
@@ -1020,7 +1069,7 @@ function adicionarMensagemSistema(texto) {
   });
 }
 
-function adicionarRespostaDuaxis(dados, textoIa) {
+function adicionarRespostaDuaxis(dados, textoIa, dataHora) {
 
   const container = document.getElementById(
     "mensagens-chat-dv"
@@ -1074,8 +1123,21 @@ function adicionarRespostaDuaxis(dados, textoIa) {
         <section class="resposta-duaxis__secao">
 
             <div class="resposta-duaxis__cabecalho">
-                <i data-lucide="file-text"></i>
-                <span>RESUMO EXECUTIVO</span>
+
+              <i data-lucide="package-search"></i>
+
+              <div class="resposta-duaxis__identificacao">
+
+                <span>
+                  RESUMO EXECUTIVO
+                </span>
+
+                <span class="resposta-duaxis__data">
+                  ${formatarDataHoraChat(dataHora)}
+                </span>
+
+              </div>
+
             </div>
 
             <div
@@ -1365,7 +1427,8 @@ function montarRespostaReposicao(dados) {
 
 function adicionarRespostaProdutosMaiorRisco(
   dados,
-  textoIa
+  textoIa,
+  dataHora
 ) {
 
   const container = document.getElementById(
@@ -1529,11 +1592,19 @@ function adicionarRespostaProdutosMaiorRisco(
 
       <div class="resposta-duaxis__cabecalho">
 
-        <i data-lucide="triangle-alert"></i>
+        <i data-lucide="package-search"></i>
 
-        <span>
-          RESUMO EXECUTIVO
-        </span>
+        <div class="resposta-duaxis__identificacao">
+
+          <span>
+            RESUMO EXECUTIVO
+          </span>
+
+          <span class="resposta-duaxis__data">
+            ${formatarDataHoraChat(dataHora)}
+          </span>
+
+        </div>
 
       </div>
 
@@ -1690,7 +1761,7 @@ function adicionarRespostaProdutosMaiorRisco(
   });
 }
 
-function adicionarRespostaPedidosAtrasados(dados, textoIa) {
+function adicionarRespostaPedidosAtrasados(dados, textoIa, dataHora) {
 
   const container = document.getElementById(
     "mensagens-chat-dv"
@@ -1929,11 +2000,19 @@ function adicionarRespostaPedidosAtrasados(dados, textoIa) {
 
       <div class="resposta-duaxis__cabecalho">
 
-        <i data-lucide="truck"></i>
+        <i data-lucide="package-search"></i>
 
-        <span>
-          RESUMO EXECUTIVO
-        </span>
+        <div class="resposta-duaxis__identificacao">
+
+          <span>
+            RESUMO EXECUTIVO
+          </span>
+
+          <span class="resposta-duaxis__data">
+            ${formatarDataHoraChat(dataHora)}
+          </span>
+
+        </div>
 
       </div>
 

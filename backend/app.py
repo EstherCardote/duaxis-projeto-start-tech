@@ -1,6 +1,7 @@
 import sys
 from pathlib import Path
-
+from datetime import datetime
+from zoneinfo import ZoneInfo
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
@@ -45,7 +46,22 @@ def previsao_produto(produto_id: str):
 
 @app.post("/api/chat")
 def chat(pergunta: PerguntaChat):
-    return processar_pergunta_com_tools(pergunta.mensagem)
+
+    data_hora_pergunta = datetime.now(
+        ZoneInfo("America/Sao_Paulo")
+    )
+
+    resultado = processar_pergunta_com_tools(
+        pergunta.mensagem
+    )
+
+    resultado["data_hora_pergunta"] = (
+        data_hora_pergunta.isoformat(
+            timespec="seconds"
+        )
+    )
+
+    return resultado
 
 
 FRONTEND_DIR = ROOT_DIR / "frontend" / "dist"

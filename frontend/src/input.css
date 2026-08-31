@@ -644,7 +644,7 @@
   }
 
   .mensagem-chat {
-    @apply max-w-[min(100%,36rem)] rounded-2xl px-4 py-3 text-sm leading-relaxed;
+    @apply max-w-[min(100%, 36rem)] rounded-2xl px-4 py-3 text-sm leading-relaxed;
   }
 
   .mensagem-chat--usuario {
@@ -1055,6 +1055,19 @@
 
   .resposta-duaxis--atrasos {
     @apply w-full;
+  }
+
+  .resposta-duaxis__identificacao {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .resposta-duaxis__data {
+    font-size: 11px;
+    font-weight: 400;
+    opacity: 0.7;
+    white-space: nowrap;
   }
 
 
