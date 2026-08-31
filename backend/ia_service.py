@@ -149,20 +149,36 @@ tools = [
         "description": (
             "Analisa os produtos da Urban Style e identifica "
             "candidatos a menor giro considerando o histórico "
-            "de vendas, o comportamento recente, a sazonalidade "
-            "e a cobertura de estoque. Use quando o usuário "
-            "perguntar sobre produtos com baixo giro, menor giro, "
-            "estoque parado, produtos encalhados ou itens com "
-            "desaceleração de vendas em relação ao estoque."
+            "de vendas, o comportamento do período analisado, "
+            "a sazonalidade e a cobertura de estoque. "
+            "Use quando o usuário perguntar sobre produtos com "
+            "baixo giro, menor giro, estoque parado, produtos "
+            "encalhados ou itens com desaceleração de vendas "
+            "em relação ao estoque. "
+            "Quando o usuário informar um período, envie "
+            "data_inicio e data_fim no formato YYYY-MM."
         ),
-
         "parameters": {
             "type": "object",
-            "properties": {},
+            "properties": {
+                "data_inicio": {
+                    "type": "string",
+                    "description": (
+                        "Mês inicial do período analisado "
+                        "no formato YYYY-MM."
+                    )
+                },
+                "data_fim": {
+                    "type": "string",
+                    "description": (
+                        "Mês final do período analisado "
+                        "no formato YYYY-MM."
+                    )
+                }
+            },
             "required": [],
             "additionalProperties": False
         }
-
     }
 }
     
@@ -577,15 +593,15 @@ def preparar_resultado_para_ia(
             resultado["periodo_referencia"],
 
         "criterios_utilizados": {
-            "desaceleracao_recente":
+            "desaceleracao_periodo":
                 (
-                    "Média mensal dos últimos 3 meses "
+                    "Média mensal do período analisado "
                     "abaixo da média mensal dos últimos 12 meses."
                 ),
 
             "comparacao_sazonal":
                 (
-                    "Vendas do período recente abaixo da média "
+                    "Vendas do período analisado abaixo da média "
                     "do mesmo período nos anos históricos comparáveis."
                 ),
 
@@ -593,7 +609,7 @@ def preparar_resultado_para_ia(
                 (
                     "Os candidatos são ordenados pela cobertura "
                     "de estoque calculada com o ritmo médio "
-                    "dos últimos 3 meses, da maior para a menor."
+                    "do período analisado, da maior para a menor."
                 )
         },
 
@@ -844,8 +860,7 @@ não tiver analisado e retornado explicitamente essa recomendação.
         if nome_funcao in [
             "listar_produtos_reposicao",
             "consultar_pedidos_atrasados",
-            "listar_produtos_maior_risco",
-            "listar_produtos_baixo_giro"
+            "listar_produtos_maior_risco"
 ]:
             resultado = funcao()
 
@@ -945,23 +960,13 @@ não tiver analisado e retornado explicitamente essa recomendação.
 if __name__ == "__main__":
 
     resultado = processar_pergunta_com_tools(
-        "Quais produtos têm menor giro?"
-    )
+    "Quais produtos tiveram menor giro entre novembro de 2025 e fevereiro de 2026?"
+)
 
-    print(
-        "\nResposta IA:\n"
-    )
+print("\nResposta IA:\n")
+print(resultado["resposta_ia"])
 
-    print(
-        resultado["resposta_ia"]
-    )
-
-    print(
-        "\nFerramenta utilizada:\n"
-    )
-
-    print(
-        resultado[
-            "ferramentas_utilizadas"
-        ][0]["ferramenta"]
-    )
+print("\nFerramenta utilizada:\n")
+print(
+    resultado["ferramentas_utilizadas"][0]["ferramenta"]
+)
