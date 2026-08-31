@@ -431,6 +431,16 @@ async function enviarPerguntaDuaxis(campoChat) {
         dados.data_hora_pergunta
       );
 
+    } else if (
+      nomeFerramenta === "listar_fornecedores_atrasos"
+    ) {
+
+      adicionarRespostaFornecedoresAtrasos(
+        resultadoFerramenta,
+        dados.resposta_ia,
+        dados.data_hora_pergunta
+      );
+
     } else {
 
       adicionarRespostaTextoIa(
@@ -2338,4 +2348,460 @@ function adicionarRespostaPedidosAtrasados(dados, textoIa, dataHora) {
     block: "end"
   });
 
-}  
+}
+
+function adicionarRespostaFornecedoresAtrasos(
+  dados,
+  textoIa,
+  dataHora
+) {
+
+  const container = document.getElementById(
+    "mensagens-chat-dv"
+  );
+
+  if (!container) {
+    return;
+  }
+
+
+  // ==================================================
+  // SEPARA OS 5 PRIMEIROS FORNECEDORES
+  // ==================================================
+
+  const fornecedores =
+    dados.fornecedores || [];
+
+  const fornecedoresPrincipais =
+    fornecedores.slice(0, 5);
+
+  const fornecedoresRestantes =
+    fornecedores.slice(5);
+
+
+  // ==================================================
+  // CRIA HTML DE UM FORNECEDOR
+  // ==================================================
+
+  function criarHtmlFornecedor(fornecedor) {
+
+    const mediaAtraso =
+      Number(
+        fornecedor.media_dias_atraso
+      ).toLocaleString(
+        "pt-BR",
+        {
+          minimumFractionDigits: 0,
+          maximumFractionDigits: 2
+        }
+      );
+
+    const taxaAtraso =
+      Number(
+        fornecedor.taxa_atraso_percentual
+      ).toLocaleString(
+        "pt-BR",
+        {
+          minimumFractionDigits: 2,
+          maximumFractionDigits: 2
+        }
+      );
+
+
+    return `
+      <div class="fornecedor-atraso">
+
+        <div class="fornecedor-atraso__cabecalho">
+
+          <div>
+
+            <strong class="fornecedor-atraso__nome">
+              ${fornecedor.posicao}º
+              ${fornecedor.nome_fornecedor}
+            </strong>
+
+            <span class="fornecedor-atraso__id">
+              ${fornecedor.fornecedor_id}
+            </span>
+
+          </div>
+
+          <div class="fornecedor-atraso__taxa">
+            ${taxaAtraso}%
+          </div>
+
+        </div>
+
+
+        <div class="fornecedor-atraso__detalhes">
+
+          <div>
+
+            <span class="fornecedor-atraso__rotulo">
+              Pedidos
+            </span>
+
+            <strong>
+              ${fornecedor.total_pedidos}
+            </strong>
+
+          </div>
+
+
+          <div>
+
+            <span class="fornecedor-atraso__rotulo">
+              Atrasados
+            </span>
+
+            <strong>
+              ${fornecedor.pedidos_atrasados}
+            </strong>
+
+          </div>
+
+
+          <div>
+
+            <span class="fornecedor-atraso__rotulo">
+              Média de atraso
+            </span>
+
+            <strong>
+              ${mediaAtraso}
+              ${Number(fornecedor.media_dias_atraso) === 1
+        ? "dia"
+        : "dias"
+      }
+            </strong>
+
+          </div>
+
+
+          <div>
+
+            <span class="fornecedor-atraso__rotulo">
+              Maior atraso
+            </span>
+
+            <strong>
+              ${fornecedor.maior_atraso_dias}
+              ${fornecedor.maior_atraso_dias === 1
+        ? "dia"
+        : "dias"
+      }
+            </strong>
+
+          </div>
+
+        </div>
+
+      </div>
+    `;
+  }
+
+
+  // ==================================================
+  // MONTA AS LISTAS
+  // ==================================================
+
+  const linhasPrincipais =
+    fornecedoresPrincipais
+      .map(criarHtmlFornecedor)
+      .join("");
+
+
+  const linhasRestantes =
+    fornecedoresRestantes
+      .map(criarHtmlFornecedor)
+      .join("");
+
+
+  // ==================================================
+  // CRIA A LINHA DO CHAT
+  // ==================================================
+
+  const linhaResposta =
+    document.createElement("div");
+
+  linhaResposta.className =
+    "linha-chat linha-chat--duaxis";
+
+
+  const avatarDuaxis =
+    document.createElement("div");
+
+  avatarDuaxis.className =
+    "avatar-chat avatar-chat--duaxis";
+
+  avatarDuaxis.innerHTML = `
+    <i data-lucide="bot"></i>
+  `;
+
+
+  const bloco =
+    document.createElement("div");
+
+  bloco.className =
+    "resposta-duaxis resposta-duaxis--fornecedores";
+
+
+  // ==================================================
+  // CONTEÚDO
+  // ==================================================
+
+  bloco.innerHTML = `
+
+    <section class="resposta-duaxis__secao">
+
+      <div class="resposta-duaxis__cabecalho">
+
+        <i data-lucide="truck"></i>
+
+        <div class="resposta-duaxis__identificacao">
+
+          <span>
+            RESUMO EXECUTIVO
+          </span>
+
+          <span class="resposta-duaxis__data">
+            ${formatarDataHoraChat(dataHora)}
+          </span>
+
+        </div>
+
+      </div>
+
+      <div
+        class="
+          resposta-duaxis__conteudo
+          resposta-ia-texto
+        "
+      >
+        ${converterTextoIaParaHtml(textoIa)}
+      </div>
+
+    </section>
+
+
+    <section class="resposta-duaxis__secao">
+
+      <div class="resposta-duaxis__cabecalho">
+
+        <i data-lucide="chart-no-axes-column-increasing"></i>
+
+        <span>
+          DESEMPENHO DOS FORNECEDORES
+        </span>
+
+      </div>
+
+      <div class="resposta-duaxis__conteudo">
+
+        <p class="reposicao-intro">
+          Ranking por taxa de atraso nas compras
+          realizadas no período
+          <strong>${dados.periodo_referencia}</strong>.
+        </p>
+
+
+        <div class="lista-fornecedores-atrasos">
+
+          ${linhasPrincipais}
+
+        </div>
+
+
+        <div
+          class="
+            lista-fornecedores-atrasos
+            lista-fornecedores-atrasos--oculta
+          "
+        >
+
+          ${linhasRestantes}
+
+        </div>
+
+
+        ${fornecedores.length > 5
+      ? `
+              <button
+                type="button"
+                class="botao-ver-todos-fornecedores"
+              >
+                Ver todos os
+                ${fornecedores.length} fornecedores
+              </button>
+            `
+      : ""
+    }
+
+      </div>
+
+    </section>
+
+
+    <section
+      class="
+        resposta-duaxis__secao
+        resposta-duaxis__secao--confiabilidade
+      "
+    >
+
+      <div class="resposta-duaxis__cabecalho">
+
+        <i data-lucide="database"></i>
+
+        <span>
+          FONTE DA ANÁLISE
+        </span>
+
+      </div>
+
+      <div class="resposta-duaxis__conteudo">
+
+        <div class="confiabilidade-grade">
+
+
+          <div class="confiabilidade-card">
+
+            <span class="confiabilidade-card__rotulo">
+              Fornecedores analisados
+            </span>
+
+            <strong>
+              ${dados.total_fornecedores}
+            </strong>
+
+          </div>
+
+
+          <div class="confiabilidade-card">
+
+            <span class="confiabilidade-card__rotulo">
+              Critério principal
+            </span>
+
+            <strong>
+              Taxa de atraso
+            </strong>
+
+          </div>
+
+
+          <div class="confiabilidade-card">
+
+            <span class="confiabilidade-card__rotulo">
+              Fonte principal
+            </span>
+
+            <strong>
+              Compras
+            </strong>
+
+          </div>
+
+
+          <div class="confiabilidade-card">
+
+            <span class="confiabilidade-card__rotulo">
+              Machine Learning
+            </span>
+
+            <strong>
+              Não utilizado
+            </strong>
+
+          </div>
+
+
+        </div>
+
+      </div>
+
+    </section>
+
+  `;
+
+
+  // ==================================================
+  // ADICIONA NA TELA
+  // ==================================================
+
+  linhaResposta.appendChild(
+    avatarDuaxis
+  );
+
+  linhaResposta.appendChild(
+    bloco
+  );
+
+  container.appendChild(
+    linhaResposta
+  );
+
+
+  // ==================================================
+  // BOTÃO "VER TODOS"
+  // ==================================================
+
+  const botaoVerTodos =
+    bloco.querySelector(
+      ".botao-ver-todos-fornecedores"
+    );
+
+
+  if (botaoVerTodos) {
+
+    botaoVerTodos.addEventListener(
+      "click",
+      () => {
+
+        const listaOculta =
+          bloco.querySelector(
+            ".lista-fornecedores-atrasos--oculta"
+          );
+
+        if (!listaOculta) {
+          return;
+        }
+
+
+        const estaOculta =
+          listaOculta.style.display !== "flex";
+
+
+        if (estaOculta) {
+
+          listaOculta.style.display =
+            "flex";
+
+          botaoVerTodos.textContent =
+            "Mostrar menos";
+
+        } else {
+
+          listaOculta.style.display =
+            "none";
+
+          botaoVerTodos.textContent =
+            `Ver todos os ${fornecedores.length} fornecedores`;
+
+        }
+
+      }
+    );
+
+  }
+
+
+  inicializarIconesLucide();
+
+
+  linhaResposta.scrollIntoView({
+    behavior: "smooth",
+    block: "end"
+  });
+
+}

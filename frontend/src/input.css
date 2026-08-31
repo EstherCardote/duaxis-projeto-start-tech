@@ -1056,6 +1056,81 @@
   .resposta-duaxis--atrasos {
     @apply w-full;
   }
+  
+    /* ==================================================
+     DESEMPENHO DOS FORNECEDORES
+  ================================================== */
+
+  .lista-fornecedores-atrasos {
+    @apply flex flex-col gap-2;
+  }
+
+  .lista-fornecedores-atrasos--oculta {
+    display: none;
+    margin-top: 0.5rem;
+  }
+
+
+  /* Card de cada fornecedor */
+
+  .fornecedor-atraso {
+    @apply rounded-xl border border-border bg-bg-page p-3;
+  }
+
+
+  /* Cabeçalho */
+
+  .fornecedor-atraso__cabecalho {
+    @apply flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between;
+  }
+
+  .fornecedor-atraso__nome {
+    @apply block text-sm font-semibold text-text-primary;
+  }
+
+  .fornecedor-atraso__id {
+    @apply mt-1 block text-xs text-text-muted;
+  }
+
+
+  /* Taxa de atraso em destaque */
+
+  .fornecedor-atraso__taxa {
+    @apply shrink-0 rounded-full bg-warning-bg px-2.5 py-1 text-xs font-semibold text-yellow-700;
+  }
+
+
+  /* Métricas do fornecedor */
+
+  .fornecedor-atraso__detalhes {
+    @apply mt-3 grid grid-cols-2 gap-3 sm:grid-cols-4;
+  }
+
+  .fornecedor-atraso__detalhes > div {
+    @apply flex min-w-0 flex-col gap-1;
+  }
+
+  .fornecedor-atraso__rotulo {
+    @apply text-[10px] font-medium tracking-wide text-text-muted uppercase;
+  }
+
+  .fornecedor-atraso__detalhes strong {
+    @apply text-xs font-semibold text-text-primary;
+  }
+
+
+  /* Botão Ver todos */
+
+  .botao-ver-todos-fornecedores {
+    @apply mt-3 cursor-pointer rounded-xl border border-border bg-bg-page px-3 py-2 text-sm font-medium text-brand-blue transition-colors hover:border-brand-blue/30 hover:bg-brand-blue/5;
+  }
+
+
+  /* Resposta completa */
+
+  .resposta-duaxis--fornecedores {
+    @apply w-full;
+  }
 
   .resposta-duaxis__identificacao {
     display: flex;
