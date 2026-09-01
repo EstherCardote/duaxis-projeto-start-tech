@@ -393,6 +393,12 @@ async function enviarPerguntaDuaxis(campoChat) {
         dados.resposta_ia,
         dados.data_hora_pergunta,
       );
+    } else if (nomeFerramenta === "calcular_despesas") {
+      adicionarRespostaDespesas(
+        resultadoFerramenta,
+        dados.resposta_ia,
+        dados.data_hora_pergunta,
+      );
     } else {
       adicionarRespostaTextoIa(
         dados.resposta_ia || "Não consegui apresentar essa resposta.",
@@ -2983,6 +2989,175 @@ function adicionarRespostaFaturamento(dados, textoIa, dataHora) {
         card.style.display = estaOculta ? "flex" : "none";
       });
 
+      botaoVerTodos.textContent = estaOculta
+        ? "Mostrar menos"
+        : `Ver todos os ${meses.length} meses`;
+    });
+  }
+
+  inicializarIconesLucide();
+  linhaResposta.scrollIntoView({
+    behavior: "smooth",
+    block: "end",
+  });
+}
+
+function adicionarRespostaDespesas(dados, textoIa, dataHora) {
+  const container = document.getElementById("mensagens-chat-dv");
+
+  if (!container) {
+    return;
+  }
+
+  function formatarValor(valor) {
+    return Number(valor).toLocaleString("pt-BR", {
+      style: "currency",
+      currency: "BRL",
+    });
+  }
+
+  const categorias = dados.despesa_por_categoria || [];
+  const meses = dados.despesa_mensal || [];
+
+  const periodo =
+    dados.periodo_inicio === dados.periodo_fim
+      ? dados.periodo_inicio
+      : `${dados.periodo_inicio} a ${dados.periodo_fim}`;
+
+  function linhaCategoria(item) {
+    return `
+      <div class="produto-reposicao">
+        <div class="produto-reposicao__info">
+          <strong>${item.categoria}</strong>
+        </div>
+        <div class="produto-reposicao__impacto">
+          ${formatarValor(item.valor)}
+        </div>
+      </div>
+    `;
+  }
+
+  function linhaMes(item, indice) {
+    const extra = indice >= 5 ? " mes-despesa-extra" : "";
+    return `
+      <div class="produto-reposicao${extra}">
+        <div class="produto-reposicao__info">
+          <strong>${item.mes}</strong>
+        </div>
+        <div class="produto-reposicao__impacto">
+          ${formatarValor(item.despesa)}
+        </div>
+      </div>
+    `;
+  }
+
+  const linhaResposta = document.createElement("div");
+  linhaResposta.className = "linha-chat linha-chat--duaxis";
+
+  const avatarDuaxis = document.createElement("div");
+  avatarDuaxis.className = "avatar-chat avatar-chat--duaxis";
+  avatarDuaxis.innerHTML = `<i data-lucide="bot"></i>`;
+
+  const bloco = document.createElement("div");
+  bloco.className = "resposta-duaxis resposta-duaxis--lista";
+
+  bloco.innerHTML = `
+    <section class="resposta-duaxis__secao">
+      <div class="resposta-duaxis__cabecalho">
+        <i data-lucide="wallet"></i>
+        <div class="resposta-duaxis__identificacao">
+          <span>RESUMO EXECUTIVO</span>
+          <span class="resposta-duaxis__data">
+            ${formatarDataHoraChat(dataHora)}
+          </span>
+        </div>
+      </div>
+      <div class="resposta-duaxis__conteudo resposta-ia-texto">
+        ${converterTextoIaParaHtml(textoIa)}
+      </div>
+    </section>
+
+    <section class="resposta-duaxis__secao">
+      <div class="resposta-duaxis__cabecalho">
+        <i data-lucide="receipt"></i>
+        <span>DESPESAS OPERACIONAIS</span>
+      </div>
+      <div class="resposta-duaxis__conteudo">
+        <div class="confiabilidade-grade">
+          <div class="confiabilidade-card">
+            <span class="confiabilidade-card__rotulo">Despesa total</span>
+            <strong>${formatarValor(dados.despesa_total)}</strong>
+          </div>
+        </div>
+
+        <p class="reposicao-intro">Por categoria:</p>
+        <div class="lista-produtos-reposicao">
+          ${categorias.map(linhaCategoria).join("")}
+        </div>
+
+        <p class="reposicao-intro">Por competência:</p>
+        <div class="lista-produtos-reposicao">
+          ${meses.map(linhaMes).join("")}
+        </div>
+        ${
+          meses.length > 5
+            ? `<button type="button" class="botao-ver-todos-reposicao">
+                 Ver todos os ${meses.length} meses
+               </button>`
+            : ""
+        }
+      </div>
+    </section>
+
+    <section class="resposta-duaxis__secao resposta-duaxis__secao--confiabilidade">
+      <div class="resposta-duaxis__cabecalho">
+        <i data-lucide="database"></i>
+        <span>FONTE DA ANÁLISE</span>
+      </div>
+      <div class="resposta-duaxis__conteudo">
+        <div class="confiabilidade-grade">
+          <div class="confiabilidade-card">
+            <span class="confiabilidade-card__rotulo">Período</span>
+            <strong>${periodo}</strong>
+          </div>
+          <div class="confiabilidade-card">
+            <span class="confiabilidade-card__rotulo">Fonte</span>
+            <strong>Movimentações financeiras</strong>
+          </div>
+          <div class="confiabilidade-card">
+            <span class="confiabilidade-card__rotulo">Critério</span>
+            <strong>Despesas operacionais por competência</strong>
+          </div>
+          <div class="confiabilidade-card">
+            <span class="confiabilidade-card__rotulo">Compra de mercadorias</span>
+            <strong>Não incluída (custo)</strong>
+          </div>
+          <div class="confiabilidade-card">
+            <span class="confiabilidade-card__rotulo">Machine Learning</span>
+            <strong>Não utilizado</strong>
+          </div>
+        </div>
+      </div>
+    </section>
+  `;
+
+  linhaResposta.appendChild(avatarDuaxis);
+  linhaResposta.appendChild(bloco);
+  container.appendChild(linhaResposta);
+
+  const extras = bloco.querySelectorAll(".mes-despesa-extra");
+  const botaoVerTodos = bloco.querySelector(".botao-ver-todos-reposicao");
+
+  extras.forEach((card) => {
+    card.style.display = "none";
+  });
+
+  if (botaoVerTodos && extras.length > 0) {
+    botaoVerTodos.addEventListener("click", () => {
+      const estaOculta = extras[0].style.display === "none";
+      extras.forEach((card) => {
+        card.style.display = estaOculta ? "flex" : "none";
+      });
       botaoVerTodos.textContent = estaOculta
         ? "Mostrar menos"
         : `Ver todos os ${meses.length} meses`;

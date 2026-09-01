@@ -18,7 +18,8 @@ from logistica_service import (
 )
 
 from financeiro_service import (
-    calcular_faturamento
+    calcular_faturamento,
+    calcular_despesas
 )
 
 # lê o .env
@@ -293,6 +294,46 @@ tools = [
             "additionalProperties": False
         }
     }
+},
+{
+    "type": "function",
+    "function": {
+        "name": "calcular_despesas",
+        "description": (
+            "Calcula as despesas operacionais da Urban Style "
+            "em um período, por competência. "
+            "Despesa é gasto de estrutura: aluguel, energia, "
+            "marketing, tecnologia, frete operacional e impostos. "
+            "Não inclui compra de mercadorias (isso é custo). "
+            "Não é faturamento, lucro nem fluxo de caixa. "
+            "Use quando o usuário perguntar quanto gastou, "
+            "quais foram as despesas ou gastos operacionais. "
+            "Quando informar um período, envie data_inicio e "
+            "data_fim no formato YYYY-MM. "
+            "Quando não informar período, não envie as datas."
+        ),
+        "parameters": {
+            "type": "object",
+            "properties": {
+                "data_inicio": {
+                    "type": ["string", "null"],
+                    "description": (
+                        "Mês inicial no formato YYYY-MM. "
+                        "Use null quando o usuário não informar período."
+                    )
+                },
+                "data_fim": {
+                    "type": ["string", "null"],
+                    "description": (
+                        "Mês final no formato YYYY-MM. "
+                        "Use null quando o usuário não informar período."
+                    )
+                }
+            },
+            "required": [],
+            "additionalProperties": False
+        }
+    }
 }  
 
 ]
@@ -318,7 +359,10 @@ funcoes_disponiveis = {
     listar_fornecedores_atrasos,
 
     "calcular_faturamento":
-    calcular_faturamento
+    calcular_faturamento,
+
+    "calcular_despesas":
+    calcular_despesas
 
 }
 
@@ -825,6 +869,21 @@ def preparar_resultado_para_ia(
                 resultado["descontos"]
             }
 
+    if nome_funcao == "calcular_despesas":
+
+        return {
+            "periodo_inicio":
+                resultado["periodo_inicio"],
+            "periodo_fim":
+                resultado["periodo_fim"],
+            "fonte":
+                resultado["fonte"],
+            "criterio":
+                resultado["criterio"],
+            "despesa_total":
+                resultado["despesa_total"]
+        }        
+
 
     # =====================================================
     # SEGURANÇA
@@ -880,6 +939,12 @@ Use exclusivamente os dados retornados pelas ferramentas.
 Não atribua causas, prioridades, riscos, urgência ou
 importância a um dado se essa informação não estiver
 explicitamente presente no resultado da ferramenta.
+
+Quando a ferramenta calcular_despesas for utilizada,
+despesa_total é o valor em reais das despesas operacionais.
+Não inclua compra de mercadorias nesse conceito.
+Não enumere categorias nem meses.
+Informe período e despesa total.
 
 Quando receber uma lista ordenada, não assuma o critério
 da ordenação. Apenas descreva os valores apresentados.

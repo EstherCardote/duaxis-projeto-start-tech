@@ -13,6 +13,20 @@ vendas = pd.read_csv(
     sep=";"
 )
 
+movimentacoes_financeiras = pd.read_csv(
+    BASE_DIR / "dados" / "movimentacoes_financeiras_urban_style.csv",
+    sep=";"
+)
+
+CATEGORIAS_DESPESA = [
+    "Aluguel",
+    "Energia",
+    "Marketing",
+    "Tecnologia",
+    "Frete Operacional",
+    "Impostos",
+]
+
 def calcular_faturamento(
     data_inicio=None,
     data_fim=None
@@ -96,33 +110,111 @@ def calcular_faturamento(
         )
     }
 
+def calcular_despesas(
+    data_inicio=None,
+    data_fim=None
+):
+    dados = movimentacoes_financeiras.copy()
+
+    dados = dados[
+        (dados["tipo"] == "Despesa")
+        &
+        (dados["categoria"].isin(CATEGORIAS_DESPESA))
+    ].copy()
+
+    dados["data_competencia"] = pd.to_datetime(
+        dados["competencia"]
+    )
+
+    periodo_base = obter_periodo_base(
+        dados,
+        "data_competencia"
+    )
+
+    periodo_consulta = resolver_periodo(
+        data_minima=periodo_base["data_minima"],
+        data_maxima=periodo_base["data_maxima"],
+        data_inicio=data_inicio,
+        data_fim=data_fim,
+        meses_padrao=3
+    )
+
+    periodo_inicio = periodo_consulta["periodo_inicio"]
+    periodo_fim = periodo_consulta["periodo_fim"]
+
+    dados["mes"] = dados["data_competencia"].dt.to_period("M")
+
+    despesas_periodo = dados[
+        (dados["mes"] >= periodo_inicio)
+        &
+        (dados["mes"] <= periodo_fim)
+    ].copy()
+
+    despesa_total = round(
+        float(despesas_periodo["valor"].sum()),
+        2
+    )
+
+    despesa_por_categoria = (
+        despesas_periodo
+        .groupby("categoria")["valor"]
+        .sum()
+        .reset_index()
+        .sort_values("valor", ascending=False)
+    )
+    despesa_por_categoria["valor"] = (
+        despesa_por_categoria["valor"].round(2)
+    )
+
+    despesa_mensal = (
+        despesas_periodo
+        .groupby("mes")["valor"]
+        .sum()
+        .reset_index()
+        .sort_values("mes")
+    )
+    despesa_mensal["mes"] = despesa_mensal["mes"].astype(str)
+    despesa_mensal["despesa"] = despesa_mensal["valor"].round(2)
+    despesa_mensal = despesa_mensal[["mes", "despesa"]]
+
+    return {
+        "periodo_inicio": str(periodo_inicio),
+        "periodo_fim": str(periodo_fim),
+        "fonte": "movimentacoes_financeiras",
+        "criterio": "despesas operacionais por competência",
+        "indicador": "valor",
+        "despesa_total": despesa_total,
+        "despesa_por_categoria": despesa_por_categoria.to_dict(
+            orient="records"
+        ),
+        "despesa_mensal": despesa_mensal.to_dict(
+            orient="records"
+        )
+    }    
+
 # TESTE PROVISORIO
 if __name__ == "__main__":
 
-    bruto = vendas.copy()
-    bruto["data_venda"] = pd.to_datetime(bruto["data_venda"])
-    bruto["mes"] = bruto["data_venda"].dt.to_period("M")
+    bruto = movimentacoes_financeiras.copy()
+    bruto["mes"] = pd.to_datetime(bruto["competencia"]).dt.to_period("M")
 
     independente = bruto[
-    (bruto["status"] == "Concluída")
-    &
-    (bruto["mes"] >= pd.Period("2026-01", freq="M"))
-    &
-    (bruto["mes"] <= pd.Period("2026-03", freq="M"))
-]
+        (bruto["tipo"] == "Despesa")
+        &
+        (bruto["categoria"].isin(CATEGORIAS_DESPESA))
+        &
+        (bruto["mes"] >= pd.Period("2026-01", freq="M"))
+        &
+        (bruto["mes"] <= pd.Period("2026-03", freq="M"))
+            ]
 
-    soma_liquido = round(float(independente["valor_liquido"].sum()), 2)
-    soma_bruto = round(float(independente["valor_bruto"].sum()), 2)
-    soma_desc = round(float(independente["valor_desconto"].sum()), 2)
-    n_vendas = int(len(independente))
+    soma = round(float(independente["valor"].sum()), 2)
 
-    funcao = calcular_faturamento(
-    data_inicio="2026-01",
-    data_fim="2026-03"
-)
+    funcao = calcular_despesas(
+        data_inicio="2026-01",
+        data_fim="2026-03"
+    )
 
-    print("independente faturamento:", soma_liquido)
-    print("funcao       faturamento:", funcao["faturamento_total"])
-    print("independente vendas:     ", n_vendas)
-    print("funcao       vendas:     ", funcao["total_vendas"])
-    print("bruto - desconto == liquido?", soma_bruto - soma_desc == soma_liquido)
+    print("independente despesa:", soma)
+    print("funcao       despesa:", funcao["despesa_total"])
+    print("tem compra de mercadoria?", "Compra de Mercadorias" in list(independente["categoria"]))
