@@ -655,68 +655,149 @@
     @apply rounded-bl-md border border-brand-blue/20 bg-brand-blue/5 text-text-primary;
   }
 
+  .mensagem-chat--consultando {
+    @apply italic text-text-secondary;
+  }
+
+  .consultando-dados__pontos::after {
+    content: "";
+    animation: consultando-pontos 1.2s steps(4, end) infinite;
+  }
+
+  @keyframes consultando-pontos {
+    0% {
+      content: "";
+    }
+    25% {
+      content: ".";
+    }
+    50% {
+      content: "..";
+    }
+    75% {
+      content: "...";
+    }
+  }
+
   .resposta-duaxis {
-    @apply flex w-full max-w-3xl flex-col gap-4 rounded-2xl border border-border bg-bg-card p-4 sm:p-5;
+    @apply flex w-full max-w-3xl flex-col gap-3 border-0 bg-transparent p-0;
   }
 
   .resposta-duaxis__secao {
-    @apply flex flex-col gap-2;
+    @apply flex flex-col overflow-hidden rounded-2xl border border-border bg-bg-card;
   }
 
   .resposta-duaxis__cabecalho {
-    @apply flex items-center gap-2 text-[11px] font-semibold tracking-widest text-brand-blue uppercase;
+    @apply flex items-center gap-2 border-b border-border bg-bg-page px-4 py-3 text-[11px] font-semibold tracking-widest text-brand-blue uppercase;
   }
 
   .resposta-duaxis__cabecalho svg {
-    @apply h-4 w-4;
+    @apply h-4 w-4 shrink-0;
   }
 
   .resposta-duaxis__conteudo {
-    @apply text-sm leading-relaxed text-text-primary;
+    @apply px-4 py-3 text-sm leading-relaxed text-text-primary;
   }
 
   .resposta-duaxis__lista {
     @apply flex list-disc flex-col gap-2 pl-5 text-sm text-text-primary;
   }
 
-  .resposta-duaxis__lista--recomendacoes {
+  .resposta-duaxis__lista--analise {
     @apply list-none pl-0;
+  }
+
+  .resposta-duaxis__lista--analise li {
+    @apply relative pl-4;
+  }
+
+  .resposta-duaxis__lista--analise li::before {
+    content: "";
+    @apply absolute top-2 left-0 h-1.5 w-1.5 rounded-full bg-brand-blue;
   }
 
   .resposta-duaxis__lista--recomendacoes li {
     @apply rounded-xl bg-brand-blue/5 px-3 py-2;
   }
 
-  .resposta-duaxis__secao--confiabilidade {
-    @apply rounded-xl border border-border bg-bg-page p-4;
+  .resposta-duaxis__secao--confiabilidade > .resposta-duaxis__conteudo {
+    @apply bg-bg-page;
   }
 
   .resposta-duaxis__secao--sugestoes {
-    @apply gap-3 border-t border-border pt-4;
+    @apply gap-0;
+  }
+
+  .resposta-duaxis__secao--sugestoes > .resposta-duaxis__conteudo {
+    @apply flex flex-col gap-2;
   }
 
   .resposta-duaxis__sugestao {
     @apply mt-2 flex w-full cursor-pointer rounded-xl border border-border bg-bg-page px-3 py-2 text-left text-sm text-text-secondary transition-colors hover:border-brand-blue/30 hover:bg-brand-blue/5 hover:text-brand-blue;
   }
 
+  .resposta-duaxis__conteudo--vazio {
+    @apply min-h-12;
+  }
+
+  .resposta-duaxis__secao--relatorio {
+    @apply w-fit shrink-0 self-start bg-bg-page;
+  }
+
   .resposta-duaxis__relatorio {
-    @apply inline-flex cursor-pointer items-center justify-center gap-2 rounded-xl bg-brand-blue px-4 py-2.5 text-sm font-medium text-white transition-colors hover:bg-brand-blue-light;
+    @apply flex w-auto cursor-pointer items-center justify-start gap-2 whitespace-nowrap border-0 bg-transparent px-4 py-3 text-left text-[11px] font-semibold tracking-widest text-brand-blue uppercase transition-colors hover:bg-brand-blue/5;
   }
 
   .resposta-duaxis__relatorio svg {
-    @apply h-4 w-4;
+    @apply h-4 w-4 shrink-0;
   }
 
   .confiabilidade-grade {
-    @apply mt-2 grid grid-cols-1 gap-3 sm:grid-cols-2;
+    @apply mt-0 grid grid-cols-1 gap-3 sm:grid-cols-2;
   }
 
   .confiabilidade-card {
     @apply flex flex-col gap-1 rounded-xl border border-border bg-bg-card px-3 py-2.5;
   }
 
+  .confiabilidade-card--largo {
+    @apply sm:col-span-2;
+  }
+
   .confiabilidade-card__rotulo {
-    @apply text-[10px] font-medium tracking-wide text-text-muted uppercase;
+    @apply text-[11px] font-medium tracking-normal text-text-muted;
+  }
+
+  .confiabilidade-rotulo-com-icone {
+    @apply flex items-center gap-1.5;
+  }
+
+  .confiabilidade-rotulo-com-icone svg {
+    @apply h-3.5 w-3.5 shrink-0 text-brand-blue;
+  }
+
+  .confiabilidade-card__texto {
+    @apply mt-1 text-sm font-normal leading-relaxed text-text-secondary;
+  }
+
+  .confiabilidade-barra {
+    @apply mt-2 h-1 w-full overflow-hidden rounded-full bg-brand-blue/15;
+  }
+
+  .confiabilidade-barra__preenchimento {
+    @apply h-full rounded-full bg-brand-blue;
+  }
+
+  .confiabilidade-fontes {
+    @apply mt-2 flex flex-wrap gap-2;
+  }
+
+  .confiabilidade-chip {
+    @apply inline-flex items-center gap-1.5 rounded-full border border-brand-blue/30 bg-brand-blue/5 px-3 py-1 text-xs font-medium text-brand-blue;
+  }
+
+  .confiabilidade-chip svg {
+    @apply h-3.5 w-3.5;
   }
 
   .confiabilidade-limitacao {
@@ -730,7 +811,7 @@
   /* Produtos com maior risco de ruptura */
 
   .lista-produtos-risco {
-    @apply flex flex-col gap-3;
+    @apply mt-4 flex flex-col gap-3;
   }
 
   .produto-risco {
@@ -957,7 +1038,7 @@
 
   /* Lista de produtos que precisam de reposição */
   .reposicao-intro {
-    @apply mb-3;
+    @apply mt-4 mb-3;
   }
 
   .lista-produtos-reposicao {
@@ -1143,6 +1224,8 @@
     display: block;
     font-size: 11px;
     font-weight: 400;
+    letter-spacing: normal;
+    text-transform: none;
     opacity: 0.7;
     white-space: nowrap;
   }

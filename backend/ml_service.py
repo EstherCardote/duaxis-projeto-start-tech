@@ -1,4 +1,6 @@
 from pathlib import Path
+import re
+import unicodedata
 
 import joblib
 import pandas as pd
@@ -26,6 +28,83 @@ produtos = pd.read_csv(BASE_DIR
 estoque = pd.read_csv(BASE_DIR
     / "dados"
     / "estoque_urban_style.csv",sep=";")
+
+
+def _normalizar_texto(texto):
+    texto = str(texto).strip().lower()
+    texto = unicodedata.normalize("NFD", texto)
+    texto = "".join(
+        caractere
+        for caractere in texto
+        if unicodedata.category(caractere) != "Mn"
+    )
+    return re.sub(r"\s+", " ", texto)
+
+
+def _mensagem_produtos_ambiguos(candidatos, identificador):
+    linhas = [
+        f"{linha['id']} — {linha['nome']} ({linha['categoria']})"
+        for _, linha in candidatos.iterrows()
+    ]
+    lista = "; ".join(linhas)
+    return (
+        f'Encontrei mais de um produto para "{identificador}": {lista}. '
+        "Informe o código do produto para continuar."
+    )
+
+
+def resolver_produto(identificador):
+    if identificador is None or str(identificador).strip() == "":
+        raise ValueError(
+            "Informe o código ou o nome do produto."
+        )
+
+    bruto = str(identificador).strip()
+    chave = _normalizar_texto(bruto)
+
+    por_id = produtos[
+        produtos["id"].astype(str).str.upper() == bruto.upper()
+    ]
+    if len(por_id) == 1:
+        return str(por_id.iloc[0]["id"])
+
+    por_sku = produtos[
+        produtos["sku"].astype(str).str.upper() == bruto.upper()
+    ]
+    if len(por_sku) == 1:
+        return str(por_sku.iloc[0]["id"])
+
+    nomes_norm = produtos["nome"].map(_normalizar_texto)
+
+    por_nome = produtos[nomes_norm == chave]
+    if len(por_nome) == 1:
+        return str(por_nome.iloc[0]["id"])
+    if len(por_nome) > 1:
+        raise ValueError(
+            _mensagem_produtos_ambiguos(por_nome, bruto)
+        )
+
+    tokens = [token for token in chave.split(" ") if token]
+
+    def nome_corresponde(nome_n):
+        if chave in nome_n or nome_n in chave:
+            return True
+        return all(token in nome_n for token in tokens)
+
+    candidatos = produtos[nomes_norm.map(nome_corresponde)]
+
+    if len(candidatos) == 1:
+        return str(candidatos.iloc[0]["id"])
+    if len(candidatos) > 1:
+        raise ValueError(
+            _mensagem_produtos_ambiguos(candidatos, bruto)
+        )
+
+    raise ValueError(
+        f'Nenhum produto encontrado para "{bruto}". '
+        "Informe o código (ex.: PROD017) ou o nome cadastrado."
+    )
+
 
 def prever_demanda(produto_id):
 
@@ -96,6 +175,8 @@ def prever_demanda(produto_id):
     return round(previsao)
 
 def analisar_reposicao(produto_id):
+
+    produto_id = resolver_produto(produto_id)
 
     demanda_prevista = prever_demanda(produto_id)
 

@@ -207,7 +207,8 @@ def calcular_despesas(
         ),
         "despesa_mensal": despesa_mensal.to_dict(
             orient="records"
-        )
+        ),
+        "registros_analisados": int(len(despesas_periodo))
     }
 
 def calcular_lucro(
@@ -263,7 +264,8 @@ def calcular_lucro(
         "custo_mercadorias_vendidas": cmv,
         "lucro_bruto": lucro_bruto,
         "despesa_operacional": despesas["despesa_total"],
-        "lucro_apos_despesas": lucro_apos_despesas
+        "lucro_apos_despesas": lucro_apos_despesas,
+        "registros_analisados": faturamento["total_vendas"]
     }        
 
 def consultar_contas_a_receber(data_referencia=None):
@@ -330,7 +332,8 @@ def consultar_contas_a_receber(data_referencia=None):
         "valor_em_aberto": valor_em_aberto,
         "valor_vencido": valor_vencido,
         "valor_a_vencer": valor_a_vencer,
-        "clientes": ranking.to_dict(orient="records")
+        "clientes": ranking.to_dict(orient="records"),
+        "registros_analisados": int(len(dados))
     }
 
 
@@ -400,7 +403,8 @@ def consultar_contas_a_pagar(data_referencia=None):
         "valor_em_aberto": valor_em_aberto,
         "valor_vencido": valor_vencido,
         "valor_a_vencer": valor_a_vencer,
-        "fornecedores": ranking.to_dict(orient="records")
+        "fornecedores": ranking.to_dict(orient="records"),
+        "registros_analisados": int(len(dados))
     }
 
 
@@ -505,5 +509,6 @@ def calcular_fluxo_caixa(
         "fluxo_mensal": fluxo_mensal.to_dict(orient="records"),
         "saidas_por_categoria": saidas_por_categoria.to_dict(
             orient="records"
-        )
+        ),
+        "registros_analisados": int(len(periodo))
     }

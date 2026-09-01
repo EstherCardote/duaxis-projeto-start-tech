@@ -45,7 +45,8 @@ tools = [
                 "produto específico. Use quando o usuário "
                 "perguntar sobre estoque, necessidade de compra "
                 "ou quantidade recomendada de reposição de um "
-                "produto identificado por produto_id."
+                "produto, citado pelo código (PROD017) ou pelo "
+                "nome (ex.: Tricô Cinza PP)."
             ),
 
             "parameters": {
@@ -58,7 +59,11 @@ tools = [
                         "type": "string",
 
                         "description": (
-                            "Código do produto no formato PROD017."
+                            "Código (PROD017), SKU (US-1017) ou "
+                            "nome do produto como o usuário escreveu. "
+                            "Passe o texto original. Não invente um "
+                            "código se o usuário só informou o nome. "
+                            "O backend resolve o cadastro."
                         )
                     }
 
@@ -1239,14 +1244,69 @@ responda em português claro, profissional e objetivo.
 
 Não utilize tabelas Markdown na resposta.
 
-O front-end já apresenta os dados detalhados em cards
-e listas estruturadas.
+O front-end já apresenta os números, listas e cards.
+Sua resposta textual alimenta dois blocos diferentes.
+Não misture os dois.
 
-Use a resposta textual apenas para resumir e explicar
-os principais resultados em parágrafos curtos.
+Quando a pergunta estiver fora do escopo, responda APENAS
+a frase de recusa, sem marcadores.
 
-Evite repetir na resposta textual os mesmos dados que
-serão apresentados pelo front-end.
+Se a ferramenta devolver um campo erro, use só [[RESUMO]]
+com a mensagem. Não invente produto, valor ou análise.
+
+Quando houver resultado válido de ferramenta, a resposta
+DEVE usar exatamente este formato, sem texto fora dos blocos:
+
+[[RESUMO]]
+Uma única frase que responde exatamente o que foi perguntado.
+Só período + o indicador pedido.
+Exemplo se perguntaram o faturamento:
+Em junho de 2026 o faturamento da Urban Style foi de R$ 196.500,48.
+Não cite ticket, quantidade de vendas, descontos, bruto,
+categorias, produtos ou qualquer campo extra.
+Não antecipe a análise.
+Não use segunda frase.
+
+[[ANALISE]]
+- Primeira leitura
+- Segunda leitura
+- Terceira leitura (só se o resultado da ferramenta sustentar)
+
+[[RECOMENDACOES]]
+
+Regras do resumo:
+Responda cru. Se perguntaram faturamento, só faturamento.
+Se perguntaram lucro, só lucro após despesas e o período.
+Se perguntaram reposição de um produto, só o produto e a
+quantidade recomendada (com nome e código).
+
+Regras da análise:
+Escreva 2 ou 3 tópicos, cada um começando com "- ".
+Interprete o significado dos dados, não recopie os cards.
+Não repita faturamento líquido, vendas concluídas, ticket
+médio nem outros valores já visíveis nos cards.
+Pode usar campos que o card não mostra (ex.: bruto e
+desconto) para explicar composição, sem reenunciar o total
+do card como se fosse novidade.
+Não defina um indicador com as próprias palavras do rótulo
+("ticket médio é o valor médio por venda").
+Não copie o resumo.
+Não invente causas, sazonalidade, mercado, comparação com
+outro período, urgência ou prioridade se isso não veio na
+ferramenta.
+Não enumere produtos, pedidos, clientes, fornecedores,
+categorias ou meses que o card já lista.
+Não use números que não estejam no resultado da ferramenta.
+Se os dados não sustentarem 3 tópicos honestos, escreva 2.
+Nunca complete com achismo.
+
+Regras das recomendações:
+Pergunta factual (quanto foi, qual o saldo, quais produtos)
+deixe [[RECOMENDACOES]] vazio.
+Pergunta do tipo "e se", hipótese ou simulação: só preencha
+se alguma ferramenta tiver analisado esse cenário.
+Não invente ação comercial, meta, corte de custo ou compra.
+Se não houver cenário calculado, deixe o bloco vazio.
 
 Não enumere produtos, pedidos, fornecedores ou outros
 registros quando esses registros já estiverem presentes
@@ -1278,9 +1338,17 @@ mesmo que os principais produtos sejam fornecidos no contexto.
 O front-end já exibirá os produtos, quantidades e impactos
 financeiros individuais.
 
-Na resposta textual, informe apenas os resultados agregados
-relevantes para a pergunta, como quantidade de produtos que
-precisam de reposição e impacto financeiro total estimado.
+Na resposta textual, o [[RESUMO]] informa só a quantidade
+de produtos que precisam de reposição e o impacto financeiro
+total estimado. Não enumere produtos.
+
+Quando a ferramenta analisar_reposicao for utilizada,
+o backend já resolveu o produto. Use produto_id e nome_produto
+juntos na resposta textual (ex.: Tricô Cinza PP (PROD017)).
+Não invente código nem nome.
+
+Se a ferramenta devolver um campo erro, explique a mensagem
+ao usuário. Não chame a ferramenta de novo na mesma resposta.
 
 Quando a ferramenta calcular_faturamento for utilizada,
 o campo faturamento_total é o valor em reais (valor líquido).
@@ -1288,7 +1356,13 @@ O campo total_vendas é a quantidade de vendas, não um valor monetário.
 Não some nem subtraia bruto e desconto para obter o líquido:
 use faturamento_total.
 Não enumere o faturamento mês a mês.
-Informe período, faturamento total e, se couber, ticket médio.
+No [[RESUMO]], informe só o período e o faturamento_total.
+Não cite ticket_medio nem total_vendas no resumo.
+Na [[ANALISE]], não repita os três números do card
+(faturamento líquido, vendas, ticket).
+Pode explicar que o valor é competência, não caixa, e que
+bruto menos descontos chega ao líquido, sem reenunciar o
+total do card.
 
 Explique apenas os critérios explicitamente retornados pela ferramenta.
 
@@ -1431,16 +1505,29 @@ não tiver analisado e retornado explicitamente essa recomendação.
         #     produto_id="PROD017"
         # )
         # -------------------------------------------------
-        if nome_funcao in [
-            "listar_produtos_reposicao",
-            "listar_produtos_maior_risco"
-]:
-            resultado = funcao()
-
-        else:
-            resultado = funcao(
-                **argumentos
-    )
+        try:
+            if nome_funcao in [
+                "listar_produtos_reposicao",
+                "listar_produtos_maior_risco"
+            ]:
+                resultado = funcao()
+            else:
+                resultado = funcao(
+                    **argumentos
+                )
+        except ValueError as erro:
+            mensagens.append(
+                {
+                    "role": "tool",
+                    "tool_call_id": tool_call.id,
+                    "name": nome_funcao,
+                    "content": json.dumps(
+                        {"erro": str(erro)},
+                        ensure_ascii=False
+                    )
+                }
+            )
+            continue
 
         # Guarda também para nosso backend/front-end
         resultados_ferramentas.append(
@@ -1506,7 +1593,7 @@ não tiver analisado e retornado explicitamente essa recomendação.
             # Não queremos outra tool call nesta versão.
             tool_choice="none",
 
-            temperature=0.2
+            temperature=0
         )
     )
 
@@ -1522,6 +1609,12 @@ não tiver analisado e retornado explicitamente essa recomendação.
     # =====================================================
     # RETORNO PARA O BACKEND
     # =====================================================
+
+    if not resultados_ferramentas:
+        return {
+            "tipo_resposta": "texto",
+            "resposta_ia": texto_final
+        }
 
     return {
         "tipo_resposta": "resposta_ia",

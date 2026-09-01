@@ -297,9 +297,15 @@ async function enviarPerguntaDuaxis(campoChat) {
     return;
   }
 
+  if (campoChat.dataset.consultando === "1") {
+    return;
+  }
+
   const mensagemUsuario = adicionarMensagemUsuario(pergunta);
 
   campoChat.value = "";
+  campoChat.dataset.consultando = "1";
+  const indicadorConsultando = adicionarIndicadorConsultando();
 
   try {
     const resposta = await fetch(urlApiChat(), {
@@ -435,6 +441,9 @@ async function enviarPerguntaDuaxis(campoChat) {
     adicionarMensagemSistema(
       "Não foi possível consultar os dados neste momento.",
     );
+  } finally {
+    removerIndicadorConsultando(indicadorConsultando);
+    delete campoChat.dataset.consultando;
   }
 }
 
@@ -454,6 +463,92 @@ function formatarDataHoraChat(dataHora) {
   });
 }
 
+const R2_MODELO_DEMANDA_PERCENTUAL = 76;
+
+function formatarAtualizacaoPesquisa(dataHora) {
+  if (!dataHora) {
+    return "";
+  }
+
+  const data = new Date(dataHora);
+
+  const hora = data.toLocaleTimeString("pt-BR", {
+    hour: "2-digit",
+    minute: "2-digit",
+    timeZone: "America/Sao_Paulo",
+  });
+
+  return `Hoje às ${hora}`;
+}
+
+function montarBlocoConfiabilidade({
+  nivel,
+  registros,
+  fontes,
+  limitacao,
+  dataHora,
+}) {
+  const chips = (fontes || [])
+    .map(
+      (fonte) => `
+        <span class="confiabilidade-chip">
+          <i data-lucide="check"></i>
+          ${fonte}
+        </span>
+      `,
+    )
+    .join("");
+
+  const registrosFormatados = Number(registros ?? 0).toLocaleString("pt-BR");
+
+  return `
+    <section class="resposta-duaxis__secao resposta-duaxis__secao--confiabilidade">
+      <div class="resposta-duaxis__cabecalho">
+        <i data-lucide="shield-check"></i>
+        <span>CONFIABILIDADE DA ANÁLISE</span>
+      </div>
+      <div class="resposta-duaxis__conteudo">
+        <div class="confiabilidade-grade">
+          <div class="confiabilidade-card">
+            <span class="confiabilidade-card__rotulo">Nível de confiança</span>
+            <strong>${nivel}%</strong>
+            <div class="confiabilidade-barra" aria-hidden="true">
+              <div class="confiabilidade-barra__preenchimento" style="width: ${nivel}%"></div>
+            </div>
+          </div>
+          <div class="confiabilidade-card">
+            <span class="confiabilidade-card__rotulo confiabilidade-rotulo-com-icone">
+              <i data-lucide="database"></i>
+              Registros analisados
+            </span>
+            <strong>${registrosFormatados}</strong>
+          </div>
+          <div class="confiabilidade-card confiabilidade-card--largo">
+            <span class="confiabilidade-card__rotulo">Fontes utilizadas</span>
+            <div class="confiabilidade-fontes">
+              ${chips}
+            </div>
+          </div>
+          <div class="confiabilidade-card">
+            <span class="confiabilidade-card__rotulo confiabilidade-rotulo-com-icone">
+              <i data-lucide="clock"></i>
+              Última atualização
+            </span>
+            <strong>${formatarAtualizacaoPesquisa(dataHora)}</strong>
+          </div>
+          <div class="confiabilidade-card">
+            <span class="confiabilidade-card__rotulo confiabilidade-rotulo-com-icone">
+              <i data-lucide="circle-alert"></i>
+              Possíveis limitações
+            </span>
+            <p class="confiabilidade-card__texto">${limitacao}</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  `;
+}
+
 function converterTextoIaParaHtml(texto) {
   if (!texto) {
     return "";
@@ -468,6 +563,138 @@ function converterTextoIaParaHtml(texto) {
     .replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>")
 
     .replace(/\n/g, "<br>");
+}
+
+function separarResumoEAnalise(textoIa) {
+  if (!textoIa) {
+    return { resumo: "", analise: "", recomendacoes: "" };
+  }
+
+  const texto = String(textoIa).replace(/\r\n/g, "\n").trim();
+
+  function bloco(nomeRegex) {
+    const padrao = new RegExp(
+      `\\[\\[\\s*${nomeRegex}\\s*\\]\\]\\s*([\\s\\S]*?)(?=\\[\\[|$)`,
+      "i",
+    );
+    const encontrado = texto.match(padrao);
+    return encontrado ? encontrado[1].trim() : "";
+  }
+
+  if (!/\[\[/.test(texto)) {
+    return { resumo: texto, analise: "", recomendacoes: "" };
+  }
+
+  return {
+    resumo: bloco("RESUMO"),
+    analise: bloco("AN[AÁ]LISE"),
+    recomendacoes: bloco("RECOMENDAC[OÕ]ES"),
+  };
+}
+
+function formatarTopicosHtml(texto) {
+  if (!texto) {
+    return "";
+  }
+
+  const itens = texto
+    .split("\n")
+    .map((linha) => linha.trim())
+    .filter(Boolean)
+    .map((linha) => linha.replace(/^[-*•]\s+/, "").replace(/^\d+[.)]\s+/, ""));
+
+  if (itens.length >= 2) {
+    const lis = itens
+      .map((item) => `<li>${converterTextoIaParaHtml(item)}</li>`)
+      .join("");
+
+    return `
+      <ul class="resposta-duaxis__lista resposta-duaxis__lista--analise">
+        ${lis}
+      </ul>
+    `;
+  }
+
+  return converterTextoIaParaHtml(texto);
+}
+
+function montarBlocoResumoExecutivo(textoIa, dataHora) {
+  const { resumo } = separarResumoEAnalise(textoIa);
+
+  return `
+    <section class="resposta-duaxis__secao">
+      <div class="resposta-duaxis__cabecalho">
+        <i data-lucide="file-text"></i>
+        <div class="resposta-duaxis__identificacao">
+          <span class="resposta-duaxis__data">
+            ${formatarDataHoraChat(dataHora)}
+          </span>
+          <span>RESUMO EXECUTIVO</span>
+        </div>
+      </div>
+      <div class="resposta-duaxis__conteudo resposta-ia-texto">
+        ${converterTextoIaParaHtml(resumo)}
+      </div>
+    </section>
+  `;
+}
+
+function montarBlocoAnalise(textoAnalise) {
+  const corpo = formatarTopicosHtml(textoAnalise);
+  const classeVazio = corpo ? "" : "resposta-duaxis__conteudo--vazio";
+
+  return `
+    <section class="resposta-duaxis__secao">
+      <div class="resposta-duaxis__cabecalho">
+        <i data-lucide="search"></i>
+        <span>ANÁLISE</span>
+      </div>
+      <div class="resposta-duaxis__conteudo resposta-ia-texto ${classeVazio}">
+        ${corpo}
+      </div>
+    </section>
+  `;
+}
+
+function montarBlocoRecomendacoes(textoRecomendacoes) {
+  const corpo = formatarTopicosHtml(textoRecomendacoes);
+  const classeVazio = corpo ? "" : "resposta-duaxis__conteudo--vazio";
+
+  return `
+    <section class="resposta-duaxis__secao">
+      <div class="resposta-duaxis__cabecalho">
+        <i data-lucide="lightbulb"></i>
+        <span>RECOMENDAÇÕES</span>
+      </div>
+      <div class="resposta-duaxis__conteudo resposta-ia-texto ${classeVazio}">
+        ${corpo}
+      </div>
+    </section>
+  `;
+}
+
+function montarBotaoGerarRelatorio() {
+  return `
+    <section class="resposta-duaxis__secao resposta-duaxis__secao--relatorio">
+      <button type="button" class="resposta-duaxis__relatorio">
+        <i data-lucide="file-text"></i>
+        <span>Gerar Relatório</span>
+      </button>
+    </section>
+  `;
+}
+
+function montarBlocosFinais(configConfiabilidade) {
+  const { analise, recomendacoes } = separarResumoEAnalise(
+    configConfiabilidade.textoIa,
+  );
+
+  return `
+    ${montarBlocoAnalise(analise)}
+    ${montarBlocoRecomendacoes(recomendacoes)}
+    ${montarBlocoConfiabilidade(configConfiabilidade)}
+    ${montarBotaoGerarRelatorio()}
+  `;
 }
 
 function adicionarRespostaTextoIa(texto, dataHora) {
@@ -494,38 +721,10 @@ function adicionarRespostaTextoIa(texto, dataHora) {
   bloco.className = "resposta-duaxis";
 
   bloco.innerHTML = `
-
-    <section class="resposta-duaxis__secao">
-
-      <div class="resposta-duaxis__cabecalho">
-
-        <i data-lucide="sparkles"></i>
-
-        <div class="resposta-duaxis__identificacao">
-
-          <span>
-            DUAXIS
-          </span>
-
-          <span class="resposta-duaxis__data">
-            ${formatarDataHoraChat(dataHora)}
-          </span>
-
-        </div>
-
-      </div>
-
-      <div
-        class="
-          resposta-duaxis__conteudo
-          resposta-ia-texto
-        "
-      >
-        ${converterTextoIaParaHtml(texto)}
-      </div>
-
-    </section>
-
+    ${montarBlocoResumoExecutivo(texto, dataHora)}
+    ${montarBlocoAnalise(separarResumoEAnalise(texto).analise)}
+    ${montarBlocoRecomendacoes(separarResumoEAnalise(texto).recomendacoes)}
+    ${montarBotaoGerarRelatorio()}
   `;
 
   linhaResposta.appendChild(avatarDuaxis);
@@ -650,37 +849,7 @@ function adicionarRespostaListaReposicao(dados, textoIa, dataHora) {
 
   bloco.innerHTML = `
 
-    <section class="resposta-duaxis__secao">
-
-      <div class="resposta-duaxis__cabecalho">
-
-        <i data-lucide="package-search"></i>
-
-        <div class="resposta-duaxis__identificacao">
-
-          <span>
-            RESUMO EXECUTIVO
-          </span>
-
-          <span class="resposta-duaxis__data">
-            ${formatarDataHoraChat(dataHora)}
-          </span>
-
-        </div>
-
-      </div>  
-
-      <div
-        class="
-          resposta-duaxis__conteudo
-          resposta-ia-texto
-        "
-      >
-        ${converterTextoIaParaHtml(textoIa)}
-      </div>
-
-    </section>
-
+    ${montarBlocoResumoExecutivo(textoIa, dataHora)}
 
     <section class="resposta-duaxis__secao">
 
@@ -725,141 +894,15 @@ function adicionarRespostaListaReposicao(dados, textoIa, dataHora) {
     </section>
 
 
-    <section class="resposta-duaxis__secao">
-
-      <div class="resposta-duaxis__cabecalho">
-        <i data-lucide="lightbulb"></i>
-        <span>RECOMENDAÇÃO</span>
-      </div>
-
-      <div class="resposta-duaxis__conteudo">
-
-        <ul class="
-          resposta-duaxis__lista
-          resposta-duaxis__lista--recomendacoes
-        ">
-
-          <li>
-            Priorizar os produtos com maior
-            necessidade de reposição.
-          </li>
-
-          <li>
-            Considerar o impacto financeiro total
-            antes de efetuar todas as compras.
-          </li>
-
-          <li>
-            Acompanhar a demanda prevista e os
-            prazos dos fornecedores durante o mês.
-          </li>
-
-        </ul>
-
-      </div>
-
-    </section>
-
-
-    <section class="
-      resposta-duaxis__secao
-      resposta-duaxis__secao--confiabilidade
-    ">
-
-      <div class="resposta-duaxis__cabecalho">
-        <i data-lucide="shield-check"></i>
-        <span>CONFIABILIDADE DA ANÁLISE</span>
-      </div>
-
-      <div class="resposta-duaxis__conteudo">
-
-        <div class="confiabilidade-grade">
-
-          <div class="confiabilidade-card">
-
-            <span class="confiabilidade-card__rotulo">
-              Produtos analisados
-            </span>
-
-            <strong>
-              ${dados.total_analisados}
-            </strong>
-
-          </div>
-
-          <div class="confiabilidade-card">
-
-            <span class="confiabilidade-card__rotulo">
-              Produtos com reposição
-            </span>
-
-            <strong>
-              ${totalProdutos}
-            </strong>
-
-          </div>
-
-          <div class="confiabilidade-card">
-
-            <span class="confiabilidade-card__rotulo">
-              Modelo
-            </span>
-
-            <strong>
-              Random Forest
-            </strong>
-
-          </div>
-
-          <div class="confiabilidade-card">
-
-            <span class="confiabilidade-card__rotulo">
-              Desempenho do modelo (R²)
-            </span>
-
-            <strong>
-              0,76
-            </strong>
-
-          </div>
-
-        </div>
-
-      </div>
-
-    </section>
-
-
-    <section class="
-      resposta-duaxis__secao
-      resposta-duaxis__secao--sugestoes
-    ">
-
-      <div class="resposta-duaxis__conteudo">
-
-        <strong>
-          ✨ Você também pode perguntar:
-        </strong>
-
-        <button
-          type="button"
-          class="resposta-duaxis__sugestao"
-          data-pergunta="Quanto devo comprar do PROD017?"
-        >
-          → Quanto devo comprar do PROD017?
-        </button>
-
-        <button
-          type="button"
-          class="resposta-duaxis__sugestao"
-          data-pergunta="Qual produto tem maior risco de ruptura?"
-        >
-          → Qual produto tem maior risco de ruptura?
-        </button>
-
-      </div>
-
-    </section>
+    ${montarBlocosFinais({
+      nivel: R2_MODELO_DEMANDA_PERCENTUAL,
+      registros: dados.total_analisados,
+      fontes: ["Logística"],
+      limitacao:
+        "A demanda é prevista por Random Forest (R² 0,76). Não é fato histórico.",
+      dataHora,
+      textoIa,
+    })}
 
   `;
 
@@ -960,6 +1003,49 @@ function atualizarDataHoraMensagemUsuario(elementoData, dataHora) {
   elementoData.hidden = false;
 }
 
+function adicionarIndicadorConsultando() {
+  const container = document.getElementById("mensagens-chat-dv");
+
+  if (!container) {
+    return null;
+  }
+
+  const linhaMensagem = document.createElement("div");
+  linhaMensagem.className = "linha-chat linha-chat--duaxis";
+
+  const avatar = document.createElement("div");
+  avatar.className = "avatar-chat avatar-chat--duaxis";
+  avatar.innerHTML = '<i data-lucide="bot"></i>';
+
+  const mensagem = document.createElement("div");
+  mensagem.className =
+    "mensagem-chat mensagem-chat--duaxis mensagem-chat--consultando";
+  mensagem.innerHTML = `
+    <span class="consultando-dados">
+      Consultando dados<span class="consultando-dados__pontos"></span>
+    </span>
+  `;
+
+  linhaMensagem.appendChild(avatar);
+  linhaMensagem.appendChild(mensagem);
+  container.appendChild(linhaMensagem);
+
+  inicializarIconesLucide();
+
+  linhaMensagem.scrollIntoView({
+    behavior: "smooth",
+    block: "end",
+  });
+
+  return linhaMensagem;
+}
+
+function removerIndicadorConsultando(linhaMensagem) {
+  if (linhaMensagem) {
+    linhaMensagem.remove();
+  }
+}
+
 function adicionarMensagemSistema(texto) {
   const container = document.getElementById("mensagens-chat-dv");
 
@@ -1002,17 +1088,6 @@ function adicionarRespostaDuaxis(dados, textoIa, dataHora) {
     currency: "BRL",
   });
 
-  const textoRecomendacao =
-    dados.quantidade_recomendada > 0
-      ? `Adquirir aproximadamente
-       <strong>${dados.quantidade_recomendada} unidades</strong>
-       de <strong>${dados.nome_produto}</strong>
-       (${dados.produto_id}).`
-      : `Não há necessidade de reposição de
-       <strong>${dados.nome_produto}</strong>
-       (${dados.produto_id})
-       neste momento.`;
-
   const linhaResposta = document.createElement("div");
 
   linhaResposta.className = "linha-chat linha-chat--duaxis";
@@ -1030,43 +1105,13 @@ function adicionarRespostaDuaxis(dados, textoIa, dataHora) {
   bloco.className = "resposta-duaxis";
 
   bloco.innerHTML = `
-        <section class="resposta-duaxis__secao">
-
-            <div class="resposta-duaxis__cabecalho">
-
-              <i data-lucide="package-search"></i>
-
-              <div class="resposta-duaxis__identificacao">
-
-                <span>
-                  RESUMO EXECUTIVO
-                </span>
-
-                <span class="resposta-duaxis__data">
-                  ${formatarDataHoraChat(dataHora)}
-                </span>
-
-              </div>
-
-            </div>
-
-            <div
-              class="
-                resposta-duaxis__conteudo
-                resposta-ia-texto
-              "
-            >
-              ${converterTextoIaParaHtml(textoIa)}
-            </div>
-
-        </section>
-
+        ${montarBlocoResumoExecutivo(textoIa, dataHora)}
 
         <section class="resposta-duaxis__secao">
 
             <div class="resposta-duaxis__cabecalho">
-                <i data-lucide="search"></i>
-                <span>ANÁLISE</span>
+                <i data-lucide="package-search"></i>
+                <span>REPOSIÇÃO</span>
             </div>
 
             <div class="resposta-duaxis__conteudo">
@@ -1092,183 +1137,28 @@ function adicionarRespostaDuaxis(dados, textoIa, dataHora) {
                         <strong>${dados.lead_time_dias} dias</strong>.
                     </li>
 
-                </ul>
-
-            </div>
-
-        </section>
-
-
-        <section class="resposta-duaxis__secao">
-
-            <div class="resposta-duaxis__cabecalho">
-                <i data-lucide="lightbulb"></i>
-                <span>RECOMENDAÇÕES</span>
-            </div>
-
-            <div class="resposta-duaxis__conteudo">
-
-                <ul class="
-                    resposta-duaxis__lista
-                    resposta-duaxis__lista--recomendacoes
-                ">
-
                     <li>
-                        ${textoRecomendacao}
-                    </li>
-                    
-                    <li>
-                        A compra terá impacto financeiro estimado de
+                        Quantidade recomendada:
+                        <strong>${dados.quantidade_recomendada} unidades</strong>,
+                        com impacto financeiro estimado de
                         <strong>${impactoFormatado}</strong>.
                     </li>
 
-                    <li>
-                        Monitorar o estoque durante o mês,
-                        principalmente se ocorrer aumento inesperado
-                        da demanda.
-                    </li>
-
                 </ul>
 
             </div>
 
         </section>
 
-
-        <section class="
-            resposta-duaxis__secao
-            resposta-duaxis__secao--confiabilidade
-        ">
-
-            <div class="resposta-duaxis__cabecalho">
-                <i data-lucide="shield-check"></i>
-                <span>CONFIABILIDADE DA ANÁLISE</span>
-            </div>
-
-            <div class="resposta-duaxis__conteudo">
-
-                <div class="confiabilidade-grade">
-
-                    <div class="confiabilidade-card">
-
-                        <span class="confiabilidade-card__rotulo">
-                            Modelo utilizado
-                        </span>
-
-                        <strong>
-                            Random Forest
-                        </strong>
-
-                    </div>
-
-
-                    <div class="confiabilidade-card">
-
-                        <span class="confiabilidade-card__rotulo">
-                            Desempenho do modelo (R²)
-                        </span>
-
-                        <strong>
-                            0,76
-                        </strong>
-
-                    </div>
-
-
-                    <div class="confiabilidade-card">
-
-                        <span class="confiabilidade-card__rotulo">
-                            Risco imediato de ruptura
-                        </span>
-
-                        <strong>
-                            ${dados.risco_ruptura_imediato}
-                        </strong>
-
-                    </div>
-
-
-                    <div class="confiabilidade-card">
-
-                        <span class="confiabilidade-card__rotulo">
-                            Fontes utilizadas
-                        </span>
-
-                        <strong>
-                            Logística + Financeiro
-                        </strong>
-
-                    </div>
-
-                </div>
-
-
-                <div class="confiabilidade-limitacao">
-
-                    <strong>Possíveis limitações</strong>
-
-                    <p>
-                        A previsão é baseada no histórico disponível
-                        e pode não considerar eventos futuros não
-                        registrados, como promoções inesperadas,
-                        mudanças de comportamento do consumidor ou
-                        atrasos extraordinários de fornecedores.
-                    </p>
-
-                </div>
-
-            </div>
-
-        </section>
-
-
-        <section class="
-            resposta-duaxis__secao
-            resposta-duaxis__secao--sugestoes
-        ">
-
-            <div class="resposta-duaxis__conteudo">
-
-                <strong>
-                    ✨ Você também pode perguntar:
-                </strong>
-
-                <button
-                    type="button"
-                    class="resposta-duaxis__sugestao"
-                    data-pergunta="Quais produtos precisam de reposição?"
-                >
-                    → Quais produtos precisam de reposição?
-                </button>
-
-                <button
-                    type="button"
-                    class="resposta-duaxis__sugestao"
-                    data-pergunta="Qual produto tem maior risco de ruptura?"
-                >
-                    → Qual produto tem maior risco de ruptura?
-                </button>
-
-                <button
-                    type="button"
-                    class="resposta-duaxis__sugestao"
-                    data-pergunta="Qual o impacto financeiro das reposições?"
-                >
-                    → Qual o impacto financeiro das reposições?
-                </button>
-
-            </div>
-
-        </section>
-
-
-        <button
-            type="button"
-            class="resposta-duaxis__relatorio"
-        >
-            <i data-lucide="file-text"></i>
-            Gerar Relatório
-        </button>
+        ${montarBlocosFinais({
+          nivel: R2_MODELO_DEMANDA_PERCENTUAL,
+          registros: 1,
+          fontes: ["Logística"],
+          limitacao:
+            "A demanda é prevista por Random Forest (R² 0,76). Não é fato histórico.",
+          dataHora,
+          textoIa,
+        })}
     `;
 
   linhaResposta.appendChild(avatarDuaxis);
@@ -1278,20 +1168,6 @@ function adicionarRespostaDuaxis(dados, textoIa, dataHora) {
   container.appendChild(linhaResposta);
 
   inicializarIconesLucide();
-
-  bloco.querySelectorAll(".resposta-duaxis__sugestao").forEach((botao) => {
-    botao.addEventListener("click", () => {
-      const campoChat = document.getElementById("campo-chat-dv");
-
-      if (!campoChat) {
-        return;
-      }
-
-      campoChat.value = botao.dataset.pergunta || "";
-
-      campoChat.focus();
-    });
-  });
 
   bloco.scrollIntoView({
     behavior: "smooth",
@@ -1456,37 +1332,7 @@ function adicionarRespostaProdutosMaiorRisco(dados, textoIa, dataHora) {
 
   bloco.innerHTML = `
 
-    <section class="resposta-duaxis__secao">
-
-      <div class="resposta-duaxis__cabecalho">
-
-        <i data-lucide="package-search"></i>
-
-        <div class="resposta-duaxis__identificacao">
-
-          <span>
-            RESUMO EXECUTIVO
-          </span>
-
-          <span class="resposta-duaxis__data">
-            ${formatarDataHoraChat(dataHora)}
-          </span>
-
-        </div>
-
-      </div>
-
-      <div
-        class="
-          resposta-duaxis__conteudo
-          resposta-ia-texto
-        "
-      >
-        ${converterTextoIaParaHtml(textoIa)}
-      </div>
-
-    </section>
-
+    ${montarBlocoResumoExecutivo(textoIa, dataHora)}
 
     <section class="resposta-duaxis__secao">
 
@@ -1496,34 +1342,6 @@ function adicionarRespostaProdutosMaiorRisco(dados, textoIa, dataHora) {
 
         <span>
           PRODUTOS MAIS EXPOSTOS
-        </span>
-
-      </div>
-
-      <div class="resposta-duaxis__conteudo">
-
-        <div class="lista-produtos-risco">
-          ${linhasProdutos}
-        </div>
-
-      </div>
-
-    </section>
-
-
-    <section
-      class="
-        resposta-duaxis__secao
-        resposta-duaxis__secao--confiabilidade
-      "
-    >
-
-      <div class="resposta-duaxis__cabecalho">
-
-        <i data-lucide="chart-no-axes-column"></i>
-
-        <span>
-          VISÃO GERAL DO RISCO
         </span>
 
       </div>
@@ -1598,9 +1416,23 @@ function adicionarRespostaProdutosMaiorRisco(dados, textoIa, dataHora) {
 
         </div>
 
+        <div class="lista-produtos-risco">
+          ${linhasProdutos}
+        </div>
+
       </div>
 
     </section>
+
+    ${montarBlocosFinais({
+      nivel: 100,
+      registros: dados.total_analisados,
+      fontes: ["Logística"],
+      limitacao:
+        "Risco calculado por cobertura de estoque versus lead time. Nenhuma limitação significativa identificada.",
+      dataHora,
+      textoIa,
+    })}
 
   `;
 
@@ -1816,37 +1648,7 @@ function adicionarRespostaPedidosAtrasados(dados, textoIa, dataHora) {
 
   bloco.innerHTML = `
 
-    <section class="resposta-duaxis__secao">
-
-      <div class="resposta-duaxis__cabecalho">
-
-        <i data-lucide="package-search"></i>
-
-        <div class="resposta-duaxis__identificacao">
-
-          <span>
-            RESUMO EXECUTIVO
-          </span>
-
-          <span class="resposta-duaxis__data">
-            ${formatarDataHoraChat(dataHora)}
-          </span>
-
-        </div>
-
-      </div>
-
-      <div
-        class="
-          resposta-duaxis__conteudo
-          resposta-ia-texto
-        "
-      >
-        ${converterTextoIaParaHtml(textoIa)}
-      </div>
-
-    </section>
-
+    ${montarBlocoResumoExecutivo(textoIa, dataHora)}
 
     <section class="resposta-duaxis__secao">
 
@@ -1905,127 +1707,15 @@ function adicionarRespostaPedidosAtrasados(dados, textoIa, dataHora) {
     </section>
 
 
-    <section class="resposta-duaxis__secao">
-
-      <div class="resposta-duaxis__cabecalho">
-
-        <i data-lucide="lightbulb"></i>
-
-        <span>
-          INSIGHT
-        </span>
-
-      </div>
-
-      <div class="resposta-duaxis__conteudo">
-
-        <ul
-          class="
-            resposta-duaxis__lista
-            resposta-duaxis__lista--recomendacoes
-          "
-        >
-
-          <li>
-            Avaliar os fornecedores com maior
-            frequência de atrasos.
-          </li>
-
-          <li>
-            Considerar o histórico de entrega
-            nas próximas decisões de compra.
-          </li>
-
-          <li>
-            Comparar prazo prometido,
-            prazo real e score do fornecedor.
-          </li>
-
-        </ul>
-
-      </div>
-
-    </section>
-
-
-    <section
-      class="
-        resposta-duaxis__secao
-        resposta-duaxis__secao--confiabilidade
-      "
-    >
-
-      <div class="resposta-duaxis__cabecalho">
-
-        <i data-lucide="database"></i>
-
-        <span>
-          FONTE DA ANÁLISE
-        </span>
-
-      </div>
-
-      <div class="resposta-duaxis__conteudo">
-
-        <div class="confiabilidade-grade">
-
-
-          <div class="confiabilidade-card">
-
-            <span class="confiabilidade-card__rotulo">
-              Registros com atraso
-            </span>
-
-            <strong>
-              ${dados.total_atrasados}
-            </strong>
-
-          </div>
-
-
-          <div class="confiabilidade-card">
-
-            <span class="confiabilidade-card__rotulo">
-              Tipo de análise
-            </span>
-
-            <strong>
-              Consulta de dados
-            </strong>
-
-          </div>
-
-
-          <div class="confiabilidade-card">
-
-            <span class="confiabilidade-card__rotulo">
-              Fonte principal
-            </span>
-
-            <strong>
-              Compras
-            </strong>
-
-          </div>
-
-
-          <div class="confiabilidade-card">
-
-            <span class="confiabilidade-card__rotulo">
-              Machine Learning
-            </span>
-
-            <strong>
-              Não utilizado
-            </strong>
-
-          </div>
-
-        </div>
-
-      </div>
-
-    </section>
+    ${montarBlocosFinais({
+      nivel: 100,
+      registros: dados.total_atrasados,
+      fontes: ["Logística"],
+      limitacao:
+        "Situação reconstruída na data de referência, não o status gravado hoje no arquivo.",
+      dataHora,
+      textoIa,
+    })}
 
   `;
 
@@ -2256,38 +1946,7 @@ function adicionarRespostaProdutosBaixoGiro(dados, textoIa, dataHora) {
 
   bloco.innerHTML = `
 
-    <section class="resposta-duaxis__secao">
-
-      <div class="resposta-duaxis__cabecalho">
-
-        <i data-lucide="package-search"></i>
-
-        <div class="resposta-duaxis__identificacao">
-
-          <span>
-            RESUMO EXECUTIVO
-          </span>
-
-          <span class="resposta-duaxis__data">
-            ${formatarDataHoraChat(dataHora)}
-          </span>
-
-        </div>
-
-      </div>
-
-
-      <div
-        class="
-          resposta-duaxis__conteudo
-          resposta-ia-texto
-        "
-      >
-        ${converterTextoIaParaHtml(textoIa)}
-      </div>
-
-    </section>
-
+    ${montarBlocoResumoExecutivo(textoIa, dataHora)}
 
     <section class="resposta-duaxis__secao">
 
@@ -2349,99 +2008,15 @@ function adicionarRespostaProdutosBaixoGiro(dados, textoIa, dataHora) {
     </section>
 
 
-    <section
-      class="
-        resposta-duaxis__secao
-        resposta-duaxis__secao--confiabilidade
-      "
-    >
-
-      <div class="resposta-duaxis__cabecalho">
-
-        <i data-lucide="database"></i>
-
-        <span>
-          FONTE DA ANÁLISE
-        </span>
-
-      </div>
-
-
-      <div class="resposta-duaxis__conteudo">
-
-        <div class="confiabilidade-grade">
-
-
-          <div class="confiabilidade-card">
-
-            <span class="confiabilidade-card__rotulo">
-              Produtos analisados
-            </span>
-
-            <strong>
-              ${dados.total_analisados}
-            </strong>
-
-          </div>
-
-
-          <div class="confiabilidade-card">
-
-            <span class="confiabilidade-card__rotulo">
-              Candidatos a menor giro
-            </span>
-
-            <strong>
-              ${dados.total_candidatos}
-            </strong>
-
-          </div>
-
-
-          <div class="confiabilidade-card">
-
-            <span class="confiabilidade-card__rotulo">
-              Período
-            </span>
-
-            <strong>
-              ${dados.periodo_referencia}
-            </strong>
-
-          </div>
-
-
-          <div class="confiabilidade-card">
-
-            <span class="confiabilidade-card__rotulo">
-              Fonte principal
-            </span>
-
-            <strong>
-              Vendas + Estoque
-            </strong>
-
-          </div>
-
-
-          <div class="confiabilidade-card">
-
-            <span class="confiabilidade-card__rotulo">
-              Machine Learning
-            </span>
-
-            <strong>
-              Não utilizado
-            </strong>
-
-          </div>
-
-
-        </div>
-
-      </div>
-
-    </section>
+    ${montarBlocosFinais({
+      nivel: 100,
+      registros: dados.total_analisados,
+      fontes: ["Logística"],
+      limitacao:
+        "Candidatos a menor giro pelo critério determinístico. Não é classificação de produto encalhado.",
+      dataHora,
+      textoIa,
+    })}
 
   `;
 
@@ -2650,37 +2225,7 @@ function adicionarRespostaFornecedoresAtrasos(dados, textoIa, dataHora) {
 
   bloco.innerHTML = `
 
-    <section class="resposta-duaxis__secao">
-
-      <div class="resposta-duaxis__cabecalho">
-
-        <i data-lucide="truck"></i>
-
-        <div class="resposta-duaxis__identificacao">
-
-          <span>
-            RESUMO EXECUTIVO
-          </span>
-
-          <span class="resposta-duaxis__data">
-            ${formatarDataHoraChat(dataHora)}
-          </span>
-
-        </div>
-
-      </div>
-
-      <div
-        class="
-          resposta-duaxis__conteudo
-          resposta-ia-texto
-        "
-      >
-        ${converterTextoIaParaHtml(textoIa)}
-      </div>
-
-    </section>
-
+    ${montarBlocoResumoExecutivo(textoIa, dataHora)}
 
     <section class="resposta-duaxis__secao">
 
@@ -2741,85 +2286,15 @@ function adicionarRespostaFornecedoresAtrasos(dados, textoIa, dataHora) {
     </section>
 
 
-    <section
-      class="
-        resposta-duaxis__secao
-        resposta-duaxis__secao--confiabilidade
-      "
-    >
-
-      <div class="resposta-duaxis__cabecalho">
-
-        <i data-lucide="database"></i>
-
-        <span>
-          FONTE DA ANÁLISE
-        </span>
-
-      </div>
-
-      <div class="resposta-duaxis__conteudo">
-
-        <div class="confiabilidade-grade">
-
-
-          <div class="confiabilidade-card">
-
-            <span class="confiabilidade-card__rotulo">
-              Fornecedores analisados
-            </span>
-
-            <strong>
-              ${dados.total_fornecedores}
-            </strong>
-
-          </div>
-
-
-          <div class="confiabilidade-card">
-
-            <span class="confiabilidade-card__rotulo">
-              Critério principal
-            </span>
-
-            <strong>
-              Taxa de atraso
-            </strong>
-
-          </div>
-
-
-          <div class="confiabilidade-card">
-
-            <span class="confiabilidade-card__rotulo">
-              Fonte principal
-            </span>
-
-            <strong>
-              Compras
-            </strong>
-
-          </div>
-
-
-          <div class="confiabilidade-card">
-
-            <span class="confiabilidade-card__rotulo">
-              Machine Learning
-            </span>
-
-            <strong>
-              Não utilizado
-            </strong>
-
-          </div>
-
-
-        </div>
-
-      </div>
-
-    </section>
+    ${montarBlocosFinais({
+      nivel: 100,
+      registros: dados.total_fornecedores,
+      fontes: ["Logística"],
+      limitacao:
+        "Ranking por taxa percentual de atraso nas entregas. Pedidos ainda não entregues não entram.",
+      dataHora,
+      textoIa,
+    })}
 
   `;
 
@@ -2917,20 +2392,7 @@ function adicionarRespostaFaturamento(dados, textoIa, dataHora) {
   bloco.className = "resposta-duaxis resposta-duaxis--lista";
 
   bloco.innerHTML = `
-  <section class="resposta-duaxis__secao">
-    <div class="resposta-duaxis__cabecalho">
-      <i data-lucide="banknote"></i>
-      <div class="resposta-duaxis__identificacao">
-        <span>RESUMO EXECUTIVO</span>
-        <span class="resposta-duaxis__data">
-          ${formatarDataHoraChat(dataHora)}
-        </span>
-      </div>
-    </div>
-    <div class="resposta-duaxis__conteudo resposta-ia-texto">
-      ${converterTextoIaParaHtml(textoIa)}
-    </div>
-  </section>
+  ${montarBlocoResumoExecutivo(textoIa, dataHora)}
 
   <section class="resposta-duaxis__secao">
     <div class="resposta-duaxis__cabecalho">
@@ -2953,46 +2415,35 @@ function adicionarRespostaFaturamento(dados, textoIa, dataHora) {
         </div>
       </div>
 
-      <p class="reposicao-intro">Faturamento por competência:</p>
-      <div class="lista-produtos-reposicao">
-        ${meses.map(linhaMes).join("")}
-      </div>
       ${
-        meses.length > 5
-          ? `<button type="button" class="botao-ver-todos-reposicao">
-               Ver todos os ${meses.length} meses
-             </button>`
+        meses.length > 1
+          ? `
+            <p class="reposicao-intro">Faturamento por competência:</p>
+            <div class="lista-produtos-reposicao">
+              ${meses.map(linhaMes).join("")}
+            </div>
+            ${
+              meses.length > 5
+                ? `<button type="button" class="botao-ver-todos-reposicao">
+                     Ver todos os ${meses.length} meses
+                   </button>`
+                : ""
+            }
+          `
           : ""
       }
     </div>
   </section>
 
-  <section class="resposta-duaxis__secao resposta-duaxis__secao--confiabilidade">
-    <div class="resposta-duaxis__cabecalho">
-      <i data-lucide="database"></i>
-      <span>FONTE DA ANÁLISE</span>
-    </div>
-    <div class="resposta-duaxis__conteudo">
-      <div class="confiabilidade-grade">
-        <div class="confiabilidade-card">
-          <span class="confiabilidade-card__rotulo">Período</span>
-          <strong>${periodo}</strong>
-        </div>
-        <div class="confiabilidade-card">
-          <span class="confiabilidade-card__rotulo">Fonte</span>
-          <strong>Vendas (valor_liquido)</strong>
-        </div>
-        <div class="confiabilidade-card">
-          <span class="confiabilidade-card__rotulo">Critério</span>
-          <strong>Vendas concluídas por competência</strong>
-        </div>
-        <div class="confiabilidade-card">
-          <span class="confiabilidade-card__rotulo">Machine Learning</span>
-          <strong>Não utilizado</strong>
-        </div>
-      </div>
-    </div>
-  </section>
+  ${montarBlocosFinais({
+    nivel: 100,
+    registros: dados.total_vendas,
+    fontes: ["Financeiro"],
+    limitacao:
+      "Cálculo determinístico das vendas concluídas por competência. Nenhuma limitação significativa identificada.",
+    dataHora,
+    textoIa,
+  })}
 `;
   linhaResposta.appendChild(avatarDuaxis);
   linhaResposta.appendChild(bloco);
@@ -3086,20 +2537,7 @@ function adicionarRespostaDespesas(dados, textoIa, dataHora) {
   bloco.className = "resposta-duaxis resposta-duaxis--lista";
 
   bloco.innerHTML = `
-    <section class="resposta-duaxis__secao">
-      <div class="resposta-duaxis__cabecalho">
-        <i data-lucide="wallet"></i>
-        <div class="resposta-duaxis__identificacao">
-          <span>RESUMO EXECUTIVO</span>
-          <span class="resposta-duaxis__data">
-            ${formatarDataHoraChat(dataHora)}
-          </span>
-        </div>
-      </div>
-      <div class="resposta-duaxis__conteudo resposta-ia-texto">
-        ${converterTextoIaParaHtml(textoIa)}
-      </div>
-    </section>
+    ${montarBlocoResumoExecutivo(textoIa, dataHora)}
 
     <section class="resposta-duaxis__secao">
       <div class="resposta-duaxis__cabecalho">
@@ -3133,36 +2571,15 @@ function adicionarRespostaDespesas(dados, textoIa, dataHora) {
       </div>
     </section>
 
-    <section class="resposta-duaxis__secao resposta-duaxis__secao--confiabilidade">
-      <div class="resposta-duaxis__cabecalho">
-        <i data-lucide="database"></i>
-        <span>FONTE DA ANÁLISE</span>
-      </div>
-      <div class="resposta-duaxis__conteudo">
-        <div class="confiabilidade-grade">
-          <div class="confiabilidade-card">
-            <span class="confiabilidade-card__rotulo">Período</span>
-            <strong>${periodo}</strong>
-          </div>
-          <div class="confiabilidade-card">
-            <span class="confiabilidade-card__rotulo">Fonte</span>
-            <strong>Movimentações financeiras</strong>
-          </div>
-          <div class="confiabilidade-card">
-            <span class="confiabilidade-card__rotulo">Critério</span>
-            <strong>Despesas operacionais por competência</strong>
-          </div>
-          <div class="confiabilidade-card">
-            <span class="confiabilidade-card__rotulo">Compra de mercadorias</span>
-            <strong>Não incluída (custo)</strong>
-          </div>
-          <div class="confiabilidade-card">
-            <span class="confiabilidade-card__rotulo">Machine Learning</span>
-            <strong>Não utilizado</strong>
-          </div>
-        </div>
-      </div>
-    </section>
+    ${montarBlocosFinais({
+      nivel: 100,
+      registros: dados.registros_analisados,
+      fontes: ["Financeiro"],
+      limitacao:
+        "Apenas despesas operacionais por competência. Compra de mercadorias não entra.",
+      dataHora,
+      textoIa,
+    })}
   `;
 
   linhaResposta.appendChild(avatarDuaxis);
@@ -3225,20 +2642,7 @@ function adicionarRespostaLucro(dados, textoIa, dataHora) {
   bloco.className = "resposta-duaxis resposta-duaxis--lista";
 
   bloco.innerHTML = `
-    <section class="resposta-duaxis__secao">
-      <div class="resposta-duaxis__cabecalho">
-        <i data-lucide="trending-up"></i>
-        <div class="resposta-duaxis__identificacao">
-          <span>RESUMO EXECUTIVO</span>
-          <span class="resposta-duaxis__data">
-            ${formatarDataHoraChat(dataHora)}
-          </span>
-        </div>
-      </div>
-      <div class="resposta-duaxis__conteudo resposta-ia-texto">
-        ${converterTextoIaParaHtml(textoIa)}
-      </div>
-    </section>
+    ${montarBlocoResumoExecutivo(textoIa, dataHora)}
 
     <section class="resposta-duaxis__secao">
       <div class="resposta-duaxis__cabecalho">
@@ -3271,36 +2675,15 @@ function adicionarRespostaLucro(dados, textoIa, dataHora) {
       </div>
     </section>
 
-    <section class="resposta-duaxis__secao resposta-duaxis__secao--confiabilidade">
-      <div class="resposta-duaxis__cabecalho">
-        <i data-lucide="database"></i>
-        <span>FONTE DA ANÁLISE</span>
-      </div>
-      <div class="resposta-duaxis__conteudo">
-        <div class="confiabilidade-grade">
-          <div class="confiabilidade-card">
-            <span class="confiabilidade-card__rotulo">Período</span>
-            <strong>${periodo}</strong>
-          </div>
-          <div class="confiabilidade-card">
-            <span class="confiabilidade-card__rotulo">Fonte</span>
-            <strong>Vendas + movimentações financeiras</strong>
-          </div>
-          <div class="confiabilidade-card">
-            <span class="confiabilidade-card__rotulo">CMV</span>
-            <strong>Custo das mercadorias vendidas (não compras)</strong>
-          </div>
-          <div class="confiabilidade-card">
-            <span class="confiabilidade-card__rotulo">Critério</span>
-            <strong>Resultado operacional simplificado por competência</strong>
-          </div>
-          <div class="confiabilidade-card">
-            <span class="confiabilidade-card__rotulo">Machine Learning</span>
-            <strong>Não utilizado</strong>
-          </div>
-        </div>
-      </div>
-    </section>
+    ${montarBlocosFinais({
+      nivel: 100,
+      registros: dados.registros_analisados,
+      fontes: ["Financeiro"],
+      limitacao:
+        "Resultado operacional simplificado (faturamento − CMV − despesa). Não é lucro líquido contábil.",
+      dataHora,
+      textoIa,
+    })}
   `;
 
   linhaResposta.appendChild(avatarDuaxis);
@@ -3356,20 +2739,7 @@ function adicionarRespostaContasAReceber(dados, textoIa, dataHora) {
   bloco.className = "resposta-duaxis resposta-duaxis--lista";
 
   bloco.innerHTML = `
-    <section class="resposta-duaxis__secao">
-      <div class="resposta-duaxis__cabecalho">
-        <i data-lucide="wallet"></i>
-        <div class="resposta-duaxis__identificacao">
-          <span>RESUMO EXECUTIVO</span>
-          <span class="resposta-duaxis__data">
-            ${formatarDataHoraChat(dataHora)}
-          </span>
-        </div>
-      </div>
-      <div class="resposta-duaxis__conteudo resposta-ia-texto">
-        ${converterTextoIaParaHtml(textoIa)}
-      </div>
-    </section>
+    ${montarBlocoResumoExecutivo(textoIa, dataHora)}
 
     <section class="resposta-duaxis__secao">
       <div class="resposta-duaxis__cabecalho">
@@ -3414,32 +2784,15 @@ function adicionarRespostaContasAReceber(dados, textoIa, dataHora) {
       </div>
     </section>
 
-    <section class="resposta-duaxis__secao resposta-duaxis__secao--confiabilidade">
-      <div class="resposta-duaxis__cabecalho">
-        <i data-lucide="database"></i>
-        <span>FONTE DA ANÁLISE</span>
-      </div>
-      <div class="resposta-duaxis__conteudo">
-        <div class="confiabilidade-grade">
-          <div class="confiabilidade-card">
-            <span class="confiabilidade-card__rotulo">Data de referência</span>
-            <strong>${dados.data_referencia}</strong>
-          </div>
-          <div class="confiabilidade-card">
-            <span class="confiabilidade-card__rotulo">Fonte</span>
-            <strong>Contas a receber</strong>
-          </div>
-          <div class="confiabilidade-card">
-            <span class="confiabilidade-card__rotulo">Critério</span>
-            <strong>${dados.criterio}</strong>
-          </div>
-          <div class="confiabilidade-card">
-            <span class="confiabilidade-card__rotulo">Machine Learning</span>
-            <strong>Não utilizado</strong>
-          </div>
-        </div>
-      </div>
-    </section>
+    ${montarBlocosFinais({
+      nivel: 100,
+      registros: dados.registros_analisados,
+      fontes: ["Financeiro"],
+      limitacao:
+        "Saldo reconstruído na data. O arquivo já contém recebimentos futuros.",
+      dataHora,
+      textoIa,
+    })}
   `;
 
   linhaResposta.appendChild(avatarDuaxis);
@@ -3516,20 +2869,7 @@ function adicionarRespostaContasAPagar(dados, textoIa, dataHora) {
   bloco.className = "resposta-duaxis resposta-duaxis--lista";
 
   bloco.innerHTML = `
-    <section class="resposta-duaxis__secao">
-      <div class="resposta-duaxis__cabecalho">
-        <i data-lucide="wallet"></i>
-        <div class="resposta-duaxis__identificacao">
-          <span>RESUMO EXECUTIVO</span>
-          <span class="resposta-duaxis__data">
-            ${formatarDataHoraChat(dataHora)}
-          </span>
-        </div>
-      </div>
-      <div class="resposta-duaxis__conteudo resposta-ia-texto">
-        ${converterTextoIaParaHtml(textoIa)}
-      </div>
-    </section>
+    ${montarBlocoResumoExecutivo(textoIa, dataHora)}
 
     <section class="resposta-duaxis__secao">
       <div class="resposta-duaxis__cabecalho">
@@ -3574,32 +2914,15 @@ function adicionarRespostaContasAPagar(dados, textoIa, dataHora) {
       </div>
     </section>
 
-    <section class="resposta-duaxis__secao resposta-duaxis__secao--confiabilidade">
-      <div class="resposta-duaxis__cabecalho">
-        <i data-lucide="database"></i>
-        <span>FONTE DA ANÁLISE</span>
-      </div>
-      <div class="resposta-duaxis__conteudo">
-        <div class="confiabilidade-grade">
-          <div class="confiabilidade-card">
-            <span class="confiabilidade-card__rotulo">Data de referência</span>
-            <strong>${dados.data_referencia}</strong>
-          </div>
-          <div class="confiabilidade-card">
-            <span class="confiabilidade-card__rotulo">Fonte</span>
-            <strong>Contas a pagar</strong>
-          </div>
-          <div class="confiabilidade-card">
-            <span class="confiabilidade-card__rotulo">Critério</span>
-            <strong>${dados.criterio}</strong>
-          </div>
-          <div class="confiabilidade-card">
-            <span class="confiabilidade-card__rotulo">Machine Learning</span>
-            <strong>Não utilizado</strong>
-          </div>
-        </div>
-      </div>
-    </section>
+    ${montarBlocosFinais({
+      nivel: 100,
+      registros: dados.registros_analisados,
+      fontes: ["Financeiro"],
+      limitacao:
+        "Saldo reconstruído na data. O arquivo já contém pagamentos futuros.",
+      dataHora,
+      textoIa,
+    })}
   `;
 
   linhaResposta.appendChild(avatarDuaxis);
@@ -3695,20 +3018,7 @@ function adicionarRespostaFluxoCaixa(dados, textoIa, dataHora) {
   bloco.className = "resposta-duaxis resposta-duaxis--lista";
 
   bloco.innerHTML = `
-    <section class="resposta-duaxis__secao">
-      <div class="resposta-duaxis__cabecalho">
-        <i data-lucide="wallet"></i>
-        <div class="resposta-duaxis__identificacao">
-          <span>RESUMO EXECUTIVO</span>
-          <span class="resposta-duaxis__data">
-            ${formatarDataHoraChat(dataHora)}
-          </span>
-        </div>
-      </div>
-      <div class="resposta-duaxis__conteudo resposta-ia-texto">
-        ${converterTextoIaParaHtml(textoIa)}
-      </div>
-    </section>
+    ${montarBlocoResumoExecutivo(textoIa, dataHora)}
 
     <section class="resposta-duaxis__secao">
       <div class="resposta-duaxis__cabecalho">
@@ -3750,32 +3060,15 @@ function adicionarRespostaFluxoCaixa(dados, textoIa, dataHora) {
       </div>
     </section>
 
-    <section class="resposta-duaxis__secao resposta-duaxis__secao--confiabilidade">
-      <div class="resposta-duaxis__cabecalho">
-        <i data-lucide="database"></i>
-        <span>FONTE DA ANÁLISE</span>
-      </div>
-      <div class="resposta-duaxis__conteudo">
-        <div class="confiabilidade-grade">
-          <div class="confiabilidade-card">
-            <span class="confiabilidade-card__rotulo">Período</span>
-            <strong>${periodo}</strong>
-          </div>
-          <div class="confiabilidade-card">
-            <span class="confiabilidade-card__rotulo">Fonte</span>
-            <strong>Movimentações financeiras</strong>
-          </div>
-          <div class="confiabilidade-card">
-            <span class="confiabilidade-card__rotulo">Critério</span>
-            <strong>${dados.criterio}</strong>
-          </div>
-          <div class="confiabilidade-card">
-            <span class="confiabilidade-card__rotulo">Machine Learning</span>
-            <strong>Não utilizado</strong>
-          </div>
-        </div>
-      </div>
-    </section>
+    ${montarBlocosFinais({
+      nivel: 100,
+      registros: dados.registros_analisados,
+      fontes: ["Financeiro"],
+      limitacao:
+        "Usa a data da movimentação, não a competência. Não há saldo inicial de caixa na base.",
+      dataHora,
+      textoIa,
+    })}
   `;
 
   linhaResposta.appendChild(avatarDuaxis);
