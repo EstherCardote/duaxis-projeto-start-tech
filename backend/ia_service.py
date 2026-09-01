@@ -182,20 +182,21 @@ tools = [
         "parameters": {
             "type": "object",
             "properties": {
-                "data_inicio": {
-                    "type": "string",
-                    "description": (
-                        "Mês inicial do período analisado "
-                        "no formato YYYY-MM."
-                    )
-                },
-                "data_fim": {
-                    "type": "string",
-                    "description": (
-                        "Mês final do período analisado "
-                        "no formato YYYY-MM."
-                    )
-                }
+        "data_inicio": {
+            "type": ["string", "null"],
+            "description": (
+                "Mês inicial da análise no formato YYYY-MM. "
+                "Use null quando o usuário não informar um período."
+            )
+        },
+        "data_fim": {
+            "type": ["string", "null"],
+            "description": (
+                "Mês final da análise no formato YYYY-MM. "
+                "Use null quando o usuário não informar um período."
+            )
+        }
+
             },
             "required": [],
             "additionalProperties": False

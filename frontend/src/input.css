@@ -1159,6 +1159,170 @@
     opacity: 0.75;
   }
 
+  /* =========================================================
+   RESPOSTA - PRODUTOS DE BAIXO GIRO
+========================================================= */
+
+.resposta-duaxis--baixo-giro {
+  width: 100%;
+}
+
+
+/* =========================================================
+   LISTA DE PRODUTOS
+========================================================= */
+
+.lista-produtos-baixo-giro {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.lista-produtos-baixo-giro--oculta {
+  display: none;
+  margin-top: 12px;
+}
+
+.lista-produtos-baixo-giro--oculta.lista-produtos-baixo-giro--visivel {
+  display: flex;
+}
+
+
+/* =========================================================
+   CARD DO PRODUTO
+========================================================= */
+
+.produto-baixo-giro {
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 16px;
+  background: #ffffff;
+}
+
+
+/* =========================================================
+   CABEÇALHO
+========================================================= */
+
+.produto-baixo-giro__cabecalho {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.produto-baixo-giro__nome {
+  display: block;
+  font-size: 14px;
+  font-weight: 700;
+  color: #334155;
+}
+
+.produto-baixo-giro__id {
+  display: block;
+  margin-top: 2px;
+  font-size: 11px;
+  color: #64748b;
+}
+
+.produto-baixo-giro__posicao {
+  flex-shrink: 0;
+  padding: 4px 9px;
+  border-radius: 999px;
+  background: #fef3c7;
+  color: #92400e;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+
+/* =========================================================
+   MÉTRICAS
+========================================================= */
+
+.produto-baixo-giro__detalhes {
+  display: grid;
+  grid-template-columns:
+    repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.produto-baixo-giro__detalhes > div {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.produto-baixo-giro__rotulo {
+  font-size: 11px;
+  color: #64748b;
+}
+
+.produto-baixo-giro__detalhes strong {
+  font-size: 13px;
+  color: #334155;
+}
+
+
+/* =========================================================
+   COMPARAÇÕES
+========================================================= */
+
+.produto-baixo-giro__comparacao {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 18px;
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 1px solid #e2e8f0;
+}
+
+.produto-baixo-giro__comparacao span {
+  font-size: 11px;
+  color: #64748b;
+}
+
+.produto-baixo-giro__comparacao strong {
+  color: #b45309;
+}
+
+
+/* =========================================================
+   BOTÃO VER TODOS
+========================================================= */
+
+.botao-ver-todos-baixo-giro {
+  margin-top: 14px;
+  padding: 8px 12px;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  background: #ffffff;
+  color: #475569;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.botao-ver-todos-baixo-giro:hover {
+  background: #f8fafc;
+  border-color: #94a3b8;
+}
+
+
+/* =========================================================
+   RESPONSIVO
+========================================================= */
+
+@media (max-width: 640px) {
+
+  .produto-baixo-giro__detalhes {
+    grid-template-columns: 1fr;
+  }
+
+}
+
 
 
 

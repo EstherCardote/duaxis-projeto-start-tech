@@ -432,6 +432,16 @@ async function enviarPerguntaDuaxis(campoChat) {
       );
 
     } else if (
+      nomeFerramenta === "listar_produtos_baixo_giro"
+    ) {
+
+      adicionarRespostaProdutosBaixoGiro(
+        resultadoFerramenta,
+        dados.resposta_ia,
+        dados.data_hora_pergunta
+      );
+
+    } else if (
       nomeFerramenta === "listar_fornecedores_atrasos"
     ) {
 
@@ -2344,6 +2354,501 @@ function adicionarRespostaPedidosAtrasados(dados, textoIa, dataHora) {
     block: "end"
   });
 
+}
+
+function adicionarRespostaProdutosBaixoGiro(
+  dados,
+  textoIa,
+  dataHora
+) {
+
+  const container = document.getElementById(
+    "mensagens-chat-dv"
+  );
+
+  if (!container) {
+    return;
+  }
+
+
+  // ==================================================
+  // PRODUTOS
+  // ==================================================
+
+  const produtos =
+    dados.produtos || [];
+
+  const produtosPrincipais =
+    produtos.slice(0, 5);
+
+  const produtosRestantes =
+    produtos.slice(5);
+
+
+  // ==================================================
+  // FORMATA NÚMEROS
+  // ==================================================
+
+  function formatarNumero(valor) {
+
+    if (
+      valor === null ||
+      valor === undefined
+    ) {
+      return "-";
+    }
+
+    return Number(valor).toLocaleString(
+      "pt-BR",
+      {
+        maximumFractionDigits: 2
+      }
+    );
+  }
+
+
+  function formatarPercentual(valor) {
+
+    if (
+      valor === null ||
+      valor === undefined
+    ) {
+      return "-";
+    }
+
+    return `${Number(valor).toLocaleString(
+      "pt-BR",
+      {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+      }
+    )}%`;
+  }
+
+
+  // ==================================================
+  // MONTA CARD DO PRODUTO
+  // ==================================================
+
+  function montarCardProduto(produto) {
+
+    return `
+      <div class="produto-baixo-giro">
+
+        <div class="produto-baixo-giro__cabecalho">
+
+          <div>
+
+            <strong class="produto-baixo-giro__nome">
+              ${produto.nome_produto}
+            </strong>
+
+            <span class="produto-baixo-giro__id">
+              ${produto.produto_id}
+            </span>
+
+          </div>
+
+          <span class="produto-baixo-giro__posicao">
+            #${produto.posicao}
+          </span>
+
+        </div>
+
+
+        <div class="produto-baixo-giro__detalhes">
+
+          <div>
+
+            <span class="produto-baixo-giro__rotulo">
+              Vendas no período
+            </span>
+
+            <strong>
+              ${formatarNumero(
+                produto.vendas_periodo
+              )} un.
+            </strong>
+
+          </div>
+
+
+          <div>
+
+            <span class="produto-baixo-giro__rotulo">
+              Média mensal
+            </span>
+
+            <strong>
+              ${formatarNumero(
+                produto.media_mensal_periodo
+              )} un.
+            </strong>
+
+          </div>
+
+
+          <div>
+
+            <span class="produto-baixo-giro__rotulo">
+              Estoque no fim do período
+            </span>
+
+            <strong>
+              ${formatarNumero(
+                produto.estoque_periodo
+              )} un.
+            </strong>
+
+          </div>
+
+
+          <div>
+
+            <span class="produto-baixo-giro__rotulo">
+              Cobertura do estoque
+            </span>
+
+            <strong>
+              ${formatarNumero(
+                produto.cobertura_estoque_periodo
+              )} meses
+            </strong>
+
+          </div>
+
+        </div>
+
+
+        <div class="produto-baixo-giro__comparacao">
+
+          <span>
+            Ritmo recente:
+            <strong>
+              ${formatarPercentual(
+                produto.variacao_ritmo_recente_percentual
+              )}
+            </strong>
+          </span>
+
+          <span>
+            Comparação sazonal:
+            <strong>
+              ${formatarPercentual(
+                produto.variacao_sazonal_percentual
+              )}
+            </strong>
+          </span>
+
+        </div>
+
+      </div>
+    `;
+  }
+
+
+  const linhasPrincipais =
+    produtosPrincipais
+      .map(montarCardProduto)
+      .join("");
+
+  const linhasRestantes =
+    produtosRestantes
+      .map(montarCardProduto)
+      .join("");
+
+
+  // ==================================================
+  // CRIA LINHA DO CHAT
+  // ==================================================
+
+  const linhaResposta =
+    document.createElement("div");
+
+  linhaResposta.className =
+    "linha-chat linha-chat--duaxis";
+
+
+  const avatarDuaxis =
+    document.createElement("div");
+
+  avatarDuaxis.className =
+    "avatar-chat avatar-chat--duaxis";
+
+  avatarDuaxis.innerHTML = `
+    <i data-lucide="bot"></i>
+  `;
+
+
+  const bloco =
+    document.createElement("div");
+
+  bloco.className =
+    "resposta-duaxis resposta-duaxis--baixo-giro";
+
+
+  // ==================================================
+  // CONTEÚDO
+  // ==================================================
+
+  bloco.innerHTML = `
+
+    <section class="resposta-duaxis__secao">
+
+      <div class="resposta-duaxis__cabecalho">
+
+        <i data-lucide="package-search"></i>
+
+        <div class="resposta-duaxis__identificacao">
+
+          <span>
+            RESUMO EXECUTIVO
+          </span>
+
+          <span class="resposta-duaxis__data">
+            ${formatarDataHoraChat(dataHora)}
+          </span>
+
+        </div>
+
+      </div>
+
+
+      <div
+        class="
+          resposta-duaxis__conteudo
+          resposta-ia-texto
+        "
+      >
+        ${converterTextoIaParaHtml(textoIa)}
+      </div>
+
+    </section>
+
+
+    <section class="resposta-duaxis__secao">
+
+      <div class="resposta-duaxis__cabecalho">
+
+        <i data-lucide="chart-no-axes-column-decreasing"></i>
+
+        <span>
+          PRODUTOS DE MENOR GIRO
+        </span>
+
+      </div>
+
+
+      <div class="resposta-duaxis__conteudo">
+
+        <p class="reposicao-intro">
+          Produtos que apresentam desaceleração de vendas
+          e desempenho abaixo do histórico sazonal no período
+          <strong>${dados.periodo_referencia}</strong>.
+        </p>
+
+
+        <div class="lista-produtos-baixo-giro">
+
+          ${linhasPrincipais}
+
+        </div>
+
+
+        <div
+          class="
+            lista-produtos-baixo-giro
+            lista-produtos-baixo-giro--oculta
+          "
+        >
+
+          ${linhasRestantes}
+
+        </div>
+
+
+        ${
+          produtos.length > 5
+            ? `
+              <button
+                type="button"
+                class="botao-ver-todos-baixo-giro"
+              >
+                Ver todos os
+                ${produtos.length} produtos
+              </button>
+            `
+            : ""
+        }
+
+      </div>
+
+    </section>
+
+
+    <section
+      class="
+        resposta-duaxis__secao
+        resposta-duaxis__secao--confiabilidade
+      "
+    >
+
+      <div class="resposta-duaxis__cabecalho">
+
+        <i data-lucide="database"></i>
+
+        <span>
+          FONTE DA ANÁLISE
+        </span>
+
+      </div>
+
+
+      <div class="resposta-duaxis__conteudo">
+
+        <div class="confiabilidade-grade">
+
+
+          <div class="confiabilidade-card">
+
+            <span class="confiabilidade-card__rotulo">
+              Produtos analisados
+            </span>
+
+            <strong>
+              ${dados.total_analisados}
+            </strong>
+
+          </div>
+
+
+          <div class="confiabilidade-card">
+
+            <span class="confiabilidade-card__rotulo">
+              Candidatos a menor giro
+            </span>
+
+            <strong>
+              ${dados.total_candidatos}
+            </strong>
+
+          </div>
+
+
+          <div class="confiabilidade-card">
+
+            <span class="confiabilidade-card__rotulo">
+              Período
+            </span>
+
+            <strong>
+              ${dados.periodo_referencia}
+            </strong>
+
+          </div>
+
+
+          <div class="confiabilidade-card">
+
+            <span class="confiabilidade-card__rotulo">
+              Fonte principal
+            </span>
+
+            <strong>
+              Vendas + Estoque
+            </strong>
+
+          </div>
+
+
+          <div class="confiabilidade-card">
+
+            <span class="confiabilidade-card__rotulo">
+              Machine Learning
+            </span>
+
+            <strong>
+              Não utilizado
+            </strong>
+
+          </div>
+
+
+        </div>
+
+      </div>
+
+    </section>
+
+  `;
+
+
+  // ==================================================
+  // ADICIONA NA TELA
+  // ==================================================
+
+  linhaResposta.appendChild(
+    avatarDuaxis
+  );
+
+  linhaResposta.appendChild(
+    bloco
+  );
+
+  container.appendChild(
+    linhaResposta
+  );
+
+
+  inicializarIconesLucide();
+
+
+  // ==================================================
+  // BOTÃO VER TODOS
+  // ==================================================
+
+  const botaoVerTodos =
+    bloco.querySelector(
+      ".botao-ver-todos-baixo-giro"
+    );
+
+  const listaOculta =
+    bloco.querySelector(
+      ".lista-produtos-baixo-giro--oculta"
+    );
+
+
+  if (
+    botaoVerTodos &&
+    listaOculta
+  ) {
+
+    let expandido = false;
+
+    botaoVerTodos.addEventListener(
+      "click",
+      () => {
+
+        expandido = !expandido;
+
+        listaOculta.classList.toggle(
+          "lista-produtos-baixo-giro--visivel",
+          expandido
+        );
+
+        botaoVerTodos.textContent =
+          expandido
+            ? "Mostrar menos"
+            : `Ver todos os ${produtos.length} produtos`;
+      }
+    );
+  }
+
+
+  linhaResposta.scrollIntoView({
+    behavior: "smooth",
+    block: "end"
+  });
 }
 
 function adicionarRespostaFornecedoresAtrasos(
