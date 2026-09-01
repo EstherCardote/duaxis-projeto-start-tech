@@ -21,7 +21,8 @@ from financeiro_service import (
     calcular_faturamento,
     calcular_despesas,
     calcular_lucro,
-    consultar_contas_a_receber
+    consultar_contas_a_receber,
+    consultar_contas_a_pagar
 )
 
 # lê o .env
@@ -391,6 +392,7 @@ tools = [
             "que devem. "
             "Não use para faturamento, lucro, despesas, "
             "caixa já recebido ou contas a pagar. "
+            "Não confundir com consultar_contas_a_pagar. "
             "Quando informar uma data, envie data_referencia "
             "no formato YYYY-MM-DD. "
             "Quando nenhuma data for informada, não envie "
@@ -406,6 +408,43 @@ tools = [
                     "o saldo a receber, no formato YYYY-MM-DD. "
                     "Use null quando o usuário não informar data."
                 )
+                }
+            },
+            "required": [],
+            "additionalProperties": False
+        }
+    }
+},
+{
+    "type": "function",
+    "function": {
+        "name": "consultar_contas_a_pagar",
+        "description": (
+            "Consulta o contas a pagar da Urban Style "
+            "em uma data de referência. "
+            "Conta em aberto: emitida até a data e ainda "
+            "não paga nessa data. São obrigações com "
+            "fornecedores de mercadoria, não despesas "
+            "operacionais. "
+            "Use quando o usuário perguntar quanto a pagar, "
+            "o que deve aos fornecedores ou contas em aberto "
+            "a pagar. "
+            "Não use para faturamento, lucro, despesas "
+            "operacionais, caixa já pago ou contas a receber. "
+            "Quando informar uma data, envie data_referencia "
+            "no formato YYYY-MM-DD. "
+            "Quando nenhuma data for informada, use null."
+        ),
+        "parameters": {
+            "type": "object",
+            "properties": {
+                "data_referencia": {
+                    "type": ["string", "null"],
+                    "description": (
+                        "Data em que deve ser reconstruído "
+                        "o saldo a pagar, no formato YYYY-MM-DD. "
+                        "Use null quando o usuário não informar data."
+                    )
                 }
             },
             "required": [],
@@ -447,7 +486,10 @@ funcoes_disponiveis = {
     calcular_lucro,
 
     "consultar_contas_a_receber":
-    consultar_contas_a_receber
+    consultar_contas_a_receber,
+
+    "consultar_contas_a_pagar":
+    consultar_contas_a_pagar
 
 }
 
@@ -1007,7 +1049,26 @@ def preparar_resultado_para_ia(
                 resultado["valor_vencido"],
             "valor_a_vencer":
                 resultado["valor_a_vencer"]
-        }                
+        }
+
+    if nome_funcao == "consultar_contas_a_pagar":
+
+        return {
+            "data_referencia":
+                resultado["data_referencia"],
+            "criterio":
+                resultado["criterio"],
+            "total_contas_abertas":
+                resultado["total_contas_abertas"],
+            "total_fornecedores":
+                resultado["total_fornecedores"],
+            "valor_em_aberto":
+                resultado["valor_em_aberto"],
+            "valor_vencido":
+                resultado["valor_vencido"],
+            "valor_a_vencer":
+                resultado["valor_a_vencer"]
+        }
 
 
     # =====================================================
@@ -1085,6 +1146,15 @@ o valor da pergunta é valor_em_aberto.
 Não é faturamento nem valor já recebido no caixa.
 valor_vencido e valor_a_vencer somam valor_em_aberto.
 Não enumere clientes.
+Informe a data de referência e os totais.
+Não use “crítico” ou “preocupante” se a ferramenta não classificou.
+
+Quando a ferramenta consultar_contas_a_pagar for utilizada,
+o valor da pergunta é valor_em_aberto.
+Não é despesa operacional nem valor já pago no caixa.
+Não confundir com contas a receber.
+valor_vencido e valor_a_vencer somam valor_em_aberto.
+Não enumere fornecedores.
 Informe a data de referência e os totais.
 Não use “crítico” ou “preocupante” se a ferramenta não classificou.
 

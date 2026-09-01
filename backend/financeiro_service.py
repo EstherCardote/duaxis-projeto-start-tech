@@ -36,6 +36,15 @@ clientes = pd.read_csv(
     sep=";"
 )
 
+contas_a_pagar = pd.read_csv(
+    BASE_DIR / "dados" / "contas_a_pagar_urban_style.csv",
+    sep=";"
+)
+fornecedores = pd.read_csv(
+    BASE_DIR / "dados" / "fornecedores_urban_style.csv",
+    sep=";"
+)
+
 def calcular_faturamento(
     data_inicio=None,
     data_fim=None
@@ -325,26 +334,107 @@ def consultar_contas_a_receber(data_referencia=None):
     }
 
 
+def consultar_contas_a_pagar(data_referencia=None):
+
+    dados = contas_a_pagar.copy()
+
+    dados["data_emissao"] = pd.to_datetime(dados["data_emissao"])
+    dados["data_vencimento"] = pd.to_datetime(dados["data_vencimento"])
+    dados["data_pagamento"] = pd.to_datetime(dados["data_pagamento"])
+
+    if (
+        data_referencia is None
+        or pd.isna(data_referencia)
+        or str(data_referencia).strip() == ""
+    ):
+        data_referencia = pd.Timestamp("2026-07-31")
+    else:
+        data_referencia = pd.Timestamp(data_referencia)
+
+    abertas = dados[
+        (dados["data_emissao"] <= data_referencia)
+        &
+        (dados["data_pagamento"] > data_referencia)
+    ].copy()
+
+    abertas["vencida"] = (
+        abertas["data_vencimento"] < data_referencia
+    )
+
+    valor_em_aberto = round(float(abertas["valor_original"].sum()), 2)
+    valor_vencido = round(
+        float(abertas.loc[abertas["vencida"], "valor_original"].sum()),
+        2
+    )
+    valor_a_vencer = round(valor_em_aberto - valor_vencido, 2)
+
+    fornecedores_aux = fornecedores[["id", "nome_fantasia"]].rename(
+        columns={"id": "fornecedor_id", "nome_fantasia": "nome_fornecedor"}
+    )
+
+    abertas["valor_vencido_linha"] = abertas["valor_original"].where(
+        abertas["vencida"],
+        0
+    )
+
+    ranking = (
+        abertas
+        .groupby("fornecedor_id", as_index=False)
+        .agg(
+            valor_em_aberto=("valor_original", "sum"),
+            total_contas=("id_conta_pagar", "count"),
+            valor_vencido=("valor_vencido_linha", "sum")
+        )
+    )
+    ranking = ranking.merge(fornecedores_aux, on="fornecedor_id", how="left")
+    ranking["valor_em_aberto"] = ranking["valor_em_aberto"].round(2)
+    ranking["valor_vencido"] = ranking["valor_vencido"].round(2)
+    ranking = ranking.sort_values("valor_em_aberto", ascending=False)
+
+    return {
+        "data_referencia": str(data_referencia.date()),
+        "fonte": "contas_a_pagar",
+        "criterio": "contas emitidas e ainda não pagas na data",
+        "total_contas_abertas": int(len(abertas)),
+        "total_fornecedores": int(len(ranking)),
+        "valor_em_aberto": valor_em_aberto,
+        "valor_vencido": valor_vencido,
+        "valor_a_vencer": valor_a_vencer,
+        "fornecedores": ranking.to_dict(orient="records")
+    }
+
+
 # TESTE PROVISORIO
 if __name__ == "__main__":
 
-    DATA = "2026-03-31"
-    ref = pd.Timestamp(DATA)
-
-    bruto = contas_a_receber.copy()
+    bruto = contas_a_pagar.copy()
     bruto["data_emissao"] = pd.to_datetime(bruto["data_emissao"])
-    bruto["data_recebimento"] = pd.to_datetime(bruto["data_recebimento"])
+    bruto["data_vencimento"] = pd.to_datetime(bruto["data_vencimento"])
+    bruto["data_pagamento"] = pd.to_datetime(bruto["data_pagamento"])
 
-    independente = bruto[
-        (bruto["data_emissao"] <= ref)
-        &
-        (bruto["data_recebimento"] > ref)
-    ]
+    for DATA in ("2026-07-31", "2026-03-31"):
+        ref = pd.Timestamp(DATA)
 
-    soma = round(float(independente["valor_original"].sum()), 2)
-    n_parcelas = int(len(independente))
+        independente = bruto[
+            (bruto["data_emissao"] <= ref)
+            &
+            (bruto["data_pagamento"] > ref)
+        ].copy()
+        independente["vencida"] = (
+            independente["data_vencimento"] < ref
+        )
 
-    funcao = consultar_contas_a_receber(DATA)
+        n_contas = int(len(independente))
+        soma = round(float(independente["valor_original"].sum()), 2)
+        vencido = round(
+            float(independente.loc[independente["vencida"], "valor_original"].sum()),
+            2
+        )
 
-    print("independente parcelas / funcao:", n_parcelas, funcao["total_parcelas_abertas"])
-    print("independente valor / funcao:", soma, funcao["valor_em_aberto"])
+        funcao = consultar_contas_a_pagar(DATA)
+
+        print(DATA)
+        print("independente contas / funcao:", n_contas, funcao["total_contas_abertas"])
+        print("independente valor / funcao:", soma, funcao["valor_em_aberto"])
+        print("independente vencido / funcao:", vencido, funcao["valor_vencido"])
+        print()
