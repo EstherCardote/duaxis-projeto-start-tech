@@ -27,6 +27,15 @@ CATEGORIAS_DESPESA = [
     "Impostos",
 ]
 
+contas_a_receber = pd.read_csv(
+    BASE_DIR / "dados" / "contas_a_receber_urban_style.csv",
+    sep=";"
+)
+clientes = pd.read_csv(
+    BASE_DIR / "dados" / "clientes_urban_style.csv",
+    sep=";"
+)
+
 def calcular_faturamento(
     data_inicio=None,
     data_fim=None
@@ -248,51 +257,94 @@ def calcular_lucro(
         "lucro_apos_despesas": lucro_apos_despesas
     }        
 
+def consultar_contas_a_receber(data_referencia=None):
+
+    dados = contas_a_receber.copy()
+
+    dados["data_emissao"] = pd.to_datetime(dados["data_emissao"])
+    dados["data_vencimento"] = pd.to_datetime(dados["data_vencimento"])
+    dados["data_recebimento"] = pd.to_datetime(dados["data_recebimento"])
+
+    if (
+        data_referencia is None
+        or pd.isna(data_referencia)
+        or str(data_referencia).strip() == ""
+    ):
+        data_referencia = pd.Timestamp("2026-07-31")
+    else:
+        data_referencia = pd.Timestamp(data_referencia)
+
+    abertas = dados[
+        (dados["data_emissao"] <= data_referencia)
+        &
+        (dados["data_recebimento"] > data_referencia)
+    ].copy()
+
+    abertas["vencida"] = (
+        abertas["data_vencimento"] < data_referencia
+    )
+
+    valor_em_aberto = round(float(abertas["valor_original"].sum()), 2)
+    valor_vencido = round(
+        float(abertas.loc[abertas["vencida"], "valor_original"].sum()),
+        2
+    )
+    valor_a_vencer = round(valor_em_aberto - valor_vencido, 2)
+
+    clientes_aux = clientes[["id", "nome"]].rename(
+        columns={"id": "cliente_id", "nome": "nome_cliente"}
+    )
+    abertas["valor_vencido_linha"] = abertas["valor_original"].where(
+    abertas["vencida"],
+    0
+)
+    ranking = (
+        abertas
+        .groupby("cliente_id", as_index=False)
+        .agg(
+            valor_em_aberto=("valor_original", "sum"),
+            total_parcelas=("id_conta_receber", "count"),
+            valor_vencido=("valor_vencido_linha", "sum")
+        )
+    )
+    ranking = ranking.merge(clientes_aux, on="cliente_id", how="left")
+    ranking["valor_em_aberto"] = ranking["valor_em_aberto"].round(2)
+    ranking["valor_vencido"] = ranking["valor_vencido"].round(2)
+    ranking = ranking.sort_values("valor_em_aberto", ascending=False)
+
+    return {
+        "data_referencia": str(data_referencia.date()),
+        "fonte": "contas_a_receber",
+        "criterio": "parcelas emitidas e ainda não recebidas na data",
+        "total_parcelas_abertas": int(len(abertas)),
+        "total_clientes": int(len(ranking)),
+        "valor_em_aberto": valor_em_aberto,
+        "valor_vencido": valor_vencido,
+        "valor_a_vencer": valor_a_vencer,
+        "clientes": ranking.to_dict(orient="records")
+    }
+
+
 # TESTE PROVISORIO
 if __name__ == "__main__":
 
-    dados_vendas = vendas.copy()
-    dados_vendas["data_venda"] = pd.to_datetime(dados_vendas["data_venda"])
-    dados_vendas["mes"] = dados_vendas["data_venda"].dt.to_period("M")
+    DATA = "2026-03-31"
+    ref = pd.Timestamp(DATA)
 
-    vendas_periodo = dados_vendas[
-        (dados_vendas["status"] == "Concluída")
+    bruto = contas_a_receber.copy()
+    bruto["data_emissao"] = pd.to_datetime(bruto["data_emissao"])
+    bruto["data_recebimento"] = pd.to_datetime(bruto["data_recebimento"])
+
+    independente = bruto[
+        (bruto["data_emissao"] <= ref)
         &
-        (dados_vendas["mes"] >= pd.Period("2026-01", freq="M"))
-&
-(dados_vendas["mes"] <= pd.Period("2026-03", freq="M"))
+        (bruto["data_recebimento"] > ref)
     ]
 
-    fat = round(float(vendas_periodo["valor_liquido"].sum()), 2)
-    cmv = round(float(vendas_periodo["custo_total"].sum()), 2)
-    bruto = round(float(vendas_periodo["lucro_bruto"].sum()), 2)
+    soma = round(float(independente["valor_original"].sum()), 2)
+    n_parcelas = int(len(independente))
 
-    dados_desp = movimentacoes_financeiras.copy()
-    dados_desp["mes"] = pd.to_datetime(
-        dados_desp["competencia"]
-    ).dt.to_period("M")
+    funcao = consultar_contas_a_receber(DATA)
 
-    desp_periodo = dados_desp[
-        (dados_desp["tipo"] == "Despesa")
-        &
-        (dados_desp["categoria"].isin(CATEGORIAS_DESPESA))
-        &
-        (dados_desp["mes"] >= pd.Period("2026-01", freq="M"))
-&
-(dados_desp["mes"] <= pd.Period("2026-03", freq="M"))
-    ]
-
-    desp = round(float(desp_periodo["valor"].sum()), 2)
-    lucro = round(fat - cmv - desp, 2)
-
-    funcao = calcular_lucro(
-        data_inicio="2026-01",
-        data_fim="2026-03"
-    )
-
-    print("independente fat / funcao:", fat, funcao["faturamento_total"])
-    print("independente cmv / funcao:", cmv, funcao["custo_mercadorias_vendidas"])
-    print("independente bruto / funcao:", bruto, funcao["lucro_bruto"])
-    print("independente desp / funcao:", desp, funcao["despesa_operacional"])
-    print("independente lucro / funcao:", lucro, funcao["lucro_apos_despesas"])
-    print("bruto == fat - cmv?", bruto == round(fat - cmv, 2))
+    print("independente parcelas / funcao:", n_parcelas, funcao["total_parcelas_abertas"])
+    print("independente valor / funcao:", soma, funcao["valor_em_aberto"])

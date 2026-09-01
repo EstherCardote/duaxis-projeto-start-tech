@@ -20,7 +20,8 @@ from logistica_service import (
 from financeiro_service import (
     calcular_faturamento,
     calcular_despesas,
-    calcular_lucro
+    calcular_lucro,
+    consultar_contas_a_receber
 )
 
 # lê o .env
@@ -375,7 +376,44 @@ tools = [
             "additionalProperties": False
         }
     }
-}  
+},
+{
+    "type": "function",
+    "function": {
+        "name": "consultar_contas_a_receber",
+        "description": (
+            "Consulta o contas a receber da Urban Style "
+            "em uma data de referência. "
+            "Parcela em aberto: emitida até a data e ainda "
+            "não recebida nessa data. "
+            "Use quando o usuário perguntar quanto a receber, "
+            "inadimplência, parcelas em aberto ou clientes "
+            "que devem. "
+            "Não use para faturamento, lucro, despesas, "
+            "caixa já recebido ou contas a pagar. "
+            "Quando informar uma data, envie data_referencia "
+            "no formato YYYY-MM-DD. "
+            "Quando nenhuma data for informada, não envie "
+            "data_referencia."
+        ),
+        "parameters": {
+            "type": "object",
+            "properties": {
+                "data_referencia": {
+                "type": ["string", "null"],
+                "description": (
+                    "Data em que deve ser reconstruído "
+                    "o saldo a receber, no formato YYYY-MM-DD. "
+                    "Use null quando o usuário não informar data."
+                )
+                }
+            },
+            "required": [],
+            "additionalProperties": False
+        }
+    }
+}
+
 
 ]
 
@@ -407,6 +445,9 @@ funcoes_disponiveis = {
 
     "calcular_lucro":
     calcular_lucro,
+
+    "consultar_contas_a_receber":
+    consultar_contas_a_receber
 
 }
 
@@ -947,7 +988,26 @@ def preparar_resultado_para_ia(
                 resultado["despesa_operacional"],
             "lucro_apos_despesas":
                 resultado["lucro_apos_despesas"]
-        }            
+        }
+
+    if nome_funcao == "consultar_contas_a_receber":
+
+        return {
+            "data_referencia":
+                resultado["data_referencia"],
+            "criterio":
+                resultado["criterio"],
+            "total_parcelas_abertas":
+                resultado["total_parcelas_abertas"],
+            "total_clientes":
+                resultado["total_clientes"],
+            "valor_em_aberto":
+                resultado["valor_em_aberto"],
+            "valor_vencido":
+                resultado["valor_vencido"],
+            "valor_a_vencer":
+                resultado["valor_a_vencer"]
+        }                
 
 
     # =====================================================
@@ -1019,6 +1079,14 @@ Não enumere meses.
 Informe período e lucro após despesas.
 Pode citar lucro bruto só para contextualizar, sem trocar os dois.
 Não use “apenas”, “pouco” ou “preocupante” se a ferramenta não classificou o resultado.
+
+Quando a ferramenta consultar_contas_a_receber for utilizada,
+o valor da pergunta é valor_em_aberto.
+Não é faturamento nem valor já recebido no caixa.
+valor_vencido e valor_a_vencer somam valor_em_aberto.
+Não enumere clientes.
+Informe a data de referência e os totais.
+Não use “crítico” ou “preocupante” se a ferramenta não classificou.
 
 Quando receber uma lista ordenada, não assuma o critério
 da ordenação. Apenas descreva os valores apresentados.

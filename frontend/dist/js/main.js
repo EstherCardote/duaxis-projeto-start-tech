@@ -405,6 +405,12 @@ async function enviarPerguntaDuaxis(campoChat) {
         dados.resposta_ia,
         dados.data_hora_pergunta,
       );
+    } else if (nomeFerramenta === "consultar_contas_a_receber") {
+      adicionarRespostaContasAReceber(
+        resultadoFerramenta,
+        dados.resposta_ia,
+        dados.data_hora_pergunta,
+      );
     } else {
       adicionarRespostaTextoIa(
         dados.resposta_ia || "Não consegui apresentar essa resposta.",
@@ -3288,6 +3294,166 @@ function adicionarRespostaLucro(dados, textoIa, dataHora) {
   linhaResposta.appendChild(avatarDuaxis);
   linhaResposta.appendChild(bloco);
   container.appendChild(linhaResposta);
+
+  inicializarIconesLucide();
+  linhaResposta.scrollIntoView({
+    behavior: "smooth",
+    block: "end",
+  });
+}
+
+function adicionarRespostaContasAReceber(dados, textoIa, dataHora) {
+  const container = document.getElementById("mensagens-chat-dv");
+
+  if (!container) {
+    return;
+  }
+
+  function formatarValor(valor) {
+    return Number(valor).toLocaleString("pt-BR", {
+      style: "currency",
+      currency: "BRL",
+    });
+  }
+
+  const clientes = dados.clientes || [];
+
+  function linhaCliente(item, indice) {
+    const extra = indice >= 5 ? " cliente-receber-extra" : "";
+    return `
+      <div class="produto-reposicao${extra}">
+        <div class="produto-reposicao__info">
+          <strong>${item.nome_cliente}</strong>
+          <span>${item.total_parcelas} parcelas</span>
+        </div>
+        <div class="produto-reposicao__impacto">
+          ${formatarValor(item.valor_em_aberto)}
+        </div>
+      </div>
+    `;
+  }
+
+  const linhaResposta = document.createElement("div");
+  linhaResposta.className = "linha-chat linha-chat--duaxis";
+
+  const avatarDuaxis = document.createElement("div");
+  avatarDuaxis.className = "avatar-chat avatar-chat--duaxis";
+  avatarDuaxis.innerHTML = `<i data-lucide="bot"></i>`;
+
+  const bloco = document.createElement("div");
+  bloco.className = "resposta-duaxis resposta-duaxis--lista";
+
+  bloco.innerHTML = `
+    <section class="resposta-duaxis__secao">
+      <div class="resposta-duaxis__cabecalho">
+        <i data-lucide="wallet"></i>
+        <div class="resposta-duaxis__identificacao">
+          <span>RESUMO EXECUTIVO</span>
+          <span class="resposta-duaxis__data">
+            ${formatarDataHoraChat(dataHora)}
+          </span>
+        </div>
+      </div>
+      <div class="resposta-duaxis__conteudo resposta-ia-texto">
+        ${converterTextoIaParaHtml(textoIa)}
+      </div>
+    </section>
+
+    <section class="resposta-duaxis__secao">
+      <div class="resposta-duaxis__cabecalho">
+        <i data-lucide="hand-coins"></i>
+        <span>CONTAS A RECEBER</span>
+      </div>
+      <div class="resposta-duaxis__conteudo">
+        <div class="confiabilidade-grade">
+          <div class="confiabilidade-card">
+            <span class="confiabilidade-card__rotulo">Em aberto</span>
+            <strong>${formatarValor(dados.valor_em_aberto)}</strong>
+          </div>
+          <div class="confiabilidade-card">
+            <span class="confiabilidade-card__rotulo">Vencido</span>
+            <strong>${formatarValor(dados.valor_vencido)}</strong>
+          </div>
+          <div class="confiabilidade-card">
+            <span class="confiabilidade-card__rotulo">A vencer</span>
+            <strong>${formatarValor(dados.valor_a_vencer)}</strong>
+          </div>
+          <div class="confiabilidade-card">
+            <span class="confiabilidade-card__rotulo">Parcelas</span>
+            <strong>${dados.total_parcelas_abertas}</strong>
+          </div>
+          <div class="confiabilidade-card">
+            <span class="confiabilidade-card__rotulo">Clientes</span>
+            <strong>${dados.total_clientes}</strong>
+          </div>
+        </div>
+
+        <p class="reposicao-intro">Saldo em aberto por cliente:</p>
+        <div class="lista-produtos-reposicao">
+          ${clientes.map(linhaCliente).join("")}
+        </div>
+        ${
+          clientes.length > 5
+            ? `<button type="button" class="botao-ver-todos-reposicao">
+                 Ver todos os ${clientes.length} clientes
+               </button>`
+            : ""
+        }
+      </div>
+    </section>
+
+    <section class="resposta-duaxis__secao resposta-duaxis__secao--confiabilidade">
+      <div class="resposta-duaxis__cabecalho">
+        <i data-lucide="database"></i>
+        <span>FONTE DA ANÁLISE</span>
+      </div>
+      <div class="resposta-duaxis__conteudo">
+        <div class="confiabilidade-grade">
+          <div class="confiabilidade-card">
+            <span class="confiabilidade-card__rotulo">Data de referência</span>
+            <strong>${dados.data_referencia}</strong>
+          </div>
+          <div class="confiabilidade-card">
+            <span class="confiabilidade-card__rotulo">Fonte</span>
+            <strong>Contas a receber</strong>
+          </div>
+          <div class="confiabilidade-card">
+            <span class="confiabilidade-card__rotulo">Critério</span>
+            <strong>${dados.criterio}</strong>
+          </div>
+          <div class="confiabilidade-card">
+            <span class="confiabilidade-card__rotulo">Machine Learning</span>
+            <strong>Não utilizado</strong>
+          </div>
+        </div>
+      </div>
+    </section>
+  `;
+
+  linhaResposta.appendChild(avatarDuaxis);
+  linhaResposta.appendChild(bloco);
+  container.appendChild(linhaResposta);
+
+  const extras = bloco.querySelectorAll(".cliente-receber-extra");
+  const botaoVerTodos = bloco.querySelector(".botao-ver-todos-reposicao");
+
+  extras.forEach((card) => {
+    card.style.display = "none";
+  });
+
+  if (botaoVerTodos && extras.length > 0) {
+    botaoVerTodos.addEventListener("click", () => {
+      const estaOculta = extras[0].style.display === "none";
+
+      extras.forEach((card) => {
+        card.style.display = estaOculta ? "flex" : "none";
+      });
+
+      botaoVerTodos.textContent = estaOculta
+        ? "Mostrar menos"
+        : `Ver todos os ${clientes.length} clientes`;
+    });
+  }
 
   inicializarIconesLucide();
   linhaResposta.scrollIntoView({
