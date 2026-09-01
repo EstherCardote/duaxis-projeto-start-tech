@@ -22,7 +22,8 @@ from financeiro_service import (
     calcular_despesas,
     calcular_lucro,
     consultar_contas_a_receber,
-    consultar_contas_a_pagar
+    consultar_contas_a_pagar,
+    calcular_fluxo_caixa
 )
 
 # lê o .env
@@ -430,7 +431,8 @@ tools = [
             "o que deve aos fornecedores ou contas em aberto "
             "a pagar. "
             "Não use para faturamento, lucro, despesas "
-            "operacionais, caixa já pago ou contas a receber. "
+            "operacionais, caixa já pago, contas a receber "
+            "ou fluxo de caixa. "
             "Quando informar uma data, envie data_referencia "
             "no formato YYYY-MM-DD. "
             "Quando nenhuma data for informada, use null."
@@ -444,6 +446,51 @@ tools = [
                         "Data em que deve ser reconstruído "
                         "o saldo a pagar, no formato YYYY-MM-DD. "
                         "Use null quando o usuário não informar data."
+                    )
+                }
+            },
+            "required": [],
+            "additionalProperties": False
+        }
+    }
+},
+{
+    "type": "function",
+    "function": {
+        "name": "calcular_fluxo_caixa",
+        "description": (
+            "Calcula o fluxo de caixa da Urban Style "
+            "em um período. "
+            "Entradas e saídas pela data da movimentação, "
+            "não por competência. "
+            "Saídas incluem compra de mercadorias e "
+            "despesas operacionais. "
+            "Use quando o usuário perguntar fluxo de caixa, "
+            "quanto entrou ou saiu de dinheiro, recebimentos "
+            "e pagamentos efetivos. "
+            "Não use para faturamento, lucro, despesas "
+            "operacionais isoladas, contas a receber "
+            "ou contas a pagar. "
+            "Quando informar um período, envie data_inicio e "
+            "data_fim no formato YYYY-MM. "
+            "Um único mês: envie o mesmo valor nos dois. "
+            "Quando não informar período, use null."
+        ),
+        "parameters": {
+            "type": "object",
+            "properties": {
+                "data_inicio": {
+                    "type": ["string", "null"],
+                    "description": (
+                        "Mês inicial no formato YYYY-MM. "
+                        "Use null quando o usuário não informar período."
+                    )
+                },
+                "data_fim": {
+                    "type": ["string", "null"],
+                    "description": (
+                        "Mês final no formato YYYY-MM. "
+                        "Use null quando o usuário não informar período."
                     )
                 }
             },
@@ -489,7 +536,10 @@ funcoes_disponiveis = {
     consultar_contas_a_receber,
 
     "consultar_contas_a_pagar":
-    consultar_contas_a_pagar
+    consultar_contas_a_pagar,
+
+    "calcular_fluxo_caixa":
+    calcular_fluxo_caixa
 
 }
 
@@ -1070,7 +1120,22 @@ def preparar_resultado_para_ia(
                 resultado["valor_a_vencer"]
         }
 
+    if nome_funcao == "calcular_fluxo_caixa":
 
+        return {
+            "periodo_inicio":
+                resultado["periodo_inicio"],
+            "periodo_fim":
+                resultado["periodo_fim"],
+            "criterio":
+                resultado["criterio"],
+            "entradas":
+                resultado["entradas"],
+            "saidas":
+                resultado["saidas"],
+            "saldo":
+                resultado["saldo"]
+        }
     # =====================================================
     # SEGURANÇA
     # =====================================================
@@ -1157,6 +1222,14 @@ valor_vencido e valor_a_vencer somam valor_em_aberto.
 Não enumere fornecedores.
 Informe a data de referência e os totais.
 Não use “crítico” ou “preocupante” se a ferramenta não classificou.
+
+Quando a ferramenta calcular_fluxo_caixa for utilizada,
+o resultado da pergunta é saldo, com entradas e saídas.
+Não é faturamento, lucro nem contas em aberto.
+Não é só despesa operacional: as saídas incluem compra de mercadorias.
+Não some nem subtraia de novo: use os campos retornados.
+Não enumere meses nem categorias.
+Informe período, entradas, saídas e saldo.
 
 Quando receber uma lista ordenada, não assuma o critério
 da ordenação. Apenas descreva os valores apresentados.

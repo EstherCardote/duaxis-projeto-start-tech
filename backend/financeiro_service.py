@@ -404,37 +404,106 @@ def consultar_contas_a_pagar(data_referencia=None):
     }
 
 
-# TESTE PROVISORIO
-if __name__ == "__main__":
+def calcular_fluxo_caixa(
+    data_inicio=None,
+    data_fim=None
+):
+    dados = movimentacoes_financeiras.copy()
+    dados["data_movimentacao"] = pd.to_datetime(
+        dados["data_movimentacao"]
+    )
 
-    bruto = contas_a_pagar.copy()
-    bruto["data_emissao"] = pd.to_datetime(bruto["data_emissao"])
-    bruto["data_vencimento"] = pd.to_datetime(bruto["data_vencimento"])
-    bruto["data_pagamento"] = pd.to_datetime(bruto["data_pagamento"])
+    if data_inicio is not None and str(data_inicio).strip() == "":
+        data_inicio = None
+    if data_fim is not None and str(data_fim).strip() == "":
+        data_fim = None
 
-    for DATA in ("2026-07-31", "2026-03-31"):
-        ref = pd.Timestamp(DATA)
+    periodo_base = obter_periodo_base(
+        dados,
+        "data_movimentacao"
+    )
 
-        independente = bruto[
-            (bruto["data_emissao"] <= ref)
-            &
-            (bruto["data_pagamento"] > ref)
-        ].copy()
-        independente["vencida"] = (
-            independente["data_vencimento"] < ref
+    if data_inicio is None and data_fim is None:
+        data_maxima = min(
+            periodo_base["data_maxima"],
+            pd.Period("2026-07", freq="M")
         )
+    else:
+        data_maxima = periodo_base["data_maxima"]
 
-        n_contas = int(len(independente))
-        soma = round(float(independente["valor_original"].sum()), 2)
-        vencido = round(
-            float(independente.loc[independente["vencida"], "valor_original"].sum()),
-            2
+    periodo_consulta = resolver_periodo(
+        data_minima=periodo_base["data_minima"],
+        data_maxima=data_maxima,
+        data_inicio=data_inicio,
+        data_fim=data_fim,
+        meses_padrao=3
+    )
+
+    periodo_inicio = periodo_consulta["periodo_inicio"]
+    periodo_fim = periodo_consulta["periodo_fim"]
+
+    dados["mes"] = dados["data_movimentacao"].dt.to_period("M")
+
+    periodo = dados[
+        (dados["mes"] >= periodo_inicio)
+        &
+        (dados["mes"] <= periodo_fim)
+    ].copy()
+
+    entradas = round(
+        float(periodo.loc[periodo["tipo"] == "Receita", "valor"].sum()),
+        2
+    )
+    saidas = round(
+        float(periodo.loc[periodo["tipo"] == "Despesa", "valor"].sum()),
+        2
+    )
+    saldo = round(entradas - saidas, 2)
+
+    entradas_mes = (
+        periodo[periodo["tipo"] == "Receita"]
+        .groupby("mes")["valor"]
+        .sum()
+        .rename("entradas")
+    )
+    saidas_mes = (
+        periodo[periodo["tipo"] == "Despesa"]
+        .groupby("mes")["valor"]
+        .sum()
+        .rename("saidas")
+    )
+    fluxo_mensal = (
+        pd.concat([entradas_mes, saidas_mes], axis=1)
+        .fillna(0)
+        .reset_index()
+        .sort_values("mes")
+    )
+    fluxo_mensal["mes"] = fluxo_mensal["mes"].astype(str)
+    fluxo_mensal["entradas"] = fluxo_mensal["entradas"].round(2)
+    fluxo_mensal["saidas"] = fluxo_mensal["saidas"].round(2)
+    fluxo_mensal["saldo"] = (
+        fluxo_mensal["entradas"] - fluxo_mensal["saidas"]
+    ).round(2)
+
+    saidas_por_categoria = (
+        periodo[periodo["tipo"] == "Despesa"]
+        .groupby("categoria")["valor"]
+        .sum()
+        .reset_index()
+        .sort_values("valor", ascending=False)
+    )
+    saidas_por_categoria["valor"] = saidas_por_categoria["valor"].round(2)
+
+    return {
+        "periodo_inicio": str(periodo_inicio),
+        "periodo_fim": str(periodo_fim),
+        "fonte": "movimentacoes_financeiras",
+        "criterio": "entradas e saídas pela data da movimentação",
+        "entradas": entradas,
+        "saidas": saidas,
+        "saldo": saldo,
+        "fluxo_mensal": fluxo_mensal.to_dict(orient="records"),
+        "saidas_por_categoria": saidas_por_categoria.to_dict(
+            orient="records"
         )
-
-        funcao = consultar_contas_a_pagar(DATA)
-
-        print(DATA)
-        print("independente contas / funcao:", n_contas, funcao["total_contas_abertas"])
-        print("independente valor / funcao:", soma, funcao["valor_em_aberto"])
-        print("independente vencido / funcao:", vencido, funcao["valor_vencido"])
-        print()
+    }
