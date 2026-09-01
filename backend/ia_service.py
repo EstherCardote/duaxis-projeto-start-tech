@@ -17,6 +17,10 @@ from logistica_service import (
     listar_fornecedores_atrasos
 )
 
+from financeiro_service import (
+    calcular_faturamento
+)
+
 # lê o .env
 from dotenv import load_dotenv
 # Classe que cria nosso cliente para conversar com o modelo
@@ -249,7 +253,47 @@ tools = [
             "additionalProperties": False
         }
     }
-}   
+},
+ {
+    "type": "function",
+    "function": {
+        "name": "calcular_faturamento",
+        "description": (
+            "Calcula o faturamento da Urban Style em um período. "
+            "Faturamento é a soma do valor líquido das vendas "
+            "concluídas na competência informada. "
+            "Use quando o usuário perguntar quanto faturou, "
+            "qual foi o faturamento, receita de vendas ou "
+            "ticket médio. "
+            "Não use para recebimentos, contas a receber, "
+            "fluxo de caixa, lucro ou despesas. "
+            "Quando o usuário informar um período, envie "
+            "data_inicio e data_fim no formato YYYY-MM. "
+            "Quando não informar período, não envie as datas."
+        ),
+        "parameters": {
+            "type": "object",
+            "properties": {
+                "data_inicio": {
+                    "type": ["string", "null"],
+                    "description": (
+                        "Mês inicial no formato YYYY-MM. "
+                        "Use null quando o usuário não informar período."
+                    )
+                },
+                "data_fim": {
+                    "type": ["string", "null"],
+                    "description": (
+                        "Mês final no formato YYYY-MM. "
+                        "Use null quando o usuário não informar período."
+                    )
+                }
+            },
+            "required": [],
+            "additionalProperties": False
+        }
+    }
+}  
 
 ]
 
@@ -271,7 +315,10 @@ funcoes_disponiveis = {
     listar_produtos_baixo_giro,
 
     "listar_fornecedores_atrasos":
-    listar_fornecedores_atrasos   
+    listar_fornecedores_atrasos,
+
+    "calcular_faturamento":
+    calcular_faturamento
 
 }
 
@@ -712,28 +759,71 @@ def preparar_resultado_para_ia(
             )
 
 
-    return {
+        return {
 
-        "periodo_referencia":
-            resultado[
-                "periodo_referencia"
-            ],
+            "periodo_referencia":
+                resultado[
+                    "periodo_referencia"
+                ],
 
-        "total_fornecedores":
-            resultado[
-                "total_fornecedores"
-            ],
+            "total_fornecedores":
+                resultado[
+                    "total_fornecedores"
+                ],
 
-        "criterio_ranking":
-            (
-                "Fornecedores ordenados principalmente "
-                "pela taxa percentual de pedidos entregues "
-                "com atraso no período analisado."
-            ),
+            "criterio_ranking":
+                (
+                    "Fornecedores ordenados principalmente "
+                    "pela taxa percentual de pedidos entregues "
+                    "com atraso no período analisado."
+                ),
 
-        "principais_fornecedores":
-            principais_fornecedores
-    }  
+            "principais_fornecedores":
+                principais_fornecedores
+        }
+
+    if nome_funcao == "calcular_faturamento":
+
+        return {
+            "periodo_inicio":
+                resultado["periodo_inicio"],
+
+            "periodo_fim":
+                resultado["periodo_fim"],
+
+            "fonte":
+                resultado["fonte"],
+
+            "criterio":
+                resultado["criterio"],
+
+            "indicador":
+                resultado["indicador"],
+
+            "total_vendas":
+                resultado["total_vendas"],
+
+            "faturamento_bruto":
+                resultado["faturamento_bruto"],
+
+            "descontos":
+                resultado["descontos"],
+            
+            "total_vendas":
+                resultado["total_vendas"],
+
+            "faturamento_total":
+                resultado["faturamento_total"],
+
+            "ticket_medio":
+                resultado["ticket_medio"],
+
+            "faturamento_bruto":
+                resultado["faturamento_bruto"],
+
+            "descontos":
+                resultado["descontos"]
+            }
 
 
     # =====================================================
@@ -841,6 +931,14 @@ financeiros individuais.
 Na resposta textual, informe apenas os resultados agregados
 relevantes para a pergunta, como quantidade de produtos que
 precisam de reposição e impacto financeiro total estimado.
+
+Quando a ferramenta calcular_faturamento for utilizada,
+o campo faturamento_total é o valor em reais (valor líquido).
+O campo total_vendas é a quantidade de vendas, não um valor monetário.
+Não some nem subtraia bruto e desconto para obter o líquido:
+use faturamento_total.
+Não enumere o faturamento mês a mês.
+Informe período, faturamento total e, se couber, ticket médio.
 
 Explique apenas os critérios explicitamente retornados pela ferramenta.
 

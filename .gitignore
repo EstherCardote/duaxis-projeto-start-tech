@@ -14,3 +14,7 @@ node_modules/
 __pycache__/
 *.py[cod]
 *.pyo
+
+# cursor
+.cursor/
+.cursorrules

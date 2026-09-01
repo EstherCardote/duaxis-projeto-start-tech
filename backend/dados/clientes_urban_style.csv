@@ -1,0 +1,121 @@
+﻿id;nome;cidade;estado;categoria;canal_preferencial;status
+CLI001;Camila Almeida;Barueri;SP;Bronze;Loja Física;Ativo
+CLI002;Mariana Costa;São Bernardo do Campo;SP;Ouro;Loja Física;Ativo
+CLI003;Patrícia Almeida;São Bernardo do Campo;SP;Ouro;E-commerce;Ativo
+CLI004;Gabriel Lima;São Bernardo do Campo;SP;Prata;Loja Física;Ativo
+CLI005;Mateus Costa;São Bernardo do Campo;SP;Prata;Loja Física;Ativo
+CLI006;Paula Costa;São Bernardo do Campo;SP;Prata;Loja Física;Ativo
+CLI007;Mateus Ferreira;Barueri;SP;Diamante;Loja Física;Ativo
+CLI008;Mateus Ribeiro;São Paulo;SP;Ouro;E-commerce;Ativo
+CLI009;Amanda Souza;Santo André;SP;Ouro;Loja Física;Ativo
+CLI010;Carlos Ferreira;São Paulo;SP;Bronze;E-commerce;Ativo
+CLI011;Igor Santos;Guarulhos;SP;Ouro;WhatsApp;Ativo
+CLI012;Mateus Ferreira;Santo André;SP;Bronze;E-commerce;Ativo
+CLI013;Daniel Almeida;São Bernardo do Campo;SP;Bronze;Loja Física;Ativo
+CLI014;Mariana Almeida;Santo André;SP;Bronze;E-commerce;Ativo
+CLI015;Renata Oliveira;Campinas;SP;Prata;Loja Física;Ativo
+CLI016;Beatriz Ferreira;Guarulhos;SP;Bronze;Loja Física;Ativo
+CLI017;Marcelo Souza;São Paulo;SP;Bronze;Loja Física;Inativo
+CLI018;Camila Gomes;São Paulo;SP;Bronze;E-commerce;Ativo
+CLI019;Renata Gomes;Osasco;SP;Bronze;E-commerce;Ativo
+CLI020;Larissa Gomes;Campinas;SP;Prata;Loja Física;Ativo
+CLI021;Leonardo Ribeiro;Barueri;SP;Ouro;Loja Física;Ativo
+CLI022;Lucas Lima;Guarulhos;SP;Bronze;Loja Física;Ativo
+CLI023;Natália Ferreira;Campinas;SP;Prata;E-commerce;Ativo
+CLI024;Lucas Ribeiro;Osasco;SP;Prata;Loja Física;Ativo
+CLI025;Thiago Ribeiro;Barueri;SP;Ouro;E-commerce;Ativo
+CLI026;Vinícius Lima;São Paulo;SP;Bronze;Loja Física;Ativo
+CLI027;Rafael Gomes;Santo André;SP;Prata;E-commerce;Ativo
+CLI028;Juliana Almeida;São Paulo;SP;Bronze;Loja Física;Ativo
+CLI029;Leonardo Oliveira;Barueri;SP;Bronze;E-commerce;Ativo
+CLI030;Fábio Ribeiro;Santo André;SP;Bronze;Loja Física;Ativo
+CLI031;Patrícia Silva;Guarulhos;SP;Ouro;Loja Física;Ativo
+CLI032;Mateus Lima;Osasco;SP;Prata;Loja Física;Inativo
+CLI033;Patrícia Silva;São Paulo;SP;Bronze;Loja Física;Ativo
+CLI034;Sofia Silva;Guarulhos;SP;Bronze;WhatsApp;Ativo
+CLI035;Renata Ribeiro;São Paulo;SP;Prata;Loja Física;Inativo
+CLI036;Beatriz Almeida;Campinas;SP;Prata;Loja Física;Ativo
+CLI037;Fernanda Oliveira;Barueri;SP;Prata;Loja Física;Ativo
+CLI038;Isabela Costa;Osasco;SP;Prata;Loja Física;Inativo
+CLI039;Beatriz Ferreira;São Paulo;SP;Bronze;Loja Física;Ativo
+CLI040;Amanda Oliveira;Osasco;SP;Diamante;E-commerce;Ativo
+CLI041;Ana Oliveira;Santo André;SP;Bronze;E-commerce;Ativo
+CLI042;Leonardo Ferreira;Campinas;SP;Ouro;Loja Física;Ativo
+CLI043;Lucas Gomes;Osasco;SP;Prata;Loja Física;Ativo
+CLI044;Bruno Santos;São Bernardo do Campo;SP;Ouro;E-commerce;Ativo
+CLI045;Fernanda Costa;Campinas;SP;Ouro;E-commerce;Ativo
+CLI046;Ricardo Silva;Barueri;SP;Prata;E-commerce;Ativo
+CLI047;Bianca Gomes;Barueri;SP;Diamante;Loja Física;Inativo
+CLI048;Carolina Gomes;Barueri;SP;Ouro;E-commerce;Ativo
+CLI049;Rodrigo Santos;São Bernardo do Campo;SP;Diamante;E-commerce;Ativo
+CLI050;Carlos Gomes;Campinas;SP;Bronze;Loja Física;Ativo
+CLI051;Natália Lima;São Paulo;SP;Prata;Loja Física;Ativo
+CLI052;Bruno Almeida;Santo André;SP;Ouro;Loja Física;Ativo
+CLI053;Bruno Gomes;Barueri;SP;Prata;Loja Física;Ativo
+CLI054;Lucas Costa;Barueri;SP;Ouro;WhatsApp;Ativo
+CLI055;Mateus Costa;Osasco;SP;Ouro;Loja Física;Ativo
+CLI056;Carolina Ferreira;Guarulhos;SP;Prata;Loja Física;Ativo
+CLI057;Mateus Gomes;São Bernardo do Campo;SP;Bronze;Loja Física;Ativo
+CLI058;Leonardo Lima;São Bernardo do Campo;SP;Prata;Loja Física;Ativo
+CLI059;Igor Ribeiro;Osasco;SP;Bronze;Loja Física;Ativo
+CLI060;Sofia Gomes;Barueri;SP;Bronze;Loja Física;Ativo
+CLI061;Fernanda Silva;Santo André;SP;Prata;Loja Física;Ativo
+CLI062;Thiago Ferreira;Barueri;SP;Bronze;Loja Física;Ativo
+CLI063;Diego Silva;Osasco;SP;Bronze;Loja Física;Ativo
+CLI064;Thiago Lima;Campinas;SP;Bronze;Loja Física;Ativo
+CLI065;Marcelo Almeida;Guarulhos;SP;Ouro;WhatsApp;Ativo
+CLI066;Amanda Gomes;Guarulhos;SP;Ouro;E-commerce;Ativo
+CLI067;Isabela Costa;Osasco;SP;Bronze;Loja Física;Inativo
+CLI068;Aline Ribeiro;São Paulo;SP;Prata;E-commerce;Ativo
+CLI069;Vinícius Almeida;Barueri;SP;Ouro;Loja Física;Ativo
+CLI070;Leonardo Ribeiro;Barueri;SP;Ouro;E-commerce;Ativo
+CLI071;Gustavo Gomes;São Paulo;SP;Bronze;E-commerce;Inativo
+CLI072;Diego Almeida;São Bernardo do Campo;SP;Bronze;E-commerce;Ativo
+CLI073;Camila Santos;São Paulo;SP;Bronze;E-commerce;Ativo
+CLI074;João Costa;Osasco;SP;Prata;Loja Física;Ativo
+CLI075;João Almeida;Santo André;SP;Bronze;E-commerce;Ativo
+CLI076;Henrique Silva;Osasco;SP;Ouro;Loja Física;Ativo
+CLI077;João Souza;Barueri;SP;Prata;Loja Física;Ativo
+CLI078;Caio Gomes;Barueri;SP;Prata;WhatsApp;Ativo
+CLI079;Gustavo Oliveira;Osasco;SP;Ouro;Loja Física;Ativo
+CLI080;Lucas Gomes;São Bernardo do Campo;SP;Prata;Loja Física;Ativo
+CLI081;Renata Oliveira;Campinas;SP;Bronze;E-commerce;Ativo
+CLI082;Renata Almeida;São Bernardo do Campo;SP;Bronze;WhatsApp;Ativo
+CLI083;Thiago Ribeiro;Santo André;SP;Prata;Loja Física;Ativo
+CLI084;Vanessa Santos;Santo André;SP;Prata;Loja Física;Inativo
+CLI085;Cláudia Silva;Barueri;SP;Prata;Loja Física;Inativo
+CLI086;Amanda Almeida;Campinas;SP;Bronze;E-commerce;Ativo
+CLI087;Beatriz Lima;Guarulhos;SP;Bronze;Loja Física;Ativo
+CLI088;Sofia Almeida;São Paulo;SP;Ouro;E-commerce;Ativo
+CLI089;Cláudia Almeida;Osasco;SP;Prata;Loja Física;Ativo
+CLI090;Fábio Ferreira;São Paulo;SP;Prata;Loja Física;Ativo
+CLI091;Marcelo Gomes;São Bernardo do Campo;SP;Ouro;E-commerce;Inativo
+CLI092;Daniel Silva;Osasco;SP;Ouro;Loja Física;Ativo
+CLI093;Cláudia Almeida;Campinas;SP;Prata;WhatsApp;Ativo
+CLI094;Diego Silva;Santo André;SP;Bronze;E-commerce;Ativo
+CLI095;Rafael Oliveira;Santo André;SP;Ouro;Loja Física;Ativo
+CLI096;Bruno Ribeiro;Santo André;SP;Prata;Loja Física;Ativo
+CLI097;Vinícius Santos;Santo André;SP;Diamante;Loja Física;Ativo
+CLI098;Cláudia Ferreira;São Paulo;SP;Ouro;Loja Física;Ativo
+CLI099;Yasmin Almeida;Barueri;SP;Bronze;E-commerce;Ativo
+CLI100;Mateus Ferreira;São Paulo;SP;Bronze;E-commerce;Ativo
+CLI101;Vanessa Santos;Osasco;SP;Diamante;E-commerce;Inativo
+CLI102;Carlos Souza;Guarulhos;SP;Ouro;WhatsApp;Ativo
+CLI103;Ricardo Almeida;São Bernardo do Campo;SP;Prata;E-commerce;Ativo
+CLI104;Vinícius Oliveira;Campinas;SP;Ouro;Loja Física;Ativo
+CLI105;Cláudia Ferreira;Santo André;SP;Prata;E-commerce;Ativo
+CLI106;Fernanda Gomes;São Paulo;SP;Prata;Loja Física;Ativo
+CLI107;Marcelo Ferreira;Campinas;SP;Bronze;Loja Física;Ativo
+CLI108;Ricardo Gomes;São Bernardo do Campo;SP;Bronze;Loja Física;Ativo
+CLI109;Cláudia Costa;Barueri;SP;Bronze;Loja Física;Ativo
+CLI110;Lucas Ferreira;São Bernardo do Campo;SP;Prata;WhatsApp;Ativo
+CLI111;Lucas Ribeiro;Guarulhos;SP;Ouro;Loja Física;Ativo
+CLI112;Larissa Lima;Santo André;SP;Ouro;E-commerce;Ativo
+CLI113;Lucas Oliveira;Campinas;SP;Prata;E-commerce;Ativo
+CLI114;Igor Souza;Osasco;SP;Diamante;E-commerce;Ativo
+CLI115;Daniel Santos;São Bernardo do Campo;SP;Bronze;Loja Física;Ativo
+CLI116;Ricardo Almeida;Guarulhos;SP;Ouro;Loja Física;Ativo
+CLI117;Eduardo Souza;Campinas;SP;Bronze;E-commerce;Ativo
+CLI118;Mateus Santos;Guarulhos;SP;Bronze;Loja Física;Ativo
+CLI119;Sofia Oliveira;Guarulhos;SP;Prata;Loja Física;Ativo
+CLI120;Eduardo Costa;São Paulo;SP;Bronze;Loja Física;Ativo

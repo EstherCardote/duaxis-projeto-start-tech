@@ -251,46 +251,33 @@ function inicializarAbasPainel() {
         painel.querySelectorAll("[data-grafico-periodo]").forEach((grafico) => {
           grafico.hidden = grafico.dataset.graficoPeriodo !== periodo;
         });
-        painel.querySelectorAll("[data-estatistica-periodo]").forEach((stat) => {
-          stat.hidden = stat.dataset.estatisticaPeriodo !== periodo;
-        });
+        painel
+          .querySelectorAll("[data-estatistica-periodo]")
+          .forEach((stat) => {
+            stat.hidden = stat.dataset.estatisticaPeriodo !== periodo;
+          });
       });
     });
   });
 }
 
 function inicializarChatDuaxis() {
-
   const campoChat = document.getElementById("campo-chat-dv");
 
-  const botaoEnviar = document.querySelector(
-    ".barra-entrada-dv__enviar"
-  );
+  const botaoEnviar = document.querySelector(".barra-entrada-dv__enviar");
 
   if (!campoChat || !botaoEnviar) {
     return;
   }
 
-  botaoEnviar.addEventListener(
-    "click",
-    () => enviarPerguntaDuaxis(campoChat)
-  );
-  campoChat.addEventListener(
-    "keydown",
-    (evento) => {
+  botaoEnviar.addEventListener("click", () => enviarPerguntaDuaxis(campoChat));
+  campoChat.addEventListener("keydown", (evento) => {
+    if (evento.key === "Enter") {
+      evento.preventDefault();
 
-      if (evento.key === "Enter") {
-
-        evento.preventDefault();
-
-        enviarPerguntaDuaxis(
-          campoChat
-        );
-      }
-
+      enviarPerguntaDuaxis(campoChat);
     }
-  );
-
+  });
 }
 
 function urlApiChat() {
@@ -304,199 +291,140 @@ function urlApiChat() {
 }
 
 async function enviarPerguntaDuaxis(campoChat) {
-
   const pergunta = campoChat.value.trim();
 
   if (!pergunta) {
     return;
   }
 
-  const mensagemUsuario =
-    adicionarMensagemUsuario(
-      pergunta
-    );
+  const mensagemUsuario = adicionarMensagemUsuario(pergunta);
 
   campoChat.value = "";
 
   try {
+    const resposta = await fetch(urlApiChat(), {
+      method: "POST",
 
-    const resposta = await fetch(
-      urlApiChat(),
-      {
-        method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
 
-        headers: {
-          "Content-Type": "application/json"
-        },
-
-        body: JSON.stringify({
-          mensagem: pergunta
-        })
-      }
-    );
+      body: JSON.stringify({
+        mensagem: pergunta,
+      }),
+    });
 
     if (!resposta.ok) {
-      throw new Error(
-        `Erro HTTP ${resposta.status}`
-      );
+      throw new Error(`Erro HTTP ${resposta.status}`);
     }
 
     const dados = await resposta.json();
 
-    console.log(
-      "Resposta do DUAXIS:",
-      dados
-    );
-    atualizarDataHoraMensagemUsuario(
-      mensagemUsuario,
-      dados.data_hora_pergunta
-    );
-
+    console.log("Resposta do DUAXIS:", dados);
+    atualizarDataHoraMensagemUsuario(mensagemUsuario, dados.data_hora_pergunta);
 
     // ==================================================
     // NOVA LÓGICA DE RESPOSTA
     // ==================================================
 
     if (dados.tipo_resposta === "texto") {
-
-      adicionarRespostaTextoIa(
-        dados.resposta_ia,
-        dados.data_hora_pergunta
-      );
+      adicionarRespostaTextoIa(dados.resposta_ia, dados.data_hora_pergunta);
 
       return;
     }
-
 
     if (
       !dados.ferramentas_utilizadas ||
       dados.ferramentas_utilizadas.length === 0
     ) {
-
       adicionarRespostaTextoIa(
-        dados.resposta_ia ||
-        "Não consegui apresentar essa resposta.",
-        dados.data_hora_pergunta
+        dados.resposta_ia || "Não consegui apresentar essa resposta.",
+        dados.data_hora_pergunta,
       );
 
       return;
     }
 
+    const ferramentaUtilizada = dados.ferramentas_utilizadas[0];
 
-    const ferramentaUtilizada =
-      dados.ferramentas_utilizadas[0];
+    const nomeFerramenta = ferramentaUtilizada.ferramenta;
 
-    const nomeFerramenta =
-      ferramentaUtilizada.ferramenta;
-
-    const resultadoFerramenta =
-      ferramentaUtilizada.resultado;
-
+    const resultadoFerramenta = ferramentaUtilizada.resultado;
 
     if (nomeFerramenta === "analisar_reposicao") {
-
       adicionarRespostaDuaxis(
         resultadoFerramenta,
         dados.resposta_ia,
-        dados.data_hora_pergunta
+        dados.data_hora_pergunta,
       );
-
-    } else if (
-      nomeFerramenta === "listar_produtos_reposicao"
-    ) {
-
+    } else if (nomeFerramenta === "listar_produtos_reposicao") {
       adicionarRespostaListaReposicao(
         resultadoFerramenta,
         dados.resposta_ia,
-        dados.data_hora_pergunta
+        dados.data_hora_pergunta,
       );
-
-    } else if (
-      nomeFerramenta === "consultar_pedidos_atrasados"
-    ) {
-
+    } else if (nomeFerramenta === "consultar_pedidos_atrasados") {
       adicionarRespostaPedidosAtrasados(
         resultadoFerramenta,
         dados.resposta_ia,
-        dados.data_hora_pergunta
+        dados.data_hora_pergunta,
       );
-
-    } else if (
-      nomeFerramenta === "listar_produtos_maior_risco"
-    ) {
-
+    } else if (nomeFerramenta === "listar_produtos_maior_risco") {
       adicionarRespostaProdutosMaiorRisco(
         resultadoFerramenta,
         dados.resposta_ia,
-        dados.data_hora_pergunta
+        dados.data_hora_pergunta,
       );
-
-    } else if (
-      nomeFerramenta === "listar_produtos_baixo_giro"
-    ) {
-
+    } else if (nomeFerramenta === "listar_produtos_baixo_giro") {
       adicionarRespostaProdutosBaixoGiro(
         resultadoFerramenta,
         dados.resposta_ia,
-        dados.data_hora_pergunta
+        dados.data_hora_pergunta,
       );
-
-    } else if (
-      nomeFerramenta === "listar_fornecedores_atrasos"
-    ) {
-
+    } else if (nomeFerramenta === "listar_fornecedores_atrasos") {
       adicionarRespostaFornecedoresAtrasos(
         resultadoFerramenta,
         dados.resposta_ia,
-        dados.data_hora_pergunta
+        dados.data_hora_pergunta,
       );
-
+    } else if (nomeFerramenta === "calcular_faturamento") {
+      adicionarRespostaFaturamento(
+        resultadoFerramenta,
+        dados.resposta_ia,
+        dados.data_hora_pergunta,
+      );
     } else {
-
       adicionarRespostaTextoIa(
-        dados.resposta_ia ||
-        "Não consegui apresentar essa resposta.",
-        dados.data_hora_pergunta
+        dados.resposta_ia || "Não consegui apresentar essa resposta.",
+        dados.data_hora_pergunta,
       );
-
     }
-
-
   } catch (erro) {
-
-    console.error(
-      "Erro ao consultar DUAXIS:",
-      erro
-    );
+    console.error("Erro ao consultar DUAXIS:", erro);
 
     adicionarMensagemSistema(
-      "Não foi possível consultar os dados neste momento."
+      "Não foi possível consultar os dados neste momento.",
     );
   }
 }
 
 function formatarDataHoraChat(dataHora) {
-
   if (!dataHora) {
     return "";
   }
 
   const data = new Date(dataHora);
 
-  return data.toLocaleString(
-    "pt-BR",
-    {
-      day: "2-digit",
-      month: "2-digit",
-      year: "numeric",
-      hour: "2-digit",
-      minute: "2-digit"
-    }
-  );
+  return data.toLocaleString("pt-BR", {
+    day: "2-digit",
+    month: "2-digit",
+    year: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+  });
 }
 
 function converterTextoIaParaHtml(texto) {
-
   if (!texto) {
     return "";
   }
@@ -507,50 +435,33 @@ function converterTextoIaParaHtml(texto) {
     .replace(/</g, "&lt;")
     .replace(/>/g, "&gt;")
 
-    .replace(
-      /\*\*(.*?)\*\*/g,
-      "<strong>$1</strong>"
-    )
+    .replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>")
 
-    .replace(
-      /\n/g,
-      "<br>"
-    );
+    .replace(/\n/g, "<br>");
 }
 
 function adicionarRespostaTextoIa(texto, dataHora) {
-
-  const container = document.getElementById(
-    "mensagens-chat-dv"
-  );
+  const container = document.getElementById("mensagens-chat-dv");
 
   if (!container) {
     return;
   }
 
-  const linhaResposta =
-    document.createElement("div");
+  const linhaResposta = document.createElement("div");
 
-  linhaResposta.className =
-    "linha-chat linha-chat--duaxis";
+  linhaResposta.className = "linha-chat linha-chat--duaxis";
 
+  const avatarDuaxis = document.createElement("div");
 
-  const avatarDuaxis =
-    document.createElement("div");
-
-  avatarDuaxis.className =
-    "avatar-chat avatar-chat--duaxis";
+  avatarDuaxis.className = "avatar-chat avatar-chat--duaxis";
 
   avatarDuaxis.innerHTML = `
     <i data-lucide="bot"></i>
   `;
 
+  const bloco = document.createElement("div");
 
-  const bloco =
-    document.createElement("div");
-
-  bloco.className =
-    "resposta-duaxis";
+  bloco.className = "resposta-duaxis";
 
   bloco.innerHTML = `
 
@@ -587,79 +498,50 @@ function adicionarRespostaTextoIa(texto, dataHora) {
 
   `;
 
+  linhaResposta.appendChild(avatarDuaxis);
 
-  linhaResposta.appendChild(
-    avatarDuaxis
-  );
+  linhaResposta.appendChild(bloco);
 
-  linhaResposta.appendChild(
-    bloco
-  );
-
-  container.appendChild(
-    linhaResposta
-  );
+  container.appendChild(linhaResposta);
 
   inicializarIconesLucide();
 
   linhaResposta.scrollIntoView({
     behavior: "smooth",
-    block: "end"
+    block: "end",
   });
 }
 
-function adicionarRespostaListaReposicao(
-  dados,
-  textoIa,
-  dataHora
-) {
-
-  const container = document.getElementById(
-    "mensagens-chat-dv"
-  );
+function adicionarRespostaListaReposicao(dados, textoIa, dataHora) {
+  const container = document.getElementById("mensagens-chat-dv");
 
   if (!container) {
     return;
   }
 
-  const produtos =
-  dados.produtos_reposicao || [];
+  const produtos = dados.produtos_reposicao || [];
 
-const impactoTotal =
-  dados.impacto_financeiro_total || 0;
+  const impactoTotal = dados.impacto_financeiro_total || 0;
 
-const impactoTotalFormatado =
-  impactoTotal.toLocaleString(
-    "pt-BR",
-    {
-      style: "currency",
-      currency: "BRL"
-    }
-  );
+  const impactoTotalFormatado = impactoTotal.toLocaleString("pt-BR", {
+    style: "currency",
+    currency: "BRL",
+  });
 
-const totalProdutos =
-  dados.total_reposicao || 0;
+  const totalProdutos = dados.total_reposicao || 0;
 
-  const produtosPrincipais =
-    produtos.slice(0, 5);
+  const produtosPrincipais = produtos.slice(0, 5);
 
-  const produtosRestantes =
-    produtos.slice(5);
+  const produtosRestantes = produtos.slice(5);
 
-  const linhasProdutos =
-    produtosPrincipais
-      .map((produto) => {
+  const linhasProdutos = produtosPrincipais
+    .map((produto) => {
+      const impacto = produto.impacto_financeiro.toLocaleString("pt-BR", {
+        style: "currency",
+        currency: "BRL",
+      });
 
-        const impacto =
-          produto.impacto_financeiro.toLocaleString(
-            "pt-BR",
-            {
-              style: "currency",
-              currency: "BRL"
-            }
-          );
-
-        return `
+      return `
           <div class="produto-reposicao">
 
             <div class="produto-reposicao__info">
@@ -683,23 +565,17 @@ const totalProdutos =
 
           </div>
         `;
-      })
-      .join("");
+    })
+    .join("");
 
-  const linhasProdutosRestantes =
-    produtosRestantes
-      .map((produto) => {
+  const linhasProdutosRestantes = produtosRestantes
+    .map((produto) => {
+      const impacto = produto.impacto_financeiro.toLocaleString("pt-BR", {
+        style: "currency",
+        currency: "BRL",
+      });
 
-        const impacto =
-          produto.impacto_financeiro.toLocaleString(
-            "pt-BR",
-            {
-              style: "currency",
-              currency: "BRL"
-            }
-          );
-
-        return `
+      return `
         <div class="produto-reposicao">
 
           <div class="produto-reposicao__info">
@@ -723,30 +599,24 @@ const totalProdutos =
 
         </div>
       `;
-      })
-      .join("");
+    })
+    .join("");
 
-  const linhaResposta =
-    document.createElement("div");
+  const linhaResposta = document.createElement("div");
 
-  linhaResposta.className =
-    "linha-chat linha-chat--duaxis";
+  linhaResposta.className = "linha-chat linha-chat--duaxis";
 
-  const avatarDuaxis =
-    document.createElement("div");
+  const avatarDuaxis = document.createElement("div");
 
-  avatarDuaxis.className =
-    "avatar-chat avatar-chat--duaxis";
+  avatarDuaxis.className = "avatar-chat avatar-chat--duaxis";
 
   avatarDuaxis.innerHTML = `
     <i data-lucide="bot"></i>
   `;
 
-  const bloco =
-    document.createElement("div");
+  const bloco = document.createElement("div");
 
-  bloco.className =
-    "resposta-duaxis resposta-duaxis--lista";
+  bloco.className = "resposta-duaxis resposta-duaxis--lista";
 
   bloco.innerHTML = `
 
@@ -806,8 +676,9 @@ const totalProdutos =
   ${linhasProdutosRestantes}
 </div>
 
-        ${totalProdutos > 5
-      ? `
+        ${
+          totalProdutos > 5
+            ? `
               <button
                 type="button"
                 class="botao-ver-todos-reposicao"
@@ -816,8 +687,8 @@ const totalProdutos =
                 ${totalProdutos} produtos
               </button>
             `
-      : ""
-    }
+            : ""
+        }
 
       </div>
 
@@ -962,73 +833,48 @@ const totalProdutos =
 
   `;
 
-  linhaResposta.appendChild(
-    avatarDuaxis
-  );
+  linhaResposta.appendChild(avatarDuaxis);
 
-  linhaResposta.appendChild(
-    bloco
-  );
+  linhaResposta.appendChild(bloco);
 
-  container.appendChild(
-    linhaResposta
-  );
+  container.appendChild(linhaResposta);
 
-  const botaoVerTodos =
-    bloco.querySelector(
-      ".botao-ver-todos-reposicao"
-    );
+  const botaoVerTodos = bloco.querySelector(".botao-ver-todos-reposicao");
 
   if (botaoVerTodos) {
+    botaoVerTodos.addEventListener("click", () => {
+      const listaOculta = bloco.querySelector(
+        ".lista-produtos-reposicao--oculta",
+      );
 
-    botaoVerTodos.addEventListener(
-      "click",
-      () => {
-
-        const listaOculta =
-          bloco.querySelector(
-            ".lista-produtos-reposicao--oculta"
-          );
-
-        if (!listaOculta) {
-          return;
-        }
-
-        const estaOculta =
-          listaOculta.style.display !== "flex";
-
-        if (estaOculta) {
-
-          listaOculta.style.display = "flex";
-
-          botaoVerTodos.textContent =
-            "Mostrar menos";
-
-        } else {
-
-          listaOculta.style.display = "none";
-
-          botaoVerTodos.textContent =
-            `Ver todos os ${totalProdutos} produtos`;
-        }
-
+      if (!listaOculta) {
+        return;
       }
-    );
+
+      const estaOculta = listaOculta.style.display !== "flex";
+
+      if (estaOculta) {
+        listaOculta.style.display = "flex";
+
+        botaoVerTodos.textContent = "Mostrar menos";
+      } else {
+        listaOculta.style.display = "none";
+
+        botaoVerTodos.textContent = `Ver todos os ${totalProdutos} produtos`;
+      }
+    });
   }
 
   inicializarIconesLucide();
 
   linhaResposta.scrollIntoView({
     behavior: "smooth",
-    block: "end"
+    block: "end",
   });
 }
 
 function adicionarMensagemUsuario(texto) {
-
-  const container = document.getElementById(
-    "mensagens-chat-dv"
-  );
+  const container = document.getElementById("mensagens-chat-dv");
 
   if (!container) {
     return;
@@ -1039,36 +885,23 @@ function adicionarMensagemUsuario(texto) {
 
   const mensagem = document.createElement("div");
 
-  mensagem.className =
-    "mensagem-chat mensagem-chat--usuario";
+  mensagem.className = "mensagem-chat mensagem-chat--usuario";
 
+  const textoMensagem = document.createElement("div");
 
-  const textoMensagem =
-    document.createElement("div");
+  textoMensagem.className = "mensagem-chat__texto";
 
-  textoMensagem.className =
-    "mensagem-chat__texto";
+  textoMensagem.textContent = texto;
 
-  textoMensagem.textContent =
-    texto;
+  const dataMensagem = document.createElement("span");
 
-
-  const dataMensagem =
-    document.createElement("span");
-
-  dataMensagem.className =
-    "mensagem-chat__data";
+  dataMensagem.className = "mensagem-chat__data";
 
   dataMensagem.hidden = true;
 
+  mensagem.appendChild(textoMensagem);
 
-  mensagem.appendChild(
-    textoMensagem
-  );
-
-  mensagem.appendChild(
-    dataMensagem
-  );
+  mensagem.appendChild(dataMensagem);
 
   const avatar = document.createElement("div");
   avatar.className = "avatar-chat avatar-chat--usuario";
@@ -1082,33 +915,23 @@ function adicionarMensagemUsuario(texto) {
 
   linhaMensagem.scrollIntoView({
     behavior: "smooth",
-    block: "end"
+    block: "end",
   });
   return dataMensagem;
 }
 
-function atualizarDataHoraMensagemUsuario(
-  elementoData,
-  dataHora
-) {
-
+function atualizarDataHoraMensagemUsuario(elementoData, dataHora) {
   if (!elementoData || !dataHora) {
     return;
   }
 
-  elementoData.textContent =
-    formatarDataHoraChat(
-      dataHora
-    );
+  elementoData.textContent = formatarDataHoraChat(dataHora);
 
   elementoData.hidden = false;
 }
 
 function adicionarMensagemSistema(texto) {
-
-  const container = document.getElementById(
-    "mensagens-chat-dv"
-  );
+  const container = document.getElementById("mensagens-chat-dv");
 
   if (!container) {
     return;
@@ -1133,28 +956,21 @@ function adicionarMensagemSistema(texto) {
 
   linhaMensagem.scrollIntoView({
     behavior: "smooth",
-    block: "end"
+    block: "end",
   });
 }
 
 function adicionarRespostaDuaxis(dados, textoIa, dataHora) {
-
-  const container = document.getElementById(
-    "mensagens-chat-dv"
-  );
+  const container = document.getElementById("mensagens-chat-dv");
 
   if (!container) {
     return;
   }
 
-  const impactoFormatado =
-    dados.impacto_financeiro.toLocaleString(
-      "pt-BR",
-      {
-        style: "currency",
-        currency: "BRL"
-      }
-    );
+  const impactoFormatado = dados.impacto_financeiro.toLocaleString("pt-BR", {
+    style: "currency",
+    currency: "BRL",
+  });
 
   const textoRecomendacao =
     dados.quantidade_recomendada > 0
@@ -1169,19 +985,15 @@ function adicionarRespostaDuaxis(dados, textoIa, dataHora) {
 
   const linhaResposta = document.createElement("div");
 
-  linhaResposta.className =
-    "linha-chat linha-chat--duaxis";
-
+  linhaResposta.className = "linha-chat linha-chat--duaxis";
 
   const avatarDuaxis = document.createElement("div");
 
-  avatarDuaxis.className =
-    "avatar-chat avatar-chat--duaxis";
+  avatarDuaxis.className = "avatar-chat avatar-chat--duaxis";
 
   avatarDuaxis.innerHTML = `
   <i data-lucide="bot"></i>
 `;
-
 
   const bloco = document.createElement("div");
 
@@ -1429,57 +1241,39 @@ function adicionarRespostaDuaxis(dados, textoIa, dataHora) {
         </button>
     `;
 
-  linhaResposta.appendChild(
-    avatarDuaxis
-  );
+  linhaResposta.appendChild(avatarDuaxis);
 
-  linhaResposta.appendChild(
-    bloco
-  );
+  linhaResposta.appendChild(bloco);
 
-  container.appendChild(
-    linhaResposta
-  );
+  container.appendChild(linhaResposta);
 
   inicializarIconesLucide();
 
-  bloco
-    .querySelectorAll(".resposta-duaxis__sugestao")
-    .forEach((botao) => {
+  bloco.querySelectorAll(".resposta-duaxis__sugestao").forEach((botao) => {
+    botao.addEventListener("click", () => {
+      const campoChat = document.getElementById("campo-chat-dv");
 
-      botao.addEventListener("click", () => {
+      if (!campoChat) {
+        return;
+      }
 
-        const campoChat =
-          document.getElementById("campo-chat-dv");
+      campoChat.value = botao.dataset.pergunta || "";
 
-        if (!campoChat) {
-          return;
-        }
-
-        campoChat.value =
-          botao.dataset.pergunta || "";
-
-        campoChat.focus();
-      });
-
+      campoChat.focus();
     });
+  });
 
   bloco.scrollIntoView({
     behavior: "smooth",
-    block: "end"
+    block: "end",
   });
 }
 
 function montarRespostaReposicao(dados) {
-
-  const impactoFormatado =
-    dados.impacto_financeiro.toLocaleString(
-      "pt-BR",
-      {
-        style: "currency",
-        currency: "BRL"
-      }
-    );
+  const impactoFormatado = dados.impacto_financeiro.toLocaleString("pt-BR", {
+    style: "currency",
+    currency: "BRL",
+  });
 
   return (
     `Para o ${dados.produto_id}, ` +
@@ -1493,47 +1287,33 @@ function montarRespostaReposicao(dados) {
   );
 }
 
-function adicionarRespostaProdutosMaiorRisco(
-  dados,
-  textoIa,
-  dataHora
-) {
-
-  const container = document.getElementById(
-    "mensagens-chat-dv"
-  );
+function adicionarRespostaProdutosMaiorRisco(dados, textoIa, dataHora) {
+  const container = document.getElementById("mensagens-chat-dv");
 
   if (!container) {
     return;
   }
 
-
   // ==================================================
   // FILTRA PRODUTOS COM RISCO ACIMA DE BAIXO
   // ==================================================
 
-  const produtosMaiorRisco =
-    dados.produtos.filter(
-      (produto) =>
-        produto.nivel_risco !== "Baixo"
-    );
-
+  const produtosMaiorRisco = dados.produtos.filter(
+    (produto) => produto.nivel_risco !== "Baixo",
+  );
 
   // ==================================================
   // CRIA HTML DOS PRODUTOS
   // ==================================================
 
-  const linhasProdutos =
-    produtosMaiorRisco
-      .map((produto) => {
+  const linhasProdutos = produtosMaiorRisco
+    .map((produto) => {
+      const classeNivel = produto.nivel_risco
+        .toLowerCase()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "");
 
-        const classeNivel =
-          produto.nivel_risco
-            .toLowerCase()
-            .normalize("NFD")
-            .replace(/[\u0300-\u036f]/g, "");
-
-        return `
+      return `
           <div class="produto-risco">
 
             <div class="produto-risco__cabecalho">
@@ -1617,38 +1397,28 @@ function adicionarRespostaProdutosMaiorRisco(
 
           </div>
         `;
-      })
-      .join("");
-
+    })
+    .join("");
 
   // ==================================================
   // CRIA LINHA DO CHAT
   // ==================================================
 
-  const linhaResposta =
-    document.createElement("div");
+  const linhaResposta = document.createElement("div");
 
-  linhaResposta.className =
-    "linha-chat linha-chat--duaxis";
+  linhaResposta.className = "linha-chat linha-chat--duaxis";
 
+  const avatarDuaxis = document.createElement("div");
 
-  const avatarDuaxis =
-    document.createElement("div");
-
-  avatarDuaxis.className =
-    "avatar-chat avatar-chat--duaxis";
+  avatarDuaxis.className = "avatar-chat avatar-chat--duaxis";
 
   avatarDuaxis.innerHTML = `
     <i data-lucide="bot"></i>
   `;
 
+  const bloco = document.createElement("div");
 
-  const bloco =
-    document.createElement("div");
-
-  bloco.className =
-    "resposta-duaxis resposta-duaxis--risco";
-
+  bloco.className = "resposta-duaxis resposta-duaxis--risco";
 
   // ==================================================
   // CONTEÚDO
@@ -1804,36 +1574,26 @@ function adicionarRespostaProdutosMaiorRisco(
 
   `;
 
-
   // ==================================================
   // ADICIONA NA TELA
   // ==================================================
 
-  linhaResposta.appendChild(
-    avatarDuaxis
-  );
+  linhaResposta.appendChild(avatarDuaxis);
 
-  linhaResposta.appendChild(
-    bloco
-  );
+  linhaResposta.appendChild(bloco);
 
-  container.appendChild(
-    linhaResposta
-  );
+  container.appendChild(linhaResposta);
 
   inicializarIconesLucide();
 
   linhaResposta.scrollIntoView({
     behavior: "smooth",
-    block: "end"
+    block: "end",
   });
 }
 
 function adicionarRespostaPedidosAtrasados(dados, textoIa, dataHora) {
-
-  const container = document.getElementById(
-    "mensagens-chat-dv"
-  );
+  const container = document.getElementById("mensagens-chat-dv");
 
   if (!container) {
     return;
@@ -1843,19 +1603,15 @@ function adicionarRespostaPedidosAtrasados(dados, textoIa, dataHora) {
   // SEPARA OS 5 MAIORES ATRASOS
   // ==================================================
 
-  const pedidosPrincipais =
-    dados.pedidos.slice(0, 5);
+  const pedidosPrincipais = dados.pedidos.slice(0, 5);
 
-  const pedidosRestantes =
-    dados.pedidos.slice(5);
-
+  const pedidosRestantes = dados.pedidos.slice(5);
 
   // ==================================================
   // FUNÇÃO AUXILIAR PARA FORMATAR DATA
   // ==================================================
 
   function formatarData(data) {
-
     if (!data) {
       return "-";
     }
@@ -1865,38 +1621,25 @@ function adicionarRespostaPedidosAtrasados(dados, textoIa, dataHora) {
     return `${partes[2]}/${partes[1]}/${partes[0]}`;
   }
 
-
   // ==================================================
   // FUNÇÃO AUXILIAR PARA FORMATAR VALOR
   // ==================================================
 
   function formatarValor(valor) {
-
-    return valor.toLocaleString(
-      "pt-BR",
-      {
-        style: "currency",
-        currency: "BRL"
-      }
-    );
+    return valor.toLocaleString("pt-BR", {
+      style: "currency",
+      currency: "BRL",
+    });
   }
-
 
   // ==================================================
   // CRIA HTML DE UM PEDIDO
   // ==================================================
 
   function criarHtmlPedido(pedido) {
+    const valorFormatado = formatarValor(pedido.valor_total);
 
-    const valorFormatado =
-      formatarValor(
-        pedido.valor_total
-      );
-
-    const dataPrevista =
-      formatarData(
-        pedido.data_prevista_entrega
-      );
+    const dataPrevista = formatarData(pedido.data_prevista_entrega);
 
     return `
       <div class="pedido-atrasado">
@@ -1923,10 +1666,7 @@ function adicionarRespostaPedidosAtrasados(dados, textoIa, dataHora) {
 
           <div class="pedido-atrasado__dias">
             ${pedido.dias_atraso}
-            ${pedido.dias_atraso === 1
-        ? "dia"
-        : "dias"
-      }
+            ${pedido.dias_atraso === 1 ? "dia" : "dias"}
           </div>
 
         </div>
@@ -2008,55 +1748,37 @@ function adicionarRespostaPedidosAtrasados(dados, textoIa, dataHora) {
     `;
   }
 
-
   // ==================================================
   // MONTA OS 5 PRIMEIROS
   // ==================================================
 
-  const linhasPrincipais =
-    pedidosPrincipais
-      .map(criarHtmlPedido)
-      .join("");
-
+  const linhasPrincipais = pedidosPrincipais.map(criarHtmlPedido).join("");
 
   // ==================================================
   // MONTA OS DEMAIS
   // ==================================================
 
-  const linhasRestantes =
-    pedidosRestantes
-      .map(criarHtmlPedido)
-      .join("");
-
+  const linhasRestantes = pedidosRestantes.map(criarHtmlPedido).join("");
 
   // ==================================================
   // CRIA A LINHA DO CHAT
   // ==================================================
 
-  const linhaResposta =
-    document.createElement("div");
+  const linhaResposta = document.createElement("div");
 
-  linhaResposta.className =
-    "linha-chat linha-chat--duaxis";
+  linhaResposta.className = "linha-chat linha-chat--duaxis";
 
+  const avatarDuaxis = document.createElement("div");
 
-  const avatarDuaxis =
-    document.createElement("div");
-
-  avatarDuaxis.className =
-    "avatar-chat avatar-chat--duaxis";
+  avatarDuaxis.className = "avatar-chat avatar-chat--duaxis";
 
   avatarDuaxis.innerHTML = `
     <i data-lucide="bot"></i>
   `;
 
+  const bloco = document.createElement("div");
 
-  const bloco =
-    document.createElement("div");
-
-  bloco.className =
-    "resposta-duaxis resposta-duaxis--atrasos";
-
+  bloco.className = "resposta-duaxis resposta-duaxis--atrasos";
 
   // ==================================================
   // CONTEÚDO DA RESPOSTA
@@ -2134,8 +1856,9 @@ function adicionarRespostaPedidosAtrasados(dados, textoIa, dataHora) {
         </div>
 
 
-        ${dados.total_atrasados > 5
-      ? `
+        ${
+          dados.total_atrasados > 5
+            ? `
               <button
                 type="button"
                 class="botao-ver-todos-atrasados"
@@ -2144,8 +1867,8 @@ function adicionarRespostaPedidosAtrasados(dados, textoIa, dataHora) {
                 ${dados.total_atrasados} entregas
               </button>
             `
-      : ""
-    }
+            : ""
+        }
 
       </div>
 
@@ -2276,162 +1999,101 @@ function adicionarRespostaPedidosAtrasados(dados, textoIa, dataHora) {
 
   `;
 
-
   // ==================================================
   // ADICIONA NA TELA
   // ==================================================
 
-  linhaResposta.appendChild(
-    avatarDuaxis
-  );
+  linhaResposta.appendChild(avatarDuaxis);
 
-  linhaResposta.appendChild(
-    bloco
-  );
+  linhaResposta.appendChild(bloco);
 
-  container.appendChild(
-    linhaResposta
-  );
-
+  container.appendChild(linhaResposta);
 
   // ==================================================
   // BOTÃO "VER TODOS"
   // ==================================================
 
-  const botaoVerTodos =
-    bloco.querySelector(
-      ".botao-ver-todos-atrasados"
-    );
-
+  const botaoVerTodos = bloco.querySelector(".botao-ver-todos-atrasados");
 
   if (botaoVerTodos) {
+    botaoVerTodos.addEventListener("click", () => {
+      const listaOculta = bloco.querySelector(
+        ".lista-pedidos-atrasados--oculta",
+      );
 
-    botaoVerTodos.addEventListener(
-      "click",
-      () => {
-
-        const listaOculta =
-          bloco.querySelector(
-            ".lista-pedidos-atrasados--oculta"
-          );
-
-        if (!listaOculta) {
-          return;
-        }
-
-
-        const estaOculta =
-          listaOculta.style.display !== "flex";
-
-
-        if (estaOculta) {
-
-          listaOculta.style.display = "flex";
-
-          botaoVerTodos.textContent =
-            "Mostrar menos";
-
-        } else {
-
-          listaOculta.style.display = "none";
-
-          botaoVerTodos.textContent =
-            `Ver todas as ${dados.total_atrasados} entregas`;
-
-        }
-
+      if (!listaOculta) {
+        return;
       }
-    );
 
+      const estaOculta = listaOculta.style.display !== "flex";
+
+      if (estaOculta) {
+        listaOculta.style.display = "flex";
+
+        botaoVerTodos.textContent = "Mostrar menos";
+      } else {
+        listaOculta.style.display = "none";
+
+        botaoVerTodos.textContent = `Ver todas as ${dados.total_atrasados} entregas`;
+      }
+    });
   }
-
 
   inicializarIconesLucide();
 
-
   linhaResposta.scrollIntoView({
     behavior: "smooth",
-    block: "end"
+    block: "end",
   });
-
 }
 
-function adicionarRespostaProdutosBaixoGiro(
-  dados,
-  textoIa,
-  dataHora
-) {
-
-  const container = document.getElementById(
-    "mensagens-chat-dv"
-  );
+function adicionarRespostaProdutosBaixoGiro(dados, textoIa, dataHora) {
+  const container = document.getElementById("mensagens-chat-dv");
 
   if (!container) {
     return;
   }
 
-
   // ==================================================
   // PRODUTOS
   // ==================================================
 
-  const produtos =
-    dados.produtos || [];
+  const produtos = dados.produtos || [];
 
-  const produtosPrincipais =
-    produtos.slice(0, 5);
+  const produtosPrincipais = produtos.slice(0, 5);
 
-  const produtosRestantes =
-    produtos.slice(5);
-
+  const produtosRestantes = produtos.slice(5);
 
   // ==================================================
   // FORMATA NÚMEROS
   // ==================================================
 
   function formatarNumero(valor) {
-
-    if (
-      valor === null ||
-      valor === undefined
-    ) {
+    if (valor === null || valor === undefined) {
       return "-";
     }
 
-    return Number(valor).toLocaleString(
-      "pt-BR",
-      {
-        maximumFractionDigits: 2
-      }
-    );
+    return Number(valor).toLocaleString("pt-BR", {
+      maximumFractionDigits: 2,
+    });
   }
-
 
   function formatarPercentual(valor) {
-
-    if (
-      valor === null ||
-      valor === undefined
-    ) {
+    if (valor === null || valor === undefined) {
       return "-";
     }
 
-    return `${Number(valor).toLocaleString(
-      "pt-BR",
-      {
-        minimumFractionDigits: 2,
-        maximumFractionDigits: 2
-      }
-    )}%`;
+    return `${Number(valor).toLocaleString("pt-BR", {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    })}%`;
   }
-
 
   // ==================================================
   // MONTA CARD DO PRODUTO
   // ==================================================
 
   function montarCardProduto(produto) {
-
     return `
       <div class="produto-baixo-giro">
 
@@ -2465,9 +2127,7 @@ function adicionarRespostaProdutosBaixoGiro(
             </span>
 
             <strong>
-              ${formatarNumero(
-                produto.vendas_periodo
-              )} un.
+              ${formatarNumero(produto.vendas_periodo)} un.
             </strong>
 
           </div>
@@ -2480,9 +2140,7 @@ function adicionarRespostaProdutosBaixoGiro(
             </span>
 
             <strong>
-              ${formatarNumero(
-                produto.media_mensal_periodo
-              )} un.
+              ${formatarNumero(produto.media_mensal_periodo)} un.
             </strong>
 
           </div>
@@ -2495,9 +2153,7 @@ function adicionarRespostaProdutosBaixoGiro(
             </span>
 
             <strong>
-              ${formatarNumero(
-                produto.estoque_periodo
-              )} un.
+              ${formatarNumero(produto.estoque_periodo)} un.
             </strong>
 
           </div>
@@ -2510,9 +2166,7 @@ function adicionarRespostaProdutosBaixoGiro(
             </span>
 
             <strong>
-              ${formatarNumero(
-                produto.cobertura_estoque_periodo
-              )} meses
+              ${formatarNumero(produto.cobertura_estoque_periodo)} meses
             </strong>
 
           </div>
@@ -2525,18 +2179,14 @@ function adicionarRespostaProdutosBaixoGiro(
           <span>
             Ritmo recente:
             <strong>
-              ${formatarPercentual(
-                produto.variacao_ritmo_recente_percentual
-              )}
+              ${formatarPercentual(produto.variacao_ritmo_recente_percentual)}
             </strong>
           </span>
 
           <span>
             Comparação sazonal:
             <strong>
-              ${formatarPercentual(
-                produto.variacao_sazonal_percentual
-              )}
+              ${formatarPercentual(produto.variacao_sazonal_percentual)}
             </strong>
           </span>
 
@@ -2546,46 +2196,29 @@ function adicionarRespostaProdutosBaixoGiro(
     `;
   }
 
+  const linhasPrincipais = produtosPrincipais.map(montarCardProduto).join("");
 
-  const linhasPrincipais =
-    produtosPrincipais
-      .map(montarCardProduto)
-      .join("");
-
-  const linhasRestantes =
-    produtosRestantes
-      .map(montarCardProduto)
-      .join("");
-
+  const linhasRestantes = produtosRestantes.map(montarCardProduto).join("");
 
   // ==================================================
   // CRIA LINHA DO CHAT
   // ==================================================
 
-  const linhaResposta =
-    document.createElement("div");
+  const linhaResposta = document.createElement("div");
 
-  linhaResposta.className =
-    "linha-chat linha-chat--duaxis";
+  linhaResposta.className = "linha-chat linha-chat--duaxis";
 
+  const avatarDuaxis = document.createElement("div");
 
-  const avatarDuaxis =
-    document.createElement("div");
-
-  avatarDuaxis.className =
-    "avatar-chat avatar-chat--duaxis";
+  avatarDuaxis.className = "avatar-chat avatar-chat--duaxis";
 
   avatarDuaxis.innerHTML = `
     <i data-lucide="bot"></i>
   `;
 
+  const bloco = document.createElement("div");
 
-  const bloco =
-    document.createElement("div");
-
-  bloco.className =
-    "resposta-duaxis resposta-duaxis--baixo-giro";
-
+  bloco.className = "resposta-duaxis resposta-duaxis--baixo-giro";
 
   // ==================================================
   // CONTEÚDO
@@ -2782,132 +2415,86 @@ function adicionarRespostaProdutosBaixoGiro(
 
   `;
 
-
   // ==================================================
   // ADICIONA NA TELA
   // ==================================================
 
-  linhaResposta.appendChild(
-    avatarDuaxis
-  );
+  linhaResposta.appendChild(avatarDuaxis);
 
-  linhaResposta.appendChild(
-    bloco
-  );
+  linhaResposta.appendChild(bloco);
 
-  container.appendChild(
-    linhaResposta
-  );
-
+  container.appendChild(linhaResposta);
 
   inicializarIconesLucide();
-
 
   // ==================================================
   // BOTÃO VER TODOS
   // ==================================================
 
-  const botaoVerTodos =
-    bloco.querySelector(
-      ".botao-ver-todos-baixo-giro"
-    );
+  const botaoVerTodos = bloco.querySelector(".botao-ver-todos-baixo-giro");
 
-  const listaOculta =
-    bloco.querySelector(
-      ".lista-produtos-baixo-giro--oculta"
-    );
+  const listaOculta = bloco.querySelector(".lista-produtos-baixo-giro--oculta");
 
-
-  if (
-    botaoVerTodos &&
-    listaOculta
-  ) {
-
+  if (botaoVerTodos && listaOculta) {
     let expandido = false;
 
-    botaoVerTodos.addEventListener(
-      "click",
-      () => {
+    botaoVerTodos.addEventListener("click", () => {
+      expandido = !expandido;
 
-        expandido = !expandido;
+      listaOculta.classList.toggle(
+        "lista-produtos-baixo-giro--visivel",
+        expandido,
+      );
 
-        listaOculta.classList.toggle(
-          "lista-produtos-baixo-giro--visivel",
-          expandido
-        );
-
-        botaoVerTodos.textContent =
-          expandido
-            ? "Mostrar menos"
-            : `Ver todos os ${produtos.length} produtos`;
-      }
-    );
+      botaoVerTodos.textContent = expandido
+        ? "Mostrar menos"
+        : `Ver todos os ${produtos.length} produtos`;
+    });
   }
-
 
   linhaResposta.scrollIntoView({
     behavior: "smooth",
-    block: "end"
+    block: "end",
   });
 }
 
-function adicionarRespostaFornecedoresAtrasos(
-  dados,
-  textoIa,
-  dataHora
-) {
-
-  const container = document.getElementById(
-    "mensagens-chat-dv"
-  );
+function adicionarRespostaFornecedoresAtrasos(dados, textoIa, dataHora) {
+  const container = document.getElementById("mensagens-chat-dv");
 
   if (!container) {
     return;
   }
 
-
   // ==================================================
   // SEPARA OS 5 PRIMEIROS FORNECEDORES
   // ==================================================
 
-  const fornecedores =
-    dados.fornecedores || [];
+  const fornecedores = dados.fornecedores || [];
 
-  const fornecedoresPrincipais =
-    fornecedores.slice(0, 5);
+  const fornecedoresPrincipais = fornecedores.slice(0, 5);
 
-  const fornecedoresRestantes =
-    fornecedores.slice(5);
-
+  const fornecedoresRestantes = fornecedores.slice(5);
 
   // ==================================================
   // CRIA HTML DE UM FORNECEDOR
   // ==================================================
 
   function criarHtmlFornecedor(fornecedor) {
+    const mediaAtraso = Number(fornecedor.media_dias_atraso).toLocaleString(
+      "pt-BR",
+      {
+        minimumFractionDigits: 0,
+        maximumFractionDigits: 2,
+      },
+    );
 
-    const mediaAtraso =
-      Number(
-        fornecedor.media_dias_atraso
-      ).toLocaleString(
-        "pt-BR",
-        {
-          minimumFractionDigits: 0,
-          maximumFractionDigits: 2
-        }
-      );
-
-    const taxaAtraso =
-      Number(
-        fornecedor.taxa_atraso_percentual
-      ).toLocaleString(
-        "pt-BR",
-        {
-          minimumFractionDigits: 2,
-          maximumFractionDigits: 2
-        }
-      );
-
+    const taxaAtraso = Number(fornecedor.taxa_atraso_percentual).toLocaleString(
+      "pt-BR",
+      {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2,
+      },
+    );
 
     return `
       <div class="fornecedor-atraso">
@@ -2970,10 +2557,7 @@ function adicionarRespostaFornecedoresAtrasos(
 
             <strong>
               ${mediaAtraso}
-              ${Number(fornecedor.media_dias_atraso) === 1
-        ? "dia"
-        : "dias"
-      }
+              ${Number(fornecedor.media_dias_atraso) === 1 ? "dia" : "dias"}
             </strong>
 
           </div>
@@ -2987,10 +2571,7 @@ function adicionarRespostaFornecedoresAtrasos(
 
             <strong>
               ${fornecedor.maior_atraso_dias}
-              ${fornecedor.maior_atraso_dias === 1
-        ? "dia"
-        : "dias"
-      }
+              ${fornecedor.maior_atraso_dias === 1 ? "dia" : "dias"}
             </strong>
 
           </div>
@@ -3001,51 +2582,37 @@ function adicionarRespostaFornecedoresAtrasos(
     `;
   }
 
-
   // ==================================================
   // MONTA AS LISTAS
   // ==================================================
 
-  const linhasPrincipais =
-    fornecedoresPrincipais
-      .map(criarHtmlFornecedor)
-      .join("");
+  const linhasPrincipais = fornecedoresPrincipais
+    .map(criarHtmlFornecedor)
+    .join("");
 
-
-  const linhasRestantes =
-    fornecedoresRestantes
-      .map(criarHtmlFornecedor)
-      .join("");
-
+  const linhasRestantes = fornecedoresRestantes
+    .map(criarHtmlFornecedor)
+    .join("");
 
   // ==================================================
   // CRIA A LINHA DO CHAT
   // ==================================================
 
-  const linhaResposta =
-    document.createElement("div");
+  const linhaResposta = document.createElement("div");
 
-  linhaResposta.className =
-    "linha-chat linha-chat--duaxis";
+  linhaResposta.className = "linha-chat linha-chat--duaxis";
 
+  const avatarDuaxis = document.createElement("div");
 
-  const avatarDuaxis =
-    document.createElement("div");
-
-  avatarDuaxis.className =
-    "avatar-chat avatar-chat--duaxis";
+  avatarDuaxis.className = "avatar-chat avatar-chat--duaxis";
 
   avatarDuaxis.innerHTML = `
     <i data-lucide="bot"></i>
   `;
 
+  const bloco = document.createElement("div");
 
-  const bloco =
-    document.createElement("div");
-
-  bloco.className =
-    "resposta-duaxis resposta-duaxis--fornecedores";
-
+  bloco.className = "resposta-duaxis resposta-duaxis--fornecedores";
 
   // ==================================================
   // CONTEÚDO
@@ -3125,8 +2692,9 @@ function adicionarRespostaFornecedoresAtrasos(
         </div>
 
 
-        ${fornecedores.length > 5
-      ? `
+        ${
+          fornecedores.length > 5
+            ? `
               <button
                 type="button"
                 class="botao-ver-todos-fornecedores"
@@ -3135,8 +2703,8 @@ function adicionarRespostaFornecedoresAtrasos(
                 ${fornecedores.length} fornecedores
               </button>
             `
-      : ""
-    }
+            : ""
+        }
 
       </div>
 
@@ -3225,84 +2793,205 @@ function adicionarRespostaFornecedoresAtrasos(
 
   `;
 
-
   // ==================================================
   // ADICIONA NA TELA
   // ==================================================
 
-  linhaResposta.appendChild(
-    avatarDuaxis
-  );
+  linhaResposta.appendChild(avatarDuaxis);
 
-  linhaResposta.appendChild(
-    bloco
-  );
+  linhaResposta.appendChild(bloco);
 
-  container.appendChild(
-    linhaResposta
-  );
-
+  container.appendChild(linhaResposta);
 
   // ==================================================
   // BOTÃO "VER TODOS"
   // ==================================================
 
-  const botaoVerTodos =
-    bloco.querySelector(
-      ".botao-ver-todos-fornecedores"
-    );
-
+  const botaoVerTodos = bloco.querySelector(".botao-ver-todos-fornecedores");
 
   if (botaoVerTodos) {
+    botaoVerTodos.addEventListener("click", () => {
+      const listaOculta = bloco.querySelector(
+        ".lista-fornecedores-atrasos--oculta",
+      );
 
-    botaoVerTodos.addEventListener(
-      "click",
-      () => {
-
-        const listaOculta =
-          bloco.querySelector(
-            ".lista-fornecedores-atrasos--oculta"
-          );
-
-        if (!listaOculta) {
-          return;
-        }
-
-
-        const estaOculta =
-          listaOculta.style.display !== "flex";
-
-
-        if (estaOculta) {
-
-          listaOculta.style.display =
-            "flex";
-
-          botaoVerTodos.textContent =
-            "Mostrar menos";
-
-        } else {
-
-          listaOculta.style.display =
-            "none";
-
-          botaoVerTodos.textContent =
-            `Ver todos os ${fornecedores.length} fornecedores`;
-
-        }
-
+      if (!listaOculta) {
+        return;
       }
-    );
 
+      const estaOculta = listaOculta.style.display !== "flex";
+
+      if (estaOculta) {
+        listaOculta.style.display = "flex";
+
+        botaoVerTodos.textContent = "Mostrar menos";
+      } else {
+        listaOculta.style.display = "none";
+
+        botaoVerTodos.textContent = `Ver todos os ${fornecedores.length} fornecedores`;
+      }
+    });
   }
-
 
   inicializarIconesLucide();
 
-
   linhaResposta.scrollIntoView({
     behavior: "smooth",
-    block: "end"
+    block: "end",
+  });
+}
+
+function adicionarRespostaFaturamento(dados, textoIa, dataHora) {
+  const container = document.getElementById("mensagens-chat-dv");
+
+  if (!container) {
+    return;
+  }
+
+  function formatarValor(valor) {
+    return Number(valor).toLocaleString("pt-BR", {
+      style: "currency",
+      currency: "BRL",
+    });
+  }
+
+  const meses = dados.faturamento_mensal || [];
+
+  const periodo =
+    dados.periodo_inicio === dados.periodo_fim
+      ? dados.periodo_inicio
+      : `${dados.periodo_inicio} a ${dados.periodo_fim}`;
+
+  function linhaMes(item, indice) {
+    const extra = indice >= 5 ? " mes-faturamento-extra" : "";
+    return `
+          <div class="produto-reposicao${extra}">
+            <div class="produto-reposicao__info">
+              <strong>${item.mes}</strong>
+              <span>${item.total_vendas} vendas</span>
+            </div>
+            <div class="produto-reposicao__impacto">
+              ${formatarValor(item.faturamento)}
+            </div>
+          </div>
+        `;
+  }
+  const linhaResposta = document.createElement("div");
+  linhaResposta.className = "linha-chat linha-chat--duaxis";
+
+  const avatarDuaxis = document.createElement("div");
+  avatarDuaxis.className = "avatar-chat avatar-chat--duaxis";
+  avatarDuaxis.innerHTML = `<i data-lucide="bot"></i>`;
+
+  const bloco = document.createElement("div");
+  bloco.className = "resposta-duaxis resposta-duaxis--lista";
+
+  bloco.innerHTML = `
+  <section class="resposta-duaxis__secao">
+    <div class="resposta-duaxis__cabecalho">
+      <i data-lucide="banknote"></i>
+      <div class="resposta-duaxis__identificacao">
+        <span>RESUMO EXECUTIVO</span>
+        <span class="resposta-duaxis__data">
+          ${formatarDataHoraChat(dataHora)}
+        </span>
+      </div>
+    </div>
+    <div class="resposta-duaxis__conteudo resposta-ia-texto">
+      ${converterTextoIaParaHtml(textoIa)}
+    </div>
+  </section>
+
+  <section class="resposta-duaxis__secao">
+    <div class="resposta-duaxis__cabecalho">
+      <i data-lucide="circle-dollar-sign"></i>
+      <span>FATURAMENTO</span>
+    </div>
+    <div class="resposta-duaxis__conteudo">
+      <div class="confiabilidade-grade">
+        <div class="confiabilidade-card">
+          <span class="confiabilidade-card__rotulo">Faturamento líquido</span>
+          <strong>${formatarValor(dados.faturamento_total)}</strong>
+        </div>
+        <div class="confiabilidade-card">
+          <span class="confiabilidade-card__rotulo">Vendas concluídas</span>
+          <strong>${dados.total_vendas}</strong>
+        </div>
+        <div class="confiabilidade-card">
+          <span class="confiabilidade-card__rotulo">Ticket médio</span>
+          <strong>${formatarValor(dados.ticket_medio)}</strong>
+        </div>
+      </div>
+
+      <p class="reposicao-intro">Faturamento por competência:</p>
+      <div class="lista-produtos-reposicao">
+        ${meses.map(linhaMes).join("")}
+      </div>
+      ${
+        meses.length > 5
+          ? `<button type="button" class="botao-ver-todos-reposicao">
+               Ver todos os ${meses.length} meses
+             </button>`
+          : ""
+      }
+    </div>
+  </section>
+
+  <section class="resposta-duaxis__secao resposta-duaxis__secao--confiabilidade">
+    <div class="resposta-duaxis__cabecalho">
+      <i data-lucide="database"></i>
+      <span>FONTE DA ANÁLISE</span>
+    </div>
+    <div class="resposta-duaxis__conteudo">
+      <div class="confiabilidade-grade">
+        <div class="confiabilidade-card">
+          <span class="confiabilidade-card__rotulo">Período</span>
+          <strong>${periodo}</strong>
+        </div>
+        <div class="confiabilidade-card">
+          <span class="confiabilidade-card__rotulo">Fonte</span>
+          <strong>Vendas (valor_liquido)</strong>
+        </div>
+        <div class="confiabilidade-card">
+          <span class="confiabilidade-card__rotulo">Critério</span>
+          <strong>Vendas concluídas por competência</strong>
+        </div>
+        <div class="confiabilidade-card">
+          <span class="confiabilidade-card__rotulo">Machine Learning</span>
+          <strong>Não utilizado</strong>
+        </div>
+      </div>
+    </div>
+  </section>
+`;
+  linhaResposta.appendChild(avatarDuaxis);
+  linhaResposta.appendChild(bloco);
+  container.appendChild(linhaResposta);
+
+  const extras = bloco.querySelectorAll(".mes-faturamento-extra");
+  const botaoVerTodos = bloco.querySelector(".botao-ver-todos-reposicao");
+
+  extras.forEach((card) => {
+    card.style.display = "none";
   });
 
+  if (botaoVerTodos && extras.length > 0) {
+    botaoVerTodos.addEventListener("click", () => {
+      const estaOculta = extras[0].style.display === "none";
+
+      extras.forEach((card) => {
+        card.style.display = estaOculta ? "flex" : "none";
+      });
+
+      botaoVerTodos.textContent = estaOculta
+        ? "Mostrar menos"
+        : `Ver todos os ${meses.length} meses`;
+    });
+  }
+
+  inicializarIconesLucide();
+  linhaResposta.scrollIntoView({
+    behavior: "smooth",
+    block: "end",
+  });
 }
