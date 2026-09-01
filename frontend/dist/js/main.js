@@ -399,6 +399,12 @@ async function enviarPerguntaDuaxis(campoChat) {
         dados.resposta_ia,
         dados.data_hora_pergunta,
       );
+    } else if (nomeFerramenta === "calcular_lucro") {
+      adicionarRespostaLucro(
+        resultadoFerramenta,
+        dados.resposta_ia,
+        dados.data_hora_pergunta,
+      );
     } else {
       adicionarRespostaTextoIa(
         dados.resposta_ia || "Não consegui apresentar essa resposta.",
@@ -3163,6 +3169,125 @@ function adicionarRespostaDespesas(dados, textoIa, dataHora) {
         : `Ver todos os ${meses.length} meses`;
     });
   }
+
+  inicializarIconesLucide();
+  linhaResposta.scrollIntoView({
+    behavior: "smooth",
+    block: "end",
+  });
+}
+
+function adicionarRespostaLucro(dados, textoIa, dataHora) {
+  const container = document.getElementById("mensagens-chat-dv");
+
+  if (!container) {
+    return;
+  }
+
+  function formatarValor(valor) {
+    return Number(valor).toLocaleString("pt-BR", {
+      style: "currency",
+      currency: "BRL",
+    });
+  }
+
+  const periodo =
+    dados.periodo_inicio === dados.periodo_fim
+      ? dados.periodo_inicio
+      : `${dados.periodo_inicio} a ${dados.periodo_fim}`;
+
+  const linhaResposta = document.createElement("div");
+  linhaResposta.className = "linha-chat linha-chat--duaxis";
+
+  const avatarDuaxis = document.createElement("div");
+  avatarDuaxis.className = "avatar-chat avatar-chat--duaxis";
+  avatarDuaxis.innerHTML = `<i data-lucide="bot"></i>`;
+
+  const bloco = document.createElement("div");
+  bloco.className = "resposta-duaxis resposta-duaxis--lista";
+
+  bloco.innerHTML = `
+    <section class="resposta-duaxis__secao">
+      <div class="resposta-duaxis__cabecalho">
+        <i data-lucide="trending-up"></i>
+        <div class="resposta-duaxis__identificacao">
+          <span>RESUMO EXECUTIVO</span>
+          <span class="resposta-duaxis__data">
+            ${formatarDataHoraChat(dataHora)}
+          </span>
+        </div>
+      </div>
+      <div class="resposta-duaxis__conteudo resposta-ia-texto">
+        ${converterTextoIaParaHtml(textoIa)}
+      </div>
+    </section>
+
+    <section class="resposta-duaxis__secao">
+      <div class="resposta-duaxis__cabecalho">
+        <i data-lucide="calculator"></i>
+        <span>RESULTADO DO PERÍODO</span>
+      </div>
+      <div class="resposta-duaxis__conteudo">
+        <div class="confiabilidade-grade">
+          <div class="confiabilidade-card">
+            <span class="confiabilidade-card__rotulo">Faturamento</span>
+            <strong>${formatarValor(dados.faturamento_total)}</strong>
+          </div>
+          <div class="confiabilidade-card">
+            <span class="confiabilidade-card__rotulo">CMV</span>
+            <strong>${formatarValor(dados.custo_mercadorias_vendidas)}</strong>
+          </div>
+          <div class="confiabilidade-card">
+            <span class="confiabilidade-card__rotulo">Lucro bruto</span>
+            <strong>${formatarValor(dados.lucro_bruto)}</strong>
+          </div>
+          <div class="confiabilidade-card">
+            <span class="confiabilidade-card__rotulo">Despesas operacionais</span>
+            <strong>${formatarValor(dados.despesa_operacional)}</strong>
+          </div>
+          <div class="confiabilidade-card">
+            <span class="confiabilidade-card__rotulo">Lucro após despesas</span>
+            <strong>${formatarValor(dados.lucro_apos_despesas)}</strong>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="resposta-duaxis__secao resposta-duaxis__secao--confiabilidade">
+      <div class="resposta-duaxis__cabecalho">
+        <i data-lucide="database"></i>
+        <span>FONTE DA ANÁLISE</span>
+      </div>
+      <div class="resposta-duaxis__conteudo">
+        <div class="confiabilidade-grade">
+          <div class="confiabilidade-card">
+            <span class="confiabilidade-card__rotulo">Período</span>
+            <strong>${periodo}</strong>
+          </div>
+          <div class="confiabilidade-card">
+            <span class="confiabilidade-card__rotulo">Fonte</span>
+            <strong>Vendas + movimentações financeiras</strong>
+          </div>
+          <div class="confiabilidade-card">
+            <span class="confiabilidade-card__rotulo">CMV</span>
+            <strong>Custo das mercadorias vendidas (não compras)</strong>
+          </div>
+          <div class="confiabilidade-card">
+            <span class="confiabilidade-card__rotulo">Critério</span>
+            <strong>Resultado operacional simplificado por competência</strong>
+          </div>
+          <div class="confiabilidade-card">
+            <span class="confiabilidade-card__rotulo">Machine Learning</span>
+            <strong>Não utilizado</strong>
+          </div>
+        </div>
+      </div>
+    </section>
+  `;
+
+  linhaResposta.appendChild(avatarDuaxis);
+  linhaResposta.appendChild(bloco);
+  container.appendChild(linhaResposta);
 
   inicializarIconesLucide();
   linhaResposta.scrollIntoView({

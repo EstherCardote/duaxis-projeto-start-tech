@@ -190,31 +190,109 @@ def calcular_despesas(
         "despesa_mensal": despesa_mensal.to_dict(
             orient="records"
         )
-    }    
+    }
+
+def calcular_lucro(
+    data_inicio=None,
+    data_fim=None
+):
+    faturamento = calcular_faturamento(
+        data_inicio,
+        data_fim
+    )
+
+    despesas = calcular_despesas(
+        data_inicio,
+        data_fim
+    )
+
+    dados = vendas.copy()
+    dados["data_venda"] = pd.to_datetime(dados["data_venda"])
+    dados = dados[dados["status"] == "Concluída"].copy()
+    dados["mes"] = dados["data_venda"].dt.to_period("M")
+
+    periodo_inicio = pd.Period(
+        faturamento["periodo_inicio"],
+        freq="M"
+    )
+    periodo_fim = pd.Period(
+        faturamento["periodo_fim"],
+        freq="M"
+    )
+
+    vendas_periodo = dados[
+        (dados["mes"] >= periodo_inicio)
+        &
+        (dados["mes"] <= periodo_fim)
+    ]
+
+    cmv = round(float(vendas_periodo["custo_total"].sum()), 2)
+    lucro_bruto = round(float(vendas_periodo["lucro_bruto"].sum()), 2)
+
+    lucro_apos_despesas = round(
+        faturamento["faturamento_total"]
+        - cmv
+        - despesas["despesa_total"],
+        2
+    )
+
+    return {
+        "periodo_inicio": faturamento["periodo_inicio"],
+        "periodo_fim": faturamento["periodo_fim"],
+        "fonte": "vendas + movimentacoes_financeiras",
+        "criterio": "resultado operacional simplificado por competência",
+        "faturamento_total": faturamento["faturamento_total"],
+        "custo_mercadorias_vendidas": cmv,
+        "lucro_bruto": lucro_bruto,
+        "despesa_operacional": despesas["despesa_total"],
+        "lucro_apos_despesas": lucro_apos_despesas
+    }        
 
 # TESTE PROVISORIO
 if __name__ == "__main__":
 
-    bruto = movimentacoes_financeiras.copy()
-    bruto["mes"] = pd.to_datetime(bruto["competencia"]).dt.to_period("M")
+    dados_vendas = vendas.copy()
+    dados_vendas["data_venda"] = pd.to_datetime(dados_vendas["data_venda"])
+    dados_vendas["mes"] = dados_vendas["data_venda"].dt.to_period("M")
 
-    independente = bruto[
-        (bruto["tipo"] == "Despesa")
+    vendas_periodo = dados_vendas[
+        (dados_vendas["status"] == "Concluída")
         &
-        (bruto["categoria"].isin(CATEGORIAS_DESPESA))
-        &
-        (bruto["mes"] >= pd.Period("2026-01", freq="M"))
-        &
-        (bruto["mes"] <= pd.Period("2026-03", freq="M"))
-            ]
+        (dados_vendas["mes"] >= pd.Period("2026-01", freq="M"))
+&
+(dados_vendas["mes"] <= pd.Period("2026-03", freq="M"))
+    ]
 
-    soma = round(float(independente["valor"].sum()), 2)
+    fat = round(float(vendas_periodo["valor_liquido"].sum()), 2)
+    cmv = round(float(vendas_periodo["custo_total"].sum()), 2)
+    bruto = round(float(vendas_periodo["lucro_bruto"].sum()), 2)
 
-    funcao = calcular_despesas(
+    dados_desp = movimentacoes_financeiras.copy()
+    dados_desp["mes"] = pd.to_datetime(
+        dados_desp["competencia"]
+    ).dt.to_period("M")
+
+    desp_periodo = dados_desp[
+        (dados_desp["tipo"] == "Despesa")
+        &
+        (dados_desp["categoria"].isin(CATEGORIAS_DESPESA))
+        &
+        (dados_desp["mes"] >= pd.Period("2026-01", freq="M"))
+&
+(dados_desp["mes"] <= pd.Period("2026-03", freq="M"))
+    ]
+
+    desp = round(float(desp_periodo["valor"].sum()), 2)
+    lucro = round(fat - cmv - desp, 2)
+
+    funcao = calcular_lucro(
         data_inicio="2026-01",
         data_fim="2026-03"
     )
 
-    print("independente despesa:", soma)
-    print("funcao       despesa:", funcao["despesa_total"])
-    print("tem compra de mercadoria?", "Compra de Mercadorias" in list(independente["categoria"]))
+    print("independente fat / funcao:", fat, funcao["faturamento_total"])
+    print("independente cmv / funcao:", cmv, funcao["custo_mercadorias_vendidas"])
+    print("independente bruto / funcao:", bruto, funcao["lucro_bruto"])
+    print("independente desp / funcao:", desp, funcao["despesa_operacional"])
+    print("independente lucro / funcao:", lucro, funcao["lucro_apos_despesas"])
+    print("bruto == fat - cmv?", bruto == round(fat - cmv, 2))

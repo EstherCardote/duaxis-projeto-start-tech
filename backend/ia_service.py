@@ -19,7 +19,8 @@ from logistica_service import (
 
 from financeiro_service import (
     calcular_faturamento,
-    calcular_despesas
+    calcular_despesas,
+    calcular_lucro
 )
 
 # lê o .env
@@ -334,6 +335,46 @@ tools = [
             "additionalProperties": False
         }
     }
+},
+{
+    "type": "function",
+    "function": {
+        "name": "calcular_lucro",
+        "description": (
+            "Calcula o lucro da Urban Style em um período. "
+            "O resultado principal é lucro após despesas: "
+            "faturamento menos CMV (custo das mercadorias vendidas) "
+            "menos despesas operacionais, por competência. "
+            "Use quando o usuário perguntar lucro, resultado, "
+            "quanto sobrou ou se a empresa lucrou. "
+            "Não use para faturamento isolado, só despesas, "
+            "compras, caixa ou contas a pagar. "
+            "Quando informar um período, envie data_inicio e "
+            "data_fim no formato YYYY-MM. "
+            "Quando não informar período, não envie as datas."
+        ),
+        "parameters": {
+            "type": "object",
+            "properties": {
+                "data_inicio": {
+                    "type": ["string", "null"],
+                    "description": (
+                        "Mês inicial no formato YYYY-MM. "
+                        "Use null quando o usuário não informar período."
+                    )
+                },
+                "data_fim": {
+                    "type": ["string", "null"],
+                    "description": (
+                        "Mês final no formato YYYY-MM. "
+                        "Use null quando o usuário não informar período."
+                    )
+                }
+            },
+            "required": [],
+            "additionalProperties": False
+        }
+    }
 }  
 
 ]
@@ -362,7 +403,10 @@ funcoes_disponiveis = {
     calcular_faturamento,
 
     "calcular_despesas":
-    calcular_despesas
+    calcular_despesas,
+
+    "calcular_lucro":
+    calcular_lucro,
 
 }
 
@@ -882,7 +926,28 @@ def preparar_resultado_para_ia(
                 resultado["criterio"],
             "despesa_total":
                 resultado["despesa_total"]
-        }        
+        }
+
+    if nome_funcao == "calcular_lucro":
+
+        return {
+            "periodo_inicio":
+                resultado["periodo_inicio"],
+            "periodo_fim":
+                resultado["periodo_fim"],
+            "criterio":
+                resultado["criterio"],
+            "faturamento_total":
+                resultado["faturamento_total"],
+            "custo_mercadorias_vendidas":
+                resultado["custo_mercadorias_vendidas"],
+            "lucro_bruto":
+                resultado["lucro_bruto"],
+            "despesa_operacional":
+                resultado["despesa_operacional"],
+            "lucro_apos_despesas":
+                resultado["lucro_apos_despesas"]
+        }            
 
 
     # =====================================================
@@ -945,6 +1010,15 @@ despesa_total é o valor em reais das despesas operacionais.
 Não inclua compra de mercadorias nesse conceito.
 Não enumere categorias nem meses.
 Informe período e despesa total.
+
+Quando a ferramenta calcular_lucro for utilizada,
+o lucro da pergunta é lucro_apos_despesas.
+lucro_bruto não é o resultado final.
+Não some nem subtraia de novo: use os campos retornados.
+Não enumere meses.
+Informe período e lucro após despesas.
+Pode citar lucro bruto só para contextualizar, sem trocar os dois.
+Não use “apenas”, “pouco” ou “preocupante” se a ferramenta não classificou o resultado.
 
 Quando receber uma lista ordenada, não assuma o critério
 da ordenação. Apenas descreva os valores apresentados.
