@@ -306,6 +306,102 @@ def calcular_despesas(
         "registros_analisados": int(len(despesas_periodo))
     }
 
+def comparar_despesas(
+    data_inicio=None,
+    data_fim=None,
+    data_inicio_anterior=None,
+    data_fim_anterior=None,
+):
+    if data_inicio is None and data_fim is None:
+        dados = movimentacoes_financeiras.copy()
+        dados = dados[
+            (dados["tipo"] == "Despesa")
+            &
+            (dados["categoria"].isin(CATEGORIAS_DESPESA))
+        ].copy()
+        dados["data_competencia"] = pd.to_datetime(
+            dados["competencia"]
+        )
+        ultimo_mes = str(
+            obter_periodo_base(
+                dados,
+                "data_competencia"
+            )["data_maxima"]
+        )
+        data_inicio = ultimo_mes
+        data_fim = ultimo_mes
+
+    atual = calcular_despesas(data_inicio, data_fim)
+
+    meses_atual = _quantidade_meses(
+        atual["periodo_inicio"],
+        atual["periodo_fim"],
+    )
+
+    if data_inicio_anterior is None and data_fim_anterior is None:
+        inicio_atual = pd.Period(atual["periodo_inicio"], freq="M")
+        fim_anterior = inicio_atual - 1
+        inicio_anterior = fim_anterior - (meses_atual - 1)
+        data_inicio_anterior = str(inicio_anterior)
+        data_fim_anterior = str(fim_anterior)
+
+    anterior = calcular_despesas(
+        data_inicio_anterior,
+        data_fim_anterior,
+    )
+
+    meses_anterior = _quantidade_meses(
+        anterior["periodo_inicio"],
+        anterior["periodo_fim"],
+    )
+
+    if meses_atual != meses_anterior:
+        raise ValueError(
+            "Os períodos da comparação precisam ter "
+            "a mesma quantidade de meses."
+        )
+
+    desp_atual = atual["despesa_total"]
+    desp_anterior = anterior["despesa_total"]
+    diferenca = round(desp_atual - desp_anterior, 2)
+
+    if desp_anterior == 0:
+        variacao_percentual = None
+    else:
+        variacao_percentual = round(
+            (diferenca / desp_anterior) * 100,
+            2,
+        )
+
+    if diferenca > 0:
+        direcao = "alta"
+    elif diferenca < 0:
+        direcao = "queda"
+    else:
+        direcao = "estavel"
+
+    return {
+        "indicador": "despesa_total",
+        "criterio": atual["criterio"],
+        "fonte": atual["fonte"],
+        "meses_comparados": meses_atual,
+        "periodo_atual": {
+            "periodo_inicio": atual["periodo_inicio"],
+            "periodo_fim": atual["periodo_fim"],
+            "despesa_total": desp_atual,
+            "registros_analisados": atual["registros_analisados"],
+        },
+        "periodo_anterior": {
+            "periodo_inicio": anterior["periodo_inicio"],
+            "periodo_fim": anterior["periodo_fim"],
+            "despesa_total": desp_anterior,
+            "registros_analisados": anterior["registros_analisados"],
+        },
+        "diferenca": diferenca,
+        "variacao_percentual": variacao_percentual,
+        "direcao": direcao,
+    }    
+
 def calcular_lucro(
     data_inicio=None,
     data_fim=None
@@ -609,15 +705,15 @@ def calcular_fluxo_caixa(
     }
 
 # TESTE PROVISORIO
-from financeiro_service import calcular_faturamento, comparar_faturamento
+from financeiro_service import calcular_despesas, comparar_despesas
 
-maio = calcular_faturamento("2026-05", "2026-05")
-junho = calcular_faturamento("2026-06", "2026-06")
-print("maio", maio["faturamento_total"])
-print("junho", junho["faturamento_total"])
-print("conta na mão", round(junho["faturamento_total"] - maio["faturamento_total"], 2))
+abr = calcular_despesas("2026-04", "2026-04")
+mai = calcular_despesas("2026-05", "2026-05")
+print("abril", abr["despesa_total"])
+print("maio", mai["despesa_total"])
+print("conta na mão", round(mai["despesa_total"] - abr["despesa_total"], 2))
 
-c = comparar_faturamento("2026-06", "2026-06", "2026-05", "2026-05")
+c = comparar_despesas("2026-05", "2026-05", "2026-04", "2026-04")
 print(c["periodo_atual"])
 print(c["periodo_anterior"])
 print(c["diferenca"], c["variacao_percentual"], c["direcao"]) 

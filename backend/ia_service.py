@@ -21,6 +21,7 @@ from financeiro_service import (
     calcular_faturamento,
     comparar_faturamento,
     calcular_despesas,
+    comparar_despesas,
     calcular_lucro,
     consultar_contas_a_receber,
     consultar_contas_a_pagar,
@@ -322,6 +323,7 @@ tools = [
             "Quando informar um período, envie data_inicio e "
             "data_fim no formato YYYY-MM. "
             "Quando não informar período, não envie as datas."
+            "Não use para comparar períodos, variação ou se a despesa subiu ou caiu. Use comparar_despesas."
         ),
         "parameters": {
             "type": "object",
@@ -548,6 +550,50 @@ tools = [
             "additionalProperties": False
         }
     }
+},
+
+{
+    "type": "function",
+    "function": {
+        "name": "comparar_despesas",
+        "description": (
+            "Compara a despesa operacional de dois períodos "
+            "do mesmo tamanho. Use quando o usuário perguntar "
+            "se a despesa subiu ou caiu, a variação de gastos "
+            "operacionais ou 'comparar despesas'. "
+            "Despesa não inclui compra de mercadorias. "
+            "Não explique a causa da variação. "
+            "Não use para um único período sem comparação "
+            "(aí use calcular_despesas). "
+            "Não use para faturamento, lucro ou fluxo de caixa. "
+            "Período atual: data_inicio e data_fim (YYYY-MM). "
+            "Se o usuário não informar o período anterior, "
+            "não envie data_inicio_anterior nem data_fim_anterior."
+        ),
+        "parameters": {
+            "type": "object",
+            "properties": {
+                "data_inicio": {
+                    "type": ["string", "null"],
+                    "description": "Mês inicial do período atual (YYYY-MM)."
+                },
+                "data_fim": {
+                    "type": ["string", "null"],
+                    "description": "Mês final do período atual (YYYY-MM)."
+                },
+                "data_inicio_anterior": {
+                    "type": ["string", "null"],
+                    "description": "Mês inicial do período anterior (YYYY-MM)."
+                },
+                "data_fim_anterior": {
+                    "type": ["string", "null"],
+                    "description": "Mês final do período anterior (YYYY-MM)."
+                }
+            },
+            "required": [],
+            "additionalProperties": False
+        }
+    }
 }
 
 
@@ -581,6 +627,9 @@ funcoes_disponiveis = {
 
     "calcular_despesas":
     calcular_despesas,
+
+    "comparar_despesas":
+    comparar_despesas,
 
     "calcular_lucro":
     calcular_lucro,
@@ -1109,7 +1158,19 @@ def preparar_resultado_para_ia(
             "direcao": resultado["direcao"],
             "meses_comparados": resultado["meses_comparados"],
             "criterio": resultado["criterio"]
-        }        
+        }
+
+    if nome_funcao == "comparar_despesas":
+
+        return {
+            "periodo_atual": resultado["periodo_atual"],
+            "periodo_anterior": resultado["periodo_anterior"],
+            "diferenca": resultado["diferenca"],
+            "variacao_percentual": resultado["variacao_percentual"],
+            "direcao": resultado["direcao"],
+            "meses_comparados": resultado["meses_comparados"],
+            "criterio": resultado["criterio"]
+        }            
 
     if nome_funcao == "calcular_despesas":
 
@@ -1465,6 +1526,30 @@ R$ 189.704,48, aumento de R$ 6.796,00.
 Não explique o que é ticket médio.
 Vendas concluídas e ticket médio no mesmo tópico.
 O segundo tópico é só competência versus caixa.
+
+Quando a ferramenta comparar_despesas for utilizada,
+o card já mostra os dois totais, a diferença e a variação.
+O [[RESUMO]] é UMA frase: subiu ou caiu (ou estável) e a
+variação COM sinal (+3,58% ou -4,20%).
+Cite os dois períodos. NÃO cite valores em reais no resumo.
+NÃO cite diferença em R$ nem categorias.
+
+Exemplo bom de resumo:
+As despesas operacionais de maio de 2026 subiram +2,10%
+em relação a abril.
+
+Na [[ANALISE]], exatamente 2 tópicos, começando com "- ".
+Não repita totais em R$ nem a %.
+Use registros_analisados dos dois períodos e o critério.
+Não enumere categorias. Não diga que aluguel, marketing
+ou imposto causou a variação.
+
+Exemplo BOM:
+- Os registros de despesa operacional passaram de 40 para 44.
+- A comparação é de despesa operacional por competência,
+não saída de caixa nem compra de mercadorias.
+
+Deixe [[RECOMENDACOES]] vazio.
 
 Explique apenas os critérios explicitamente retornados pela ferramenta.
 
