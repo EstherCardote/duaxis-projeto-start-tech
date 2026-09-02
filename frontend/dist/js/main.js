@@ -405,6 +405,12 @@ async function enviarPerguntaDuaxis(campoChat) {
         dados.resposta_ia,
         dados.data_hora_pergunta,
       );
+    } else if (nomeFerramenta === "comparar_lucro") {
+      adicionarRespostaComparacaoLucro(
+        resultadoFerramenta,
+        dados.resposta_ia,
+        dados.data_hora_pergunta,
+      );  
     } else if (nomeFerramenta === "comparar_faturamento") {
       adicionarRespostaComparacaoFaturamento(
         resultadoFerramenta,
@@ -2675,6 +2681,108 @@ function adicionarRespostaComparacaoDespesas(dados, textoIa, dataHora) {
       fontes: ["Financeiro"],
       limitacao:
         "Comparação determinística da despesa operacional por competência. Não inclui compra de mercadorias e não explica a causa da variação.",
+      dataHora,
+      textoIa,
+    })}
+  `;
+
+  linhaResposta.appendChild(avatarDuaxis);
+  linhaResposta.appendChild(bloco);
+  container.appendChild(linhaResposta);
+
+  inicializarIconesLucide();
+  linhaResposta.scrollIntoView({
+    behavior: "smooth",
+    block: "end",
+  });
+}
+
+function adicionarRespostaComparacaoLucro(dados, textoIa, dataHora) {
+  const container = document.getElementById("mensagens-chat-dv");
+
+  if (!container) {
+    return;
+  }
+
+  function formatarValor(valor) {
+    return Number(valor).toLocaleString("pt-BR", {
+      style: "currency",
+      currency: "BRL",
+    });
+  }
+
+  function formatarPeriodo(bloco) {
+    if (bloco.periodo_inicio === bloco.periodo_fim) {
+      return bloco.periodo_inicio;
+    }
+    return `${bloco.periodo_inicio} a ${bloco.periodo_fim}`;
+  }
+
+  function formatarVariacao(valor) {
+    if (valor === null || valor === undefined) {
+      return "—";
+    }
+    return `${Number(valor).toLocaleString("pt-BR", {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    })}%`;
+  }
+
+  const atual = dados.periodo_atual;
+  const anterior = dados.periodo_anterior;
+
+  const linhaResposta = document.createElement("div");
+  linhaResposta.className = "linha-chat linha-chat--duaxis";
+
+  const avatarDuaxis = document.createElement("div");
+  avatarDuaxis.className = "avatar-chat avatar-chat--duaxis";
+  avatarDuaxis.innerHTML = `<i data-lucide="bot"></i>`;
+
+  const bloco = document.createElement("div");
+  bloco.className = "resposta-duaxis resposta-duaxis--lista";
+
+  bloco.innerHTML = `
+    ${montarBlocoResumoExecutivo(textoIa, dataHora)}
+
+    <section class="resposta-duaxis__secao">
+      <div class="resposta-duaxis__cabecalho">
+        <i data-lucide="calculator"></i>
+        <span>COMPARAÇÃO DE LUCRO</span>
+      </div>
+      <div class="resposta-duaxis__conteudo">
+        <div class="confiabilidade-grade">
+          <div class="confiabilidade-card">
+            <span class="confiabilidade-card__rotulo">
+              ${formatarPeriodo(atual)}
+            </span>
+            <strong>${formatarValor(atual.lucro_apos_despesas)}</strong>
+          </div>
+          <div class="confiabilidade-card">
+            <span class="confiabilidade-card__rotulo">
+              ${formatarPeriodo(anterior)}
+            </span>
+            <strong>${formatarValor(anterior.lucro_apos_despesas)}</strong>
+          </div>
+          <div class="confiabilidade-card">
+            <span class="confiabilidade-card__rotulo">Diferença</span>
+            <strong>${formatarValor(dados.diferenca)}</strong>
+          </div>
+          <div class="confiabilidade-card">
+            <span class="confiabilidade-card__rotulo">Variação</span>
+            <strong>${formatarVariacao(dados.variacao_percentual)}</strong>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    ${montarBlocosFinais({
+      nivel: 100,
+      registros:
+        (atual.registros_analisados || 0) +
+        (anterior.registros_analisados || 0),
+      fontes: ["Financeiro"],
+      limitacao:
+        "Comparação do lucro após despesas (faturamento − CMV − despesa). Não é lucro líquido contábil e não explica a causa.",
       dataHora,
       textoIa,
     })}

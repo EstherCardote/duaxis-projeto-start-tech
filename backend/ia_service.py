@@ -23,6 +23,7 @@ from financeiro_service import (
     calcular_despesas,
     comparar_despesas,
     calcular_lucro,
+    comparar_lucro,
     consultar_contas_a_receber,
     consultar_contas_a_pagar,
     calcular_fluxo_caixa
@@ -364,6 +365,7 @@ tools = [
             "Quando informar um período, envie data_inicio e "
             "data_fim no formato YYYY-MM. "
             "Quando não informar período, não envie as datas."
+            "Não use para comparar períodos ou se o lucro subiu ou caiu. Use comparar_lucro."
         ),
         "parameters": {
             "type": "object",
@@ -594,6 +596,49 @@ tools = [
             "additionalProperties": False
         }
     }
+},
+
+{
+    "type": "function",
+    "function": {
+        "name": "comparar_lucro",
+        "description": (
+            "Compara o lucro após despesas de dois períodos "
+            "do mesmo tamanho. Lucro após despesas = "
+            "faturamento − CMV − despesa operacional. "
+            "Use quando o usuário perguntar se o lucro subiu "
+            "ou caiu, a variação do resultado ou "
+            "'comparar lucro'. "
+            "Não explique a causa. Não é lucro líquido contábil. "
+            "Não use para um único período (aí use calcular_lucro). "
+            "Não use para só faturamento, só despesa ou caixa. "
+            "Se o usuário não informar o período anterior, "
+            "não envie data_inicio_anterior nem data_fim_anterior."
+        ),
+        "parameters": {
+            "type": "object",
+            "properties": {
+                "data_inicio": {
+                    "type": ["string", "null"],
+                    "description": "Mês inicial do período atual (YYYY-MM)."
+                },
+                "data_fim": {
+                    "type": ["string", "null"],
+                    "description": "Mês final do período atual (YYYY-MM)."
+                },
+                "data_inicio_anterior": {
+                    "type": ["string", "null"],
+                    "description": "Mês inicial do período anterior (YYYY-MM)."
+                },
+                "data_fim_anterior": {
+                    "type": ["string", "null"],
+                    "description": "Mês final do período anterior (YYYY-MM)."
+                }
+            },
+            "required": [],
+            "additionalProperties": False
+        }
+    }
 }
 
 
@@ -633,6 +678,9 @@ funcoes_disponiveis = {
 
     "calcular_lucro":
     calcular_lucro,
+
+    "comparar_lucro":
+    comparar_lucro,
 
     "consultar_contas_a_receber":
     consultar_contas_a_receber,
@@ -1170,7 +1218,19 @@ def preparar_resultado_para_ia(
             "direcao": resultado["direcao"],
             "meses_comparados": resultado["meses_comparados"],
             "criterio": resultado["criterio"]
-        }            
+        }
+
+    if nome_funcao == "comparar_lucro":
+
+        return {
+            "periodo_atual": resultado["periodo_atual"],
+            "periodo_anterior": resultado["periodo_anterior"],
+            "diferenca": resultado["diferenca"],
+            "variacao_percentual": resultado["variacao_percentual"],
+            "direcao": resultado["direcao"],
+            "meses_comparados": resultado["meses_comparados"],
+            "criterio": resultado["criterio"]
+        }                
 
     if nome_funcao == "calcular_despesas":
 
@@ -1535,19 +1595,79 @@ Cite os dois períodos. NÃO cite valores em reais no resumo.
 NÃO cite diferença em R$ nem categorias.
 
 Exemplo bom de resumo:
-As despesas operacionais de maio de 2026 subiram +2,10%
+As despesas operacionais de maio de 2026 caíram -0,45%
 em relação a abril.
 
+Exemplo ruim de resumo (não faça):
+Em maio as despesas foram R$ 87.730,91, em abril
+R$ 88.123,89, variação de -0,45%.
+
 Na [[ANALISE]], exatamente 2 tópicos, começando com "- ".
-Não repita totais em R$ nem a %.
-Use registros_analisados dos dois períodos e o critério.
-Não enumere categorias. Não diga que aluguel, marketing
-ou imposto causou a variação.
+Não repita despesa_total, diferença em R$ nem a %.
+O primeiro tópico explica COMO o total foi calculado:
+soma dos lançamentos de despesa operacional na competência,
+usando registros_analisados dos dois períodos.
+Se a quantidade de registros for igual, diga que permaneceu
+a mesma. Não invente que uma categoria causou a variação.
+O segundo tópico delimita o indicador: competência,
+não saída de caixa nem compra de mercadorias.
 
 Exemplo BOM:
-- Os registros de despesa operacional passaram de 40 para 44.
-- A comparação é de despesa operacional por competência,
-não saída de caixa nem compra de mercadorias.
+- O total de cada mês é a soma dos lançamentos de
+despesa operacional na competência; abril e maio
+tiveram 6 registros cada.
+- A comparação não é pagamento (caixa) nem compra
+de mercadorias.
+
+Exemplo RUIM (não faça):
+- As despesas passaram de R$ 88.123,89 em abril
+para R$ 87.730,91 em maio.
+- A queda de -0,45% ocorreu porque o aluguel ou
+o marketing diminuiu.
+
+Deixe [[RECOMENDACOES]] vazio.
+
+Quando a ferramenta comparar_lucro for utilizada,
+o card já mostra os dois lucros após despesas, a
+diferença e a variação. O lucro da pergunta é
+lucro_apos_despesas.
+O [[RESUMO]] é UMA frase: subiu ou caiu e a % COM sinal.
+Se variacao_percentual for null, cite só subiu/caiu e a
+diferença em R$, sem inventar percentual.
+NÃO cite no resumo os dois lucros em R$ se a % existir.
+NÃO cite faturamento, CMV nem despesa no resumo.
+
+Exemplo bom de resumo:
+O lucro de maio de 2026 caiu -91,86% em relação a abril.
+
+Exemplo ruim de resumo (não faça):
+O lucro passou de R$ 21.008,14 em abril para
+R$ 1.709,89 em maio, queda de -91,86%.
+
+Na [[ANALISE]], exatamente 2 tópicos, começando com "- ".
+Não repita lucro_apos_despesas, diferença em R$ nem a %.
+O primeiro tópico mostra as parcelas do cálculo, com os
+números do JSON: faturamento_total,
+custo_mercadorias_vendidas e despesa_operacional
+dos dois períodos. São fatos lado a lado.
+Não diga que uma parcela "causou" o lucro.
+O segundo tópico explica COMO o lucro foi calculado:
+faturamento menos CMV menos despesa operacional;
+resultado operacional simplificado por competência;
+não é lucro líquido contábil nem caixa.
+
+Exemplo BOM:
+- O faturamento, o CMV e a despesa operacional de
+cada período constam no resultado da ferramenta;
+cite os seis valores, sem o lucro após despesas.
+- O lucro após despesas é faturamento menos CMV
+menos despesa operacional, por competência.
+
+Exemplo RUIM (não faça):
+- O lucro após despesas passou de R$ 21.008,14
+em abril para R$ 1.709,89 em maio.
+- O lucro caiu porque as vendas foram mal ou
+porque as despesas aumentaram.
 
 Deixe [[RECOMENDACOES]] vazio.
 
@@ -1556,6 +1676,9 @@ Explique apenas os critérios explicitamente retornados pela ferramenta.
 Não recomende promoções, redução de compras, alterações de reposição,
 liquidação de estoque ou qualquer outra ação comercial se a ferramenta
 não tiver analisado e retornado explicitamente essa recomendação.
+
+Depois de receber o resultado de uma ferramenta,
+não chame ferramenta de novo. Responda só com [[RESUMO]] e [[ANALISE]].
 """
 
         },
@@ -1768,21 +1891,15 @@ não tiver analisado e retornado explicitamente essa recomendação.
     # =====================================================
 
     resposta_final = (
-        get_cliente().chat.completions.create(
+    get_cliente().chat.completions.create(
 
-            model="openai/gpt-oss-20b",
+        model="openai/gpt-oss-20b",
 
-            messages=mensagens,
+        messages=mensagens,
 
-            tools=tools,
-
-            # Forçamos agora uma resposta textual.
-            # Não queremos outra tool call nesta versão.
-            tool_choice="none",
-
-            temperature=0
-        )
+        temperature=0
     )
+)
 
 
     texto_final = (

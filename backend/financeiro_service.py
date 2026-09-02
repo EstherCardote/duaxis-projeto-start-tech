@@ -457,7 +457,100 @@ def calcular_lucro(
         "despesa_operacional": despesas["despesa_total"],
         "lucro_apos_despesas": lucro_apos_despesas,
         "registros_analisados": faturamento["total_vendas"]
-    }        
+    }  
+
+def comparar_lucro(
+    data_inicio=None,
+    data_fim=None,
+    data_inicio_anterior=None,
+    data_fim_anterior=None,
+):
+    if data_inicio is None and data_fim is None:
+        dados = vendas.copy()
+        dados["data_venda"] = pd.to_datetime(dados["data_venda"])
+        dados = dados[dados["status"] == "Concluída"]
+        ultimo_mes = str(
+            obter_periodo_base(dados, "data_venda")["data_maxima"]
+        )
+        data_inicio = ultimo_mes
+        data_fim = ultimo_mes
+
+    atual = calcular_lucro(data_inicio, data_fim)
+
+    meses_atual = _quantidade_meses(
+        atual["periodo_inicio"],
+        atual["periodo_fim"],
+    )
+
+    if data_inicio_anterior is None and data_fim_anterior is None:
+        inicio_atual = pd.Period(atual["periodo_inicio"], freq="M")
+        fim_anterior = inicio_atual - 1
+        inicio_anterior = fim_anterior - (meses_atual - 1)
+        data_inicio_anterior = str(inicio_anterior)
+        data_fim_anterior = str(fim_anterior)
+
+    anterior = calcular_lucro(
+        data_inicio_anterior,
+        data_fim_anterior,
+    )
+
+    meses_anterior = _quantidade_meses(
+        anterior["periodo_inicio"],
+        anterior["periodo_fim"],
+    )
+
+    if meses_atual != meses_anterior:
+        raise ValueError(
+            "Os períodos da comparação precisam ter "
+            "a mesma quantidade de meses."
+        )
+
+    lucro_atual = atual["lucro_apos_despesas"]
+    lucro_anterior = anterior["lucro_apos_despesas"]
+    diferenca = round(lucro_atual - lucro_anterior, 2)
+
+    if lucro_anterior <= 0:
+        variacao_percentual = None
+    else:
+        variacao_percentual = round(
+            (diferenca / lucro_anterior) * 100,
+            2,
+        )
+
+    if diferenca > 0:
+        direcao = "alta"
+    elif diferenca < 0:
+        direcao = "queda"
+    else:
+        direcao = "estavel"
+
+    return {
+        "indicador": "lucro_apos_despesas",
+        "criterio": atual["criterio"],
+        "fonte": atual["fonte"],
+        "meses_comparados": meses_atual,
+        "periodo_atual": {
+            "periodo_inicio": atual["periodo_inicio"],
+            "periodo_fim": atual["periodo_fim"],
+            "lucro_apos_despesas": lucro_atual,
+            "faturamento_total": atual["faturamento_total"],
+            "custo_mercadorias_vendidas": atual["custo_mercadorias_vendidas"],
+            "despesa_operacional": atual["despesa_operacional"],
+            "registros_analisados": atual["registros_analisados"],
+        },
+        "periodo_anterior": {
+            "periodo_inicio": anterior["periodo_inicio"],
+            "periodo_fim": anterior["periodo_fim"],
+            "lucro_apos_despesas": lucro_anterior,
+            "faturamento_total": anterior["faturamento_total"],
+            "custo_mercadorias_vendidas": anterior["custo_mercadorias_vendidas"],
+            "despesa_operacional": anterior["despesa_operacional"],
+            "registros_analisados": anterior["registros_analisados"],
+        },
+        "diferenca": diferenca,
+        "variacao_percentual": variacao_percentual,
+        "direcao": direcao,
+    }          
 
 def consultar_contas_a_receber(data_referencia=None):
 
@@ -705,15 +798,11 @@ def calcular_fluxo_caixa(
     }
 
 # TESTE PROVISORIO
-from financeiro_service import calcular_despesas, comparar_despesas
-
-abr = calcular_despesas("2026-04", "2026-04")
-mai = calcular_despesas("2026-05", "2026-05")
-print("abril", abr["despesa_total"])
-print("maio", mai["despesa_total"])
-print("conta na mão", round(mai["despesa_total"] - abr["despesa_total"], 2))
-
-c = comparar_despesas("2026-05", "2026-05", "2026-04", "2026-04")
-print(c["periodo_atual"])
-print(c["periodo_anterior"])
-print(c["diferenca"], c["variacao_percentual"], c["direcao"]) 
+from financeiro_service import calcular_lucro, comparar_lucro
+abr = calcular_lucro("2026-04", "2026-04")
+mai = calcular_lucro("2026-05", "2026-05")
+print("abril", abr["lucro_apos_despesas"])
+print("maio", mai["lucro_apos_despesas"])
+print("conta na mão", round(mai["lucro_apos_despesas"] - abr["lucro_apos_despesas"], 2))
+c = comparar_lucro("2026-05", "2026-05", "2026-04", "2026-04")
+print(c["diferenca"], c["variacao_percentual"], c["direcao"])
