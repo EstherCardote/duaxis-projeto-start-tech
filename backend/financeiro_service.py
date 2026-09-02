@@ -128,6 +128,101 @@ def calcular_faturamento(
         )
     }
 
+def _quantidade_meses(periodo_inicio, periodo_fim):
+    inicio = pd.Period(str(periodo_inicio), freq="M")
+    fim = pd.Period(str(periodo_fim), freq="M")
+    return (fim - inicio).n + 1
+
+
+def comparar_faturamento(
+    data_inicio=None,
+    data_fim=None,
+    data_inicio_anterior=None,
+    data_fim_anterior=None,
+):
+    if data_inicio is None and data_fim is None:
+        dados = vendas.copy()
+        dados["data_venda"] = pd.to_datetime(dados["data_venda"])
+        dados = dados[dados["status"] == "Concluída"]
+        ultimo_mes = str(
+            obter_periodo_base(dados, "data_venda")["data_maxima"]
+        )
+        data_inicio = ultimo_mes
+        data_fim = ultimo_mes
+
+    atual = calcular_faturamento(data_inicio, data_fim)
+
+    meses_atual = _quantidade_meses(
+        atual["periodo_inicio"],
+        atual["periodo_fim"],
+    )
+
+    if data_inicio_anterior is None and data_fim_anterior is None:
+        inicio_atual = pd.Period(atual["periodo_inicio"], freq="M")
+        fim_anterior = inicio_atual - 1
+        inicio_anterior = fim_anterior - (meses_atual - 1)
+        data_inicio_anterior = str(inicio_anterior)
+        data_fim_anterior = str(fim_anterior)
+
+    anterior = calcular_faturamento(
+        data_inicio_anterior,
+        data_fim_anterior,
+    )
+
+    meses_anterior = _quantidade_meses(
+        anterior["periodo_inicio"],
+        anterior["periodo_fim"],
+    )
+
+    if meses_atual != meses_anterior:
+        raise ValueError(
+            "Os períodos da comparação precisam ter "
+            "a mesma quantidade de meses."
+        )
+
+    fat_atual = atual["faturamento_total"]
+    fat_anterior = anterior["faturamento_total"]
+    diferenca = round(fat_atual - fat_anterior, 2)
+
+    if fat_anterior == 0:
+        variacao_percentual = None
+    else:
+        variacao_percentual = round(
+            (diferenca / fat_anterior) * 100,
+            2,
+        )
+
+    if diferenca > 0:
+        direcao = "alta"
+    elif diferenca < 0:
+        direcao = "queda"
+    else:
+        direcao = "estavel"
+
+    return {
+        "indicador": "faturamento_total",
+        "criterio": atual["criterio"],
+        "fonte": atual["fonte"],
+        "meses_comparados": meses_atual,
+        "periodo_atual": {
+            "periodo_inicio": atual["periodo_inicio"],
+            "periodo_fim": atual["periodo_fim"],
+            "faturamento_total": fat_atual,
+            "total_vendas": atual["total_vendas"],
+            "ticket_medio": atual["ticket_medio"],
+        },
+        "periodo_anterior": {
+            "periodo_inicio": anterior["periodo_inicio"],
+            "periodo_fim": anterior["periodo_fim"],
+            "faturamento_total": fat_anterior,
+            "total_vendas": anterior["total_vendas"],
+            "ticket_medio": anterior["ticket_medio"],
+        },
+        "diferenca": diferenca,
+        "variacao_percentual": variacao_percentual,
+        "direcao": direcao,
+    }    
+
 def calcular_despesas(
     data_inicio=None,
     data_fim=None
@@ -512,3 +607,17 @@ def calcular_fluxo_caixa(
         ),
         "registros_analisados": int(len(periodo))
     }
+
+# TESTE PROVISORIO
+from financeiro_service import calcular_faturamento, comparar_faturamento
+
+maio = calcular_faturamento("2026-05", "2026-05")
+junho = calcular_faturamento("2026-06", "2026-06")
+print("maio", maio["faturamento_total"])
+print("junho", junho["faturamento_total"])
+print("conta na mão", round(junho["faturamento_total"] - maio["faturamento_total"], 2))
+
+c = comparar_faturamento("2026-06", "2026-06", "2026-05", "2026-05")
+print(c["periodo_atual"])
+print(c["periodo_anterior"])
+print(c["diferenca"], c["variacao_percentual"], c["direcao"]) 

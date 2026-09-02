@@ -19,6 +19,7 @@ from logistica_service import (
 
 from financeiro_service import (
     calcular_faturamento,
+    comparar_faturamento,
     calcular_despesas,
     calcular_lucro,
     consultar_contas_a_receber,
@@ -280,6 +281,7 @@ tools = [
             "Quando o usuário informar um período, envie "
             "data_inicio e data_fim no formato YYYY-MM. "
             "Quando não informar período, não envie as datas."
+            "Não use para comparar períodos, variação percentual ou se o faturamento subiu ou caiu. Use comparar_faturamento."
         ),
         "parameters": {
             "type": "object",
@@ -503,6 +505,49 @@ tools = [
             "additionalProperties": False
         }
     }
+},
+{
+    "type": "function",
+    "function": {
+        "name": "comparar_faturamento",
+        "description": (
+            "Compara o faturamento líquido de dois períodos "
+            "do mesmo tamanho. Use quando o usuário perguntar "
+            "se o faturamento subiu ou caiu, a variação, "
+            "a diferença entre meses ou 'comparar faturamento'. "
+            "Não explique a causa da variação. "
+            "Não use para um único período sem comparação "
+            "(aí use calcular_faturamento). "
+            "Não use para lucro, despesa ou fluxo de caixa. "
+            "Período atual: data_inicio e data_fim (YYYY-MM). "
+            "Período anterior: data_inicio_anterior e "
+            "data_fim_anterior. Se o usuário não informar o "
+            "anterior, não envie esses campos."
+        ),
+        "parameters": {
+            "type": "object",
+            "properties": {
+                "data_inicio": {
+                    "type": ["string", "null"],
+                    "description": "Mês inicial do período atual (YYYY-MM)."
+                },
+                "data_fim": {
+                    "type": ["string", "null"],
+                    "description": "Mês final do período atual (YYYY-MM)."
+                },
+                "data_inicio_anterior": {
+                    "type": ["string", "null"],
+                    "description": "Mês inicial do período anterior (YYYY-MM)."
+                },
+                "data_fim_anterior": {
+                    "type": ["string", "null"],
+                    "description": "Mês final do período anterior (YYYY-MM)."
+                }
+            },
+            "required": [],
+            "additionalProperties": False
+        }
+    }
 }
 
 
@@ -511,13 +556,13 @@ tools = [
 funcoes_disponiveis = {
 
     "analisar_reposicao":
-        analisar_reposicao,
+    analisar_reposicao,
 
     "listar_produtos_reposicao":
-        listar_produtos_reposicao,
+    listar_produtos_reposicao,
 
     "consultar_pedidos_atrasados":
-        consultar_pedidos_atrasados,
+    consultar_pedidos_atrasados,
 
     "listar_produtos_maior_risco":
     listar_produtos_maior_risco,
@@ -530,6 +575,9 @@ funcoes_disponiveis = {
 
     "calcular_faturamento":
     calcular_faturamento,
+
+    "comparar_faturamento":
+    comparar_faturamento,
 
     "calcular_despesas":
     calcular_despesas,
@@ -1051,6 +1099,18 @@ def preparar_resultado_para_ia(
                 resultado["descontos"]
             }
 
+    if nome_funcao == "comparar_faturamento":
+
+        return {
+            "periodo_atual": resultado["periodo_atual"],
+            "periodo_anterior": resultado["periodo_anterior"],
+            "diferenca": resultado["diferenca"],
+            "variacao_percentual": resultado["variacao_percentual"],
+            "direcao": resultado["direcao"],
+            "meses_comparados": resultado["meses_comparados"],
+            "criterio": resultado["criterio"]
+        }        
+
     if nome_funcao == "calcular_despesas":
 
         return {
@@ -1363,6 +1423,48 @@ Na [[ANALISE]], não repita os três números do card
 Pode explicar que o valor é competência, não caixa, e que
 bruto menos descontos chega ao líquido, sem reenunciar o
 total do card.
+
+Quando a ferramenta comparar_faturamento for utilizada,
+o card já mostra os dois faturamentos, a diferença e a variação.
+O [[RESUMO]] responde só a pergunta, em UMA frase:
+subiu ou caiu (ou ficou estável) e a variação percentual
+COM sinal.
+Alta: use + antes do percentual (ex.: +3,58%).
+Queda: use o percentual negativo (ex.: -4,20%).
+Estável: 0%.
+Inclua os dois períodos só para situar (maio e junho),
+NÃO cite os valores em reais no resumo.
+NÃO cite diferença em R$, ticket nem quantidade de vendas.
+
+Exemplo bom de resumo:
+O faturamento de junho de 2026 subiu +3,58% em relação a maio.
+
+Exemplo ruim de resumo (não faça):
+Em junho foi R$ 196.500,48, em maio R$ 189.704,48, variação de 3,58%.
+
+Na [[ANALISE]], exatamente 2 tópicos, começando com "- ".
+
+O card já tem: faturamento de cada mês, diferença em R$
+e variação %. NÃO repita nenhum desses números.
+
+Use só o que o card NÃO mostra:
+total_vendas e ticket_medio dos dois períodos,
+e o critério (competência, não caixa).
+
+Exemplo BOM:
+- As vendas concluídas passaram de 821 para 865;
+o ticket médio passou de R$ 231,07 para R$ 227,17.
+- A comparação usa faturamento por competência das
+vendas concluídas, não entrada de caixa.
+
+Exemplo RUIM (não faça):
+- O faturamento de junho foi R$ 196.500,48, em maio
+R$ 189.704,48, aumento de R$ 6.796,00.
+- A variação de +3,58% reflete um crescimento de 3,58%.
+
+Não explique o que é ticket médio.
+Vendas concluídas e ticket médio no mesmo tópico.
+O segundo tópico é só competência versus caixa.
 
 Explique apenas os critérios explicitamente retornados pela ferramenta.
 
