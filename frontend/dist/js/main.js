@@ -411,6 +411,12 @@ async function enviarPerguntaDuaxis(campoChat) {
         dados.resposta_ia,
         dados.data_hora_pergunta,
       );
+    } else if (nomeFerramenta === "explicar_variacao_lucro") {
+      adicionarRespostaExplicarVariacaoLucro(
+        resultadoFerramenta,
+        dados.resposta_ia,
+        dados.data_hora_pergunta,
+      );
     } else if (nomeFerramenta === "comparar_fluxo_caixa") {
       adicionarRespostaComparacaoFluxoCaixa(
         resultadoFerramenta,
@@ -485,6 +491,29 @@ function formatarDataHoraChat(dataHora) {
     hour: "2-digit",
     minute: "2-digit",
   });
+}
+
+function formatarCompetencia(mes) {
+  if (!mes) {
+    return "";
+  }
+
+  const texto = String(mes);
+
+  if (texto.includes(" a ")) {
+    return texto
+      .split(" a ")
+      .map(formatarCompetencia)
+      .join(" a ");
+  }
+
+  const partes = texto.split("-");
+
+  if (partes.length === 2 && partes[0].length === 4) {
+    return `${partes[1]}/${partes[0]}`;
+  }
+
+  return texto;
 }
 
 const R2_MODELO_DEMANDA_PERCENTUAL = 76;
@@ -1990,7 +2019,7 @@ function adicionarRespostaProdutosBaixoGiro(dados, textoIa, dataHora) {
         <p class="reposicao-intro">
           Produtos que apresentam desaceleração de vendas
           e desempenho abaixo do histórico sazonal no período
-          <strong>${dados.periodo_referencia}</strong>.
+          <strong>${formatarCompetencia(dados.periodo_referencia)}</strong>.
         </p>
 
 
@@ -2268,7 +2297,7 @@ function adicionarRespostaFornecedoresAtrasos(dados, textoIa, dataHora) {
         <p class="reposicao-intro">
           Ranking por taxa de atraso nas compras
           realizadas no período
-          <strong>${dados.periodo_referencia}</strong>.
+          <strong>${formatarCompetencia(dados.periodo_referencia)}</strong>.
         </p>
 
 
@@ -2388,15 +2417,15 @@ function adicionarRespostaFaturamento(dados, textoIa, dataHora) {
 
   const periodo =
     dados.periodo_inicio === dados.periodo_fim
-      ? dados.periodo_inicio
-      : `${dados.periodo_inicio} a ${dados.periodo_fim}`;
+      ? formatarCompetencia(dados.periodo_inicio)
+      : `${formatarCompetencia(dados.periodo_inicio)} a ${formatarCompetencia(dados.periodo_fim)}`;
 
   function linhaMes(item, indice) {
     const extra = indice >= 5 ? " mes-faturamento-extra" : "";
     return `
           <div class="produto-reposicao${extra}">
             <div class="produto-reposicao__info">
-              <strong>${item.mes}</strong>
+              <strong>${formatarCompetencia(item.mes)}</strong>
               <span>${item.total_vendas} vendas</span>
             </div>
             <div class="produto-reposicao__impacto">
@@ -2517,9 +2546,9 @@ function adicionarRespostaComparacaoFaturamento(dados, textoIa, dataHora) {
 
   function formatarPeriodo(bloco) {
     if (bloco.periodo_inicio === bloco.periodo_fim) {
-      return bloco.periodo_inicio;
+      return formatarCompetencia(bloco.periodo_inicio);
     }
-    return `${bloco.periodo_inicio} a ${bloco.periodo_fim}`;
+    return `${formatarCompetencia(bloco.periodo_inicio)} a ${formatarCompetencia(bloco.periodo_fim)}`;
   }
 
   function formatarVariacao(valor) {
@@ -2617,9 +2646,9 @@ function adicionarRespostaComparacaoDespesas(dados, textoIa, dataHora) {
 
   function formatarPeriodo(bloco) {
     if (bloco.periodo_inicio === bloco.periodo_fim) {
-      return bloco.periodo_inicio;
+      return formatarCompetencia(bloco.periodo_inicio);
     }
-    return `${bloco.periodo_inicio} a ${bloco.periodo_fim}`;
+    return `${formatarCompetencia(bloco.periodo_inicio)} a ${formatarCompetencia(bloco.periodo_fim)}`;
   }
 
   function formatarVariacao(valor) {
@@ -2719,9 +2748,9 @@ function adicionarRespostaComparacaoLucro(dados, textoIa, dataHora) {
 
   function formatarPeriodo(bloco) {
     if (bloco.periodo_inicio === bloco.periodo_fim) {
-      return bloco.periodo_inicio;
+      return formatarCompetencia(bloco.periodo_inicio);
     }
-    return `${bloco.periodo_inicio} a ${bloco.periodo_fim}`;
+    return `${formatarCompetencia(bloco.periodo_inicio)} a ${formatarCompetencia(bloco.periodo_fim)}`;
   }
 
   function formatarVariacao(valor) {
@@ -2805,6 +2834,146 @@ function adicionarRespostaComparacaoLucro(dados, textoIa, dataHora) {
   });
 }
 
+function adicionarRespostaExplicarVariacaoLucro(dados, textoIa, dataHora) {
+  const container = document.getElementById("mensagens-chat-dv");
+
+  if (!container) {
+    return;
+  }
+
+  function formatarValor(valor) {
+    return Number(valor).toLocaleString("pt-BR", {
+      style: "currency",
+      currency: "BRL",
+    });
+  }
+
+  function formatarPeriodo(bloco) {
+    if (bloco.periodo_inicio === bloco.periodo_fim) {
+      return formatarCompetencia(bloco.periodo_inicio);
+    }
+    return `${formatarCompetencia(bloco.periodo_inicio)} a ${formatarCompetencia(bloco.periodo_fim)}`;
+  }
+
+  function formatarVariacao(valor) {
+    if (valor === null || valor === undefined) {
+      return "—";
+    }
+    return `${Number(valor).toLocaleString("pt-BR", {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    })}%`;
+  }
+
+  function textoEfeito(efeito) {
+    if (efeito === "aumentou_lucro") {
+      return "Aumentou o lucro";
+    }
+    if (efeito === "reduziu_lucro") {
+      return "Reduziu o lucro";
+    }
+    return "Sem efeito";
+  }
+
+  const atual = dados.periodo_atual;
+  const anterior = dados.periodo_anterior;
+  const contribuicoes = dados.contribuicoes || [];
+  const principal = contribuicoes.find(
+    (item) => item.parcela === dados.parcela_principal,
+  );
+
+  function linhaContribuicao(item) {
+    const percentual =
+      item.percentual_da_diferenca === null ||
+      item.percentual_da_diferenca === undefined
+        ? "—"
+        : `${Number(item.percentual_da_diferenca).toLocaleString("pt-BR", {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2,
+          })}% da diferença`;
+
+    return `
+      <div class="produto-reposicao">
+        <div class="produto-reposicao__info">
+          <strong>${item.rotulo}</strong>
+          <span>${textoEfeito(item.efeito)} · ${percentual}</span>
+        </div>
+        <div class="produto-reposicao__impacto">
+          ${formatarValor(item.contribuicao)}
+        </div>
+      </div>
+    `;
+  }
+
+  const linhaResposta = document.createElement("div");
+  linhaResposta.className = "linha-chat linha-chat--duaxis";
+
+  const avatarDuaxis = document.createElement("div");
+  avatarDuaxis.className = "avatar-chat avatar-chat--duaxis";
+  avatarDuaxis.innerHTML = `<i data-lucide="bot"></i>`;
+
+  const bloco = document.createElement("div");
+  bloco.className = "resposta-duaxis resposta-duaxis--lista";
+
+  bloco.innerHTML = `
+    ${montarBlocoResumoExecutivo(textoIa, dataHora)}
+
+    <section class="resposta-duaxis__secao">
+      <div class="resposta-duaxis__cabecalho">
+        <i data-lucide="layers"></i>
+        <span>O QUE EXPLICA A VARIAÇÃO DO LUCRO</span>
+      </div>
+      <div class="resposta-duaxis__conteudo">
+        <div class="confiabilidade-grade">
+          <div class="confiabilidade-card">
+            <span class="confiabilidade-card__rotulo">
+              ${formatarPeriodo(atual)}
+            </span>
+            <strong>${formatarValor(atual.lucro_apos_despesas)}</strong>
+          </div>
+          <div class="confiabilidade-card">
+            <span class="confiabilidade-card__rotulo">
+              ${formatarPeriodo(anterior)}
+            </span>
+            <strong>${formatarValor(anterior.lucro_apos_despesas)}</strong>
+          </div>
+          <div class="confiabilidade-card">
+            <span class="confiabilidade-card__rotulo">Diferença</span>
+            <strong>${formatarValor(dados.diferenca)}</strong>
+          </div>
+          <div class="confiabilidade-card">
+            <span class="confiabilidade-card__rotulo">Parcela principal</span>
+            <strong>${principal ? principal.rotulo : "—"}</strong>
+          </div>
+        </div>
+        ${contribuicoes.map(linhaContribuicao).join("")}
+      </div>
+    </section>
+
+    ${montarBlocosFinais({
+      nivel: 100,
+      registros:
+        (atual.registros_analisados || 0) +
+        (anterior.registros_analisados || 0),
+      fontes: ["Financeiro"],
+      limitacao:
+        "Decomposição aritmética da diferença do lucro após despesas (faturamento − CMV − despesa). Não identifica causa comercial nem é caixa.",
+      dataHora,
+      textoIa,
+    })}
+  `;
+
+  linhaResposta.appendChild(avatarDuaxis);
+  linhaResposta.appendChild(bloco);
+  container.appendChild(linhaResposta);
+
+  inicializarIconesLucide();
+  linhaResposta.scrollIntoView({
+    behavior: "smooth",
+    block: "end",
+  });
+}
+
 function adicionarRespostaComparacaoFluxoCaixa(dados, textoIa, dataHora) {
   const container = document.getElementById("mensagens-chat-dv");
 
@@ -2821,9 +2990,9 @@ function adicionarRespostaComparacaoFluxoCaixa(dados, textoIa, dataHora) {
 
   function formatarPeriodo(bloco) {
     if (bloco.periodo_inicio === bloco.periodo_fim) {
-      return bloco.periodo_inicio;
+      return formatarCompetencia(bloco.periodo_inicio);
     }
-    return `${bloco.periodo_inicio} a ${bloco.periodo_fim}`;
+    return `${formatarCompetencia(bloco.periodo_inicio)} a ${formatarCompetencia(bloco.periodo_fim)}`;
   }
 
   function formatarVariacao(valor) {
@@ -2926,8 +3095,8 @@ function adicionarRespostaDespesas(dados, textoIa, dataHora) {
 
   const periodo =
     dados.periodo_inicio === dados.periodo_fim
-      ? dados.periodo_inicio
-      : `${dados.periodo_inicio} a ${dados.periodo_fim}`;
+      ? formatarCompetencia(dados.periodo_inicio)
+      : `${formatarCompetencia(dados.periodo_inicio)} a ${formatarCompetencia(dados.periodo_fim)}`;
 
   function linhaCategoria(item) {
     return `
@@ -2947,7 +3116,7 @@ function adicionarRespostaDespesas(dados, textoIa, dataHora) {
     return `
       <div class="produto-reposicao${extra}">
         <div class="produto-reposicao__info">
-          <strong>${item.mes}</strong>
+          <strong>${formatarCompetencia(item.mes)}</strong>
         </div>
         <div class="produto-reposicao__impacto">
           ${formatarValor(item.despesa)}
@@ -3058,8 +3227,8 @@ function adicionarRespostaLucro(dados, textoIa, dataHora) {
 
   const periodo =
     dados.periodo_inicio === dados.periodo_fim
-      ? dados.periodo_inicio
-      : `${dados.periodo_inicio} a ${dados.periodo_fim}`;
+      ? formatarCompetencia(dados.periodo_inicio)
+      : `${formatarCompetencia(dados.periodo_inicio)} a ${formatarCompetencia(dados.periodo_fim)}`;
 
   const linhaResposta = document.createElement("div");
   linhaResposta.className = "linha-chat linha-chat--duaxis";
@@ -3406,15 +3575,15 @@ function adicionarRespostaFluxoCaixa(dados, textoIa, dataHora) {
 
   const periodo =
     dados.periodo_inicio === dados.periodo_fim
-      ? dados.periodo_inicio
-      : `${dados.periodo_inicio} a ${dados.periodo_fim}`;
+      ? formatarCompetencia(dados.periodo_inicio)
+      : `${formatarCompetencia(dados.periodo_inicio)} a ${formatarCompetencia(dados.periodo_fim)}`;
 
   function linhaMes(item, indice) {
     const extra = indice >= 5 ? " mes-fluxo-extra" : "";
     return `
       <div class="produto-reposicao${extra}">
         <div class="produto-reposicao__info">
-          <strong>${item.mes}</strong>
+          <strong>${formatarCompetencia(item.mes)}</strong>
           <span>Entradas ${formatarValor(item.entradas)} · Saídas ${formatarValor(item.saidas)}</span>
         </div>
         <div class="produto-reposicao__impacto">

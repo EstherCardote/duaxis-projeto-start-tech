@@ -504,6 +504,18 @@ def comparar_lucro(
             "Os períodos da comparação precisam ter "
             "a mesma quantidade de meses."
         )
+        
+    inicio_atual_p = pd.Period(atual["periodo_inicio"], freq="M")
+    fim_atual_p = pd.Period(atual["periodo_fim"], freq="M")
+    inicio_ant_p = pd.Period(anterior["periodo_inicio"], freq="M")
+    fim_ant_p = pd.Period(anterior["periodo_fim"], freq="M")
+
+    if inicio_atual_p <= fim_ant_p and inicio_ant_p <= fim_atual_p:
+        raise ValueError(
+            "Os períodos da comparação não podem compartilhar meses. "
+            "Para um mês contra o anterior, envie data_inicio e "
+            "data_fim iguais a esse mês e não envie o período anterior."
+        )    
 
     lucro_atual = atual["lucro_apos_despesas"]
     lucro_anterior = anterior["lucro_apos_despesas"]
@@ -550,7 +562,123 @@ def comparar_lucro(
         "diferenca": diferenca,
         "variacao_percentual": variacao_percentual,
         "direcao": direcao,
-    }          
+    }
+
+
+def _efeito_contribuicao_lucro(contribuicao):
+    if contribuicao > 0:
+        return "aumentou_lucro"
+    if contribuicao < 0:
+        return "reduziu_lucro"
+    return "neutro"
+
+
+def explicar_variacao_lucro(
+    data_inicio=None,
+    data_fim=None,
+    data_inicio_anterior=None,
+    data_fim_anterior=None,
+):
+    comparacao = comparar_lucro(
+        data_inicio,
+        data_fim,
+        data_inicio_anterior,
+        data_fim_anterior,
+    )
+
+    atual = comparacao["periodo_atual"]
+    anterior = comparacao["periodo_anterior"]
+    diferenca = comparacao["diferenca"]
+
+    delta_faturamento = round(
+        atual["faturamento_total"] - anterior["faturamento_total"],
+        2,
+    )
+    delta_cmv = round(
+        atual["custo_mercadorias_vendidas"]
+        - anterior["custo_mercadorias_vendidas"],
+        2,
+    )
+    delta_despesa = round(
+        atual["despesa_operacional"] - anterior["despesa_operacional"],
+        2,
+    )
+
+    parcelas = [
+        (
+            "faturamento_total",
+            "Faturamento",
+            delta_faturamento,
+        ),
+        (
+            "custo_mercadorias_vendidas",
+            "CMV",
+            round(-delta_cmv, 2),
+        ),
+        (
+            "despesa_operacional",
+            "Despesa operacional",
+            round(-delta_despesa, 2),
+        ),
+    ]
+
+    contribuicoes = []
+    for parcela, rotulo, contribuicao in parcelas:
+        if diferenca == 0:
+            percentual_da_diferenca = None
+        else:
+            percentual_da_diferenca = round(
+                (contribuicao / diferenca) * 100,
+                2,
+            )
+
+        contribuicoes.append(
+            {
+                "parcela": parcela,
+                "rotulo": rotulo,
+                "contribuicao": contribuicao,
+                "percentual_da_diferenca": percentual_da_diferenca,
+                "efeito": _efeito_contribuicao_lucro(contribuicao),
+            }
+        )
+
+    if diferenca == 0:
+        parcela_principal = None
+    else:
+        candidatas = [
+            item
+            for item in contribuicoes
+            if (
+                (item["contribuicao"] < 0 and diferenca < 0)
+                or
+                (item["contribuicao"] > 0 and diferenca > 0)
+            )
+        ]
+        if not candidatas:
+            candidatas = contribuicoes
+        principal = max(
+            candidatas,
+            key=lambda item: abs(item["contribuicao"]),
+        )
+        parcela_principal = principal["parcela"]
+
+    return {
+        "indicador": "lucro_apos_despesas",
+        "criterio": (
+            "decomposição aritmética da variação do lucro "
+            "após despesas (faturamento − CMV − despesa)"
+        ),
+        "fonte": comparacao["fonte"],
+        "meses_comparados": comparacao["meses_comparados"],
+        "periodo_atual": atual,
+        "periodo_anterior": anterior,
+        "diferenca": diferenca,
+        "variacao_percentual": comparacao["variacao_percentual"],
+        "direcao": comparacao["direcao"],
+        "contribuicoes": contribuicoes,
+        "parcela_principal": parcela_principal,
+    }
+
 
 def consultar_contas_a_receber(data_referencia=None):
 

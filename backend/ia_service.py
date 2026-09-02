@@ -24,6 +24,7 @@ from financeiro_service import (
     comparar_despesas,
     calcular_lucro,
     comparar_lucro,
+    explicar_variacao_lucro,
     consultar_contas_a_receber,
     consultar_contas_a_pagar,
     calcular_fluxo_caixa,
@@ -365,8 +366,11 @@ tools = [
             "compras, caixa ou contas a pagar. "
             "Quando informar um período, envie data_inicio e "
             "data_fim no formato YYYY-MM. "
-            "Quando não informar período, não envie as datas."
-            "Não use para comparar períodos ou se o lucro subiu ou caiu. Use comparar_lucro."
+            "Quando não informar período, não envie as datas. "
+            "Não use para comparar períodos ou se o lucro "
+            "subiu ou caiu. Use comparar_lucro. "
+            "Não use para por que o lucro caiu ou o que "
+            "explica a variação. Use explicar_variacao_lucro."
         ),
         "parameters": {
             "type": "object",
@@ -614,6 +618,13 @@ tools = [
             "'comparar lucro'. "
             "Não explique a causa. Não é lucro líquido contábil. "
             "Não use para um único período (aí use calcular_lucro). "
+            "Não use para 'por que caiu', o que explica a "
+            "variação ou decomposição das parcelas. "
+            "Aí use explicar_variacao_lucro. "
+            "Um mês contra o anterior (maio vs abril):"
+            "envie data_inicio e data_fim IGUAIS a esse mês"
+            "(2026-05 e 2026-05). Não envie data_inicio_anterior"
+            "nem data_fim_anterior. Não use 2026-04 a 2026-05."
             "Não use para só faturamento, só despesa ou caixa. "
             "Se o usuário não informar o período anterior, "
             "não envie data_inicio_anterior nem data_fim_anterior."
@@ -637,6 +648,74 @@ tools = [
                     "type": ["string", "null"],
                     "description": "Mês final do período anterior (YYYY-MM)."
                 }
+            },
+            "required": [],
+            "additionalProperties": False
+        }
+    }
+},
+
+{
+    "type": "function",
+    "function": {
+        "name": "explicar_variacao_lucro",
+        "description": (
+            "Decompõe a variação do lucro após despesas entre "
+            "dois períodos do mesmo tamanho. "
+            "Mostra quanto da diferença veio de faturamento, "
+            "CMV e despesa operacional. "
+            "Use quando o usuário perguntar por que o lucro "
+            "caiu ou subiu, o que explica a variação do lucro "
+            "ou quais parcelas puxaram o resultado. "
+            "Não inventa causa comercial, sazonalidade nem caixa. "
+            "Não use só para dizer se subiu ou caiu "
+            "(aí use comparar_lucro). "
+            "Não use para um único período (aí use calcular_lucro). "
+            "Se o usuário não informar o período anterior, "
+            "não envie data_inicio_anterior nem data_fim_anterior."
+            "Um mês contra o anterior (maio vs abril):"
+            "envie data_inicio e data_fim IGUAIS a esse mês"
+            "(2026-05 e 2026-05). Não envie data_inicio_anterior"
+            "nem data_fim_anterior. Não use 2026-04 a 2026-05."
+        ),
+        "parameters": {
+            "type": "object",
+            "properties": {
+                "data_inicio": {
+                    "type": ["string", "null"],
+                    "description": "Mês do período atual (YYYY-MM). Um só mês: o mesmo valor em data_inicio e data_fim."
+                },
+                "data_fim": {
+                    "type": ["string", "null"],
+                    "description": "Mês do período atual (YYYY-MM). Um só mês: o mesmo valor em data_inicio e data_fim."
+                },
+                "data_inicio_anterior": {
+                    "type": ["string", "null"],
+                    "description": "Mês inicial do período anterior (YYYY-MM)."
+                },
+                "data_fim_anterior": {
+                    "type": ["string", "null"],
+                    "description": "Mês final do período anterior (YYYY-MM)."
+                }
+            },
+            "required": [],
+            "additionalProperties": False
+        }
+    }
+},
+
+{
+    "type": "function",
+    "function": {
+        "name": "explain_variacao_lucro",
+        "description": "Igual a explicar_variacao_lucro.",
+        "parameters": {
+            "type": "object",
+            "properties": {
+                "data_inicio": {"type": ["string", "null"]},
+                "data_fim": {"type": ["string", "null"]},
+                "data_inicio_anterior": {"type": ["string", "null"]},
+                "data_fim_anterior": {"type": ["string", "null"]}
             },
             "required": [],
             "additionalProperties": False
@@ -728,6 +807,12 @@ funcoes_disponiveis = {
 
     "comparar_lucro":
     comparar_lucro,
+
+    "explicar_variacao_lucro":
+    explicar_variacao_lucro,
+
+    "explain_variacao_lucro":
+    explicar_variacao_lucro,
 
     "consultar_contas_a_receber":
     consultar_contas_a_receber,
@@ -1282,6 +1367,25 @@ def preparar_resultado_para_ia(
             "criterio": resultado["criterio"]
         }
 
+    if nome_funcao == "explicar_variacao_lucro":
+
+        return {
+            "periodo_atual": {
+                "periodo_inicio": resultado["periodo_atual"]["periodo_inicio"],
+                "periodo_fim": resultado["periodo_atual"]["periodo_fim"],
+            },
+            "periodo_anterior": {
+                "periodo_inicio": resultado["periodo_anterior"]["periodo_inicio"],
+                "periodo_fim": resultado["periodo_anterior"]["periodo_fim"],
+            },
+            "diferenca": resultado["diferenca"],
+            "variacao_percentual": resultado["variacao_percentual"],
+            "direcao": resultado["direcao"],
+            "contribuicoes": resultado["contribuicoes"],
+            "parcela_principal": resultado["parcela_principal"],
+            "criterio": resultado["criterio"]
+        }
+
     if nome_funcao == "comparar_fluxo_caixa":
 
         return {
@@ -1733,6 +1837,21 @@ porque as despesas aumentaram.
 
 Deixe [[RECOMENDACOES]] vazio.
 
+Quando a ferramenta explicar_variacao_lucro for utilizada,
+o card já mostra as contribuições. O [[RESUMO]] é UMA frase:
+parcela_principal (rotulo) e se o lucro caiu ou subiu;
+pode citar percentual_da_diferenca. Sem lucros em R$ e
+sem causa comercial.
+
+Exemplo: A queda do lucro de maio frente a abril veio
+sobretudo do faturamento (86,28% da diferença).
+
+Na [[ANALISE]], 2 tópicos com "- ". Outras contribuições
+(CMV e despesa) no primeiro; no segundo: decomposição
+aritmética por competência, não causa nem caixa.
+
+Deixe [[RECOMENDACOES]] vazio.
+
 Quando a ferramenta comparar_fluxo_caixa for utilizada,
 o card já mostra os dois saldos, a diferença e a variação.
 O resultado da pergunta é saldo.
@@ -1863,10 +1982,20 @@ não chame ferramenta de novo. Responda só com [[RESUMO]] e [[ANALISE]].
 
     for tool_call in tool_calls:
 
-        nome_funcao = (
+        nome_funcao_modelo = (
             tool_call
             .function
             .name
+        )
+
+        nomes_canonicos = {
+            "explain_variacao_lucro":
+            "explicar_variacao_lucro",
+        }
+
+        nome_funcao = nomes_canonicos.get(
+            nome_funcao_modelo,
+            nome_funcao_modelo
         )
         # -------------------------------------------------
         # SEGURANÇA:
@@ -1932,7 +2061,7 @@ não chame ferramenta de novo. Responda só com [[RESUMO]] e [[ANALISE]].
                 {
                     "role": "tool",
                     "tool_call_id": tool_call.id,
-                    "name": nome_funcao,
+                    "name": nome_funcao_modelo,
                     "content": json.dumps(
                         {"erro": str(erro)},
                         ensure_ascii=False
@@ -1966,7 +2095,7 @@ não chame ferramenta de novo. Responda só com [[RESUMO]] e [[ANALISE]].
                     tool_call.id,
 
                 "name":
-                    nome_funcao,
+                    nome_funcao_modelo,
 
                 "content":
                     json.dumps(
@@ -2029,12 +2158,3 @@ não chame ferramenta de novo. Responda só com [[RESUMO]] e [[ANALISE]].
     }
 
 # TESTE
-if __name__ == "__main__":
-
-    resultado = processar_pergunta_com_tools(
-    "Quais produtos tiveram menor giro entre novembro de 2025 e fevereiro de 2026?"
-)
-
-print("\nResposta IA:\n")
-
-print("\nFerramenta utilizada:\n")
