@@ -26,7 +26,8 @@ from financeiro_service import (
     comparar_lucro,
     consultar_contas_a_receber,
     consultar_contas_a_pagar,
-    calcular_fluxo_caixa
+    calcular_fluxo_caixa,
+    comparar_fluxo_caixa
 )
 
 # lê o .env
@@ -482,6 +483,8 @@ tools = [
             "Não use para faturamento, lucro, despesas "
             "operacionais isoladas, contas a receber "
             "ou contas a pagar. "
+            "Não use para comparar períodos ou se o fluxo "
+            "subiu ou caiu. Use comparar_fluxo_caixa. "
             "Quando informar um período, envie data_inicio e "
             "data_fim no formato YYYY-MM. "
             "Um único mês: envie o mesmo valor nos dois. "
@@ -639,6 +642,50 @@ tools = [
             "additionalProperties": False
         }
     }
+},
+
+{
+    "type": "function",
+    "function": {
+        "name": "comparar_fluxo_caixa",
+        "description": (
+            "Compara o saldo de fluxo de caixa de dois períodos "
+            "do mesmo tamanho. Saldo = entradas − saídas pela "
+            "data da movimentação, não por competência. "
+            "Saídas incluem compra de mercadorias e despesas. "
+            "Use quando o usuário perguntar se o fluxo, o caixa, "
+            "o saldo de caixa ou as entradas e saídas subiram "
+            "ou caíram, a variação ou 'comparar fluxo de caixa'. "
+            "Não explique a causa. Não é faturamento nem lucro. "
+            "Não use para um único período "
+            "(aí use calcular_fluxo_caixa). "
+            "Se o usuário não informar o período anterior, "
+            "não envie data_inicio_anterior nem data_fim_anterior."
+        ),
+        "parameters": {
+            "type": "object",
+            "properties": {
+                "data_inicio": {
+                    "type": ["string", "null"],
+                    "description": "Mês inicial do período atual (YYYY-MM)."
+                },
+                "data_fim": {
+                    "type": ["string", "null"],
+                    "description": "Mês final do período atual (YYYY-MM)."
+                },
+                "data_inicio_anterior": {
+                    "type": ["string", "null"],
+                    "description": "Mês inicial do período anterior (YYYY-MM)."
+                },
+                "data_fim_anterior": {
+                    "type": ["string", "null"],
+                    "description": "Mês final do período anterior (YYYY-MM)."
+                }
+            },
+            "required": [],
+            "additionalProperties": False
+        }
+    }
 }
 
 
@@ -689,7 +736,10 @@ funcoes_disponiveis = {
     consultar_contas_a_pagar,
 
     "calcular_fluxo_caixa":
-    calcular_fluxo_caixa
+    calcular_fluxo_caixa,
+
+    "comparar_fluxo_caixa":
+    comparar_fluxo_caixa
 
 }
 
@@ -1230,7 +1280,19 @@ def preparar_resultado_para_ia(
             "direcao": resultado["direcao"],
             "meses_comparados": resultado["meses_comparados"],
             "criterio": resultado["criterio"]
-        }                
+        }
+
+    if nome_funcao == "comparar_fluxo_caixa":
+
+        return {
+            "periodo_atual": resultado["periodo_atual"],
+            "periodo_anterior": resultado["periodo_anterior"],
+            "diferenca": resultado["diferenca"],
+            "variacao_percentual": resultado["variacao_percentual"],
+            "direcao": resultado["direcao"],
+            "meses_comparados": resultado["meses_comparados"],
+            "criterio": resultado["criterio"]
+        }
 
     if nome_funcao == "calcular_despesas":
 
@@ -1668,6 +1730,46 @@ Exemplo RUIM (não faça):
 em abril para R$ 1.709,89 em maio.
 - O lucro caiu porque as vendas foram mal ou
 porque as despesas aumentaram.
+
+Deixe [[RECOMENDACOES]] vazio.
+
+Quando a ferramenta comparar_fluxo_caixa for utilizada,
+o card já mostra os dois saldos, a diferença e a variação.
+O resultado da pergunta é saldo.
+O [[RESUMO]] é UMA frase: subiu ou caiu e a % COM sinal.
+Se variacao_percentual for null, cite só subiu/caiu e a
+diferença em R$, sem inventar percentual.
+NÃO cite no resumo os dois saldos em R$ se a % existir.
+NÃO cite entradas nem saídas no resumo.
+
+Exemplo bom de resumo:
+O saldo de caixa de maio de 2026 caiu -12,40% em relação a abril.
+
+Exemplo ruim de resumo (não faça):
+O saldo passou de R$ 50.000,00 em abril para R$ 43.800,00
+em maio, queda de -12,40%.
+
+Na [[ANALISE]], exatamente 2 tópicos, começando com "- ".
+Não repita saldo, diferença em R$ nem a %.
+O primeiro tópico mostra as parcelas do cálculo, com os
+números do JSON: entradas e saidas dos dois períodos.
+São fatos lado a lado. Não diga que uma parcela causou
+a variação do saldo.
+O segundo tópico explica COMO o saldo foi calculado:
+entradas menos saídas pela data da movimentação;
+não é faturamento, lucro nem competência.
+As saídas incluem compra de mercadorias e despesas.
+
+Exemplo BOM:
+- As entradas e as saídas de cada período constam no
+resultado da ferramenta; cite os quatro valores, sem o saldo.
+- O saldo é entradas menos saídas na data da movimentação,
+não faturamento nem lucro por competência.
+
+Exemplo RUIM (não faça):
+- O saldo passou de R$ 50.000,00 em abril para
+R$ 43.800,00 em maio, diferença de R$ 6.200,00.
+- O caixa caiu porque as vendas foram mal.
 
 Deixe [[RECOMENDACOES]] vazio.
 

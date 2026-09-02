@@ -797,12 +797,100 @@ def calcular_fluxo_caixa(
         "registros_analisados": int(len(periodo))
     }
 
-# TESTE PROVISORIO
-from financeiro_service import calcular_lucro, comparar_lucro
-abr = calcular_lucro("2026-04", "2026-04")
-mai = calcular_lucro("2026-05", "2026-05")
-print("abril", abr["lucro_apos_despesas"])
-print("maio", mai["lucro_apos_despesas"])
-print("conta na mão", round(mai["lucro_apos_despesas"] - abr["lucro_apos_despesas"], 2))
-c = comparar_lucro("2026-05", "2026-05", "2026-04", "2026-04")
-print(c["diferenca"], c["variacao_percentual"], c["direcao"])
+
+def comparar_fluxo_caixa(
+    data_inicio=None,
+    data_fim=None,
+    data_inicio_anterior=None,
+    data_fim_anterior=None,
+):
+    if data_inicio is None and data_fim is None:
+        dados = movimentacoes_financeiras.copy()
+        dados["data_movimentacao"] = pd.to_datetime(
+            dados["data_movimentacao"]
+        )
+        periodo_base = obter_periodo_base(
+            dados,
+            "data_movimentacao"
+        )
+        ultimo_mes = min(
+            periodo_base["data_maxima"],
+            pd.Period("2026-07", freq="M"),
+        )
+        data_inicio = str(ultimo_mes)
+        data_fim = str(ultimo_mes)
+
+    atual = calcular_fluxo_caixa(data_inicio, data_fim)
+
+    meses_atual = _quantidade_meses(
+        atual["periodo_inicio"],
+        atual["periodo_fim"],
+    )
+
+    if data_inicio_anterior is None and data_fim_anterior is None:
+        inicio_atual = pd.Period(atual["periodo_inicio"], freq="M")
+        fim_anterior = inicio_atual - 1
+        inicio_anterior = fim_anterior - (meses_atual - 1)
+        data_inicio_anterior = str(inicio_anterior)
+        data_fim_anterior = str(fim_anterior)
+
+    anterior = calcular_fluxo_caixa(
+        data_inicio_anterior,
+        data_fim_anterior,
+    )
+
+    meses_anterior = _quantidade_meses(
+        anterior["periodo_inicio"],
+        anterior["periodo_fim"],
+    )
+
+    if meses_atual != meses_anterior:
+        raise ValueError(
+            "Os períodos da comparação precisam ter "
+            "a mesma quantidade de meses."
+        )
+
+    saldo_atual = atual["saldo"]
+    saldo_anterior = anterior["saldo"]
+    diferenca = round(saldo_atual - saldo_anterior, 2)
+
+    if saldo_anterior <= 0:
+        variacao_percentual = None
+    else:
+        variacao_percentual = round(
+            (diferenca / saldo_anterior) * 100,
+            2,
+        )
+
+    if diferenca > 0:
+        direcao = "alta"
+    elif diferenca < 0:
+        direcao = "queda"
+    else:
+        direcao = "estavel"
+
+    return {
+        "indicador": "saldo",
+        "criterio": atual["criterio"],
+        "fonte": atual["fonte"],
+        "meses_comparados": meses_atual,
+        "periodo_atual": {
+            "periodo_inicio": atual["periodo_inicio"],
+            "periodo_fim": atual["periodo_fim"],
+            "saldo": saldo_atual,
+            "entradas": atual["entradas"],
+            "saidas": atual["saidas"],
+            "registros_analisados": atual["registros_analisados"],
+        },
+        "periodo_anterior": {
+            "periodo_inicio": anterior["periodo_inicio"],
+            "periodo_fim": anterior["periodo_fim"],
+            "saldo": saldo_anterior,
+            "entradas": anterior["entradas"],
+            "saidas": anterior["saidas"],
+            "registros_analisados": anterior["registros_analisados"],
+        },
+        "diferenca": diferenca,
+        "variacao_percentual": variacao_percentual,
+        "direcao": direcao,
+    }
