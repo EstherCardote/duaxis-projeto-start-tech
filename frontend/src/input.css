@@ -1069,6 +1069,10 @@
     @apply shrink-0 text-sm font-semibold text-text-primary;
   }
 
+  .lista-contribuicoes-lucro {
+    @apply mt-3 flex flex-col gap-2;
+  }
+
   .botao-ver-todos-reposicao {
     @apply mt-3 cursor-pointer rounded-xl border border-border bg-bg-page px-3 py-2 text-sm font-medium text-brand-blue transition-colors hover:bg-brand-blue/5;
   }

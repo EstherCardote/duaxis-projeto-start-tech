@@ -2946,7 +2946,9 @@ function adicionarRespostaExplicarVariacaoLucro(dados, textoIa, dataHora) {
             <strong>${principal ? principal.rotulo : "—"}</strong>
           </div>
         </div>
-        ${contribuicoes.map(linhaContribuicao).join("")}
+        <div class="lista-contribuicoes-lucro">
+          ${contribuicoes.map(linhaContribuicao).join("")}
+        </div>
       </div>
     </section>
 
