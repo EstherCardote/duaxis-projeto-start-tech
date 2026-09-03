@@ -744,6 +744,16 @@ function montarBlocoRecomendacoes(textoRecomendacoes) {
   `;
 }
 
+function montarBlocoRecomendacoesEstruturadas(itens) {
+  const topicos = itens
+    .map((item) => (typeof item === "string" ? item.trim() : ""))
+    .filter(Boolean);
+
+  const texto = topicos.map((topico) => `- ${topico}`).join("\n");
+
+  return montarBlocoRecomendacoes(texto);
+}
+
 function montarBotaoGerarRelatorio() {
   return `
     <section class="resposta-duaxis__secao resposta-duaxis__secao--relatorio">
@@ -764,9 +774,16 @@ function montarBlocosFinais(configConfiabilidade) {
     ? ""
     : montarBlocoAnalise(analise);
 
-  const blocoRecomendacoes = configConfiabilidade.ocultarRecomendacoes
-    ? ""
-    : montarBlocoRecomendacoes(recomendacoes);
+  const estruturadas = configConfiabilidade.recomendacoesEstruturadas;
+  let blocoRecomendacoes = "";
+
+  if (Array.isArray(estruturadas)) {
+    if (estruturadas.length) {
+      blocoRecomendacoes = montarBlocoRecomendacoesEstruturadas(estruturadas);
+    }
+  } else if (!configConfiabilidade.ocultarRecomendacoes) {
+    blocoRecomendacoes = montarBlocoRecomendacoes(recomendacoes);
+  }
 
   return `
     ${blocoAnalise}
@@ -984,6 +1001,9 @@ function adicionarRespostaListaReposicao(dados, textoIa, dataHora) {
         "A demanda é prevista por Random Forest (R² 0,76). Não é fato histórico.",
       dataHora,
       textoIa,
+      recomendacoesEstruturadas: Array.isArray(dados.recomendacoes)
+        ? dados.recomendacoes
+        : [],
     })}
 
   `;

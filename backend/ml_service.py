@@ -266,6 +266,40 @@ def analisar_reposicao(produto_id):
         "risco_ruptura_imediato": risco_ruptura
     }
 
+
+def _formatar_reais(valor):
+    texto = f"{float(valor):,.2f}"
+    return "R$ " + texto.replace(",", "X").replace(".", ",").replace("X", ".")
+
+
+def _montar_recomendacoes_lista_reposicao(
+    total_analisados,
+    total_reposicao,
+    impacto_financeiro_total,
+):
+    if total_reposicao <= 0:
+        return []
+
+    impacto = _formatar_reais(impacto_financeiro_total)
+
+    return [
+        (
+            f"Emitir a reposição dos {total_reposicao} produtos "
+            f"com quantidade recomendada maior que zero. "
+            f"Impacto estimado de compra: {impacto}."
+        ),
+        (
+            "A política de compras da Urban Style manda repor "
+            "quando a demanda prevista do próximo mês, somada "
+            "ao estoque mínimo, fica acima do estoque atual."
+        ),
+        (
+            f"Essa regra vale para {total_reposicao} dos "
+            f"{total_analisados} produtos analisados."
+        ),
+    ]
+
+
 def listar_produtos_reposicao():
 
     produtos_reposicao = []
@@ -309,7 +343,14 @@ def listar_produtos_reposicao():
         impacto_financeiro_total,
 
     "produtos_reposicao":
-        produtos_reposicao
+        produtos_reposicao,
+
+    "recomendacoes":
+        _montar_recomendacoes_lista_reposicao(
+            total_analisados=len(produtos),
+            total_reposicao=len(produtos_reposicao),
+            impacto_financeiro_total=impacto_financeiro_total,
+        ),
 }
 
 # TESTE TEMPORARIO
