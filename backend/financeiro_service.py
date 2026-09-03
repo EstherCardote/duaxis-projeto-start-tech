@@ -680,6 +680,137 @@ def explicar_variacao_lucro(
     }
 
 
+def _resolver_categoria_despesa(categoria):
+    if categoria is None:
+        return None
+    texto = str(categoria).strip()
+    if texto == "" or texto.lower() in ("null", "none", "todas"):
+        return None
+
+    aliases = {
+        "aluguel": "Aluguel",
+        "energia": "Energia",
+        "luz": "Energia",
+        "marketing": "Marketing",
+        "tecnologia": "Tecnologia",
+        "frete": "Frete Operacional",
+        "frete operacional": "Frete Operacional",
+        "impostos": "Impostos",
+        "imposto": "Impostos",
+    }
+    chave = texto.lower()
+    if chave in aliases:
+        return aliases[chave]
+
+    for nome in CATEGORIAS_DESPESA:
+        if nome.lower() == chave:
+            return nome
+
+    permitidas = ", ".join(CATEGORIAS_DESPESA)
+    raise ValueError(
+        f'Categoria "{texto}" não é despesa operacional. '
+        f"Use uma destas: {permitidas}. "
+        "Compra de mercadorias não entra nesta simulação."
+    )
+
+
+def simular_lucro_despesa(
+    percentual,
+    categoria=None,
+    data_inicio=None,
+    data_fim=None,
+):
+    if percentual is None or str(percentual).strip() == "":
+        raise ValueError(
+            "Informe o percentual da simulação "
+            "(ex.: 8 para +8% ou -10 para redução)."
+        )
+
+    percentual = float(percentual)
+    if percentual == 0:
+        raise ValueError(
+            "O percentual da simulação não pode ser zero."
+        )
+
+    if data_inicio is not None and str(data_inicio).strip() == "":
+        data_inicio = None
+    if data_fim is not None and str(data_fim).strip() == "":
+        data_fim = None
+
+    lucro = calcular_lucro(data_inicio, data_fim)
+    despesas = calcular_despesas(
+        lucro["periodo_inicio"],
+        lucro["periodo_fim"],
+    )
+    categoria_resolvida = _resolver_categoria_despesa(categoria)
+
+    fator = 1 + (percentual / 100.0)
+    por_categoria = {
+        item["categoria"]: item["valor"]
+        for item in despesas["despesa_por_categoria"]
+    }
+
+    if categoria_resolvida is None:
+        despesa_simulada = round(
+            despesas["despesa_total"] * fator,
+            2,
+        )
+        escopo = "todas_operacionais"
+        valor_categoria_real = None
+        valor_categoria_simulado = None
+    else:
+        valor_categoria_real = round(
+            float(por_categoria.get(categoria_resolvida, 0.0)),
+            2,
+        )
+        valor_categoria_simulado = round(
+            valor_categoria_real * fator,
+            2,
+        )
+        despesa_simulada = round(
+            despesas["despesa_total"]
+            - valor_categoria_real
+            + valor_categoria_simulado,
+            2,
+        )
+        escopo = categoria_resolvida
+
+    lucro_simulado = round(
+        lucro["faturamento_total"]
+        - lucro["custo_mercadorias_vendidas"]
+        - despesa_simulada,
+        2,
+    )
+    impacto = round(
+        lucro_simulado - lucro["lucro_apos_despesas"],
+        2,
+    )
+
+    return {
+        "periodo_inicio": lucro["periodo_inicio"],
+        "periodo_fim": lucro["periodo_fim"],
+        "fonte": lucro["fonte"],
+        "criterio": (
+            "simulação ceteris paribus: faturamento e CMV "
+            "iguais; só a despesa operacional muda"
+        ),
+        "percentual_despesa": percentual,
+        "escopo": escopo,
+        "categoria": categoria_resolvida,
+        "faturamento_total": lucro["faturamento_total"],
+        "custo_mercadorias_vendidas": lucro["custo_mercadorias_vendidas"],
+        "despesa_real": lucro["despesa_operacional"],
+        "despesa_simulada": despesa_simulada,
+        "valor_categoria_real": valor_categoria_real,
+        "valor_categoria_simulado": valor_categoria_simulado,
+        "lucro_real": lucro["lucro_apos_despesas"],
+        "lucro_simulado": lucro_simulado,
+        "impacto": impacto,
+        "ainda_tem_lucro": lucro_simulado > 0,
+        "registros_analisados": lucro["registros_analisados"],
+    }
+
+
 def consultar_contas_a_receber(data_referencia=None):
 
     dados = contas_a_receber.copy()

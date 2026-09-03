@@ -417,6 +417,12 @@ async function enviarPerguntaDuaxis(campoChat) {
         dados.resposta_ia,
         dados.data_hora_pergunta,
       );
+    } else if (nomeFerramenta === "simular_lucro_despesa") {
+      adicionarRespostaSimularLucroDespesa(
+        resultadoFerramenta,
+        dados.resposta_ia,
+        dados.data_hora_pergunta,
+      );
     } else if (nomeFerramenta === "comparar_fluxo_caixa") {
       adicionarRespostaComparacaoFluxoCaixa(
         resultadoFerramenta,
@@ -1163,7 +1169,7 @@ function adicionarRespostaDuaxis(dados, textoIa, dataHora) {
         <section class="resposta-duaxis__secao">
 
             <div class="resposta-duaxis__cabecalho">
-                <i data-lucide="package-search"></i>
+              <i data-lucide="package-search"></i>
                 <span>REPOSIÇÃO</span>
             </div>
 
@@ -2471,15 +2477,15 @@ function adicionarRespostaFaturamento(dados, textoIa, dataHora) {
       ${
         meses.length > 1
           ? `
-            <p class="reposicao-intro">Faturamento por competência:</p>
-            <div class="lista-produtos-reposicao">
-              ${meses.map(linhaMes).join("")}
-            </div>
-            ${
-              meses.length > 5
-                ? `<button type="button" class="botao-ver-todos-reposicao">
-                     Ver todos os ${meses.length} meses
-                   </button>`
+      <p class="reposicao-intro">Faturamento por competência:</p>
+      <div class="lista-produtos-reposicao">
+        ${meses.map(linhaMes).join("")}
+      </div>
+      ${
+        meses.length > 5
+          ? `<button type="button" class="botao-ver-todos-reposicao">
+               Ver todos os ${meses.length} meses
+             </button>`
                 : ""
             }
           `
@@ -2578,35 +2584,35 @@ function adicionarRespostaComparacaoFaturamento(dados, textoIa, dataHora) {
     ${montarBlocoResumoExecutivo(textoIa, dataHora)}
 
     <section class="resposta-duaxis__secao">
-      <div class="resposta-duaxis__cabecalho">
+    <div class="resposta-duaxis__cabecalho">
         <i data-lucide="chart-no-axes-column"></i>
         <span>COMPARAÇÃO DE FATURAMENTO</span>
-      </div>
-      <div class="resposta-duaxis__conteudo">
-        <div class="confiabilidade-grade">
-          <div class="confiabilidade-card">
+    </div>
+    <div class="resposta-duaxis__conteudo">
+      <div class="confiabilidade-grade">
+        <div class="confiabilidade-card">
             <span class="confiabilidade-card__rotulo">
               ${formatarPeriodo(atual)}
             </span>
             <strong>${formatarValor(atual.faturamento_total)}</strong>
-          </div>
-          <div class="confiabilidade-card">
+        </div>
+        <div class="confiabilidade-card">
             <span class="confiabilidade-card__rotulo">
               ${formatarPeriodo(anterior)}
             </span>
             <strong>${formatarValor(anterior.faturamento_total)}</strong>
-          </div>
-          <div class="confiabilidade-card">
+        </div>
+        <div class="confiabilidade-card">
             <span class="confiabilidade-card__rotulo">Diferença</span>
             <strong>${formatarValor(dados.diferenca)}</strong>
-          </div>
-          <div class="confiabilidade-card">
+        </div>
+        <div class="confiabilidade-card">
             <span class="confiabilidade-card__rotulo">Variação</span>
             <strong>${formatarVariacao(dados.variacao_percentual)}</strong>
-          </div>
         </div>
       </div>
-    </section>
+    </div>
+  </section>
 
     ${montarBlocosFinais({
       nivel: 100,
@@ -2960,6 +2966,123 @@ function adicionarRespostaExplicarVariacaoLucro(dados, textoIa, dataHora) {
       fontes: ["Financeiro"],
       limitacao:
         "Decomposição aritmética da diferença do lucro após despesas (faturamento − CMV − despesa). Não identifica causa comercial nem é caixa.",
+      dataHora,
+      textoIa,
+    })}
+  `;
+
+  linhaResposta.appendChild(avatarDuaxis);
+  linhaResposta.appendChild(bloco);
+  container.appendChild(linhaResposta);
+
+  inicializarIconesLucide();
+  linhaResposta.scrollIntoView({
+    behavior: "smooth",
+    block: "end",
+  });
+}
+
+function adicionarRespostaSimularLucroDespesa(dados, textoIa, dataHora) {
+  const container = document.getElementById("mensagens-chat-dv");
+
+  if (!container) {
+    return;
+  }
+
+  function formatarValor(valor) {
+    return Number(valor).toLocaleString("pt-BR", {
+      style: "currency",
+      currency: "BRL",
+    });
+  }
+
+  const periodo =
+    dados.periodo_inicio === dados.periodo_fim
+      ? formatarCompetencia(dados.periodo_inicio)
+      : `${formatarCompetencia(dados.periodo_inicio)} a ${formatarCompetencia(dados.periodo_fim)}`;
+
+  const percentual = Number(dados.percentual_despesa).toLocaleString("pt-BR", {
+    signDisplay: "exceptZero",
+    maximumFractionDigits: 2,
+  });
+
+  const escopo =
+    dados.escopo === "todas_operacionais"
+      ? "Todas as despesas operacionais"
+      : dados.escopo;
+
+  const linhaResposta = document.createElement("div");
+  linhaResposta.className = "linha-chat linha-chat--duaxis";
+
+  const avatarDuaxis = document.createElement("div");
+  avatarDuaxis.className = "avatar-chat avatar-chat--duaxis";
+  avatarDuaxis.innerHTML = `<i data-lucide="bot"></i>`;
+
+  const bloco = document.createElement("div");
+  bloco.className = "resposta-duaxis resposta-duaxis--lista";
+
+  bloco.innerHTML = `
+    ${montarBlocoResumoExecutivo(textoIa, dataHora)}
+
+    <section class="resposta-duaxis__secao">
+      <div class="resposta-duaxis__cabecalho">
+        <i data-lucide="flask-conical"></i>
+        <span>SIMULAÇÃO: DESPESA NO LUCRO</span>
+      </div>
+      <div class="resposta-duaxis__conteudo">
+        <div class="confiabilidade-grade">
+          <div class="confiabilidade-card">
+            <span class="confiabilidade-card__rotulo">Período</span>
+            <strong>${periodo}</strong>
+          </div>
+          <div class="confiabilidade-card">
+            <span class="confiabilidade-card__rotulo">Cenário</span>
+            <strong>${escopo} ${percentual}%</strong>
+          </div>
+          <div class="confiabilidade-card">
+            <span class="confiabilidade-card__rotulo">Lucro real</span>
+            <strong>${formatarValor(dados.lucro_real)}</strong>
+          </div>
+          <div class="confiabilidade-card">
+            <span class="confiabilidade-card__rotulo">Lucro simulado</span>
+            <strong>${formatarValor(dados.lucro_simulado)}</strong>
+          </div>
+          <div class="confiabilidade-card">
+            <span class="confiabilidade-card__rotulo">Impacto no lucro</span>
+            <strong>${formatarValor(dados.impacto)}</strong>
+          </div>
+          <div class="confiabilidade-card">
+            <span class="confiabilidade-card__rotulo">Ainda tem lucro</span>
+            <strong>${dados.ainda_tem_lucro ? "Sim" : "Não"}</strong>
+          </div>
+        </div>
+        <div class="lista-contribuicoes-lucro">
+          <div class="produto-reposicao">
+            <div class="produto-reposicao__info">
+              <strong>Despesa operacional real</strong>
+            </div>
+            <div class="produto-reposicao__impacto">
+              ${formatarValor(dados.despesa_real)}
+            </div>
+          </div>
+          <div class="produto-reposicao">
+            <div class="produto-reposicao__info">
+              <strong>Despesa operacional simulada</strong>
+            </div>
+            <div class="produto-reposicao__impacto">
+              ${formatarValor(dados.despesa_simulada)}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    ${montarBlocosFinais({
+      nivel: 100,
+      registros: dados.registros_analisados || 0,
+      fontes: ["Financeiro"],
+      limitacao:
+        "Simulação ceteris paribus: faturamento e CMV iguais. Só a despesa operacional muda. Não é fluxo de caixa.",
       dataHora,
       textoIa,
     })}
@@ -3498,7 +3621,7 @@ function adicionarRespostaContasAPagar(dados, textoIa, dataHora) {
           <div class="confiabilidade-card">
             <span class="confiabilidade-card__rotulo">Fornecedores</span>
             <strong>${dados.total_fornecedores}</strong>
-          </div>
+        </div>
         </div>
 
         <p class="reposicao-intro">Saldo em aberto por fornecedor:</p>

@@ -25,6 +25,7 @@ from financeiro_service import (
     calcular_lucro,
     comparar_lucro,
     explicar_variacao_lucro,
+    simular_lucro_despesa,
     consultar_contas_a_receber,
     consultar_contas_a_pagar,
     calcular_fluxo_caixa,
@@ -325,8 +326,10 @@ tools = [
             "quais foram as despesas ou gastos operacionais. "
             "Quando informar um período, envie data_inicio e "
             "data_fim no formato YYYY-MM. "
-            "Quando não informar período, não envie as datas."
-            "Não use para comparar períodos, variação ou se a despesa subiu ou caiu. Use comparar_despesas."
+            "Quando não informar período, não envie as datas. "
+            "Não use para comparar períodos, variação ou se a despesa subiu ou caiu. Use comparar_despesas. "
+            "Não use para e se a despesa ou o aluguel mudar. "
+            "Use simular_lucro_despesa."
         ),
         "parameters": {
             "type": "object",
@@ -370,7 +373,9 @@ tools = [
             "Não use para comparar períodos ou se o lucro "
             "subiu ou caiu. Use comparar_lucro. "
             "Não use para por que o lucro caiu ou o que "
-            "explica a variação. Use explicar_variacao_lucro."
+            "explica a variação. Use explicar_variacao_lucro. "
+            "Não use para e se a despesa subir ou cair. "
+            "Use simular_lucro_despesa."
         ),
         "parameters": {
             "type": "object",
@@ -395,6 +400,52 @@ tools = [
         }
     }
 },
+
+{
+    "type": "function",
+    "function": {
+        "name": "simular_lucro_despesa",
+        "description": (
+            "Simula o lucro após despesas se a despesa "
+            "operacional variar um percentual, com "
+            "faturamento e CMV iguais. "
+            "Use em perguntas e se: despesas, aluguel, "
+            "energia, marketing, impostos etc. subirem "
+            "ou caírem. percentual: 8 para +8%, -10 "
+            "para redução. categoria null = todas as "
+            "operacionais; senão Aluguel, Energia, "
+            "Marketing, Tecnologia, Frete Operacional "
+            "ou Impostos. Não é caixa nem CMV. "
+            "Um mês: data_inicio e data_fim iguais."
+        ),
+        "parameters": {
+            "type": "object",
+            "properties": {
+                "percentual": {
+                    "type": "number",
+                    "description": "Variação em % (8 ou -10)."
+                },
+                "categoria": {
+                    "type": ["string", "null"],
+                    "description": (
+                        "Categoria operacional ou null para todas."
+                    )
+                },
+                "data_inicio": {
+                    "type": ["string", "null"],
+                    "description": "Mês atual YYYY-MM."
+                },
+                "data_fim": {
+                    "type": ["string", "null"],
+                    "description": "Mês atual YYYY-MM."
+                }
+            },
+            "required": ["percentual"],
+            "additionalProperties": False
+        }
+    }
+},
+
 {
     "type": "function",
     "function": {
@@ -707,25 +758,6 @@ tools = [
 {
     "type": "function",
     "function": {
-        "name": "explain_variacao_lucro",
-        "description": "Igual a explicar_variacao_lucro.",
-        "parameters": {
-            "type": "object",
-            "properties": {
-                "data_inicio": {"type": ["string", "null"]},
-                "data_fim": {"type": ["string", "null"]},
-                "data_inicio_anterior": {"type": ["string", "null"]},
-                "data_fim_anterior": {"type": ["string", "null"]}
-            },
-            "required": [],
-            "additionalProperties": False
-        }
-    }
-},
-
-{
-    "type": "function",
-    "function": {
         "name": "comparar_fluxo_caixa",
         "description": (
             "Compara o saldo de fluxo de caixa de dois períodos "
@@ -813,6 +845,9 @@ funcoes_disponiveis = {
 
     "explain_variacao_lucro":
     explicar_variacao_lucro,
+
+    "simular_lucro_despesa":
+    simular_lucro_despesa,
 
     "consultar_contas_a_receber":
     consultar_contas_a_receber,
@@ -1386,6 +1421,19 @@ def preparar_resultado_para_ia(
             "criterio": resultado["criterio"]
         }
 
+    if nome_funcao == "simular_lucro_despesa":
+
+        return {
+            "periodo_inicio": resultado["periodo_inicio"],
+            "periodo_fim": resultado["periodo_fim"],
+            "percentual_despesa": resultado["percentual_despesa"],
+            "escopo": resultado["escopo"],
+            "lucro_simulado": resultado["lucro_simulado"],
+            "impacto": resultado["impacto"],
+            "manteria_lucro": resultado["ainda_tem_lucro"],
+            "criterio": resultado["criterio"]
+        }
+
     if nome_funcao == "comparar_fluxo_caixa":
 
         return {
@@ -1498,6 +1546,41 @@ def preparar_resultado_para_ia(
     # =====================================================
 
     return resultado
+
+
+def _resumo_ia_vazio(texto):
+    if texto is None:
+        return True
+    texto = str(texto).strip()
+    if texto == "":
+        return True
+    if "[[" not in texto:
+        return False
+    inicio = texto.upper().find("[[RESUMO]]")
+    if inicio < 0:
+        return True
+    resto = texto[inicio + len("[[RESUMO]]"):]
+    proximo = resto.find("[[")
+    corpo = resto if proximo < 0 else resto[:proximo]
+    return corpo.strip() == ""
+
+
+def _texto_fallback_simular(resultado):
+    if resultado.get("ainda_tem_lucro"):
+        frase = "Nesse cenário a Urban Style manteria lucro."
+    else:
+        frase = (
+            "Nesse cenário a Urban Style não manteria lucro."
+        )
+    return (
+        "[[RESUMO]]\n"
+        f"{frase}\n"
+        "[[ANALISE]]\n"
+        "- Faturamento e CMV permanecem iguais; "
+        "só a despesa operacional muda.\n"
+        "- A simulação é por competência, não por caixa.\n"
+        "[[RECOMENDACOES]]\n"
+    )
 
 
 def processar_pergunta_com_tools(pergunta):
@@ -1650,10 +1733,9 @@ Nunca complete com achismo.
 Regras das recomendações:
 Pergunta factual (quanto foi, qual o saldo, quais produtos)
 deixe [[RECOMENDACOES]] vazio.
-Pergunta do tipo "e se", hipótese ou simulação: só preencha
-se alguma ferramenta tiver analisado esse cenário.
+Pergunta do tipo "e se", hipótese ou simulação:
+deixe [[RECOMENDACOES]] vazio por enquanto.
 Não invente ação comercial, meta, corte de custo ou compra.
-Se não houver cenário calculado, deixe o bloco vazio.
 
 Não enumere produtos, pedidos, fornecedores ou outros
 registros quando esses registros já estiverem presentes
@@ -1711,185 +1793,43 @@ Pode explicar que o valor é competência, não caixa, e que
 bruto menos descontos chega ao líquido, sem reenunciar o
 total do card.
 
-Quando a ferramenta comparar_faturamento for utilizada,
-o card já mostra os dois faturamentos, a diferença e a variação.
-O [[RESUMO]] responde só a pergunta, em UMA frase:
-subiu ou caiu (ou ficou estável) e a variação percentual
-COM sinal.
-Alta: use + antes do percentual (ex.: +3,58%).
-Queda: use o percentual negativo (ex.: -4,20%).
-Estável: 0%.
-Inclua os dois períodos só para situar (maio e junho),
-NÃO cite os valores em reais no resumo.
-NÃO cite diferença em R$, ticket nem quantidade de vendas.
+Roteamento financeiro:
+- subiu/caiu/comparar → comparar_*
+- por que o lucro variou → explicar_variacao_lucro
+- e se despesa/aluguel/energia etc. → simular_lucro_despesa
+Um mês: o mesmo YYYY-MM em data_inicio e data_fim.
+Se o usuário não informou o período anterior, não envie
+data_inicio_anterior nem data_fim_anterior.
 
-Exemplo bom de resumo:
-O faturamento de junho de 2026 subiu +3,58% em relação a maio.
+Comparações (comparar_faturamento, comparar_despesas,
+comparar_lucro, comparar_fluxo_caixa):
+[[RESUMO]] uma frase: subiu/caiu/estável e a % COM sinal
+(+3,58% ou -4,20%). Cite os períodos. Não cite os dois
+valores em R$ se houver %. Se variacao_percentual for null,
+cite só a diferença em R$, sem inventar %.
+[[ANALISE]] 2 tópicos com "- ". Não repita totais, diferença
+em R$ nem %. Use só o que o card não mostra.
+Deixe [[RECOMENDACOES]] vazio.
+comparar_faturamento: total_vendas e ticket_medio; competência, não caixa.
+comparar_despesas: registros_analisados; competência, não caixa nem CMV.
+comparar_lucro: cite faturamento, CMV e despesa dos dois períodos;
+lucro = fat − CMV − despesa; não diga que uma parcela "causou".
+comparar_fluxo_caixa: cite entradas e saídas; saldo = entradas − saídas
+na data da movimentação, não competência.
 
-Exemplo ruim de resumo (não faça):
-Em junho foi R$ 196.500,48, em maio R$ 189.704,48, variação de 3,58%.
-
-Na [[ANALISE]], exatamente 2 tópicos, começando com "- ".
-
-O card já tem: faturamento de cada mês, diferença em R$
-e variação %. NÃO repita nenhum desses números.
-
-Use só o que o card NÃO mostra:
-total_vendas e ticket_medio dos dois períodos,
-e o critério (competência, não caixa).
-
-Exemplo BOM:
-- As vendas concluídas passaram de 821 para 865;
-o ticket médio passou de R$ 231,07 para R$ 227,17.
-- A comparação usa faturamento por competência das
-vendas concluídas, não entrada de caixa.
-
-Exemplo RUIM (não faça):
-- O faturamento de junho foi R$ 196.500,48, em maio
-R$ 189.704,48, aumento de R$ 6.796,00.
-- A variação de +3,58% reflete um crescimento de 3,58%.
-
-Não explique o que é ticket médio.
-Vendas concluídas e ticket médio no mesmo tópico.
-O segundo tópico é só competência versus caixa.
-
-Quando a ferramenta comparar_despesas for utilizada,
-o card já mostra os dois totais, a diferença e a variação.
-O [[RESUMO]] é UMA frase: subiu ou caiu (ou estável) e a
-variação COM sinal (+3,58% ou -4,20%).
-Cite os dois períodos. NÃO cite valores em reais no resumo.
-NÃO cite diferença em R$ nem categorias.
-
-Exemplo bom de resumo:
-As despesas operacionais de maio de 2026 caíram -0,45%
-em relação a abril.
-
-Exemplo ruim de resumo (não faça):
-Em maio as despesas foram R$ 87.730,91, em abril
-R$ 88.123,89, variação de -0,45%.
-
-Na [[ANALISE]], exatamente 2 tópicos, começando com "- ".
-Não repita despesa_total, diferença em R$ nem a %.
-O primeiro tópico explica COMO o total foi calculado:
-soma dos lançamentos de despesa operacional na competência,
-usando registros_analisados dos dois períodos.
-Se a quantidade de registros for igual, diga que permaneceu
-a mesma. Não invente que uma categoria causou a variação.
-O segundo tópico delimita o indicador: competência,
-não saída de caixa nem compra de mercadorias.
-
-Exemplo BOM:
-- O total de cada mês é a soma dos lançamentos de
-despesa operacional na competência; abril e maio
-tiveram 6 registros cada.
-- A comparação não é pagamento (caixa) nem compra
-de mercadorias.
-
-Exemplo RUIM (não faça):
-- As despesas passaram de R$ 88.123,89 em abril
-para R$ 87.730,91 em maio.
-- A queda de -0,45% ocorreu porque o aluguel ou
-o marketing diminuiu.
-
+explicar_variacao_lucro:
+[[RESUMO]] parcela_principal e se o lucro caiu/subiu;
+pode citar percentual_da_diferenca. Sem lucros em R$.
+[[ANALISE]] outras contribuições; decomposição aritmética,
+não causa comercial nem caixa.
 Deixe [[RECOMENDACOES]] vazio.
 
-Quando a ferramenta comparar_lucro for utilizada,
-o card já mostra os dois lucros após despesas, a
-diferença e a variação. O lucro da pergunta é
-lucro_apos_despesas.
-O [[RESUMO]] é UMA frase: subiu ou caiu e a % COM sinal.
-Se variacao_percentual for null, cite só subiu/caiu e a
-diferença em R$, sem inventar percentual.
-NÃO cite no resumo os dois lucros em R$ se a % existir.
-NÃO cite faturamento, CMV nem despesa no resumo.
-
-Exemplo bom de resumo:
-O lucro de maio de 2026 caiu -91,86% em relação a abril.
-
-Exemplo ruim de resumo (não faça):
-O lucro passou de R$ 21.008,14 em abril para
-R$ 1.709,89 em maio, queda de -91,86%.
-
-Na [[ANALISE]], exatamente 2 tópicos, começando com "- ".
-Não repita lucro_apos_despesas, diferença em R$ nem a %.
-O primeiro tópico mostra as parcelas do cálculo, com os
-números do JSON: faturamento_total,
-custo_mercadorias_vendidas e despesa_operacional
-dos dois períodos. São fatos lado a lado.
-Não diga que uma parcela "causou" o lucro.
-O segundo tópico explica COMO o lucro foi calculado:
-faturamento menos CMV menos despesa operacional;
-resultado operacional simplificado por competência;
-não é lucro líquido contábil nem caixa.
-
-Exemplo BOM:
-- O faturamento, o CMV e a despesa operacional de
-cada período constam no resultado da ferramenta;
-cite os seis valores, sem o lucro após despesas.
-- O lucro após despesas é faturamento menos CMV
-menos despesa operacional, por competência.
-
-Exemplo RUIM (não faça):
-- O lucro após despesas passou de R$ 21.008,14
-em abril para R$ 1.709,89 em maio.
-- O lucro caiu porque as vendas foram mal ou
-porque as despesas aumentaram.
-
-Deixe [[RECOMENDACOES]] vazio.
-
-Quando a ferramenta explicar_variacao_lucro for utilizada,
-o card já mostra as contribuições. O [[RESUMO]] é UMA frase:
-parcela_principal (rotulo) e se o lucro caiu ou subiu;
-pode citar percentual_da_diferenca. Sem lucros em R$ e
-sem causa comercial.
-
-Exemplo: A queda do lucro de maio frente a abril veio
-sobretudo do faturamento (86,28% da diferença).
-
-Na [[ANALISE]], 2 tópicos com "- ". Outras contribuições
-(CMV e despesa) no primeiro; no segundo: decomposição
-aritmética por competência, não causa nem caixa.
-
-Deixe [[RECOMENDACOES]] vazio.
-
-Quando a ferramenta comparar_fluxo_caixa for utilizada,
-o card já mostra os dois saldos, a diferença e a variação.
-O resultado da pergunta é saldo.
-O [[RESUMO]] é UMA frase: subiu ou caiu e a % COM sinal.
-Se variacao_percentual for null, cite só subiu/caiu e a
-diferença em R$, sem inventar percentual.
-NÃO cite no resumo os dois saldos em R$ se a % existir.
-NÃO cite entradas nem saídas no resumo.
-
-Exemplo bom de resumo:
-O saldo de caixa de maio de 2026 caiu -12,40% em relação a abril.
-
-Exemplo ruim de resumo (não faça):
-O saldo passou de R$ 50.000,00 em abril para R$ 43.800,00
-em maio, queda de -12,40%.
-
-Na [[ANALISE]], exatamente 2 tópicos, começando com "- ".
-Não repita saldo, diferença em R$ nem a %.
-O primeiro tópico mostra as parcelas do cálculo, com os
-números do JSON: entradas e saidas dos dois períodos.
-São fatos lado a lado. Não diga que uma parcela causou
-a variação do saldo.
-O segundo tópico explica COMO o saldo foi calculado:
-entradas menos saídas pela data da movimentação;
-não é faturamento, lucro nem competência.
-As saídas incluem compra de mercadorias e despesas.
-
-Exemplo BOM:
-- As entradas e as saídas de cada período constam no
-resultado da ferramenta; cite os quatro valores, sem o saldo.
-- O saldo é entradas menos saídas na data da movimentação,
-não faturamento nem lucro por competência.
-
-Exemplo RUIM (não faça):
-- O saldo passou de R$ 50.000,00 em abril para
-R$ 43.800,00 em maio, diferença de R$ 6.200,00.
-- O caixa caiu porque as vendas foram mal.
-
+simular_lucro_despesa:
+Não copie a palavra ainda da pergunta.
+Resumo: uma frase no condicional, por exemplo
+“Nesse cenário a Urban Style não manteria lucro.”
+Análise: 2 tópicos; fat e CMV iguais; competência,
+não caixa; sem margem e sem repetir R$ do card.
 Deixe [[RECOMENDACOES]] vazio.
 
 Explique apenas os critérios explicitamente retornados pela ferramenta.
@@ -1922,18 +1862,34 @@ não chame ferramenta de novo. Responda só com [[RESUMO]] e [[ANALISE]].
     # e decide se precisa chamar alguma delas.
     # =====================================================
 
-    resposta = get_cliente().chat.completions.create(
+    try:
+        resposta = get_cliente().chat.completions.create(
 
-        model="openai/gpt-oss-20b",
+            model="openai/gpt-oss-20b",
 
-        messages=mensagens,
+            messages=mensagens,
 
-        tools=tools,
+            tools=tools,
 
-        tool_choice="auto",
+            tool_choice="auto",
 
-        temperature=0
-    )
+            temperature=0
+        )
+    except Exception as erro:
+        texto_erro = str(erro)
+        if (
+            "rate_limit" in texto_erro
+            or "Request too large" in texto_erro
+        ):
+            return {
+                "tipo_resposta": "texto",
+                "resposta_ia": (
+                    "A consulta ultrapassou o limite temporário "
+                    "da Groq. Aguarde cerca de um minuto e "
+                    "tente de novo."
+                )
+            }
+        raise
 
 
     mensagem_modelo = (
@@ -2139,6 +2095,14 @@ não chame ferramenta de novo. Responda só com [[RESUMO]] e [[ANALISE]].
         .message
         .content
     )
+
+    if _resumo_ia_vazio(texto_final):
+        for item in resultados_ferramentas:
+            if item["ferramenta"] == "simular_lucro_despesa":
+                texto_final = _texto_fallback_simular(
+                    item["resultado"]
+                )
+                break
 
 
     # =====================================================
