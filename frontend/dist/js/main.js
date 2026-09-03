@@ -145,7 +145,7 @@ function inicializarEtiquetasSugestao() {
       cartao.addEventListener("click", () => {
         if (campoChatDv) {
           campoChatDv.value = cartao.dataset.sugestao || "";
-          campoChatDv.focus();
+          enviarPerguntaDuaxis(campoChatDv);
         }
       });
     });
@@ -3252,14 +3252,9 @@ function adicionarRespostaExplicarConceito(dados, textoIa, dataHora) {
   bloco.className = "resposta-duaxis resposta-duaxis--lista";
 
   const temErro = Boolean(dados.erro);
-  const rotulo = dados.rotulo || dados.termo_consultado || "Conceito";
-  const definicao = dados.definicao || dados.erro || "";
   const naoE = dados.nao_e || "";
   const modulo = dados.modulo || "DUAXIS";
   const sugestoes = Array.isArray(dados.sugestoes) ? dados.sugestoes : [];
-  const tituloCard = sugestoes.length
-    ? "PERGUNTAS QUE VOCÊ PODE FAZER"
-    : "CONCEITO DUAXIS";
 
   const linhasSugestoes = sugestoes
     .map(
@@ -3271,46 +3266,39 @@ function adicionarRespostaExplicarConceito(dados, textoIa, dataHora) {
     )
     .join("");
 
-  bloco.innerHTML = `
-    ${montarBlocoResumoExecutivo(textoIa, dataHora)}
-
+  if (sugestoes.length) {
+    bloco.innerHTML = `
+      <section class="resposta-duaxis__secao">
+        <div class="resposta-duaxis__cabecalho">
+          <i data-lucide="message-circle-question"></i>
+          <span>EXEMPLOS de perguntas que você pode fazer</span>
+        </div>
+        <div class="resposta-duaxis__conteudo">
+          <div class="lista-sugestoes-perguntas">${linhasSugestoes}</div>
+        </div>
+      </section>
+    `;
+  } else {
+    const secaoNaoE =
+      !temErro && naoE
+        ? `
     <section class="resposta-duaxis__secao">
       <div class="resposta-duaxis__cabecalho">
         <i data-lucide="book-open"></i>
-        <span>${tituloCard}</span>
+        <span>CONCEITO DUAXIS</span>
       </div>
       <div class="resposta-duaxis__conteudo">
-        <div class="confiabilidade-grade">
-          <div class="confiabilidade-card">
-            <span class="confiabilidade-card__rotulo">Termo</span>
-            <strong>${rotulo}</strong>
-          </div>
-          <div class="confiabilidade-card">
-            <span class="confiabilidade-card__rotulo">Módulo</span>
-            <strong>${modulo}</strong>
-          </div>
-        </div>
-        <div class="lista-contribuicoes-lucro">
-          <div class="conceito-glossario">
-            <span class="conceito-glossario__rotulo">O que é</span>
-            <p class="conceito-glossario__texto">${definicao}</p>
-          </div>
-          ${
-            temErro || !naoE
-              ? ""
-              : `<div class="conceito-glossario">
-            <span class="conceito-glossario__rotulo">O que não é</span>
-            <p class="conceito-glossario__texto">${naoE}</p>
-          </div>`
-          }
-          ${
-            linhasSugestoes
-              ? `<div class="lista-sugestoes-perguntas">${linhasSugestoes}</div>`
-              : ""
-          }
+        <div class="conceito-glossario">
+          <span class="conceito-glossario__rotulo">O que não é</span>
+          <p class="conceito-glossario__texto">${naoE}</p>
         </div>
       </div>
-    </section>
+    </section>`
+        : "";
+
+    bloco.innerHTML = `
+    ${montarBlocoResumoExecutivo(textoIa, dataHora)}
+    ${secaoNaoE}
 
     ${montarBlocosFinais({
       nivel: 100,
@@ -3324,6 +3312,7 @@ function adicionarRespostaExplicarConceito(dados, textoIa, dataHora) {
       ocultarAnalise: true,
     })}
   `;
+  }
 
   linhaResposta.appendChild(avatarDuaxis);
   linhaResposta.appendChild(bloco);

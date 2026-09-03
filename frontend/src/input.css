@@ -559,6 +559,10 @@
     @apply text-sm leading-relaxed text-text-primary;
   }
 
+  .sugestoes-dv-container {
+    @apply mt-auto;
+  }
+
   .sugestoes-dv__rotulo {
     @apply mb-3 text-[10px] font-semibold tracking-widest text-text-muted uppercase;
   }

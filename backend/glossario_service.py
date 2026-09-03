@@ -440,6 +440,7 @@ CONCEITOS = [
             "sugestoes de perguntas",
             "me da sugestoes",
             "o que perguntar",
+            "que perguntas posso fazer",
             "como te usar",
             "por onde comecar",
         ),

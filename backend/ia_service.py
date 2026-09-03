@@ -1962,7 +1962,7 @@ total do card.
 
 Roteamento financeiro:
 - o que é / o que significa / diferença entre termos → explicar_conceito
-- o que posso perguntar / exemplos de perguntas → explicar_conceito
+- o que posso perguntar / que perguntas posso fazer → explicar_conceito
 - subiu/caiu/comparar → comparar_*
 - por que o lucro variou → explicar_variacao_lucro
 - e se despesa/aluguel/energia etc. → simular_lucro_despesa
