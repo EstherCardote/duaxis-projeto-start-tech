@@ -1073,6 +1073,26 @@
     @apply mt-3 flex flex-col gap-2;
   }
 
+  .conceito-glossario {
+    @apply rounded-xl border border-border bg-bg-page px-3 py-3;
+  }
+
+  .conceito-glossario__rotulo {
+    @apply mb-1 block text-xs font-medium uppercase tracking-wide text-text-muted;
+  }
+
+  .conceito-glossario__texto {
+    @apply m-0 text-sm leading-relaxed text-text-primary;
+  }
+
+  .lista-sugestoes-perguntas {
+    @apply mt-1 flex flex-col gap-2;
+  }
+
+  .sugestao-pergunta {
+    @apply cursor-pointer rounded-xl border border-border bg-bg-page px-3 py-2 text-left text-sm font-medium text-brand-blue transition-colors hover:bg-brand-blue/5;
+  }
+
   .botao-ver-todos-reposicao {
     @apply mt-3 cursor-pointer rounded-xl border border-border bg-bg-page px-3 py-2 text-sm font-medium text-brand-blue transition-colors hover:bg-brand-blue/5;
   }

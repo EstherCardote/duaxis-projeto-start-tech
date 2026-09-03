@@ -1,5 +1,6 @@
 # Biblioteca padrão do Python
 import os
+import re
 from pathlib import Path
 
 # Biblioteca para manipulação de arquivos JSON
@@ -26,11 +27,14 @@ from financeiro_service import (
     comparar_lucro,
     explicar_variacao_lucro,
     simular_lucro_despesa,
+    simular_lucro_cmv,
     consultar_contas_a_receber,
     consultar_contas_a_pagar,
     calcular_fluxo_caixa,
     comparar_fluxo_caixa
 )
+
+from glossario_service import explicar_conceito
 
 # lê o .env
 from dotenv import load_dotenv
@@ -375,7 +379,9 @@ tools = [
             "Não use para por que o lucro caiu ou o que "
             "explica a variação. Use explicar_variacao_lucro. "
             "Não use para e se a despesa subir ou cair. "
-            "Use simular_lucro_despesa."
+            "Use simular_lucro_despesa. "
+            "Não use para e se o CMV ou o custo da "
+            "mercadoria mudar. Use simular_lucro_cmv."
         ),
         "parameters": {
             "type": "object",
@@ -416,6 +422,7 @@ tools = [
             "operacionais; senão Aluguel, Energia, "
             "Marketing, Tecnologia, Frete Operacional "
             "ou Impostos. Não é caixa nem CMV. "
+            "Não use para e se o CMV mudar: simular_lucro_cmv. "
             "Um mês: data_inicio e data_fim iguais."
         ),
         "parameters": {
@@ -441,6 +448,70 @@ tools = [
                 }
             },
             "required": ["percentual"],
+            "additionalProperties": False
+        }
+    }
+},
+
+{
+    "type": "function",
+    "function": {
+        "name": "simular_lucro_cmv",
+        "description": (
+            "Simula o lucro se o CMV (custo das mercadorias "
+            "vendidas) variar um percentual, com faturamento "
+            "e despesa operacional iguais. "
+            "Use em e se: CMV, custo da mercadoria ou custo "
+            "do que foi vendido subir ou cair. "
+            "percentual: 10 para +10%, -5 para redução. "
+            "Não é despesa operacional nem caixa. "
+            "Um mês: data_inicio e data_fim iguais."
+        ),
+        "parameters": {
+            "type": "object",
+            "properties": {
+                "percentual": {
+                    "type": "number",
+                    "description": "Variação em % (10 ou -5)."
+                },
+                "data_inicio": {
+                    "type": ["string", "null"],
+                    "description": "Mês atual YYYY-MM."
+                },
+                "data_fim": {
+                    "type": ["string", "null"],
+                    "description": "Mês atual YYYY-MM."
+                }
+            },
+            "required": ["percentual"],
+            "additionalProperties": False
+        }
+    }
+},
+
+{
+    "type": "function",
+    "function": {
+        "name": "explicar_conceito",
+        "description": (
+            "Explica um termo do DUAXIS ou da Urban Style. "
+            "Use em 'o que é', 'o que significa', "
+            "'qual a diferença' entre indicadores "
+            "ou 'o que posso te perguntar'. "
+            "Exemplos: CMV, faturamento, despesa, lucro, "
+            "competência, caixa, reposição, lead time. "
+            "Não calcula valores. Envie o termo como "
+            "o usuário escreveu."
+        ),
+        "parameters": {
+            "type": "object",
+            "properties": {
+                "termo": {
+                    "type": "string",
+                    "description": "Termo ou trecho da pergunta."
+                }
+            },
+            "required": ["termo"],
             "additionalProperties": False
         }
     }
@@ -848,6 +919,18 @@ funcoes_disponiveis = {
 
     "simular_lucro_despesa":
     simular_lucro_despesa,
+
+    "simular_lucro_cmv":
+    simular_lucro_cmv,
+
+    "explicar_conceito":
+    explicar_conceito,
+
+    "explainar_conceito":
+    explicar_conceito,
+
+    "explain_conceito":
+    explicar_conceito,
 
     "consultar_contas_a_receber":
     consultar_contas_a_receber,
@@ -1434,6 +1517,36 @@ def preparar_resultado_para_ia(
             "criterio": resultado["criterio"]
         }
 
+    if nome_funcao == "simular_lucro_cmv":
+
+        return {
+            "periodo_inicio": resultado["periodo_inicio"],
+            "periodo_fim": resultado["periodo_fim"],
+            "percentual_cmv": resultado["percentual_cmv"],
+            "lucro_simulado": resultado["lucro_simulado"],
+            "impacto": resultado["impacto"],
+            "manteria_lucro": resultado["ainda_tem_lucro"],
+            "criterio": resultado["criterio"]
+        }
+
+    if nome_funcao == "explicar_conceito":
+
+        if "erro" in resultado:
+            return {
+                "erro": resultado["erro"],
+                "termo_consultado": resultado.get(
+                    "termo_consultado"
+                )
+            }
+
+        return {
+            "rotulo": resultado["rotulo"],
+            "definicao": resultado["definicao"],
+            "nao_e": resultado.get("nao_e") or "",
+            "modulo": resultado["modulo"],
+            "sugestoes": resultado.get("sugestoes") or []
+        }
+
     if nome_funcao == "comparar_fluxo_caixa":
 
         return {
@@ -1565,19 +1678,73 @@ def _resumo_ia_vazio(texto):
     return corpo.strip() == ""
 
 
-def _texto_fallback_simular(resultado):
+NOMES_CANONICOS_FERRAMENTAS = {
+    "explain_variacao_lucro":
+    "explicar_variacao_lucro",
+    "explainar_conceito":
+    "explicar_conceito",
+    "explain_conceito":
+    "explicar_conceito",
+}
+
+
+def _ler_failed_generation(texto_erro):
+    if (
+        "tool_use_failed" not in texto_erro
+        and "was not in request.tools" not in texto_erro
+    ):
+        return None
+
+    padrao = re.search(
+        r"failed_generation['\"]:\s*['\"](\{.*\})['\"]",
+        texto_erro,
+    )
+    if not padrao:
+        return None
+
+    bruto = padrao.group(1).replace('\\"', '"')
+    try:
+        dados = json.loads(bruto)
+    except json.JSONDecodeError:
+        return None
+
+    nome = dados.get("name")
+    argumentos = dados.get("arguments", {})
+    if isinstance(argumentos, str):
+        try:
+            argumentos = json.loads(argumentos)
+        except json.JSONDecodeError:
+            argumentos = {}
+    if not nome:
+        return None
+    return {
+        "name": nome,
+        "arguments": argumentos or {}
+    }
+
+
+def _texto_fallback_simular(resultado, ferramenta="simular_lucro_despesa"):
     if resultado.get("ainda_tem_lucro"):
         frase = "Nesse cenário a Urban Style manteria lucro."
     else:
         frase = (
             "Nesse cenário a Urban Style não manteria lucro."
         )
+    if ferramenta == "simular_lucro_cmv":
+        primeiro = (
+            "- Faturamento e despesa operacional permanecem "
+            "iguais; só o CMV muda."
+        )
+    else:
+        primeiro = (
+            "- Faturamento e CMV permanecem iguais; "
+            "só a despesa operacional muda."
+        )
     return (
         "[[RESUMO]]\n"
         f"{frase}\n"
         "[[ANALISE]]\n"
-        "- Faturamento e CMV permanecem iguais; "
-        "só a despesa operacional muda.\n"
+        f"{primeiro}\n"
         "- A simulação é por competência, não por caixa.\n"
         "[[RECOMENDACOES]]\n"
     )
@@ -1794,9 +1961,12 @@ bruto menos descontos chega ao líquido, sem reenunciar o
 total do card.
 
 Roteamento financeiro:
+- o que é / o que significa / diferença entre termos → explicar_conceito
+- o que posso perguntar / exemplos de perguntas → explicar_conceito
 - subiu/caiu/comparar → comparar_*
 - por que o lucro variou → explicar_variacao_lucro
 - e se despesa/aluguel/energia etc. → simular_lucro_despesa
+- e se CMV/custo da mercadoria → simular_lucro_cmv
 Um mês: o mesmo YYYY-MM em data_inicio e data_fim.
 Se o usuário não informou o período anterior, não envie
 data_inicio_anterior nem data_fim_anterior.
@@ -1832,6 +2002,20 @@ Análise: 2 tópicos; fat e CMV iguais; competência,
 não caixa; sem margem e sem repetir R$ do card.
 Deixe [[RECOMENDACOES]] vazio.
 
+simular_lucro_cmv:
+Não copie a palavra ainda da pergunta.
+Resumo: uma frase no condicional, por exemplo
+“Nesse cenário a Urban Style não manteria lucro.”
+Análise: 2 tópicos; fat e despesa iguais; só o CMV muda;
+competência, não caixa; sem margem e sem repetir R$ do card.
+Deixe [[RECOMENDACOES]] vazio.
+
+explicar_conceito:
+Use a definição da ferramenta. Não invente.
+[[RESUMO]] uma frase com o que é.
+Se houver sugestoes, o resumo diz que o card lista exemplos.
+Deixe [[ANALISE]] e [[RECOMENDACOES]] vazios.
+
 Explique apenas os critérios explicitamente retornados pela ferramenta.
 
 Não recomende promoções, redução de compras, alterações de reposição,
@@ -1862,6 +2046,7 @@ não chame ferramenta de novo. Responda só com [[RESUMO]] e [[ANALISE]].
     # e decide se precisa chamar alguma delas.
     # =====================================================
 
+    recuperacao = None
     try:
         resposta = get_cliente().chat.completions.create(
 
@@ -1889,52 +2074,75 @@ não chame ferramenta de novo. Responda só com [[RESUMO]] e [[ANALISE]].
                     "tente de novo."
                 )
             }
-        raise
+        recuperacao = _ler_failed_generation(texto_erro)
+        if recuperacao is None:
+            raise
 
 
-    mensagem_modelo = (
-        resposta
-        .choices[0]
-        .message
-    )
-    # =====================================================
-    # VERIFICA SE A IA PEDIU ALGUMA FERRAMENTA
-    # =====================================================
+    resultados_ferramentas = []
 
-    tool_calls = (
-        mensagem_modelo.tool_calls
-        or []
-    )
-    # =====================================================
-    # SE NÃO PRECISAR DE FERRAMENTA
-    # =====================================================
-    #
-    # Exemplo:
-    #
-    # "Olá"
-    # "O que você pode fazer?"
-    #
-    # Nesse caso o modelo pode responder diretamente.
-    # =====================================================
-
-    if not tool_calls:
-
-        return {
-            "tipo_resposta": "texto",
-            "resposta_ia": mensagem_modelo.content
+    if recuperacao is not None:
+        nome_funcao = NOMES_CANONICOS_FERRAMENTAS.get(
+            recuperacao["name"],
+            recuperacao["name"],
+        )
+        if nome_funcao not in funcoes_disponiveis:
+            raise ValueError(
+                f"Ferramenta desconhecida: {nome_funcao}"
+            )
+        argumentos = {
+            chave: valor
+            for chave, valor in recuperacao["arguments"].items()
+            if str(chave).strip()
         }
-    # =====================================================
-    # GUARDA A DECISÃO DA IA NO HISTÓRICO
-    # =====================================================
-
-    mensagens.append(
-        mensagem_modelo
-    )
+        funcao = funcoes_disponiveis[nome_funcao]
+        try:
+            resultado = funcao(**argumentos)
+        except ValueError as erro:
+            resultado = {"erro": str(erro)}
+        resultados_ferramentas.append(
+            {
+                "ferramenta": nome_funcao,
+                "resultado": resultado
+            }
+        )
+        recorte = preparar_resultado_para_ia(
+            nome_funcao,
+            resultado
+        )
+        mensagens.append(
+            {
+                "role": "user",
+                "content": (
+                    "Resultado da ferramenta:\n"
+                    + json.dumps(recorte, ensure_ascii=False)
+                    + "\nResponda só com [[RESUMO]] e [[ANALISE]]. "
+                    "Deixe [[RECOMENDACOES]] vazio."
+                )
+            }
+        )
+        tool_calls = []
+    else:
+        mensagem_modelo = (
+            resposta
+            .choices[0]
+            .message
+        )
+        tool_calls = (
+            mensagem_modelo.tool_calls
+            or []
+        )
+        if not tool_calls:
+            return {
+                "tipo_resposta": "texto",
+                "resposta_ia": mensagem_modelo.content
+            }
+        mensagens.append(
+            mensagem_modelo
+        )
     # =====================================================
     # EXECUTA AS FERRAMENTAS SOLICITADAS
     # =====================================================
-
-    resultados_ferramentas = []
 
     for tool_call in tool_calls:
 
@@ -1944,12 +2152,7 @@ não chame ferramenta de novo. Responda só com [[RESUMO]] e [[ANALISE]].
             .name
         )
 
-        nomes_canonicos = {
-            "explain_variacao_lucro":
-            "explicar_variacao_lucro",
-        }
-
-        nome_funcao = nomes_canonicos.get(
+        nome_funcao = NOMES_CANONICOS_FERRAMENTAS.get(
             nome_funcao_modelo,
             nome_funcao_modelo
         )
@@ -2098,10 +2301,32 @@ não chame ferramenta de novo. Responda só com [[RESUMO]] e [[ANALISE]].
 
     if _resumo_ia_vazio(texto_final):
         for item in resultados_ferramentas:
-            if item["ferramenta"] == "simular_lucro_despesa":
+            if item["ferramenta"] in (
+                "simular_lucro_despesa",
+                "simular_lucro_cmv",
+            ):
                 texto_final = _texto_fallback_simular(
-                    item["resultado"]
+                    item["resultado"],
+                    item["ferramenta"],
                 )
+                break
+            if item["ferramenta"] == "explicar_conceito":
+                resultado = item["resultado"]
+                if resultado.get("erro"):
+                    texto_final = (
+                        "[[RESUMO]]\n"
+                        f"{resultado['erro']}\n"
+                        "[[ANALISE]]\n"
+                        "[[RECOMENDACOES]]\n"
+                    )
+                else:
+                    texto_final = (
+                        "[[RESUMO]]\n"
+                        f"{resultado['definicao']}\n"
+                        "[[ANALISE]]\n"
+                        f"- {resultado['nao_e']}\n"
+                        "[[RECOMENDACOES]]\n"
+                    )
                 break
 
 

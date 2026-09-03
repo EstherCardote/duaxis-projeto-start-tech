@@ -811,6 +811,64 @@ def simular_lucro_despesa(
     }
 
 
+def simular_lucro_cmv(
+    percentual,
+    data_inicio=None,
+    data_fim=None,
+):
+    if percentual is None or str(percentual).strip() == "":
+        raise ValueError(
+            "Informe o percentual da simulação "
+            "(ex.: 10 para +10% ou -5 para redução)."
+        )
+
+    percentual = float(percentual)
+    if percentual == 0:
+        raise ValueError(
+            "O percentual da simulação não pode ser zero."
+        )
+
+    if data_inicio is not None and str(data_inicio).strip() == "":
+        data_inicio = None
+    if data_fim is not None and str(data_fim).strip() == "":
+        data_fim = None
+
+    lucro = calcular_lucro(data_inicio, data_fim)
+    fator = 1 + (percentual / 100.0)
+    cmv_real = lucro["custo_mercadorias_vendidas"]
+    cmv_simulado = round(cmv_real * fator, 2)
+    lucro_simulado = round(
+        lucro["faturamento_total"]
+        - cmv_simulado
+        - lucro["despesa_operacional"],
+        2,
+    )
+    impacto = round(
+        lucro_simulado - lucro["lucro_apos_despesas"],
+        2,
+    )
+
+    return {
+        "periodo_inicio": lucro["periodo_inicio"],
+        "periodo_fim": lucro["periodo_fim"],
+        "fonte": lucro["fonte"],
+        "criterio": (
+            "simulação ceteris paribus: faturamento e "
+            "despesa operacional iguais; só o CMV muda"
+        ),
+        "percentual_cmv": percentual,
+        "cmv_real": cmv_real,
+        "cmv_simulado": cmv_simulado,
+        "faturamento_total": lucro["faturamento_total"],
+        "despesa_operacional": lucro["despesa_operacional"],
+        "lucro_real": lucro["lucro_apos_despesas"],
+        "lucro_simulado": lucro_simulado,
+        "impacto": impacto,
+        "ainda_tem_lucro": lucro_simulado > 0,
+        "registros_analisados": lucro["registros_analisados"],
+    }
+
+
 def consultar_contas_a_receber(data_referencia=None):
 
     dados = contas_a_receber.copy()

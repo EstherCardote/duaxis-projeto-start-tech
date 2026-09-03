@@ -423,6 +423,18 @@ async function enviarPerguntaDuaxis(campoChat) {
         dados.resposta_ia,
         dados.data_hora_pergunta,
       );
+    } else if (nomeFerramenta === "simular_lucro_cmv") {
+      adicionarRespostaSimularLucroCmv(
+        resultadoFerramenta,
+        dados.resposta_ia,
+        dados.data_hora_pergunta,
+      );
+    } else if (nomeFerramenta === "explicar_conceito") {
+      adicionarRespostaExplicarConceito(
+        resultadoFerramenta,
+        dados.resposta_ia,
+        dados.data_hora_pergunta,
+      );
     } else if (nomeFerramenta === "comparar_fluxo_caixa") {
       adicionarRespostaComparacaoFluxoCaixa(
         resultadoFerramenta,
@@ -748,9 +760,17 @@ function montarBlocosFinais(configConfiabilidade) {
     configConfiabilidade.textoIa,
   );
 
+  const blocoAnalise = configConfiabilidade.ocultarAnalise
+    ? ""
+    : montarBlocoAnalise(analise);
+
+  const blocoRecomendacoes = configConfiabilidade.ocultarRecomendacoes
+    ? ""
+    : montarBlocoRecomendacoes(recomendacoes);
+
   return `
-    ${montarBlocoAnalise(analise)}
-    ${montarBlocoRecomendacoes(recomendacoes)}
+    ${blocoAnalise}
+    ${blocoRecomendacoes}
     ${montarBlocoConfiabilidade(configConfiabilidade)}
     ${montarBotaoGerarRelatorio()}
   `;
@@ -763,33 +783,36 @@ function adicionarRespostaTextoIa(texto, dataHora) {
     return;
   }
 
-  const linhaResposta = document.createElement("div");
+  const { resumo } = separarResumoEAnalise(texto);
+  const textoChat = (resumo || String(texto || "")).trim();
 
+  const linhaResposta = document.createElement("div");
   linhaResposta.className = "linha-chat linha-chat--duaxis";
 
   const avatarDuaxis = document.createElement("div");
-
   avatarDuaxis.className = "avatar-chat avatar-chat--duaxis";
+  avatarDuaxis.innerHTML = `<i data-lucide="bot"></i>`;
 
-  avatarDuaxis.innerHTML = `
-    <i data-lucide="bot"></i>
-  `;
+  const mensagem = document.createElement("div");
+  mensagem.className = "mensagem-chat mensagem-chat--duaxis";
 
-  const bloco = document.createElement("div");
+  const textoMensagem = document.createElement("div");
+  textoMensagem.className = "mensagem-chat__texto";
+  textoMensagem.textContent = textoChat;
 
-  bloco.className = "resposta-duaxis";
+  const dataMensagem = document.createElement("span");
+  dataMensagem.className = "mensagem-chat__data";
+  if (dataHora) {
+    dataMensagem.textContent = formatarDataHoraChat(dataHora);
+  } else {
+    dataMensagem.hidden = true;
+  }
 
-  bloco.innerHTML = `
-    ${montarBlocoResumoExecutivo(texto, dataHora)}
-    ${montarBlocoAnalise(separarResumoEAnalise(texto).analise)}
-    ${montarBlocoRecomendacoes(separarResumoEAnalise(texto).recomendacoes)}
-    ${montarBotaoGerarRelatorio()}
-  `;
+  mensagem.appendChild(textoMensagem);
+  mensagem.appendChild(dataMensagem);
 
   linhaResposta.appendChild(avatarDuaxis);
-
-  linhaResposta.appendChild(bloco);
-
+  linhaResposta.appendChild(mensagem);
   container.appendChild(linhaResposta);
 
   inicializarIconesLucide();
@@ -3091,6 +3114,232 @@ function adicionarRespostaSimularLucroDespesa(dados, textoIa, dataHora) {
   linhaResposta.appendChild(avatarDuaxis);
   linhaResposta.appendChild(bloco);
   container.appendChild(linhaResposta);
+
+  inicializarIconesLucide();
+  linhaResposta.scrollIntoView({
+    behavior: "smooth",
+    block: "end",
+  });
+}
+
+function adicionarRespostaSimularLucroCmv(dados, textoIa, dataHora) {
+  const container = document.getElementById("mensagens-chat-dv");
+
+  if (!container) {
+    return;
+  }
+
+  function formatarValor(valor) {
+    return Number(valor).toLocaleString("pt-BR", {
+      style: "currency",
+      currency: "BRL",
+    });
+  }
+
+  const periodo =
+    dados.periodo_inicio === dados.periodo_fim
+      ? formatarCompetencia(dados.periodo_inicio)
+      : `${formatarCompetencia(dados.periodo_inicio)} a ${formatarCompetencia(dados.periodo_fim)}`;
+
+  const percentual = Number(dados.percentual_cmv).toLocaleString("pt-BR", {
+    signDisplay: "exceptZero",
+    maximumFractionDigits: 2,
+  });
+
+  const linhaResposta = document.createElement("div");
+  linhaResposta.className = "linha-chat linha-chat--duaxis";
+
+  const avatarDuaxis = document.createElement("div");
+  avatarDuaxis.className = "avatar-chat avatar-chat--duaxis";
+  avatarDuaxis.innerHTML = `<i data-lucide="bot"></i>`;
+
+  const bloco = document.createElement("div");
+  bloco.className = "resposta-duaxis resposta-duaxis--lista";
+
+  bloco.innerHTML = `
+    ${montarBlocoResumoExecutivo(textoIa, dataHora)}
+
+    <section class="resposta-duaxis__secao">
+      <div class="resposta-duaxis__cabecalho">
+        <i data-lucide="flask-conical"></i>
+        <span>SIMULAÇÃO: CMV NO LUCRO</span>
+      </div>
+      <div class="resposta-duaxis__conteudo">
+        <div class="confiabilidade-grade">
+          <div class="confiabilidade-card">
+            <span class="confiabilidade-card__rotulo">Período</span>
+            <strong>${periodo}</strong>
+          </div>
+          <div class="confiabilidade-card">
+            <span class="confiabilidade-card__rotulo">Cenário</span>
+            <strong>CMV ${percentual}%</strong>
+          </div>
+          <div class="confiabilidade-card">
+            <span class="confiabilidade-card__rotulo">Lucro real</span>
+            <strong>${formatarValor(dados.lucro_real)}</strong>
+          </div>
+          <div class="confiabilidade-card">
+            <span class="confiabilidade-card__rotulo">Lucro simulado</span>
+            <strong>${formatarValor(dados.lucro_simulado)}</strong>
+          </div>
+          <div class="confiabilidade-card">
+            <span class="confiabilidade-card__rotulo">Impacto no lucro</span>
+            <strong>${formatarValor(dados.impacto)}</strong>
+          </div>
+          <div class="confiabilidade-card">
+            <span class="confiabilidade-card__rotulo">Ainda tem lucro</span>
+            <strong>${dados.ainda_tem_lucro ? "Sim" : "Não"}</strong>
+          </div>
+        </div>
+        <div class="lista-contribuicoes-lucro">
+          <div class="produto-reposicao">
+            <div class="produto-reposicao__info">
+              <strong>CMV real</strong>
+            </div>
+            <div class="produto-reposicao__impacto">
+              ${formatarValor(dados.cmv_real)}
+            </div>
+          </div>
+          <div class="produto-reposicao">
+            <div class="produto-reposicao__info">
+              <strong>CMV simulado</strong>
+            </div>
+            <div class="produto-reposicao__impacto">
+              ${formatarValor(dados.cmv_simulado)}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    ${montarBlocosFinais({
+      nivel: 100,
+      registros: dados.registros_analisados || 0,
+      fontes: ["Financeiro"],
+      limitacao:
+        "Simulação ceteris paribus: faturamento e despesa operacional iguais. Só o CMV muda. Não é fluxo de caixa.",
+      dataHora,
+      textoIa,
+    })}
+  `;
+
+  linhaResposta.appendChild(avatarDuaxis);
+  linhaResposta.appendChild(bloco);
+  container.appendChild(linhaResposta);
+
+  inicializarIconesLucide();
+  linhaResposta.scrollIntoView({
+    behavior: "smooth",
+    block: "end",
+  });
+}
+
+function adicionarRespostaExplicarConceito(dados, textoIa, dataHora) {
+  const container = document.getElementById("mensagens-chat-dv");
+
+  if (!container) {
+    return;
+  }
+
+  const linhaResposta = document.createElement("div");
+  linhaResposta.className = "linha-chat linha-chat--duaxis";
+
+  const avatarDuaxis = document.createElement("div");
+  avatarDuaxis.className = "avatar-chat avatar-chat--duaxis";
+  avatarDuaxis.innerHTML = `<i data-lucide="bot"></i>`;
+
+  const bloco = document.createElement("div");
+  bloco.className = "resposta-duaxis resposta-duaxis--lista";
+
+  const temErro = Boolean(dados.erro);
+  const rotulo = dados.rotulo || dados.termo_consultado || "Conceito";
+  const definicao = dados.definicao || dados.erro || "";
+  const naoE = dados.nao_e || "";
+  const modulo = dados.modulo || "DUAXIS";
+  const sugestoes = Array.isArray(dados.sugestoes) ? dados.sugestoes : [];
+  const tituloCard = sugestoes.length
+    ? "PERGUNTAS QUE VOCÊ PODE FAZER"
+    : "CONCEITO DUAXIS";
+
+  const linhasSugestoes = sugestoes
+    .map(
+      (pergunta) => `
+        <button type="button" class="sugestao-pergunta" data-pergunta="${String(pergunta).replace(/"/g, "&quot;")}">
+          ${pergunta}
+        </button>
+      `,
+    )
+    .join("");
+
+  bloco.innerHTML = `
+    ${montarBlocoResumoExecutivo(textoIa, dataHora)}
+
+    <section class="resposta-duaxis__secao">
+      <div class="resposta-duaxis__cabecalho">
+        <i data-lucide="book-open"></i>
+        <span>${tituloCard}</span>
+      </div>
+      <div class="resposta-duaxis__conteudo">
+        <div class="confiabilidade-grade">
+          <div class="confiabilidade-card">
+            <span class="confiabilidade-card__rotulo">Termo</span>
+            <strong>${rotulo}</strong>
+          </div>
+          <div class="confiabilidade-card">
+            <span class="confiabilidade-card__rotulo">Módulo</span>
+            <strong>${modulo}</strong>
+          </div>
+        </div>
+        <div class="lista-contribuicoes-lucro">
+          <div class="conceito-glossario">
+            <span class="conceito-glossario__rotulo">O que é</span>
+            <p class="conceito-glossario__texto">${definicao}</p>
+          </div>
+          ${
+            temErro || !naoE
+              ? ""
+              : `<div class="conceito-glossario">
+            <span class="conceito-glossario__rotulo">O que não é</span>
+            <p class="conceito-glossario__texto">${naoE}</p>
+          </div>`
+          }
+          ${
+            linhasSugestoes
+              ? `<div class="lista-sugestoes-perguntas">${linhasSugestoes}</div>`
+              : ""
+          }
+        </div>
+      </div>
+    </section>
+
+    ${montarBlocosFinais({
+      nivel: 100,
+      registros: temErro ? 0 : 1,
+      fontes: [modulo],
+      limitacao:
+        "Definição oficial do DUAXIS para a Urban Style. Não é conhecimento geral.",
+      dataHora,
+      textoIa,
+      ocultarRecomendacoes: true,
+      ocultarAnalise: true,
+    })}
+  `;
+
+  linhaResposta.appendChild(avatarDuaxis);
+  linhaResposta.appendChild(bloco);
+  container.appendChild(linhaResposta);
+
+  bloco.querySelectorAll(".sugestao-pergunta").forEach((botao) => {
+    botao.addEventListener("click", () => {
+      const campo = document.getElementById("campo-chat-dv");
+      const pergunta = botao.getAttribute("data-pergunta");
+      if (!campo || !pergunta) {
+        return;
+      }
+      campo.value = pergunta;
+      enviarPerguntaDuaxis(campo);
+    });
+  });
 
   inicializarIconesLucide();
   linhaResposta.scrollIntoView({
