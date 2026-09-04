@@ -12,6 +12,7 @@ document.addEventListener("DOMContentLoaded", () => {
   inicializarAbasPainel();
 
   inicializarChatDuaxis();
+  inicializarFiltroFaturamento();
 
   carregarKpisDashboard();
 
@@ -413,6 +414,7 @@ async function carregarKpisDashboard() {
     preencherCartaoKpi("lucro", dados, "moeda");
     preencherCartaoKpi("estoque", dados, "numero");
     preencherCartaoKpi("reposicao", dados, "numero");
+    preencherGraficoNivelEstoque(dados);
     preencherGraficoPedidosAtrasados(dados);
   } catch (erro) {
     console.error("Não foi possível carregar os KPIs do dashboard.", erro);
@@ -441,28 +443,447 @@ function encurtarRotuloGrafico(texto, limite = 22) {
   return `${texto.slice(0, limite - 1)}…`;
 }
 
-function desenharSvgBarrasAtraso(barras) {
-  const maxDias = Math.max(...barras.map((item) => item.dias_atraso), 1);
-  const alturaLinha = 20;
-  const altura = Math.max(barras.length * alturaLinha + 10, 40);
-  const xBarra = 155;
-  const larguraMax = 190;
+function escaparAtributoHtml(texto) {
+  return String(texto)
+    .replaceAll("&", "&amp;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("<", "&lt;");
+}
 
-  const linhas = barras
-    .map((item, indice) => {
-      const y = 6 + indice * alturaLinha;
-      const largura = Math.max((item.dias_atraso / maxDias) * larguraMax, 2);
-      const rotulo = encurtarRotuloGrafico(item.rotulo);
+function obterBalaoGrafico() {
+  let balao = document.querySelector(".balao-grafico");
 
+  if (!balao) {
+    balao = document.createElement("div");
+    balao.className = "balao-grafico";
+    balao.hidden = true;
+    document.body.appendChild(balao);
+  }
+
+  return balao;
+}
+
+function ativarBaloesGrafico(area) {
+  const balao = obterBalaoGrafico();
+
+  area.querySelectorAll(".barra-grafico").forEach((barra) => {
+    barra.addEventListener("mousemove", (evento) => {
+      balao.hidden = false;
+      balao.textContent = barra.dataset.balao || "";
+      balao.style.left = `${evento.clientX + 12}px`;
+      balao.style.top = `${evento.clientY + 12}px`;
+    });
+
+    barra.addEventListener("mouseleave", () => {
+      balao.hidden = true;
+    });
+  });
+}
+
+function calcularMaximoEixo(valor) {
+  if (valor <= 50) {
+    return 50;
+  }
+
+  return Math.ceil(valor / 50) * 50;
+}
+
+function calcularMaximoEixoMoeda(valor) {
+  if (valor <= 0) {
+    return 1000;
+  }
+
+  const magnitude = 10 ** Math.floor(Math.log10(valor));
+  return Math.ceil(valor / magnitude) * magnitude;
+}
+
+function formatarEixoMoeda(valor) {
+  if (valor === 0) {
+    return "0";
+  }
+
+  if (valor >= 1000) {
+    return `${Math.round(valor / 1000)} mil`;
+  }
+
+  return String(valor);
+}
+
+function formatarRotuloDataGrafico(data) {
+  if (!data) {
+    return "";
+  }
+
+  if (data.length === 10) {
+    return formatarDataIsoKpi(data);
+  }
+
+  if (data.includes("-")) {
+    return formatarCompetenciaKpi(data);
+  }
+
+  return data;
+}
+
+function textoBalaoFaturamento(item) {
+  const valor = formatarMoedaKpi(item.valor);
+  const data = formatarRotuloDataGrafico(item.data);
+
+  if (!data) {
+    return valor;
+  }
+
+  return `${data}\n${valor}`;
+}
+
+function indicesRotuloEixoX(coordenadas, distanciaMinima = 40) {
+  if (coordenadas.length === 0) {
+    return new Set();
+  }
+
+  if (coordenadas.length === 1) {
+    return new Set([0]);
+  }
+
+  const indices = [0];
+  let ultimoX = coordenadas[0].x;
+  const ultimoIndice = coordenadas.length - 1;
+
+  for (let i = 1; i < ultimoIndice; i += 1) {
+    if (coordenadas[i].x - ultimoX >= distanciaMinima) {
+      indices.push(i);
+      ultimoX = coordenadas[i].x;
+    }
+  }
+
+  const xFinal = coordenadas[ultimoIndice].x;
+  while (
+    indices.length > 1 &&
+    xFinal - coordenadas[indices[indices.length - 1]].x < distanciaMinima
+  ) {
+    indices.pop();
+  }
+
+  indices.push(ultimoIndice);
+  return new Set(indices);
+}
+  if (quantidade >= 40) {
+    return 1.5;
+  }
+
+  if (quantidade >= 20) {
+    return 1.8;
+  }
+
+  if (quantidade >= 10) {
+    return 2.1;
+  }
+
+  return 2.4;
+}
+
+function desenharSvgLinhaFaturamento(pontos) {
+  const valores = pontos.map((item) => item.valor);
+  const maxValor = Math.max(...valores, 1);
+  const maxEixo = calcularMaximoEixoMoeda(maxValor);
+  const baseY = 118;
+  const alturaMax = 90;
+  const topoY = baseY - alturaMax;
+  const eixoX = 48;
+  const inicioX = 70;
+  const fimX = 380;
+  const passo =
+    pontos.length > 1 ? (fimX - inicioX) / (pontos.length - 1) : 0;
+  const quantidadeTicks = 4;
+  const passoTick = maxEixo / (quantidadeTicks - 1);
+
+  let eixos = `
+      <line x1="${eixoX}" y1="${topoY}" x2="${eixoX}" y2="${baseY}" stroke="#e5e7eb" stroke-width="1"></line>
+      <line x1="${eixoX}" y1="${baseY}" x2="${fimX}" y2="${baseY}" stroke="#e5e7eb" stroke-width="1"></line>
+  `;
+
+  for (let indice = 0; indice < quantidadeTicks; indice += 1) {
+    const valorTick = indice * passoTick;
+    const yTick = baseY - (valorTick / maxEixo) * alturaMax;
+    eixos += `
+      <line x1="${eixoX}" y1="${yTick}" x2="${fimX}" y2="${yTick}" stroke="#f3f4f6" stroke-width="1"></line>
+      <text x="${eixoX - 4}" y="${yTick + 3}" text-anchor="end" fill="#9ca3af" font-size="7">${formatarEixoMoeda(valorTick)}</text>
+    `;
+  }
+
+  const coordenadas = pontos.map((item, indice) => {
+    const x = inicioX + indice * passo;
+    const y = baseY - (item.valor / maxEixo) * alturaMax;
+    return { x, y, item };
+  });
+
+  const pontosLinha = coordenadas
+    .map((coord) => `${coord.x},${coord.y}`)
+    .join(" ");
+
+  const raio = raioPontoFaturamento(pontos.length);
+  const raioToque = Math.max(raio + 3, 5);
+  const rotulosVisiveis = indicesRotuloEixoX(coordenadas);
+
+  const marcadores = coordenadas
+    .map((coord, indice) => {
+      const textoBalao = textoBalaoFaturamento(coord.item);
+      const rotulo = rotulosVisiveis.has(indice) ? coord.item.rotulo : "";
       return `
-      <text x="4" y="${y + 11}" fill="#6b7280" font-size="8">${rotulo}</text>
-      <rect x="${xBarra}" y="${y}" width="${largura}" height="12" rx="2" fill="#2563eb"></rect>
-      <text x="${xBarra + largura + 6}" y="${y + 11}" fill="#111827" font-size="8">${item.dias_atraso}d</text>
+      <g class="barra-grafico" data-balao="${escaparAtributoHtml(textoBalao)}">
+        <circle cx="${coord.x}" cy="${coord.y}" r="${raioToque}" fill="transparent"></circle>
+        <circle cx="${coord.x}" cy="${coord.y}" r="${raio}" fill="#2563eb"></circle>
+        <text x="${coord.x}" y="148" text-anchor="middle" fill="#6b7280" font-size="7">${rotulo}</text>
+      </g>
     `;
     })
     .join("");
 
-  return `<svg viewBox="0 0 400 ${altura}" aria-hidden="true">${linhas}</svg>`;
+  return `<svg viewBox="0 0 400 168">
+      ${eixos}
+      <polyline fill="none" stroke="#2563eb" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" points="${pontosLinha}"></polyline>
+      ${marcadores}
+    </svg>`;
+}
+
+function urlApiDashboardFaturamento(dataInicio, dataFim) {
+  const params = new URLSearchParams({
+    data_inicio: dataInicio,
+    data_fim: dataFim,
+  });
+  const host = window.location.hostname;
+
+  if (!host || host === "localhost" || host === "127.0.0.1") {
+    return `http://127.0.0.1:8000/api/dashboard/faturamento?${params}`;
+  }
+
+  return `/api/dashboard/faturamento?${params}`;
+}
+
+function aplicarLimitesFiltroFaturamento(campoInicio, campoFim, grafico) {
+  const dataMinima = grafico.data_minima || "2023-08-01";
+  const dataMaxima = grafico.data_maxima || "2026-07-31";
+
+  campoInicio.min = dataMinima;
+  campoInicio.max = dataMaxima;
+  campoFim.min = dataMinima;
+  campoFim.max = dataMaxima;
+
+  if (campoInicio.value && campoInicio.value < dataMinima) {
+    campoInicio.value = dataMinima;
+  }
+
+  if (campoFim.value && campoFim.value > dataMaxima) {
+    campoFim.value = dataMaxima;
+  }
+}
+
+function preencherGraficoFaturamento(grafico) {
+  const painel = document.querySelector('[data-grafico="faturamento"]');
+
+  if (!painel || !grafico) {
+    return;
+  }
+
+  const estatisticas = painel.querySelector(
+    '[data-grafico-estatisticas="faturamento"]',
+  );
+  const area = painel.querySelector('[data-grafico-area="faturamento"]');
+
+  if (!estatisticas || !area) {
+    return;
+  }
+
+  const totalEl = estatisticas.querySelector("strong");
+  totalEl.textContent = formatarMoedaKpi(grafico.total);
+
+  if (!grafico.pontos.length) {
+    area.innerHTML = "<p>Não há faturamento neste período.</p>";
+    return;
+  }
+
+  area.innerHTML = desenharSvgLinhaFaturamento(grafico.pontos);
+  ativarBaloesGrafico(area);
+}
+
+async function carregarGraficoFaturamento() {
+  const campoInicio = document.getElementById("filtro-faturamento-inicio");
+  const campoFim = document.getElementById("filtro-faturamento-fim");
+  const area = document.querySelector('[data-grafico-area="faturamento"]');
+
+  if (!campoInicio || !campoFim || !area) {
+    return;
+  }
+
+  const dataInicio = campoInicio.value;
+  const dataFim = campoFim.value;
+
+  if (!dataInicio || !dataFim) {
+    return;
+  }
+
+  if (dataInicio > dataFim) {
+    area.innerHTML =
+      "<p>A data inicial não pode ser posterior à data final.</p>";
+    return;
+  }
+
+  try {
+    const resposta = await fetch(
+      urlApiDashboardFaturamento(dataInicio, dataFim),
+    );
+
+    if (!resposta.ok) {
+      throw new Error(`Erro HTTP ${resposta.status}`);
+    }
+
+    const grafico = await resposta.json();
+    aplicarLimitesFiltroFaturamento(campoInicio, campoFim, grafico);
+    preencherGraficoFaturamento(grafico);
+  } catch (erro) {
+    console.error("Não foi possível carregar o gráfico de faturamento.", erro);
+  }
+}
+
+function inicializarFiltroFaturamento() {
+  const campoInicio = document.getElementById("filtro-faturamento-inicio");
+  const campoFim = document.getElementById("filtro-faturamento-fim");
+
+  if (!campoInicio || !campoFim) {
+    return;
+  }
+
+  campoInicio.min = "2023-08-01";
+  campoInicio.max = "2026-07-31";
+  campoFim.min = "2023-08-01";
+  campoFim.max = "2026-07-31";
+
+  campoInicio.addEventListener("change", carregarGraficoFaturamento);
+  campoFim.addEventListener("change", carregarGraficoFaturamento);
+  carregarGraficoFaturamento();
+}
+
+function desenharSvgBarrasEstoque(barras) {
+  const maxUnidades = Math.max(...barras.map((item) => item.unidades), 1);
+  const maxEixo = calcularMaximoEixo(maxUnidades);
+  const baseY = 118;
+  const alturaMax = 92;
+  const topoY = baseY - alturaMax;
+  const eixoX = 42;
+  const inicioX = 52;
+  const largura = 24;
+  const passo = 38;
+  const quantidadeTicks = 4;
+  const passoTick = maxEixo / (quantidadeTicks - 1);
+
+  let eixos = `
+      <line x1="${eixoX}" y1="${topoY}" x2="${eixoX}" y2="${baseY}" stroke="#e5e7eb" stroke-width="1"></line>
+      <line x1="${eixoX}" y1="${baseY}" x2="392" y2="${baseY}" stroke="#e5e7eb" stroke-width="1"></line>
+  `;
+
+  for (let indice = 0; indice < quantidadeTicks; indice += 1) {
+    const valorTick = Math.round(indice * passoTick);
+    const yTick = baseY - (valorTick / maxEixo) * alturaMax;
+    eixos += `
+      <line x1="${eixoX}" y1="${yTick}" x2="392" y2="${yTick}" stroke="#f3f4f6" stroke-width="1"></line>
+      <text x="${eixoX - 4}" y="${yTick + 3}" text-anchor="end" fill="#9ca3af" font-size="7">${valorTick}</text>
+    `;
+  }
+
+  const colunas = barras
+    .map((item, indice) => {
+      const altura = Math.max((item.unidades / maxEixo) * alturaMax, 2);
+      const x = inicioX + indice * passo;
+      const y = baseY - altura;
+      const cor = item.alerta ? "#ef4444" : "#2563eb";
+      const meio = x + largura / 2;
+      const unidades = Number(item.unidades).toLocaleString("pt-BR");
+      const textoBalao = `Total em estoque: ${unidades} unidades`;
+      const rotulo = escaparAtributoHtml(item.categoria);
+
+      return `
+      <g class="barra-grafico" data-balao="${escaparAtributoHtml(textoBalao)}">
+        <rect x="${x}" y="${y}" width="${largura}" height="${altura}" rx="2" fill="${cor}"></rect>
+        <text x="${meio}" y="148" text-anchor="end" fill="#6b7280" font-size="7" transform="rotate(-42 ${meio} 148)">${rotulo}</text>
+      </g>
+    `;
+    })
+    .join("");
+
+  return `<svg viewBox="0 0 400 188">${eixos}${colunas}</svg>`;
+}
+
+function preencherGraficoNivelEstoque(dados) {
+  const grafico = dados.graficos && dados.graficos.nivel_estoque;
+  const estatisticas = document.querySelector(
+    '[data-grafico-estatisticas="nivel-estoque"]',
+  );
+  const area = document.querySelector(
+    '[data-grafico-area="nivel-estoque"]',
+  );
+  const indicador = document.querySelector(
+    '[data-grafico-indicador="nivel-estoque"]',
+  );
+
+  if (!grafico || !estatisticas || !area) {
+    return;
+  }
+
+  const totais = estatisticas.querySelectorAll("strong");
+  totais[0].textContent = `${Number(grafico.total_unidades).toLocaleString("pt-BR")} un`;
+  totais[1].textContent = `${grafico.produtos_abaixo_minimo} ${
+    grafico.produtos_abaixo_minimo === 1 ? "produto" : "produtos"
+  }`;
+
+  if (indicador) {
+    if (grafico.produtos_abaixo_minimo > 0) {
+      indicador.hidden = false;
+      indicador.textContent = `${grafico.produtos_abaixo_minimo} abaixo do mínimo`;
+    } else {
+      indicador.hidden = true;
+      indicador.textContent = "";
+    }
+  }
+
+  if (!grafico.barras.length) {
+    area.innerHTML = "<p>Não há dados de estoque para este período.</p>";
+    return;
+  }
+
+  area.innerHTML = desenharSvgBarrasEstoque(grafico.barras);
+  ativarBaloesGrafico(area);
+}
+
+function desenharSvgBarrasAtraso(barras) {
+  const maxDias = Math.max(...barras.map((item) => item.dias_atraso), 1);
+  const alturaLinha = 28;
+  const altura = Math.max(barras.length * alturaLinha + 10, 40);
+  const xBarra = 150;
+  const larguraMax = 185;
+
+  const linhas = barras
+    .map((item, indice) => {
+      const y = 4 + indice * alturaLinha;
+      const largura = Math.max((item.dias_atraso / maxDias) * larguraMax, 2);
+      const idCompra = escaparAtributoHtml(item.id_compra || "");
+      const fornecedor = encurtarRotuloGrafico(item.nome_fornecedor, 20);
+      const categoria = item.categoria || "";
+      const produto = item.rotulo || "";
+      const previsao = formatarDataIsoKpi(item.data_prevista_entrega);
+      const textoBalao = `${categoria}\n${produto}\nPrevisão de entrega: ${previsao}`;
+
+      return `
+      <g class="barra-grafico" data-balao="${escaparAtributoHtml(textoBalao)}">
+        <text x="4" y="${y + 9}" fill="#6b7280" font-size="7">${idCompra}</text>
+        <text x="4" y="${y + 20}" fill="#111827" font-size="8">${escaparAtributoHtml(fornecedor)}</text>
+        <rect x="${xBarra}" y="${y + 6}" width="${largura}" height="12" rx="2" fill="#2563eb"></rect>
+        <text x="${xBarra + largura + 6}" y="${y + 16}" fill="#f87171" font-size="8">${item.dias_atraso}d</text>
+      </g>
+    `;
+    })
+    .join("");
+
+  return `<svg viewBox="0 0 400 ${altura}">${linhas}</svg>`;
 }
 
 function preencherGraficoPedidosAtrasados(dados) {
@@ -480,7 +901,6 @@ function preencherGraficoPedidosAtrasados(dados) {
 
   const totais = estatisticas.querySelectorAll("strong");
   totais[0].textContent = String(grafico.total);
-  totais[1].textContent = formatarDataIsoKpi(grafico.data_referencia);
 
   if (!grafico.barras.length) {
     area.innerHTML = "<p>Nenhum pedido atrasado neste período.</p>";
@@ -488,6 +908,7 @@ function preencherGraficoPedidosAtrasados(dados) {
   }
 
   area.innerHTML = desenharSvgBarrasAtraso(grafico.barras);
+  ativarBaloesGrafico(area);
 }
 
 async function enviarPerguntaDuaxis(campoChat) {

@@ -414,6 +414,18 @@
     @apply text-sm font-bold text-text-primary;
   }
 
+  .painel-grafico__filtro-periodo {
+    @apply flex flex-wrap items-center gap-2 text-xs text-text-secondary;
+  }
+
+  .painel-grafico__filtro-rotulo {
+    @apply flex items-center gap-1.5 font-medium text-text-secondary;
+  }
+
+  .painel-grafico__filtro-periodo input[type="date"] {
+    @apply rounded-lg border border-border bg-bg-card px-2 py-1 text-xs text-text-primary;
+  }
+
   .painel-grafico__abas {
     @apply flex shrink-0 gap-1 rounded-lg bg-alert-bg p-0.5;
   }
@@ -447,11 +459,20 @@
   }
 
   .painel-grafico__grafico {
-    @apply w-full overflow-hidden;
+    @apply relative w-full overflow-visible;
   }
 
   .painel-grafico__grafico svg {
     @apply w-full;
+  }
+
+  .barra-grafico {
+    cursor: pointer;
+  }
+
+  .balao-grafico {
+    @apply pointer-events-none fixed z-50 max-w-xs rounded-lg border border-border bg-bg-card px-3 py-2 text-xs text-text-primary shadow-md;
+    white-space: pre-line;
   }
 
   .painel-grafico__legenda {

@@ -2,11 +2,14 @@ import sys
 from pathlib import Path
 from datetime import datetime
 from zoneinfo import ZoneInfo
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
-from dashboard_service import montar_kpis_dashboard
+from dashboard_service import (
+    montar_kpis_dashboard,
+    montar_grafico_faturamento,
+)
 
 BACKEND_DIR = Path(__file__).resolve().parent
 ROOT_DIR = BACKEND_DIR.parent
@@ -46,8 +49,18 @@ def previsao_produto(produto_id: str):
 
 @app.get("/api/dashboard")
 def dashboard(data_inicio: str | None = None, data_fim: str | None = None):
-    return montar_kpis_dashboard(data_inicio, data_fim)    
+    return montar_kpis_dashboard(data_inicio, data_fim)
 
+
+@app.get("/api/dashboard/faturamento")
+def dashboard_faturamento(
+    data_inicio: str | None = None,
+    data_fim: str | None = None,
+):
+    try:
+        return montar_grafico_faturamento(data_inicio, data_fim)
+    except ValueError as erro:
+        raise HTTPException(status_code=400, detail=str(erro)) from erro
 
 @app.post("/api/chat")
 def chat(pergunta: PerguntaChat):

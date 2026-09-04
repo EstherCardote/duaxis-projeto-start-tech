@@ -216,7 +216,8 @@ def consultar_pedidos_atrasados(data_referencia=None):
     produtos_aux = produtos[
         [
             "id",
-            "nome"
+            "nome",
+            "categoria",
         ]
     ].rename(
         columns={
@@ -280,6 +281,7 @@ def consultar_pedidos_atrasados(data_referencia=None):
 
         "produto_id",
         "nome_produto",
+        "categoria",
 
         "quantidade",
 
@@ -840,6 +842,64 @@ def obter_estoque_em_data(
     )
 
     return estoque_historico
+
+
+def resumir_estoque_por_categoria(estoque):
+    cadastro = produtos[
+        [
+            "id",
+            "categoria",
+            "estoque_minimo",
+        ]
+    ].rename(
+        columns={
+            "id": "produto_id",
+        }
+    )
+
+    dados = estoque.merge(
+        cadastro,
+        on="produto_id",
+        how="left",
+    )
+
+    dados["abaixo_minimo"] = (
+        dados["estoque_na_data"]
+        <
+        dados["estoque_minimo"]
+    )
+
+    por_categoria = (
+        dados
+        .groupby(
+            "categoria",
+            as_index=False,
+        )
+        .agg(
+            unidades=("estoque_na_data", "sum"),
+            produtos_abaixo_minimo=("abaixo_minimo", "sum"),
+        )
+        .sort_values(
+            "unidades",
+            ascending=False,
+        )
+    )
+
+    barras = []
+    for _, linha in por_categoria.iterrows():
+        abaixo = int(linha["produtos_abaixo_minimo"])
+        barras.append({
+            "categoria": linha["categoria"],
+            "unidades": int(linha["unidades"]),
+            "produtos_abaixo_minimo": abaixo,
+            "alerta": abaixo > 0,
+        })
+
+    return {
+        "total_unidades": int(dados["estoque_na_data"].sum()),
+        "produtos_abaixo_minimo": int(dados["abaixo_minimo"].sum()),
+        "barras": barras,
+    }
 
 # =========================================================
 # FUNÇÃO: LISTAR PRODUTOS COM MENOR GIRO
