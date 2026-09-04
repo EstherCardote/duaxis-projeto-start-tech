@@ -55,6 +55,59 @@ movimentacoes_estoque = pd.read_csv(
 # FUNÇÃO: CONSULTAR PEDIDOS ATUALMENTE ATRASADOS
 # =========================================================
 
+def _formatar_data_pt(data):
+    return pd.Timestamp(data).strftime("%d/%m/%Y")
+
+
+def _montar_textos_pedidos_atrasados(
+    total_atrasados,
+    data_referencia,
+    pedidos,
+):
+    data_lbl = _formatar_data_pt(data_referencia)
+
+    if total_atrasados <= 0:
+        return (
+            f"Não há pedidos atrasados em {data_lbl}.",
+            [
+                (
+                    "Atrasado nesta data significa: a entrega prevista "
+                    "já tinha passado e a mercadoria ainda não havia "
+                    "chegado."
+                ),
+                (
+                    "Isso é reconstrução histórica, não o status "
+                    "gravado hoje no arquivo."
+                ),
+            ],
+            [],
+        )
+
+    palavra = "pedido atrasado" if total_atrasados == 1 else "pedidos atrasados"
+
+    resumo = f"Há {total_atrasados} {palavra} em {data_lbl}."
+
+    analises = [
+        (
+            "Atrasado nesta data significa: a entrega prevista "
+            "já tinha passado e a mercadoria ainda não havia chegado."
+        ),
+        (
+            "A lista está ordenada pelo maior atraso em dias. "
+            "Não é ranking de taxa de atraso do fornecedor."
+        ),
+    ]
+
+    recomendacoes = [
+        (
+            "Acompanhar com os fornecedores os pedidos da lista, "
+            "começando pelos de maior atraso."
+        ),
+    ]
+
+    return resumo, analises, recomendacoes
+
+
 def consultar_pedidos_atrasados(data_referencia=None):
 
     # Cria uma cópia da base original
@@ -273,10 +326,12 @@ def consultar_pedidos_atrasados(data_referencia=None):
         orient="records"
     )
 
-
-    # -----------------------------------------------------
-    # RETORNO FINAL
-    # -----------------------------------------------------
+    data_ref_texto = data_referencia.strftime("%Y-%m-%d")
+    resumo, analises, recomendacoes = _montar_textos_pedidos_atrasados(
+        total_atrasados=len(pedidos),
+        data_referencia=data_ref_texto,
+        pedidos=pedidos,
+    )
 
     return {
 
@@ -284,12 +339,19 @@ def consultar_pedidos_atrasados(data_referencia=None):
             len(pedidos),
 
         "data_referencia":
-            data_referencia.strftime(
-                "%Y-%m-%d"
-    ),
+            data_ref_texto,
 
         "pedidos":
-            pedidos
+            pedidos,
+
+        "resumo":
+            resumo,
+
+        "analises":
+            analises,
+
+        "recomendacoes":
+            recomendacoes,
 
     }
 

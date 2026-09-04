@@ -687,9 +687,9 @@ def _montar_textos_variacao_lucro(retorno):
                 "só com esta conta."
             ),
             (
-                "A política do DUAXIS é olhar a decomposição "
-                "do lucro (faturamento, CMV e despesa por competência). "
-                "A recomendação é onde olhar, não o que gastar."
+                "A recomendação é onde olhar "
+                "(faturamento, CMV ou despesa por competência), "
+                "não o que gastar."
             ),
         ]
     else:
@@ -697,10 +697,6 @@ def _montar_textos_variacao_lucro(retorno):
             (
                 f"Acompanhar {nome_principal}, "
                 "parcela que mais puxou a alta do lucro."
-            ),
-            (
-                "A política do DUAXIS é olhar a decomposição "
-                "do lucro (faturamento, CMV e despesa por competência)."
             ),
         ]
 

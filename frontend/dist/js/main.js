@@ -1788,6 +1788,12 @@ function adicionarRespostaPedidosAtrasados(dados, textoIa, dataHora) {
         "Situação reconstruída na data de referência, não o status gravado hoje no arquivo.",
       dataHora,
       textoIa,
+      recomendacoesEstruturadas: Array.isArray(dados.recomendacoes)
+        ? dados.recomendacoes
+        : [],
+      analisesEstruturadas: Array.isArray(dados.analises)
+        ? dados.analises
+        : [],
     })}
 
   `;

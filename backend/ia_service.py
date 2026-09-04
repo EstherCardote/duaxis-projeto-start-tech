@@ -1193,59 +1193,21 @@ def preparar_resultado_para_ia(
 
 
     # =====================================================
-    # PEDIDOS ATUALMENTE ATRASADOS
+    # PEDIDOS ATRASADOS
     # =====================================================
     #
-    # Como temos somente 8 pedidos atualmente,
-    # podemos enviar todos eles.
-    #
-    # Mesmo assim, retiramos campos desnecessários.
+    # O front-end recebe a lista completa.
+    # A IA só precisa do total e da data.
     # =====================================================
 
     if nome_funcao == "consultar_pedidos_atrasados":
-
-        pedidos_para_ia = []
-
-        for pedido in resultado["pedidos"]:
-
-            pedidos_para_ia.append(
-                {
-                    "id_compra":
-                        pedido["id_compra"],
-
-                    "nome_produto":
-                        pedido["nome_produto"],
-
-                    "produto_id":
-                        pedido["produto_id"],
-
-                    "nome_fornecedor":
-                        pedido["nome_fornecedor"],
-
-                    "fornecedor_id":
-                        pedido["fornecedor_id"],
-
-                    "status":
-                        pedido["status"],
-
-                    "data_prevista_entrega":
-                        pedido["data_prevista_entrega"],
-
-                    "dias_atraso":
-                        pedido["dias_atraso"]
-                }
-            )
-
 
         return {
             "total_atrasados":
                 resultado["total_atrasados"],
 
             "data_referencia":
-                resultado["data_referencia"],
-
-            "pedidos":
-                pedidos_para_ia
+                resultado["data_referencia"]
         }
 # =====================================================
 # PRODUTOS COM MAIOR RISCO DE RUPTURA
@@ -1935,6 +1897,11 @@ Quando a ferramenta listar_produtos_baixo_giro for utilizada,
 trate os resultados como candidatos a menor giro, e não como
 uma classificação definitiva de produtos encalhados ou estoque parado.
 
+Quando a ferramenta consultar_pedidos_atrasados for utilizada,
+escreva só o [[RESUMO]] com total e data. Deixe [[ANALISE]]
+e [[RECOMENDACOES]] vazios. Não enumere pedidos. Não sugira
+trocar fornecedor nem multa.
+
 Quando a ferramenta listar_produtos_reposicao for utilizada,
 escreva só o [[RESUMO]] com total de produtos e impacto.
 Deixe [[ANALISE]] e [[RECOMENDACOES]] vazios. Não enumere
@@ -2269,8 +2236,8 @@ não chame ferramenta de novo. Responda só com [[RESUMO]] e [[ANALISE]].
     # 2ª CHAMADA AO MODELO
     # =====================================================
     #
-    # Reposição geral e variação do lucro: textos
-    # já vêm do backend. Pula a 2ª chamada.
+    # Reposição, variação do lucro e pedidos atrasados:
+    # textos já vêm do backend. Pula a 2ª chamada.
     # =====================================================
 
     if (
@@ -2279,6 +2246,7 @@ não chame ferramenta de novo. Responda só com [[RESUMO]] e [[ANALISE]].
         in (
             "listar_produtos_reposicao",
             "explicar_variacao_lucro",
+            "consultar_pedidos_atrasados",
         )
     ):
         texto_final = _texto_fallback_lista_reposicao(
