@@ -20,9 +20,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
 // Renderiza os ícones Lucide na página
 function inicializarIconesLucide() {
-  if (typeof lucide !== "undefined") {
-    lucide.createIcons();
+  if (typeof lucide === "undefined" || typeof lucide.createIcons !== "function") {
+    return;
   }
+  lucide.createIcons({ icons: lucide.icons });
 }
 
 function isMenuMobile() {
@@ -567,6 +568,8 @@ function indicesRotuloEixoX(coordenadas, distanciaMinima = 40) {
   indices.push(ultimoIndice);
   return new Set(indices);
 }
+
+function raioPontoFaturamento(quantidade) {
   if (quantidade >= 40) {
     return 1.5;
   }

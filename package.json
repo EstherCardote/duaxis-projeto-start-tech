@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "npx tailwindcss -i ./frontend/src/input.css -o ./frontend/dist/css/styles.css",
+    "copy:lucide": "node copy-lucide.js",
+    "build": "npm run copy:lucide && npx tailwindcss -i ./frontend/src/input.css -o ./frontend/dist/css/styles.css",
     "dev": "npx tailwindcss -i ./frontend/src/input.css -o ./frontend/dist/css/styles.css --watch"
   },
   "repository": {
@@ -21,6 +22,7 @@
   "homepage": "https://github.com/EstherCardote/projeto-start-tech#readme",
   "dependencies": {
     "@tailwindcss/cli": "^4.3.3",
+    "lucide": "^1.41.0",
     "tailwindcss": "^4.3.3"
   }
 }
