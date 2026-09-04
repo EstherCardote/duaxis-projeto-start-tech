@@ -413,9 +413,81 @@ async function carregarKpisDashboard() {
     preencherCartaoKpi("lucro", dados, "moeda");
     preencherCartaoKpi("estoque", dados, "numero");
     preencherCartaoKpi("reposicao", dados, "numero");
+    preencherGraficoPedidosAtrasados(dados);
   } catch (erro) {
     console.error("Não foi possível carregar os KPIs do dashboard.", erro);
   }
+}
+
+function formatarDataIsoKpi(dataIso) {
+  if (!dataIso || !dataIso.includes("-")) {
+    return dataIso || "";
+  }
+
+  const partes = dataIso.split("-");
+  if (partes.length !== 3) {
+    return dataIso;
+  }
+
+  const [ano, mes, dia] = partes;
+  return `${dia}/${mes}/${ano}`;
+}
+
+function encurtarRotuloGrafico(texto, limite = 22) {
+  if (!texto || texto.length <= limite) {
+    return texto || "";
+  }
+
+  return `${texto.slice(0, limite - 1)}…`;
+}
+
+function desenharSvgBarrasAtraso(barras) {
+  const maxDias = Math.max(...barras.map((item) => item.dias_atraso), 1);
+  const alturaLinha = 20;
+  const altura = Math.max(barras.length * alturaLinha + 10, 40);
+  const xBarra = 155;
+  const larguraMax = 190;
+
+  const linhas = barras
+    .map((item, indice) => {
+      const y = 6 + indice * alturaLinha;
+      const largura = Math.max((item.dias_atraso / maxDias) * larguraMax, 2);
+      const rotulo = encurtarRotuloGrafico(item.rotulo);
+
+      return `
+      <text x="4" y="${y + 11}" fill="#6b7280" font-size="8">${rotulo}</text>
+      <rect x="${xBarra}" y="${y}" width="${largura}" height="12" rx="2" fill="#2563eb"></rect>
+      <text x="${xBarra + largura + 6}" y="${y + 11}" fill="#111827" font-size="8">${item.dias_atraso}d</text>
+    `;
+    })
+    .join("");
+
+  return `<svg viewBox="0 0 400 ${altura}" aria-hidden="true">${linhas}</svg>`;
+}
+
+function preencherGraficoPedidosAtrasados(dados) {
+  const grafico = dados.graficos && dados.graficos.pedidos_atrasados;
+  const estatisticas = document.querySelector(
+    '[data-grafico-estatisticas="pedidos-atrasados"]',
+  );
+  const area = document.querySelector(
+    '[data-grafico-area="pedidos-atrasados"]',
+  );
+
+  if (!grafico || !estatisticas || !area) {
+    return;
+  }
+
+  const totais = estatisticas.querySelectorAll("strong");
+  totais[0].textContent = String(grafico.total);
+  totais[1].textContent = formatarDataIsoKpi(grafico.data_referencia);
+
+  if (!grafico.barras.length) {
+    area.innerHTML = "<p>Nenhum pedido atrasado neste período.</p>";
+    return;
+  }
+
+  area.innerHTML = desenharSvgBarrasAtraso(grafico.barras);
 }
 
 async function enviarPerguntaDuaxis(campoChat) {
