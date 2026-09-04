@@ -2982,6 +2982,12 @@ function adicionarRespostaExplicarVariacaoLucro(dados, textoIa, dataHora) {
         "Decomposição aritmética da diferença do lucro após despesas (faturamento − CMV − despesa). Não identifica causa comercial nem é caixa.",
       dataHora,
       textoIa,
+      recomendacoesEstruturadas: Array.isArray(dados.recomendacoes)
+        ? dados.recomendacoes
+        : [],
+      analisesEstruturadas: Array.isArray(dados.analises)
+        ? dados.analises
+        : [],
     })}
   `;
 

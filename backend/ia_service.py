@@ -1990,11 +1990,9 @@ comparar_fluxo_caixa: cite entradas e saídas; saldo = entradas − saídas
 na data da movimentação, não competência.
 
 explicar_variacao_lucro:
-[[RESUMO]] parcela_principal e se o lucro caiu/subiu;
-pode citar percentual_da_diferenca. Sem lucros em R$.
-[[ANALISE]] outras contribuições; decomposição aritmética,
-não causa comercial nem caixa.
-Deixe [[RECOMENDACOES]] vazio.
+[[RESUMO]] uma frase: caiu/subiu, períodos e parcela_principal.
+Deixe [[ANALISE]] e [[RECOMENDACOES]] vazios.
+Não invente promoção, caixa nem causa comercial.
 
 simular_lucro_despesa:
 Não copie a palavra ainda da pergunta.
@@ -2271,15 +2269,17 @@ não chame ferramenta de novo. Responda só com [[RESUMO]] e [[ANALISE]].
     # 2ª CHAMADA AO MODELO
     # =====================================================
     #
-    # Reposição geral: resumo, análise e recomendações
-    # já vêm do backend. Pula a 2ª chamada (economiza
-    # o system prompt inteiro de novo).
+    # Reposição geral e variação do lucro: textos
+    # já vêm do backend. Pula a 2ª chamada.
     # =====================================================
 
     if (
         len(resultados_ferramentas) == 1
         and resultados_ferramentas[0]["ferramenta"]
-        == "listar_produtos_reposicao"
+        in (
+            "listar_produtos_reposicao",
+            "explicar_variacao_lucro",
+        )
     ):
         texto_final = _texto_fallback_lista_reposicao(
             resultados_ferramentas[0]["resultado"]

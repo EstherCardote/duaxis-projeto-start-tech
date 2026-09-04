@@ -573,6 +573,140 @@ def _efeito_contribuicao_lucro(contribuicao):
     return "neutro"
 
 
+def _rotulo_competencia_pt(periodo):
+    nomes = {
+        1: "janeiro",
+        2: "fevereiro",
+        3: "março",
+        4: "abril",
+        5: "maio",
+        6: "junho",
+        7: "julho",
+        8: "agosto",
+        9: "setembro",
+        10: "outubro",
+        11: "novembro",
+        12: "dezembro",
+    }
+    partes = str(periodo).split("-")
+    if len(partes) < 2:
+        return str(periodo)
+    return f"{nomes[int(partes[1])]} de {partes[0]}"
+
+
+def _rotulo_intervalo_pt(bloco):
+    inicio = bloco["periodo_inicio"]
+    fim = bloco["periodo_fim"]
+    if inicio == fim:
+        return _rotulo_competencia_pt(inicio)
+    return (
+        f"{_rotulo_competencia_pt(inicio)} a "
+        f"{_rotulo_competencia_pt(fim)}"
+    )
+
+
+def _nome_parcela_com_artigo(rotulo):
+    if rotulo == "CMV":
+        return "o CMV"
+    if rotulo == "Despesa operacional":
+        return "a despesa operacional"
+    return "o faturamento"
+
+
+def _formatar_percentual_pt(valor):
+    if valor is None:
+        return None
+    return f"{float(valor):.2f}".replace(".", ",") + "%"
+
+
+def _montar_textos_variacao_lucro(retorno):
+    atual_lbl = _rotulo_intervalo_pt(retorno["periodo_atual"])
+    anterior_lbl = _rotulo_intervalo_pt(retorno["periodo_anterior"])
+    direcao = retorno["direcao"]
+    principal_id = retorno["parcela_principal"]
+    contribuicoes = retorno["contribuicoes"]
+    principal = next(
+        (item for item in contribuicoes if item["parcela"] == principal_id),
+        None,
+    )
+
+    if direcao == "queda":
+        verbo = "caiu"
+    elif direcao == "alta":
+        verbo = "subiu"
+    else:
+        verbo = "ficou estável"
+
+    if direcao == "estavel" or principal is None:
+        return (
+            f"O lucro {verbo} em {atual_lbl} na comparação com {anterior_lbl}.",
+            [
+                "A decomposição é aritmética "
+                "(faturamento - CMV - despesa). "
+                "Não identifica causa comercial nem caixa."
+            ],
+            [],
+        )
+
+    nome_principal = _nome_parcela_com_artigo(principal["rotulo"])
+    pct = _formatar_percentual_pt(principal["percentual_da_diferenca"])
+    resumo = (
+        f"O lucro {verbo} em {atual_lbl} na comparação com {anterior_lbl}. "
+        f"A parcela principal da variação foi {nome_principal}"
+    )
+    if pct:
+        resumo += f" ({pct} da diferença)."
+    else:
+        resumo += "."
+
+    analises = [
+        "A decomposição é aritmética (faturamento - CMV - despesa). "
+        "Não identifica promoção, sazonalidade nem caixa."
+    ]
+    for item in contribuicoes:
+        if item["parcela"] == principal_id:
+            continue
+        nome = _nome_parcela_com_artigo(item["rotulo"])
+        if item["efeito"] == "reduziu_lucro":
+            analises.append(
+                f"{nome[0].upper() + nome[1:]} também reduziu "
+                "o lucro nesta comparação."
+            )
+        elif item["efeito"] == "aumentou_lucro" and direcao == "queda":
+            analises.append(
+                f"{nome[0].upper() + nome[1:]} puxou o lucro "
+                "para cima e não explica a queda."
+            )
+
+    if direcao == "queda":
+        recomendacoes = [
+            (
+                f"Investigar primeiro {nome_principal}, "
+                "que foi a parcela que mais puxou a queda. "
+                "Não dispara promoção nem corte de despesa "
+                "só com esta conta."
+            ),
+            (
+                "A política do DUAXIS é olhar a decomposição "
+                "do lucro (faturamento, CMV e despesa por competência). "
+                "A recomendação é onde olhar, não o que gastar."
+            ),
+        ]
+    else:
+        recomendacoes = [
+            (
+                f"Acompanhar {nome_principal}, "
+                "parcela que mais puxou a alta do lucro."
+            ),
+            (
+                "A política do DUAXIS é olhar a decomposição "
+                "do lucro (faturamento, CMV e despesa por competência)."
+            ),
+        ]
+
+    return resumo, analises, recomendacoes
+
+
 def explicar_variacao_lucro(
     data_inicio=None,
     data_fim=None,
@@ -662,7 +796,7 @@ def explicar_variacao_lucro(
         )
         parcela_principal = principal["parcela"]
 
-    return {
+    retorno = {
         "indicador": "lucro_apos_despesas",
         "criterio": (
             "decomposição aritmética da variação do lucro "
@@ -678,6 +812,13 @@ def explicar_variacao_lucro(
         "contribuicoes": contribuicoes,
         "parcela_principal": parcela_principal,
     }
+    resumo, analises, recomendacoes = _montar_textos_variacao_lucro(
+        retorno
+    )
+    retorno["resumo"] = resumo
+    retorno["analises"] = analises
+    retorno["recomendacoes"] = recomendacoes
+    return retorno
 
 
 def _resolver_categoria_despesa(categoria):
