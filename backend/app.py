@@ -9,6 +9,7 @@ from pydantic import BaseModel
 from dashboard_service import (
     montar_kpis_dashboard,
     montar_grafico_faturamento,
+    montar_grafico_lucro,
 )
 
 BACKEND_DIR = Path(__file__).resolve().parent
@@ -59,6 +60,17 @@ def dashboard_faturamento(
 ):
     try:
         return montar_grafico_faturamento(data_inicio, data_fim)
+    except ValueError as erro:
+        raise HTTPException(status_code=400, detail=str(erro)) from erro
+
+
+@app.get("/api/dashboard/lucro")
+def dashboard_lucro(
+    data_inicio: str | None = None,
+    data_fim: str | None = None,
+):
+    try:
+        return montar_grafico_lucro(data_inicio, data_fim)
     except ValueError as erro:
         raise HTTPException(status_code=400, detail=str(erro)) from erro
 

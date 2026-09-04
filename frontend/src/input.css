@@ -422,7 +422,8 @@
     @apply flex items-center gap-1.5 font-medium text-text-secondary;
   }
 
-  .painel-grafico__filtro-periodo input[type="date"] {
+  .painel-grafico__filtro-periodo input[type="date"],
+  .painel-grafico__filtro-periodo input[type="month"] {
     @apply rounded-lg border border-border bg-bg-card px-2 py-1 text-xs text-text-primary;
   }
 

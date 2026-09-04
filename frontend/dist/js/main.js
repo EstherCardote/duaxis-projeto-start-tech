@@ -13,6 +13,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   inicializarChatDuaxis();
   inicializarFiltroFaturamento();
+  inicializarFiltroLucro();
 
   carregarKpisDashboard();
 
@@ -499,15 +500,17 @@ function calcularMaximoEixoMoeda(valor) {
 }
 
 function formatarEixoMoeda(valor) {
-  if (valor === 0) {
+  const arredondado = Math.round(valor);
+
+  if (arredondado === 0) {
     return "0";
   }
 
-  if (valor >= 1000) {
-    return `${Math.round(valor / 1000)} mil`;
+  if (Math.abs(arredondado) >= 1000) {
+    return `${Math.round(arredondado / 1000)} mil`;
   }
 
-  return String(valor);
+  return String(arredondado);
 }
 
 function formatarRotuloDataGrafico(data) {
@@ -585,7 +588,21 @@ function raioPontoFaturamento(quantidade) {
   return 2.4;
 }
 
-function desenharSvgLinhaFaturamento(pontos) {
+function grossuraLinhaFaturamento(grafico) {
+  const quantidadePontos = grafico.pontos.length;
+  if (
+    grafico.granularidade === "dia" &&
+    quantidadePontos >= 50 &&
+    quantidadePontos <= 62
+  ) {
+    return "1";
+  }
+
+  return "2";
+}
+
+function desenharSvgLinhaFaturamento(grafico) {
+  const pontos = grafico.pontos;
   const valores = pontos.map((item) => item.valor);
   const maxValor = Math.max(...valores, 1);
   const maxEixo = calcularMaximoEixoMoeda(maxValor);
@@ -599,6 +616,7 @@ function desenharSvgLinhaFaturamento(pontos) {
     pontos.length > 1 ? (fimX - inicioX) / (pontos.length - 1) : 0;
   const quantidadeTicks = 4;
   const passoTick = maxEixo / (quantidadeTicks - 1);
+  const grossuraLinha = grossuraLinhaFaturamento(grafico);
 
   let eixos = `
       <line x1="${eixoX}" y1="${topoY}" x2="${eixoX}" y2="${baseY}" stroke="#e5e7eb" stroke-width="1"></line>
@@ -644,12 +662,12 @@ function desenharSvgLinhaFaturamento(pontos) {
 
   return `<svg viewBox="0 0 400 168">
       ${eixos}
-      <polyline fill="none" stroke="#2563eb" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" points="${pontosLinha}"></polyline>
+      <polyline fill="none" stroke="#2563eb" stroke-width="${grossuraLinha}" stroke-linecap="round" stroke-linejoin="round" points="${pontosLinha}"></polyline>
       ${marcadores}
     </svg>`;
 }
 
-function urlApiDashboardFaturamento(dataInicio, dataFim) {
+function urlApiDashboardSerie(recurso, dataInicio, dataFim) {
   const params = new URLSearchParams({
     data_inicio: dataInicio,
     data_fim: dataFim,
@@ -657,13 +675,13 @@ function urlApiDashboardFaturamento(dataInicio, dataFim) {
   const host = window.location.hostname;
 
   if (!host || host === "localhost" || host === "127.0.0.1") {
-    return `http://127.0.0.1:8000/api/dashboard/faturamento?${params}`;
+    return `http://127.0.0.1:8000/api/dashboard/${recurso}?${params}`;
   }
 
-  return `/api/dashboard/faturamento?${params}`;
+  return `/api/dashboard/${recurso}?${params}`;
 }
 
-function aplicarLimitesFiltroFaturamento(campoInicio, campoFim, grafico) {
+function aplicarLimitesFiltroData(campoInicio, campoFim, grafico) {
   const dataMinima = grafico.data_minima || "2023-08-01";
   const dataMaxima = grafico.data_maxima || "2026-07-31";
 
@@ -705,7 +723,7 @@ function preencherGraficoFaturamento(grafico) {
     return;
   }
 
-  area.innerHTML = desenharSvgLinhaFaturamento(grafico.pontos);
+  area.innerHTML = desenharSvgLinhaFaturamento(grafico);
   ativarBaloesGrafico(area);
 }
 
@@ -733,7 +751,7 @@ async function carregarGraficoFaturamento() {
 
   try {
     const resposta = await fetch(
-      urlApiDashboardFaturamento(dataInicio, dataFim),
+      urlApiDashboardSerie("faturamento", dataInicio, dataFim),
     );
 
     if (!resposta.ok) {
@@ -741,7 +759,7 @@ async function carregarGraficoFaturamento() {
     }
 
     const grafico = await resposta.json();
-    aplicarLimitesFiltroFaturamento(campoInicio, campoFim, grafico);
+    aplicarLimitesFiltroData(campoInicio, campoFim, grafico);
     preencherGraficoFaturamento(grafico);
   } catch (erro) {
     console.error("Não foi possível carregar o gráfico de faturamento.", erro);
@@ -764,6 +782,199 @@ function inicializarFiltroFaturamento() {
   campoInicio.addEventListener("change", carregarGraficoFaturamento);
   campoFim.addEventListener("change", carregarGraficoFaturamento);
   carregarGraficoFaturamento();
+}
+
+function calcularLimitesEixoLucro(valores) {
+  const maxValor = Math.max(...valores, 0);
+  const minValor = Math.min(...valores, 0);
+  const maxEixo = maxValor > 0 ? calcularMaximoEixoMoeda(maxValor) : 0;
+  const minEixo = minValor < 0 ? -calcularMaximoEixoMoeda(Math.abs(minValor)) : 0;
+
+  if (maxEixo === 0 && minEixo === 0) {
+    return { minEixo: 0, maxEixo: 1000 };
+  }
+
+  return {
+    minEixo,
+    maxEixo: maxEixo === 0 ? 0 : maxEixo,
+  };
+}
+
+function posicaoYEixoLucro(valor, minEixo, maxEixo, baseY, alturaMax) {
+  const amplitude = maxEixo - minEixo || 1;
+  return baseY - ((valor - minEixo) / amplitude) * alturaMax;
+}
+
+function desenharSvgAreaLucro(pontos) {
+  const valores = pontos.map((item) => item.valor);
+  const { minEixo, maxEixo } = calcularLimitesEixoLucro(valores);
+  const baseY = 118;
+  const alturaMax = 90;
+  const topoY = baseY - alturaMax;
+  const eixoX = 48;
+  const inicioX = 70;
+  const fimX = 380;
+  const passo =
+    pontos.length > 1 ? (fimX - inicioX) / (pontos.length - 1) : 0;
+  const quantidadeTicks = 4;
+  const passoTick = (maxEixo - minEixo) / (quantidadeTicks - 1);
+  const yZero = posicaoYEixoLucro(0, minEixo, maxEixo, baseY, alturaMax);
+
+  let eixos = `
+      <line x1="${eixoX}" y1="${topoY}" x2="${eixoX}" y2="${baseY}" stroke="#e5e7eb" stroke-width="1"></line>
+      <line x1="${eixoX}" y1="${baseY}" x2="${fimX}" y2="${baseY}" stroke="#e5e7eb" stroke-width="1"></line>
+  `;
+
+  for (let indice = 0; indice < quantidadeTicks; indice += 1) {
+    const valorTick = minEixo + indice * passoTick;
+    const yTick = posicaoYEixoLucro(
+      valorTick,
+      minEixo,
+      maxEixo,
+      baseY,
+      alturaMax,
+    );
+    eixos += `
+      <line x1="${eixoX}" y1="${yTick}" x2="${fimX}" y2="${yTick}" stroke="#f3f4f6" stroke-width="1"></line>
+      <text x="${eixoX - 4}" y="${yTick + 3}" text-anchor="end" fill="#9ca3af" font-size="7">${formatarEixoMoeda(valorTick)}</text>
+    `;
+  }
+
+  const coordenadas = pontos.map((item, indice) => {
+    const x = inicioX + indice * passo;
+    const y = posicaoYEixoLucro(item.valor, minEixo, maxEixo, baseY, alturaMax);
+    return { x, y, item };
+  });
+
+  const pontosLinha = coordenadas
+    .map((coord) => `${coord.x},${coord.y}`)
+    .join(" ");
+  const primeiroX = coordenadas[0].x;
+  const ultimoX = coordenadas[coordenadas.length - 1].x;
+  const pontosArea = `${pontosLinha} ${ultimoX},${yZero} ${primeiroX},${yZero}`;
+  const rotulosVisiveis = indicesRotuloEixoX(coordenadas);
+
+  const marcadores = coordenadas
+    .map((coord, indice) => {
+      const textoBalao = textoBalaoFaturamento(coord.item);
+      const rotulo = rotulosVisiveis.has(indice) ? coord.item.rotulo : "";
+      return `
+      <g class="barra-grafico" data-balao="${escaparAtributoHtml(textoBalao)}">
+        <circle cx="${coord.x}" cy="${coord.y}" r="6" fill="transparent"></circle>
+        <text x="${coord.x}" y="148" text-anchor="middle" fill="#6b7280" font-size="7">${rotulo}</text>
+      </g>
+    `;
+    })
+    .join("");
+
+  return `<svg viewBox="0 0 400 168">
+      <defs>
+        <linearGradient id="grad-lucro" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#2563eb" stop-opacity="0.3"></stop>
+          <stop offset="100%" stop-color="#2563eb" stop-opacity="0"></stop>
+        </linearGradient>
+      </defs>
+      ${eixos}
+      <polygon fill="url(#grad-lucro)" points="${pontosArea}"></polygon>
+      <polyline fill="none" stroke="#2563eb" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" points="${pontosLinha}"></polyline>
+      ${marcadores}
+    </svg>`;
+}
+
+function preencherGraficoLucro(grafico) {
+  const painel = document.querySelector('[data-grafico="lucro"]');
+
+  if (!painel || !grafico) {
+    return;
+  }
+
+  const estatisticas = painel.querySelector(
+    '[data-grafico-estatisticas="lucro"]',
+  );
+  const area = painel.querySelector('[data-grafico-area="lucro"]');
+
+  if (!estatisticas || !area) {
+    return;
+  }
+
+  const totais = estatisticas.querySelectorAll("strong");
+  if (totais[0]) {
+    totais[0].textContent = formatarMoedaKpi(grafico.total);
+  }
+  if (totais[1]) {
+    totais[1].textContent =
+      grafico.margem_percentual == null
+        ? "—"
+        : `${Number(grafico.margem_percentual).toLocaleString("pt-BR", {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2,
+          })}%`;
+  }
+
+  if (!grafico.pontos.length) {
+    area.innerHTML = "<p>Não há lucro neste período.</p>";
+    return;
+  }
+
+  area.innerHTML = desenharSvgAreaLucro(grafico.pontos);
+  ativarBaloesGrafico(area);
+}
+
+async function carregarGraficoLucro() {
+  const campoInicio = document.getElementById("filtro-lucro-inicio");
+  const campoFim = document.getElementById("filtro-lucro-fim");
+  const area = document.querySelector('[data-grafico-area="lucro"]');
+
+  if (!campoInicio || !campoFim || !area) {
+    return;
+  }
+
+  const dataInicio = campoInicio.value;
+  const dataFim = campoFim.value;
+
+  if (!dataInicio || !dataFim) {
+    return;
+  }
+
+  if (dataInicio > dataFim) {
+    area.innerHTML =
+      "<p>A data inicial não pode ser posterior à data final.</p>";
+    return;
+  }
+
+  try {
+    const resposta = await fetch(
+      urlApiDashboardSerie("lucro", dataInicio, dataFim),
+    );
+
+    if (!resposta.ok) {
+      throw new Error(`Erro HTTP ${resposta.status}`);
+    }
+
+    const grafico = await resposta.json();
+    aplicarLimitesFiltroData(campoInicio, campoFim, grafico);
+    preencherGraficoLucro(grafico);
+  } catch (erro) {
+    console.error("Não foi possível carregar o gráfico de lucro.", erro);
+  }
+}
+
+function inicializarFiltroLucro() {
+  const campoInicio = document.getElementById("filtro-lucro-inicio");
+  const campoFim = document.getElementById("filtro-lucro-fim");
+
+  if (!campoInicio || !campoFim) {
+    return;
+  }
+
+  campoInicio.min = "2023-08";
+  campoInicio.max = "2026-07";
+  campoFim.min = "2023-08";
+  campoFim.max = "2026-07";
+
+  campoInicio.addEventListener("change", carregarGraficoLucro);
+  campoFim.addEventListener("change", carregarGraficoLucro);
+  carregarGraficoLucro();
 }
 
 function desenharSvgBarrasEstoque(barras) {

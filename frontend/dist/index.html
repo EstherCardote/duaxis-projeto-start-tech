@@ -371,7 +371,7 @@
                 ></div>
               </article>
 
-              <article class="painel-grafico">
+              <article class="painel-grafico" data-grafico="lucro">
                 <div class="painel-grafico__cabecalho">
                   <div class="painel-grafico__titulo-grupo">
                     <span class="painel-grafico__icone"
@@ -382,226 +382,39 @@
                     ></span>
                     <h3 class="painel-grafico__titulo">Lucro Líquido</h3>
                   </div>
-                  <div class="painel-grafico__abas">
-                    <button
-                      class="painel-grafico__aba painel-grafico__aba--ativa"
-                      type="button"
-                      data-periodo="mes"
-                    >
-                      Mês
-                    </button>
-                    <button
-                      class="painel-grafico__aba"
-                      type="button"
-                      data-periodo="ano"
-                    >
-                      Ano
-                    </button>
+                  <div class="painel-grafico__filtro-periodo">
+                    <label class="painel-grafico__filtro-rotulo"
+                      >De
+                      <input
+                        id="filtro-lucro-inicio"
+                        type="month"
+                        min="2023-08"
+                        max="2026-07"
+                        value="2026-02"
+                      />
+                    </label>
+                    <span>até</span>
+                    <input
+                      id="filtro-lucro-fim"
+                      type="month"
+                      min="2023-08"
+                      max="2026-07"
+                      value="2026-07"
+                      aria-label="Até"
+                    />
                   </div>
                 </div>
                 <div
                   class="painel-grafico__estatisticas"
-                  data-estatistica-periodo="mes"
+                  data-grafico-estatisticas="lucro"
                 >
-                  <span>Lucro líquido: <strong>R$ 237.960</strong></span>
-                  <span
-                    >Margem de lucro:
-                    <span class="painel-grafico__destaque--positivo"
-                      >17,7%</span
-                    ></span
-                  >
-                </div>
-                <div
-                  class="painel-grafico__estatisticas"
-                  data-estatistica-periodo="ano"
-                  hidden
-                >
-                  <span>Lucro anual: <strong>R$ 2.856.000</strong></span>
-                  <span
-                    >Margem de lucro:
-                    <span class="painel-grafico__destaque--positivo"
-                      >18,2%</span
-                    ></span
-                  >
-                </div>
-                <div class="painel-grafico__grafico" data-grafico-periodo="mes">
-                  <svg viewBox="0 0 400 160" aria-hidden="true">
-                    <defs>
-                      <linearGradient
-                        id="grad-lucro"
-                        x1="0"
-                        y1="0"
-                        x2="0"
-                        y2="1"
-                      >
-                        <stop
-                          offset="0%"
-                          stop-color="#2563eb"
-                          stop-opacity="0.3"
-                        />
-                        <stop
-                          offset="100%"
-                          stop-color="#2563eb"
-                          stop-opacity="0"
-                        />
-                      </linearGradient>
-                    </defs>
-                    <line
-                      x1="40"
-                      y1="20"
-                      x2="40"
-                      y2="130"
-                      stroke="#e5e7eb"
-                      stroke-width="1"
-                    />
-                    <line
-                      x1="40"
-                      y1="130"
-                      x2="380"
-                      y2="130"
-                      stroke="#e5e7eb"
-                      stroke-width="1"
-                    />
-                    <polygon
-                      fill="url(#grad-lucro)"
-                      points="60,55 110,35 160,50 210,65 260,75 310,85 310,130 60,130"
-                    />
-                    <polyline
-                      fill="none"
-                      stroke="#2563eb"
-                      stroke-width="2"
-                      points="60,55 110,35 160,50 210,65 260,75 310,85"
-                    />
-                    <text
-                      x="60"
-                      y="148"
-                      text-anchor="middle"
-                      fill="#9ca3af"
-                      font-size="9"
-                    >
-                      Fev
-                    </text>
-                    <text
-                      x="110"
-                      y="148"
-                      text-anchor="middle"
-                      fill="#9ca3af"
-                      font-size="9"
-                    >
-                      Mar
-                    </text>
-                    <text
-                      x="160"
-                      y="148"
-                      text-anchor="middle"
-                      fill="#9ca3af"
-                      font-size="9"
-                    >
-                      Abr
-                    </text>
-                    <text
-                      x="210"
-                      y="148"
-                      text-anchor="middle"
-                      fill="#9ca3af"
-                      font-size="9"
-                    >
-                      Mai
-                    </text>
-                    <text
-                      x="260"
-                      y="148"
-                      text-anchor="middle"
-                      fill="#9ca3af"
-                      font-size="9"
-                    >
-                      Jun
-                    </text>
-                    <text
-                      x="310"
-                      y="148"
-                      text-anchor="middle"
-                      fill="#9ca3af"
-                      font-size="9"
-                    >
-                      Jul
-                    </text>
-                  </svg>
+                  <span>Total do período: <strong>—</strong></span>
+                  <span>Margem: <strong>—</strong></span>
                 </div>
                 <div
                   class="painel-grafico__grafico"
-                  data-grafico-periodo="ano"
-                  hidden
-                >
-                  <svg viewBox="0 0 400 160" aria-hidden="true">
-                    <defs>
-                      <linearGradient
-                        id="grad-lucro-ano"
-                        x1="0"
-                        y1="0"
-                        x2="0"
-                        y2="1"
-                      >
-                        <stop
-                          offset="0%"
-                          stop-color="#2563eb"
-                          stop-opacity="0.3"
-                        />
-                        <stop
-                          offset="100%"
-                          stop-color="#2563eb"
-                          stop-opacity="0"
-                        />
-                      </linearGradient>
-                    </defs>
-                    <polygon
-                      fill="url(#grad-lucro-ano)"
-                      points="80,70 160,50 240,45 320,40 320,130 80,130"
-                    />
-                    <polyline
-                      fill="none"
-                      stroke="#2563eb"
-                      stroke-width="2"
-                      points="80,70 160,50 240,45 320,40"
-                    />
-                    <text
-                      x="80"
-                      y="148"
-                      text-anchor="middle"
-                      fill="#9ca3af"
-                      font-size="9"
-                    >
-                      2023
-                    </text>
-                    <text
-                      x="160"
-                      y="148"
-                      text-anchor="middle"
-                      fill="#9ca3af"
-                      font-size="9"
-                    >
-                      2024
-                    </text>
-                    <text
-                      x="240"
-                      y="148"
-                      text-anchor="middle"
-                      fill="#9ca3af"
-                      font-size="9"
-                    >
-                      2025
-                    </text>
-                    <text
-                      x="320"
-                      y="148"
-                      text-anchor="middle"
-                      fill="#9ca3af"
-                      font-size="9"
-                    >
-                      2026
-                    </text>
-                  </svg>
-                </div>
+                  data-grafico-area="lucro"
+                ></div>
               </article>
             </div>
           </section>
