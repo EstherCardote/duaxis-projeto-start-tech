@@ -6,6 +6,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
+from dashboard_service import montar_kpis_dashboard
 
 BACKEND_DIR = Path(__file__).resolve().parent
 ROOT_DIR = BACKEND_DIR.parent
@@ -42,6 +43,10 @@ def inicio():
 @app.get("/api/previsao/{produto_id}")
 def previsao_produto(produto_id: str):
     return analisar_reposicao(produto_id)
+
+@app.get("/api/dashboard")
+def dashboard(data_inicio: str | None = None, data_fim: str | None = None):
+    return montar_kpis_dashboard(data_inicio, data_fim)    
 
 
 @app.post("/api/chat")

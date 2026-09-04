@@ -12,6 +12,9 @@ document.addEventListener("DOMContentLoaded", () => {
   inicializarAbasPainel();
 
   inicializarChatDuaxis();
+
+  carregarKpisDashboard();
+
 });
 
 // Renderiza os ícones Lucide na página
@@ -288,6 +291,131 @@ function urlApiChat() {
   }
 
   return "/api/chat";
+}
+
+function urlApiDashboard() {
+  const host = window.location.hostname;
+
+  if (!host || host === "localhost" || host === "127.0.0.1") {
+    return "http://127.0.0.1:8000/api/dashboard";
+  }
+
+  return "/api/dashboard";
+}
+
+function formatarMoedaKpi(valor) {
+  return Number(valor).toLocaleString("pt-BR", {
+    style: "currency",
+    currency: "BRL",
+  });
+}
+
+function formatarPercentualKpi(valor) {
+  return `${Number(valor).toLocaleString("pt-BR", {
+    signDisplay: "exceptZero",
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  })}%`;
+}
+
+function formatarCompetenciaKpi(periodo) {
+  if (!periodo || !periodo.includes("-")) {
+    return periodo || "";
+  }
+  const [ano, mes] = periodo.split("-");
+  return `${mes}/${ano}`;
+}
+
+function aplicarTendenciaKpi(elemento, direcao) {
+  elemento.classList.remove(
+    "indicador-tendencia--alta",
+    "indicador-tendencia--queda",
+    "indicador-tendencia--neutro",
+  );
+
+  if (direcao === "alta") {
+    elemento.classList.add("indicador-tendencia--alta");
+  } else if (direcao === "queda") {
+    elemento.classList.add("indicador-tendencia--queda");
+  } else {
+    elemento.classList.add("indicador-tendencia--neutro");
+  }
+}
+
+function textoVariacaoKpi(kpi) {
+  if (kpi.variacao_percentual === null || kpi.variacao_percentual === undefined) {
+    return "—";
+  }
+
+  if (Math.abs(kpi.variacao_percentual) > 100) {
+    if (kpi.direcao === "alta") {
+      return "Alta";
+    }
+    if (kpi.direcao === "queda") {
+      return "Queda";
+    }
+    return "—";
+  }
+
+  return formatarPercentualKpi(kpi.variacao_percentual);
+}
+
+function preencherCartaoKpi(chave, dados, tipoValor) {
+  const cartao = document.querySelector(`[data-kpi="${chave}"]`);
+  const kpi = dados.kpis[chave];
+
+  if (!cartao || !kpi) {
+    return;
+  }
+
+  const valorEl = cartao.querySelector(".cartao-indicador__valor");
+  const rotuloEl = cartao.querySelector(".cartao-indicador__rotulo");
+  const rodapeEl = cartao.querySelector(".cartao-indicador__rodape");
+  const tendenciaEl = cartao.querySelector(".indicador-tendencia");
+
+  if (tipoValor === "moeda") {
+    valorEl.textContent = formatarMoedaKpi(kpi.valor);
+  } else if (chave === "reposicao") {
+    valorEl.textContent = `${kpi.valor} produtos`;
+  } else {
+    valorEl.textContent = Number(kpi.valor).toLocaleString("pt-BR");
+  }
+
+  rotuloEl.textContent = kpi.rotulo;
+
+  if (kpi.variacao_percentual === null || kpi.variacao_percentual === undefined) {
+    rodapeEl.textContent = `em ${formatarCompetenciaKpi(dados.periodo_inicio)}`;
+  } else {
+    rodapeEl.textContent = `vs ${formatarCompetenciaKpi(dados.periodo_anterior_inicio)}`;
+  }
+
+  tendenciaEl.textContent = textoVariacaoKpi(kpi);
+  aplicarTendenciaKpi(tendenciaEl, kpi.direcao);
+}
+
+async function carregarKpisDashboard() {
+  const grade = document.getElementById("grade-indicadores");
+
+  if (!grade) {
+    return;
+  }
+
+  try {
+    const resposta = await fetch(urlApiDashboard());
+
+    if (!resposta.ok) {
+      throw new Error(`Erro HTTP ${resposta.status}`);
+    }
+
+    const dados = await resposta.json();
+
+    preencherCartaoKpi("faturamento", dados, "moeda");
+    preencherCartaoKpi("lucro", dados, "moeda");
+    preencherCartaoKpi("estoque", dados, "numero");
+    preencherCartaoKpi("reposicao", dados, "numero");
+  } catch (erro) {
+    console.error("Não foi possível carregar os KPIs do dashboard.", erro);
+  }
 }
 
 async function enviarPerguntaDuaxis(campoChat) {
