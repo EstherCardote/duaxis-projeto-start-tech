@@ -770,9 +770,18 @@ function montarBlocosFinais(configConfiabilidade) {
     configConfiabilidade.textoIa,
   );
 
-  const blocoAnalise = configConfiabilidade.ocultarAnalise
-    ? ""
-    : montarBlocoAnalise(analise);
+  const analisesEstruturadas = configConfiabilidade.analisesEstruturadas;
+  let blocoAnalise = "";
+
+  if (Array.isArray(analisesEstruturadas)) {
+    if (analisesEstruturadas.length) {
+      blocoAnalise = montarBlocoAnalise(
+        analisesEstruturadas.map((topico) => `- ${topico}`).join("\n"),
+      );
+    }
+  } else if (!configConfiabilidade.ocultarAnalise) {
+    blocoAnalise = montarBlocoAnalise(analise);
+  }
 
   const estruturadas = configConfiabilidade.recomendacoesEstruturadas;
   let blocoRecomendacoes = "";
@@ -849,85 +858,41 @@ function adicionarRespostaListaReposicao(dados, textoIa, dataHora) {
 
   const produtos = dados.produtos_reposicao || [];
 
-  const impactoTotal = dados.impacto_financeiro_total || 0;
-
-  const impactoTotalFormatado = impactoTotal.toLocaleString("pt-BR", {
-    style: "currency",
-    currency: "BRL",
-  });
-
   const totalProdutos = dados.total_reposicao || 0;
 
   const produtosPrincipais = produtos.slice(0, 5);
 
   const produtosRestantes = produtos.slice(5);
 
-  const linhasProdutos = produtosPrincipais
-    .map((produto) => {
-      const impacto = produto.impacto_financeiro.toLocaleString("pt-BR", {
-        style: "currency",
-        currency: "BRL",
-      });
+  function linhaProdutoReposicao(produto) {
+    const impacto = produto.impacto_financeiro.toLocaleString("pt-BR", {
+      style: "currency",
+      currency: "BRL",
+    });
 
-      return `
-          <div class="produto-reposicao">
+    return `
+      <div class="produto-reposicao">
+        <div class="produto-reposicao__info">
+          <strong>${produto.nome_produto}</strong>
+          <span>
+            ${produto.produto_id}
+            •
+            ${produto.quantidade_recomendada}
+            unidades recomendadas
+          </span>
+        </div>
+        <div class="produto-reposicao__impacto">
+          <span class="produto-reposicao__impacto-rotulo">Total da reposição</span>
+          <strong>${impacto}</strong>
+        </div>
+      </div>
+    `;
+  }
 
-            <div class="produto-reposicao__info">
-
-              <strong>
-                ${produto.nome_produto}
-              </strong>
-
-              <span>
-                 ${produto.produto_id}
-                  •
-                  ${produto.quantidade_recomendada}
-                  unidades recomendadas
-              </span>
-
-            </div>
-
-            <div class="produto-reposicao__impacto">
-              ${impacto}
-            </div>
-
-          </div>
-        `;
-    })
-    .join("");
+  const linhasProdutos = produtosPrincipais.map(linhaProdutoReposicao).join("");
 
   const linhasProdutosRestantes = produtosRestantes
-    .map((produto) => {
-      const impacto = produto.impacto_financeiro.toLocaleString("pt-BR", {
-        style: "currency",
-        currency: "BRL",
-      });
-
-      return `
-        <div class="produto-reposicao">
-
-          <div class="produto-reposicao__info">
-
-            <strong>
-              ${produto.nome_produto}
-            </strong>
-
-            <span>
-              ${produto.produto_id}
-              •
-              ${produto.quantidade_recomendada}
-              unidades recomendadas
-            </span>
-
-          </div>
-
-          <div class="produto-reposicao__impacto">
-            ${impacto}
-          </div>
-
-        </div>
-      `;
-    })
+    .map(linhaProdutoReposicao)
     .join("");
 
   const linhaResposta = document.createElement("div");
@@ -960,8 +925,11 @@ function adicionarRespostaListaReposicao(dados, textoIa, dataHora) {
       <div class="resposta-duaxis__conteudo">
 
         <p class="reposicao-intro">
-          Os produtos com maior quantidade
-          recomendada de reposição são:
+          Os produtos com maior quantidade recomendada
+          de reposição estão abaixo.
+          O valor à direita é o
+          <strong>total estimado de compra</strong>
+          daquele produto (quantidade × custo), não o preço unitário.
         </p>
 
         <div class="lista-produtos-reposicao">
@@ -1003,6 +971,9 @@ function adicionarRespostaListaReposicao(dados, textoIa, dataHora) {
       textoIa,
       recomendacoesEstruturadas: Array.isArray(dados.recomendacoes)
         ? dados.recomendacoes
+        : [],
+      analisesEstruturadas: Array.isArray(dados.analises)
+        ? dados.analises
         : [],
     })}
 

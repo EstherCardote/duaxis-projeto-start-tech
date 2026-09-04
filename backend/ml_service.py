@@ -272,30 +272,37 @@ def _formatar_reais(valor):
     return "R$ " + texto.replace(",", "X").replace(".", ",").replace("X", ".")
 
 
-def _montar_recomendacoes_lista_reposicao(
-    total_analisados,
-    total_reposicao,
-    impacto_financeiro_total,
-):
+def _montar_analises_lista_reposicao():
+    return [
+        (
+            "A lista não cobre o catálogo inteiro: só entram "
+            "produtos em que a demanda prevista do próximo mês, "
+            "mais o estoque mínimo, supera o estoque atual."
+        ),
+        (
+            "A ordem do card é por quantidade recomendada, "
+            "não pelo valor total de compra."
+        ),
+        (
+            "A demanda usada é previsão do RandomForest, "
+            "não venda já ocorrida."
+        ),
+    ]
+
+
+def _montar_recomendacoes_lista_reposicao(total_reposicao):
     if total_reposicao <= 0:
         return []
 
-    impacto = _formatar_reais(impacto_financeiro_total)
-
     return [
         (
-            f"Emitir a reposição dos {total_reposicao} produtos "
-            f"com quantidade recomendada maior que zero. "
-            f"Impacto estimado de compra: {impacto}."
+            "Emitir as compras da lista, priorizando os produtos "
+            "com maior quantidade recomendada."
         ),
         (
             "A política de compras da Urban Style manda repor "
             "quando a demanda prevista do próximo mês, somada "
             "ao estoque mínimo, fica acima do estoque atual."
-        ),
-        (
-            f"Essa regra vale para {total_reposicao} dos "
-            f"{total_analisados} produtos analisados."
         ),
     ]
 
@@ -345,11 +352,18 @@ def listar_produtos_reposicao():
     "produtos_reposicao":
         produtos_reposicao,
 
+    "resumo": (
+        f"{len(produtos_reposicao)} produtos precisam de reposição, "
+        "com impacto total estimado de "
+        f"{_formatar_reais(impacto_financeiro_total)}."
+    ),
+
+    "analises":
+        _montar_analises_lista_reposicao(),
+
     "recomendacoes":
         _montar_recomendacoes_lista_reposicao(
-            total_analisados=len(produtos),
             total_reposicao=len(produtos_reposicao),
-            impacto_financeiro_total=impacto_financeiro_total,
         ),
 }
 

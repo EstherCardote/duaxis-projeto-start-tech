@@ -1070,7 +1070,11 @@
   }
 
   .produto-reposicao__impacto {
-    @apply shrink-0 text-sm font-semibold text-text-primary;
+    @apply flex shrink-0 flex-col items-end gap-0.5 text-sm font-semibold text-text-primary;
+  }
+
+  .produto-reposicao__impacto-rotulo {
+    @apply text-[10px] font-medium tracking-wide text-text-muted uppercase;
   }
 
   .lista-contribuicoes-lucro {

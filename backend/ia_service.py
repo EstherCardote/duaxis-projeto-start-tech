@@ -99,14 +99,9 @@ tools = [
             "name": "listar_produtos_reposicao",
 
             "description": (
-                "Analisa todos os produtos da Urban Style e identifica quais "
-                "precisam de reposição, suas quantidades recomendadas e o "
-                "impacto financeiro estimado das reposições. "
-                "Use quando o usuário perguntar de forma geral quais produtos, "
-                "itens ou mercadorias precisam ser comprados ou repostos, "
-                "quantos produtos precisam de reposição, quanto custaria realizar "
-                "as reposições recomendadas ou qual é o impacto financeiro "
-                "total da reposição de estoque."
+                "Lista produtos que precisam de reposição e o impacto "
+                "total da compra. Use em pergunta geral de reposição "
+                "ou o que comprar para o estoque. Sem parâmetros."
             ),
 
             "parameters": {
@@ -1750,6 +1745,19 @@ def _texto_fallback_simular(resultado, ferramenta="simular_lucro_despesa"):
     )
 
 
+def _texto_fallback_lista_reposicao(resultado):
+    resumo = resultado.get("resumo") or (
+        f"{resultado.get('total_reposicao', 0)} produtos "
+        "precisam de reposição."
+    )
+    return (
+        "[[RESUMO]]\n"
+        f"{resumo}\n"
+        "[[ANALISE]]\n"
+        "[[RECOMENDACOES]]\n"
+    )
+
+
 def processar_pergunta_com_tools(pergunta):
 
     mensagens = [
@@ -1928,20 +1936,9 @@ trate os resultados como candidatos a menor giro, e não como
 uma classificação definitiva de produtos encalhados ou estoque parado.
 
 Quando a ferramenta listar_produtos_reposicao for utilizada,
-não enumere os produtos individualmente na resposta textual,
-mesmo que os principais produtos sejam fornecidos no contexto.
-
-O front-end já exibirá os produtos, quantidades, impactos
-e a recomendação calculada no backend.
-Deixe [[RECOMENDACOES]] vazio.
-
-Na resposta textual, o [[RESUMO]] informa só a quantidade
-de produtos que precisam de reposição e o impacto financeiro
-total estimado. Não enumere produtos.
-Na [[ANALISE]], use só os números da ferramenta
-(produtos analisados, com reposição e impacto).
-Não invente faturamento mensal típico, percentual de caixa
-nem classificação de urgência.
+escreva só o [[RESUMO]] com total de produtos e impacto.
+Deixe [[ANALISE]] e [[RECOMENDACOES]] vazios. Não enumere
+produtos. Não fale de caixa, faturamento nem urgência.
 
 Quando a ferramenta analisar_reposicao for utilizada,
 o backend já resolveu o produto. Use produto_id e nome_produto
@@ -2274,65 +2271,68 @@ não chame ferramenta de novo. Responda só com [[RESUMO]] e [[ANALISE]].
     # 2ª CHAMADA AO MODELO
     # =====================================================
     #
-    # Agora a IA já tem:
-    #
-    # pergunta original
-    # +
-    # ferramenta escolhida
-    # +
-    # resultado real da ferramenta
-    #
-    # Ela deve apenas interpretar e explicar.
+    # Reposição geral: resumo, análise e recomendações
+    # já vêm do backend. Pula a 2ª chamada (economiza
+    # o system prompt inteiro de novo).
     # =====================================================
 
-    resposta_final = (
-    get_cliente().chat.completions.create(
+    if (
+        len(resultados_ferramentas) == 1
+        and resultados_ferramentas[0]["ferramenta"]
+        == "listar_produtos_reposicao"
+    ):
+        texto_final = _texto_fallback_lista_reposicao(
+            resultados_ferramentas[0]["resultado"]
+        )
+    else:
+        resposta_final = (
+        get_cliente().chat.completions.create(
 
-        model="openai/gpt-oss-20b",
+            model="openai/gpt-oss-20b",
 
-        messages=mensagens,
+            messages=mensagens,
 
-        temperature=0
+            temperature=0
+        )
     )
-)
 
 
-    texto_final = (
-        resposta_final
-        .choices[0]
-        .message
-        .content
-    )
+        texto_final = (
+            resposta_final
+            .choices[0]
+            .message
+            .content
+        )
 
-    if _resumo_ia_vazio(texto_final):
-        for item in resultados_ferramentas:
-            if item["ferramenta"] in (
-                "simular_lucro_despesa",
-                "simular_lucro_cmv",
-            ):
-                texto_final = _texto_fallback_simular(
-                    item["resultado"],
-                    item["ferramenta"],
-                )
-                break
-            if item["ferramenta"] == "explicar_conceito":
-                resultado = item["resultado"]
-                if resultado.get("erro"):
-                    texto_final = (
-                        "[[RESUMO]]\n"
-                        f"{resultado['erro']}\n"
-                        "[[ANALISE]]\n"
-                        "[[RECOMENDACOES]]\n"
+        if _resumo_ia_vazio(texto_final):
+            for item in resultados_ferramentas:
+                if item["ferramenta"] in (
+                    "simular_lucro_despesa",
+                    "simular_lucro_cmv",
+                ):
+                    texto_final = _texto_fallback_simular(
+                        item["resultado"],
+                        item["ferramenta"],
                     )
-                else:
-                    texto_final = (
-                        "[[RESUMO]]\n"
-                        f"{resultado['definicao']}\n"
-                        "[[ANALISE]]\n"
-                        f"- {resultado['nao_e']}\n"
-                        "[[RECOMENDACOES]]\n"
-                    )
-                break
+                    break
+                if item["ferramenta"] == "explicar_conceito":
+                    resultado = item["resultado"]
+                    if resultado.get("erro"):
+                        texto_final = (
+                            "[[RESUMO]]\n"
+                            f"{resultado['erro']}\n"
+                            "[[ANALISE]]\n"
+                            "[[RECOMENDACOES]]\n"
+                        )
+                    else:
+                        texto_final = (
+                            "[[RESUMO]]\n"
+                            f"{resultado['definicao']}\n"
+                            "[[ANALISE]]\n"
+                            f"- {resultado['nao_e']}\n"
+                            "[[RECOMENDACOES]]\n"
+                        )
+                    break
 
 
     # =====================================================
