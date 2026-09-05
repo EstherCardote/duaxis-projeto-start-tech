@@ -23,6 +23,7 @@
   --color-danger-text: #ef4444;
   --color-success: #22c55e;
   --color-success-bg: #dcfce7;
+  --color-chart-lucro: #2dab96;
   --color-warning: #f59e0b;
   --color-warning-bg: #fef3c7;
   --color-alert-bg: #f3f4f6;
@@ -232,8 +233,16 @@
     @apply flex flex-1 flex-col gap-4 p-4 sm:gap-6 sm:p-6;
   }
 
+  .saudacao__linha {
+    @apply flex items-baseline justify-between gap-4;
+  }
+
   .saudacao__titulo {
     @apply text-xl font-bold text-text-primary sm:text-2xl;
+  }
+
+  .saudacao__data {
+    @apply shrink-0 text-sm font-medium text-text-secondary sm:text-base;
   }
 
   .saudacao__texto {
@@ -338,7 +347,8 @@
   }
 
   .cartao-indicador__icone--verde {
-    @apply bg-success-bg text-success;
+    background-color: color-mix(in srgb, var(--color-chart-lucro) 12%, transparent);
+    color: var(--color-chart-lucro);
   }
 
   .cartao-indicador__icone--escuro {
@@ -449,6 +459,16 @@
 
   .painel-grafico__destaque--positivo {
     @apply font-semibold text-success;
+  }
+
+  .painel-grafico__destaque--lucro {
+    font-weight: 600;
+    color: var(--color-chart-lucro);
+  }
+
+  .painel-grafico--lucro .painel-grafico__icone {
+    background-color: color-mix(in srgb, var(--color-chart-lucro) 12%, transparent);
+    color: var(--color-chart-lucro);
   }
 
   .painel-grafico__destaque--negativo {
@@ -771,7 +791,7 @@
   }
 
   .resposta-duaxis__relatorio {
-    @apply flex w-auto cursor-pointer items-center justify-start gap-2 whitespace-nowrap border-0 bg-transparent px-4 py-3 text-left text-[11px] font-semibold tracking-widest text-brand-blue uppercase transition-colors hover:bg-brand-blue/5;
+    @apply flex w-auto cursor-pointer items-center justify-start gap-2 whitespace-nowrap border-0 bg-transparent px-4 py-3 text-left text-[11px] font-semibold tracking-widest text-brand-blue uppercase transition-colors hover:bg-brand-blue/5 disabled:cursor-wait disabled:opacity-60;
   }
 
   .resposta-duaxis__relatorio svg {

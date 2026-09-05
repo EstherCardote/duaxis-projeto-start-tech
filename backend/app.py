@@ -6,6 +6,7 @@ from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
+from fastapi.responses import Response
 from dashboard_service import (
     montar_kpis_dashboard,
     montar_grafico_faturamento,
@@ -20,6 +21,7 @@ if str(BACKEND_DIR) not in sys.path:
 
 from ml_service import analisar_reposicao
 from ia_service import processar_pergunta_com_tools
+from relatorio_service import montar_pdf_relatorio
 
 
 app = FastAPI()
@@ -29,6 +31,7 @@ app.add_middleware(
     allow_origins=["*"],
     allow_methods=["*"],
     allow_headers=["*"],
+    expose_headers=["Content-Disposition"],
 )
 
 
@@ -36,11 +39,62 @@ class PerguntaChat(BaseModel):
     mensagem: str
 
 
+class CardRelatorio(BaseModel):
+    rotulo: str = ""
+    valor: str = ""
+    texto: str = ""
+    chips: list[str] = []
+    barra: float | None = None
+    largo: bool = False
+
+
+class LinhaRelatorio(BaseModel):
+    titulo: str = ""
+    subtitulo: str = ""
+    valor: str = ""
+    rotulo_valor: str = ""
+    selo: str = ""
+    nota: str = ""
+    detalhes: list[CardRelatorio] = []
+
+
+class SecaoRelatorio(BaseModel):
+    titulo: str = ""
+    data: str = ""
+    texto: str = ""
+    paragrafos: list[str] = []
+    cards: list[CardRelatorio] = []
+    lista: list[str] = []
+    linhas: list[LinhaRelatorio] = []
+
+
+class PedidoRelatorio(BaseModel):
+    secoes: list[SecaoRelatorio]
+
+
 @app.get("/api/health")
 def inicio():
     return {
         "status": "online",
         "sistema": "DUAXIS",
+    }
+
+
+def _saudacao_por_hora(hora):
+    if 5 <= hora < 12:
+        return "Bom dia"
+    if 12 <= hora < 18:
+        return "Boa tarde"
+    return "Boa noite"
+
+
+@app.get("/api/horario")
+def horario():
+    agora = datetime.now(ZoneInfo("America/Sao_Paulo"))
+    return {
+        "timezone": "America/Sao_Paulo",
+        "hora": agora.hour,
+        "saudacao": _saudacao_por_hora(agora.hour),
     }
 
 
@@ -92,6 +146,23 @@ def chat(pergunta: PerguntaChat):
     )
 
     return resultado
+
+
+@app.post("/api/relatorio")
+def gerar_relatorio(pedido: PedidoRelatorio):
+    secoes = [secao.model_dump() for secao in pedido.secoes]
+    try:
+        pdf_bytes, nome_arquivo = montar_pdf_relatorio(secoes)
+    except ValueError as erro:
+        raise HTTPException(status_code=400, detail=str(erro)) from erro
+
+    return Response(
+        content=pdf_bytes,
+        media_type="application/pdf",
+        headers={
+            "Content-Disposition": f'attachment; filename="{nome_arquivo}"'
+        },
+    )
 
 
 FRONTEND_DIR = ROOT_DIR / "frontend" / "dist"

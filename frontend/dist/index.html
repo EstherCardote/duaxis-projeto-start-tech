@@ -160,7 +160,10 @@
 
         <div class="conteudo-pagina">
           <section class="saudacao">
-            <h2 class="saudacao__titulo">Bom dia!</h2>
+            <div class="saudacao__linha">
+              <h2 class="saudacao__titulo" id="saudacao-titulo">Bom dia!</h2>
+              <p class="saudacao__data">31 de julho de 2026</p>
+            </div>
             <p class="saudacao__texto">
               Seu Copiloto Corporativo analisou os dados da empresa e preparou os
               principais insights para hoje.
@@ -202,18 +205,26 @@
               <button
                 class="etiqueta"
                 type="button"
-                data-sugestao="Por que o lucro caiu?"
+                data-sugestao="Quais produtos estão em risco de ruptura?"
               >
                 <i data-lucide="sparkles" class="icone icone--pequeno"></i>
-                Por que o lucro caiu?
+                Quais produtos estão em risco de ruptura?
               </button>
               <button
                 class="etiqueta"
                 type="button"
-                data-sugestao="Quais produtos precisam de reposição?"
+                data-sugestao="Por que o lucro caiu em maio de 2026?"
               >
                 <i data-lucide="sparkles" class="icone icone--pequeno"></i>
-                Quais produtos precisam de reposição?
+                Por que o lucro caiu em maio de 2026?
+              </button>
+              <button
+                class="etiqueta"
+                type="button"
+                data-sugestao="E se o CMV de maio de 2026 subir 10%, ainda teremos lucro?"
+              >
+                <i data-lucide="sparkles" class="icone icone--pequeno"></i>
+                E se o CMV subir 10%, ainda teremos lucro?
               </button>
             </div>
           </section>
@@ -221,33 +232,6 @@
           <section class="secao-indicadores" id="indicadores-container">
             <div class="secao-indicadores__cabecalho">
               <h2 class="secao-indicadores__titulo">Indicadores</h2>
-              <div class="filtros-etiquetas secao-indicadores__filtros">
-                <i
-                  data-lucide="funnel"
-                  class="icone icone--pequeno text-text-muted"
-                ></i>
-                <button
-                  class="etiqueta-filtro etiqueta-filtro--ativo"
-                  type="button"
-                  data-filtro="todos"
-                >
-                  Todos
-                </button>
-                <button
-                  class="etiqueta-filtro"
-                  type="button"
-                  data-filtro="financeiro"
-                >
-                  Financeiro
-                </button>
-                <button
-                  class="etiqueta-filtro"
-                  type="button"
-                  data-filtro="logistica"
-                >
-                  Logística
-                </button>
-              </div>
             </div>
 
             <div class="grade-indicadores" id="grade-indicadores">
@@ -260,12 +244,10 @@
                       class="icone icone--pequeno"
                     ></i
                   ></span>
-                  <span class="indicador-tendencia indicador-tendencia--queda"
-                    >-0,8%</span
-                  >
+                  <span class="indicador-tendencia">—</span>
                 </div>
-                <div class="cartao-indicador__valor">R$ 1.342.000</div>
-                <div class="cartao-indicador__rotulo">Receita Total</div>
+                <div class="cartao-indicador__valor">—</div>
+                <div class="cartao-indicador__rotulo">Faturamento</div>
                 <div class="cartao-indicador__rodape">vs. mês anterior</div>
               </article>
 
@@ -278,13 +260,56 @@
                       class="icone icone--pequeno"
                     ></i
                   ></span>
-                  <span class="indicador-tendencia indicador-tendencia--queda"
-                    >-7,1%</span
-                  >
+                  <span class="indicador-tendencia">—</span>
                 </div>
-                <div class="cartao-indicador__valor">R$ 237.960</div>
-                <div class="cartao-indicador__rotulo">Lucro Líquido</div>
+                <div class="cartao-indicador__valor">—</div>
+                <div class="cartao-indicador__rotulo">Lucro após despesas</div>
                 <div class="cartao-indicador__rodape">vs. mês anterior</div>
+              </article>
+
+              <article class="cartao-indicador" data-categoria="financeiro" data-kpi="despesas">
+                <div class="cartao-indicador__cabecalho">
+                  <span
+                    class="cartao-indicador__icone cartao-indicador__icone--escuro"
+                    ><i
+                      data-lucide="wallet"
+                      class="icone icone--pequeno"
+                    ></i
+                  ></span>
+                  <span class="indicador-tendencia">—</span>
+                </div>
+                <div class="cartao-indicador__valor">—</div>
+                <div class="cartao-indicador__rotulo">Despesas</div>
+                <div class="cartao-indicador__rodape">vs. mês anterior</div>
+              </article>
+
+              <article class="cartao-indicador" data-categoria="financeiro" data-kpi="receber">
+                <div class="cartao-indicador__cabecalho">
+                  <span
+                    class="cartao-indicador__icone cartao-indicador__icone--azul"
+                    ><i
+                      data-lucide="circle-dollar-sign"
+                      class="icone icone--pequeno"
+                    ></i
+                  ></span>
+                  <span class="indicador-tendencia">—</span>
+                </div>
+                <div class="cartao-indicador__valor">—</div>
+                <div class="cartao-indicador__rotulo">Contas a receber</div>
+                <div class="cartao-indicador__rodape">em aberto</div>
+              </article>
+
+              <article class="cartao-indicador" data-categoria="comercial" data-kpi="clientes">
+                <div class="cartao-indicador__cabecalho">
+                  <span
+                    class="cartao-indicador__icone cartao-indicador__icone--escuro"
+                    ><i data-lucide="users" class="icone icone--pequeno"></i
+                  ></span>
+                  <span class="indicador-tendencia">—</span>
+                </div>
+                <div class="cartao-indicador__valor">—</div>
+                <div class="cartao-indicador__rotulo">Clientes ativos</div>
+                <div class="cartao-indicador__rodape">cadastro atual</div>
               </article>
 
               <article class="cartao-indicador" data-categoria="logistica" data-kpi="estoque">
@@ -293,30 +318,10 @@
                     class="cartao-indicador__icone cartao-indicador__icone--escuro"
                     ><i data-lucide="package" class="icone icone--pequeno"></i
                   ></span>
-
                   <span class="indicador-tendencia">—</span>
-            
                 </div>
-                <div class="cartao-indicador__valor">16.365</div>
-                <div class="cartao-indicador__rotulo">Produtos em Estoque</div>
-                <div class="cartao-indicador__rodape">vs. mês anterior</div>
-              </article>
-
-              <article class="cartao-indicador" data-categoria="logistica" data-kpi="reposicao">
-                <div class="cartao-indicador__cabecalho">
-                  <span
-                    class="cartao-indicador__icone cartao-indicador__icone--escuro"
-                    ><i
-                      data-lucide="clipboard-list"
-                      class="icone icone--pequeno"
-                    ></i
-                  ></span>
-                  <span class="indicador-tendencia indicador-tendencia--queda"
-                    >−</span
-                  >
-                </div>
-                <div class="cartao-indicador__valor">7 Produtos</div>
-                <div class="cartao-indicador__rotulo">Abaixo do Mínimo</div>
+                <div class="cartao-indicador__valor">—</div>
+                <div class="cartao-indicador__rotulo">Unidades em estoque</div>
                 <div class="cartao-indicador__rodape">vs. mês anterior</div>
               </article>
             </div>
@@ -371,7 +376,7 @@
                 ></div>
               </article>
 
-              <article class="painel-grafico" data-grafico="lucro">
+              <article class="painel-grafico painel-grafico--lucro" data-grafico="lucro">
                 <div class="painel-grafico__cabecalho">
                   <div class="painel-grafico__titulo-grupo">
                     <span class="painel-grafico__icone"
@@ -380,7 +385,7 @@
                         class="icone icone--pequeno"
                       ></i
                     ></span>
-                    <h3 class="painel-grafico__titulo">Lucro Líquido</h3>
+                    <h3 class="painel-grafico__titulo">Lucro</h3>
                   </div>
                   <div class="painel-grafico__filtro-periodo">
                     <label class="painel-grafico__filtro-rotulo"

@@ -12,9 +12,13 @@ document.addEventListener("DOMContentLoaded", () => {
   inicializarAbasPainel();
 
   inicializarChatDuaxis();
+  inicializarDownloadRelatorio();
+  inicializarAtalhoChatDashboard();
+  enviarPerguntaPendenteDaUrl();
   inicializarFiltroFaturamento();
   inicializarFiltroLucro();
 
+  carregarSaudacaoDashboard();
   carregarKpisDashboard();
 
 });
@@ -131,6 +135,16 @@ function inicializarAlternadorTema() {
   });
 }
 
+function urlCopilotoComPergunta(pergunta) {
+  const texto = (pergunta || "").trim();
+
+  if (!texto) {
+    return "copiloto-corporativo.html";
+  }
+
+  return `copiloto-corporativo.html?pergunta=${encodeURIComponent(texto)}`;
+}
+
 // Preenche o campo de chat ao clicar em uma sugestão
 function inicializarEtiquetasSugestao() {
   const campoChat = document.getElementById("campo-chat");
@@ -138,9 +152,16 @@ function inicializarEtiquetasSugestao() {
 
   document.querySelectorAll(".etiqueta[data-sugestao]").forEach((etiqueta) => {
     etiqueta.addEventListener("click", () => {
+      const sugestao = etiqueta.dataset.sugestao || "";
+
+      if (campoChatDv) {
+        campoChatDv.value = sugestao;
+        campoChatDv.focus();
+        return;
+      }
+
       if (campoChat) {
-        campoChat.value = etiqueta.dataset.sugestao || "";
-        campoChat.focus();
+        window.location.href = urlCopilotoComPergunta(sugestao);
       }
     });
   });
@@ -286,6 +307,45 @@ function inicializarChatDuaxis() {
   });
 }
 
+function inicializarAtalhoChatDashboard() {
+  const campoChat = document.getElementById("campo-chat");
+  const botaoEnviar = document.querySelector(".botao-enviar-chat");
+
+  if (!campoChat || !botaoEnviar) {
+    return;
+  }
+
+  function irParaCopiloto() {
+    window.location.href = urlCopilotoComPergunta(campoChat.value);
+  }
+
+  botaoEnviar.addEventListener("click", irParaCopiloto);
+  campoChat.addEventListener("keydown", (evento) => {
+    if (evento.key === "Enter") {
+      evento.preventDefault();
+      irParaCopiloto();
+    }
+  });
+}
+
+function enviarPerguntaPendenteDaUrl() {
+  const campoChat = document.getElementById("campo-chat-dv");
+
+  if (!campoChat) {
+    return;
+  }
+
+  const pergunta = new URLSearchParams(window.location.search).get("pergunta");
+
+  if (!pergunta) {
+    return;
+  }
+
+  campoChat.value = pergunta;
+  history.replaceState({}, "", "copiloto-corporativo.html");
+  enviarPerguntaDuaxis(campoChat);
+}
+
 function urlApiChat() {
   const host = window.location.hostname;
 
@@ -296,6 +356,16 @@ function urlApiChat() {
   return "/api/chat";
 }
 
+function urlApiRelatorio() {
+  const host = window.location.hostname;
+
+  if (!host || host === "localhost" || host === "127.0.0.1") {
+    return "http://127.0.0.1:8000/api/relatorio";
+  }
+
+  return "/api/relatorio";
+}
+
 function urlApiDashboard() {
   const host = window.location.hostname;
 
@@ -304,6 +374,37 @@ function urlApiDashboard() {
   }
 
   return "/api/dashboard";
+}
+
+function urlApiHorario() {
+  const host = window.location.hostname;
+
+  if (!host || host === "localhost" || host === "127.0.0.1") {
+    return "http://127.0.0.1:8000/api/horario";
+  }
+
+  return "/api/horario";
+}
+
+async function carregarSaudacaoDashboard() {
+  const titulo = document.getElementById("saudacao-titulo");
+
+  if (!titulo) {
+    return;
+  }
+
+  try {
+    const resposta = await fetch(urlApiHorario());
+
+    if (!resposta.ok) {
+      throw new Error(`Erro HTTP ${resposta.status}`);
+    }
+
+    const dados = await resposta.json();
+    titulo.textContent = `${dados.saudacao}!`;
+  } catch (erro) {
+    console.error("Não foi possível carregar a saudação.", erro);
+  }
 }
 
 function formatarMoedaKpi(valor) {
@@ -363,6 +464,16 @@ function textoVariacaoKpi(kpi) {
   return formatarPercentualKpi(kpi.variacao_percentual);
 }
 
+function inverterDirecaoDespesa(direcao) {
+  if (direcao === "alta") {
+    return "queda";
+  }
+  if (direcao === "queda") {
+    return "alta";
+  }
+  return direcao;
+}
+
 function preencherCartaoKpi(chave, dados, tipoValor) {
   const cartao = document.querySelector(`[data-kpi="${chave}"]`);
   const kpi = dados.kpis[chave];
@@ -378,22 +489,24 @@ function preencherCartaoKpi(chave, dados, tipoValor) {
 
   if (tipoValor === "moeda") {
     valorEl.textContent = formatarMoedaKpi(kpi.valor);
-  } else if (chave === "reposicao") {
-    valorEl.textContent = `${kpi.valor} produtos`;
   } else {
     valorEl.textContent = Number(kpi.valor).toLocaleString("pt-BR");
   }
 
   rotuloEl.textContent = kpi.rotulo;
 
-  if (kpi.variacao_percentual === null || kpi.variacao_percentual === undefined) {
+  if (kpi.rodape) {
+    rodapeEl.textContent = kpi.rodape;
+  } else if (kpi.variacao_percentual === null || kpi.variacao_percentual === undefined) {
     rodapeEl.textContent = `em ${formatarCompetenciaKpi(dados.periodo_inicio)}`;
   } else {
     rodapeEl.textContent = `vs ${formatarCompetenciaKpi(dados.periodo_anterior_inicio)}`;
   }
 
+  const direcao =
+    chave === "despesas" ? inverterDirecaoDespesa(kpi.direcao) : kpi.direcao;
   tendenciaEl.textContent = textoVariacaoKpi(kpi);
-  aplicarTendenciaKpi(tendenciaEl, kpi.direcao);
+  aplicarTendenciaKpi(tendenciaEl, direcao);
 }
 
 async function carregarKpisDashboard() {
@@ -414,8 +527,10 @@ async function carregarKpisDashboard() {
 
     preencherCartaoKpi("faturamento", dados, "moeda");
     preencherCartaoKpi("lucro", dados, "moeda");
+    preencherCartaoKpi("despesas", dados, "moeda");
+    preencherCartaoKpi("receber", dados, "moeda");
+    preencherCartaoKpi("clientes", dados, "numero");
     preencherCartaoKpi("estoque", dados, "numero");
-    preencherCartaoKpi("reposicao", dados, "numero");
     preencherGraficoNivelEstoque(dados);
     preencherGraficoPedidosAtrasados(dados);
   } catch (erro) {
@@ -870,13 +985,13 @@ function desenharSvgAreaLucro(pontos) {
   return `<svg viewBox="0 0 400 168">
       <defs>
         <linearGradient id="grad-lucro" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stop-color="#2563eb" stop-opacity="0.3"></stop>
-          <stop offset="100%" stop-color="#2563eb" stop-opacity="0"></stop>
+          <stop offset="0%" stop-color="#2dab96" stop-opacity="0.3"></stop>
+          <stop offset="100%" stop-color="#2dab96" stop-opacity="0"></stop>
         </linearGradient>
       </defs>
       ${eixos}
       <polygon fill="url(#grad-lucro)" points="${pontosArea}"></polygon>
-      <polyline fill="none" stroke="#2563eb" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" points="${pontosLinha}"></polyline>
+      <polyline fill="none" stroke="#2dab96" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" points="${pontosLinha}"></polyline>
       ${marcadores}
     </svg>`;
 }
@@ -902,6 +1017,7 @@ function preencherGraficoLucro(grafico) {
     totais[0].textContent = formatarMoedaKpi(grafico.total);
   }
   if (totais[1]) {
+    totais[1].classList.add("painel-grafico__destaque--lucro");
     totais[1].textContent =
       grafico.margem_percentual == null
         ? "—"
@@ -1509,7 +1625,7 @@ function formatarTopicosHtml(texto) {
     .filter(Boolean)
     .map((linha) => linha.replace(/^[-*•]\s+/, "").replace(/^\d+[.)]\s+/, ""));
 
-  if (itens.length >= 2) {
+  if (itens.length >= 1) {
     const lis = itens
       .map((item) => `<li>${converterTextoIaParaHtml(item)}</li>`)
       .join("");
@@ -1598,6 +1714,288 @@ function montarBotaoGerarRelatorio() {
       </button>
     </section>
   `;
+}
+
+function normalizarTextoRelatorio(texto) {
+  return String(texto || "")
+    .replaceAll("\u00a0", " ")
+    .replace(/[ \t]+/g, " ")
+    .replace(/\n{3,}/g, "\n\n")
+    .trim();
+}
+
+function limparSecaoParaRelatorio(secao) {
+  const clone = secao.cloneNode(true);
+
+  clone.querySelectorAll("button").forEach((botao) => botao.remove());
+  clone.querySelectorAll("svg, i").forEach((icone) => icone.remove());
+
+  return clone;
+}
+
+function tituloDaSecaoRelatorio(cabecalho) {
+  if (!cabecalho) {
+    return "";
+  }
+
+  const identificacao = cabecalho.querySelector(
+    ".resposta-duaxis__identificacao",
+  );
+  if (identificacao) {
+    const spans = [...identificacao.querySelectorAll("span")].filter(
+      (span) => !span.classList.contains("resposta-duaxis__data"),
+    );
+    return normalizarTextoRelatorio(spans.map((span) => span.innerText).join(" "));
+  }
+
+  const clone = cabecalho.cloneNode(true);
+  clone.querySelectorAll(".resposta-duaxis__data").forEach((el) => el.remove());
+  return normalizarTextoRelatorio(clone.innerText);
+}
+
+function coletarCardsRelatorio(raiz) {
+  return [...raiz.querySelectorAll(".confiabilidade-card, .conceito-glossario")]
+    .map((card) => {
+      const barraEl = card.querySelector(".confiabilidade-barra__preenchimento");
+      const estilo = barraEl?.getAttribute("style") || "";
+      const matchBarra = estilo.match(/width:\s*([\d.]+)%/);
+
+      return {
+        rotulo: normalizarTextoRelatorio(
+          card.querySelector(
+            ".confiabilidade-card__rotulo, .conceito-glossario__rotulo",
+          )?.innerText || "",
+        ),
+        valor: normalizarTextoRelatorio(
+          card.querySelector(":scope > strong")?.innerText || "",
+        ),
+        texto: normalizarTextoRelatorio(
+          card.querySelector(
+            ".confiabilidade-card__texto, .conceito-glossario__texto",
+          )?.innerText || "",
+        ),
+        chips: [...card.querySelectorAll(".confiabilidade-chip")]
+          .map((chip) => normalizarTextoRelatorio(chip.innerText))
+          .filter(Boolean),
+        barra: matchBarra ? Number(matchBarra[1]) : null,
+        largo: card.classList.contains("confiabilidade-card--largo"),
+      };
+    })
+    .filter((card) => card.rotulo || card.valor || card.texto || card.chips.length);
+}
+
+function coletarDetalhesRelatorio(container) {
+  if (!container) {
+    return [];
+  }
+
+  return [...container.children]
+    .map((celula) => ({
+      rotulo: normalizarTextoRelatorio(celula.querySelector("span")?.innerText || ""),
+      valor: normalizarTextoRelatorio(celula.querySelector("strong")?.innerText || ""),
+      texto: "",
+      chips: [],
+      barra: null,
+      largo: false,
+    }))
+    .filter((item) => item.rotulo || item.valor);
+}
+
+function coletarLinhasRelatorio(raiz) {
+  const linhas = [];
+
+  raiz.querySelectorAll(".produto-reposicao").forEach((el) => {
+    linhas.push({
+      titulo: normalizarTextoRelatorio(
+        el.querySelector(".produto-reposicao__info strong")?.innerText || "",
+      ),
+      subtitulo: normalizarTextoRelatorio(
+        el.querySelector(".produto-reposicao__info span")?.innerText || "",
+      ),
+      valor: normalizarTextoRelatorio(
+        el.querySelector(".produto-reposicao__impacto strong")?.innerText ||
+          el.querySelector(".produto-reposicao__impacto")?.innerText ||
+          "",
+      ),
+      rotulo_valor: normalizarTextoRelatorio(
+        el.querySelector(".produto-reposicao__impacto-rotulo")?.innerText || "",
+      ),
+      selo: "",
+      nota: "",
+      detalhes: [],
+    });
+  });
+
+  const blocos = raiz.querySelectorAll(
+    ".produto-risco, .pedido-atrasado, .produto-baixo-giro, .fornecedor-atraso",
+  );
+
+  blocos.forEach((el) => {
+    linhas.push({
+      titulo: normalizarTextoRelatorio(
+        el.querySelector(
+          ".produto-risco__nome, .pedido-atrasado__id, .produto-baixo-giro__nome, .fornecedor-atraso__nome",
+        )?.innerText || "",
+      ),
+      subtitulo: normalizarTextoRelatorio(
+        el.querySelector(
+          ".produto-risco__id, .produto-baixo-giro__id, .fornecedor-atraso__id, .pedido-atrasado__produto",
+        )?.innerText || "",
+      ),
+      valor: "",
+      rotulo_valor: "",
+      selo: normalizarTextoRelatorio(
+        el.querySelector(
+          ".produto-risco__nivel, .pedido-atrasado__dias, .produto-baixo-giro__posicao, .fornecedor-atraso__taxa",
+        )?.innerText || "",
+      ),
+      nota: normalizarTextoRelatorio(
+        el.querySelector(".produto-baixo-giro__comparacao")?.innerText || "",
+      ),
+      detalhes: coletarDetalhesRelatorio(
+        el.querySelector(
+          ".produto-risco__detalhes, .pedido-atrasado__detalhes, .produto-baixo-giro__detalhes, .fornecedor-atraso__detalhes",
+        ),
+      ),
+    });
+  });
+
+  return linhas.filter(
+    (linha) => linha.titulo || linha.valor || linha.detalhes.length,
+  );
+}
+
+function coletarSecoesRelatorio(bloco) {
+  const secoes = [];
+
+  bloco.querySelectorAll(".resposta-duaxis__secao").forEach((secao) => {
+    if (secao.classList.contains("resposta-duaxis__secao--relatorio")) {
+      return;
+    }
+
+    const clone = limparSecaoParaRelatorio(secao);
+    const cabecalho = clone.querySelector(".resposta-duaxis__cabecalho");
+    const conteudo = clone.querySelector(".resposta-duaxis__conteudo");
+    const titulo = tituloDaSecaoRelatorio(cabecalho);
+    const data = normalizarTextoRelatorio(
+      cabecalho?.querySelector(".resposta-duaxis__data")?.innerText || "",
+    );
+    const cards = coletarCardsRelatorio(clone);
+    const lista = [...clone.querySelectorAll(".resposta-duaxis__lista li")]
+      .map((item) =>
+        normalizarTextoRelatorio(item.innerText).replace(/^[-*•]\s+/, ""),
+      )
+      .filter(Boolean);
+    const linhas = coletarLinhasRelatorio(clone);
+    const paragrafos = [
+      ...clone.querySelectorAll(":scope > .resposta-duaxis__conteudo > p, .reposicao-intro"),
+    ]
+      .map((paragrafo) => normalizarTextoRelatorio(paragrafo.innerText))
+      .filter(Boolean);
+
+    if (!paragrafos.length && !cards.length && !lista.length && !linhas.length) {
+      const textoLivre = normalizarTextoRelatorio(conteudo?.innerText || "");
+      if (textoLivre) {
+        paragrafos.push(textoLivre);
+      }
+    }
+
+    if (!paragrafos.length && !cards.length && !lista.length && !linhas.length) {
+      return;
+    }
+
+    secoes.push({
+      titulo,
+      data,
+      paragrafos,
+      cards,
+      lista,
+      linhas,
+    });
+  });
+
+  return secoes;
+}
+
+async function baixarRelatorioPdf(secoes) {
+  const resposta = await fetch(urlApiRelatorio(), {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ secoes }),
+  });
+
+  if (!resposta.ok) {
+    throw new Error(`Erro HTTP ${resposta.status}`);
+  }
+
+  const blob = await resposta.blob();
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement("a");
+  const nomeArquivo =
+    resposta.headers
+      .get("Content-Disposition")
+      ?.match(/filename="([^"]+)"/)?.[1] || "relatorio-duaxis.pdf";
+
+  link.href = url;
+  link.download = nomeArquivo;
+  document.body.appendChild(link);
+  link.click();
+  link.remove();
+  URL.revokeObjectURL(url);
+}
+
+function inicializarDownloadRelatorio() {
+  const container = document.getElementById("mensagens-chat-dv");
+
+  if (!container || container.dataset.relatorioPronto === "true") {
+    return;
+  }
+
+  container.dataset.relatorioPronto = "true";
+  container.addEventListener("click", async (evento) => {
+    const botao = evento.target.closest(".resposta-duaxis__relatorio");
+
+    if (!botao) {
+      return;
+    }
+
+    const bloco = botao.closest(".resposta-duaxis");
+
+    if (!bloco) {
+      return;
+    }
+
+    const secoes = coletarSecoesRelatorio(bloco);
+
+    if (!secoes.length) {
+      return;
+    }
+
+    const rotulo = botao.querySelector("span");
+    const textoOriginal = rotulo ? rotulo.textContent : "";
+    botao.disabled = true;
+    if (rotulo) {
+      rotulo.textContent = "Gerando...";
+    }
+
+    try {
+      await baixarRelatorioPdf(secoes);
+    } catch (erro) {
+      console.error("Não foi possível gerar o relatório.", erro);
+      if (rotulo) {
+        rotulo.textContent = "Falha ao gerar";
+      }
+      await new Promise((resolver) => setTimeout(resolver, 1600));
+    } finally {
+      botao.disabled = false;
+      if (rotulo) {
+        rotulo.textContent = textoOriginal || "Gerar Relatório";
+      }
+      inicializarIconesLucide();
+    }
+  });
 }
 
 function montarBlocosFinais(configConfiabilidade) {

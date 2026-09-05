@@ -3,16 +3,18 @@ import pandas as pd
 from financeiro_service import (
     vendas,
     movimentacoes_financeiras,
+    clientes,
     CATEGORIAS_DESPESA,
     comparar_faturamento,
     comparar_lucro,
+    comparar_despesas,
+    consultar_contas_a_receber,
 )
 from logistica_service import (
     obter_estoque_em_data,
     consultar_pedidos_atrasados,
     resumir_estoque_por_categoria,
 )
-from ml_service import listar_produtos_reposicao
 
 NOMES_MES_CURTO = (
     "Jan",
@@ -307,7 +309,17 @@ def montar_kpis_dashboard(data_inicio=None, data_fim=None):
     unidades_estoque = int(estoque["estoque_na_data"].sum())
     nivel_estoque = resumir_estoque_por_categoria(estoque)
 
-    reposicao = listar_produtos_reposicao()
+    despesas = comparar_despesas(data_inicio, data_fim)
+    data_referencia_receber = str(
+        pd.Period(
+            fat["periodo_atual"]["periodo_fim"],
+            freq="M",
+        ).to_timestamp(how="end").date()
+    )
+    receber = consultar_contas_a_receber(data_referencia_receber)
+    clientes_ativos = int(
+        (clientes["status"] == "Ativo").sum()
+    )
 
     mes_atrasos = pd.Period(
     fat["periodo_atual"]["periodo_fim"],
@@ -350,18 +362,34 @@ def montar_kpis_dashboard(data_inicio=None, data_fim=None):
                 "rotulo": "Lucro após despesas",
                 "modulo": "financeiro",
             },
+            "despesas": {
+                "valor": despesas["periodo_atual"]["despesa_total"],
+                "variacao_percentual": despesas["variacao_percentual"],
+                "direcao": despesas["direcao"],
+                "rotulo": "Despesas",
+                "modulo": "financeiro",
+            },
+            "receber": {
+                "valor": receber["valor_em_aberto"],
+                "variacao_percentual": None,
+                "direcao": None,
+                "rotulo": "Contas a receber",
+                "modulo": "financeiro",
+                "rodape": "em aberto na data",
+            },
+            "clientes": {
+                "valor": clientes_ativos,
+                "variacao_percentual": None,
+                "direcao": None,
+                "rotulo": "Clientes ativos",
+                "modulo": "comercial",
+                "rodape": "cadastro atual",
+            },
             "estoque": {
                 "valor": unidades_estoque,
                 "variacao_percentual": None,
                 "direcao": None,
                 "rotulo": "Unidades em estoque",
-                "modulo": "logistica",
-            },
-            "reposicao": {
-                "valor": reposicao["total_reposicao"],
-                "variacao_percentual": None,
-                "direcao": None,
-                "rotulo": "Produtos com reposição",
                 "modulo": "logistica",
             },
         },
