@@ -284,7 +284,9 @@ tools = [
             "fluxo de caixa, lucro ou despesas. "
             "Quando o usuário informar um período, envie "
             "data_inicio e data_fim no formato YYYY-MM. "
-            "Quando não informar período, não envie as datas."
+            "Se for continuação da sessão, envie o último "
+            "período do contexto. Só omita as datas na "
+            "primeira pergunta sem período."
             "Não use para comparar períodos, variação percentual ou se o faturamento subiu ou caiu. Use comparar_faturamento."
         ),
         "parameters": {
@@ -325,7 +327,9 @@ tools = [
             "quais foram as despesas ou gastos operacionais. "
             "Quando informar um período, envie data_inicio e "
             "data_fim no formato YYYY-MM. "
-            "Quando não informar período, não envie as datas. "
+            "Se for continuação da sessão ('e as despesas?'), "
+            "envie o último período do contexto. "
+            "Só omita as datas na primeira pergunta sem período. "
             "Não use para comparar períodos, variação ou se a despesa subiu ou caiu. Use comparar_despesas. "
             "Não use para e se a despesa ou o aluguel mudar. "
             "Use simular_lucro_despesa."
@@ -368,7 +372,9 @@ tools = [
             "compras, caixa ou contas a pagar. "
             "Quando informar um período, envie data_inicio e "
             "data_fim no formato YYYY-MM. "
-            "Quando não informar período, não envie as datas. "
+            "Se for continuação da sessão ('e o lucro?'), "
+            "envie o último período do contexto. "
+            "Só omita as datas na primeira pergunta sem período. "
             "Não use para comparar períodos ou se o lucro "
             "subiu ou caiu. Use comparar_lucro. "
             "Não use para por que o lucro caiu ou o que "
@@ -1720,7 +1726,149 @@ def _texto_fallback_lista_reposicao(resultado):
     )
 
 
-def processar_pergunta_com_tools(pergunta):
+def _campo_texto(valor):
+    if valor is None:
+        return ""
+    texto = str(valor).strip()
+    if texto in ("None", "null"):
+        return ""
+    return texto
+
+
+def _extrair_contexto_sessao(resultados_ferramentas):
+    for item in resultados_ferramentas or []:
+        resultado = item.get("resultado") or {}
+        if resultado.get("erro"):
+            continue
+
+        periodo_inicio = resultado.get("periodo_inicio")
+        periodo_fim = resultado.get("periodo_fim")
+        atual = resultado.get("periodo_atual")
+        if isinstance(atual, dict):
+            periodo_inicio = atual.get("periodo_inicio") or periodo_inicio
+            periodo_fim = atual.get("periodo_fim") or periodo_fim
+
+        contexto = {
+            "ferramenta": item.get("ferramenta") or "",
+            "produto_id": _campo_texto(resultado.get("produto_id")),
+            "periodo_inicio": _campo_texto(periodo_inicio),
+            "periodo_fim": _campo_texto(periodo_fim),
+            "data_referencia": _campo_texto(resultado.get("data_referencia")),
+        }
+        if contexto["ferramenta"]:
+            return contexto
+    return None
+
+
+def _mesclar_contexto_sessao(anterior, novo):
+    if not novo:
+        return anterior
+    if not anterior:
+        return novo
+    mesclado = dict(anterior)
+    for chave, valor in novo.items():
+        if valor:
+            mesclado[chave] = valor
+    return mesclado
+
+
+def _texto_contexto_sessao(contexto):
+    if not contexto or not contexto.get("ferramenta"):
+        return ""
+
+    linhas = [
+        "Contexto da sessão anterior "
+        "(não use estes dados como resposta; "
+        "sirva só para interpretar continuação):",
+        f"- Última ferramenta: {contexto['ferramenta']}",
+    ]
+
+    inicio = contexto.get("periodo_inicio") or ""
+    fim = contexto.get("periodo_fim") or ""
+    if inicio or fim:
+        if inicio and fim and inicio != fim:
+            linhas.append(f"- Último período: {inicio} a {fim}")
+        else:
+            linhas.append(f"- Último período: {inicio or fim}")
+
+    if contexto.get("data_referencia"):
+        linhas.append(
+            f"- Última data de referência: {contexto['data_referencia']}"
+        )
+
+    if contexto.get("produto_id"):
+        linhas.append(f"- Último produto: {contexto['produto_id']}")
+
+    linhas.append(
+        "Se a pergunta atual for incompleta, complete com este "
+        "contexto e chame a ferramenta de novo. "
+        "Em continuações como 'e as despesas?' ou 'e em junho?', "
+        "envie data_inicio e data_fim iguais ao último período. "
+        "Não omita as datas. "
+        "Não reutilize números do turno anterior."
+    )
+    return "\n".join(linhas)
+
+
+FERRAMENTAS_COM_PERIODO = {
+    "calcular_faturamento",
+    "calcular_despesas",
+    "calcular_lucro",
+    "calcular_fluxo_caixa",
+    "listar_produtos_baixo_giro",
+    "listar_fornecedores_atrasos",
+    "simular_lucro_despesa",
+    "simular_lucro_cmv",
+    "explicar_variacao_lucro",
+}
+
+FERRAMENTAS_COM_DATA_REFERENCIA = {
+    "consultar_pedidos_atrasados",
+    "consultar_contas_a_receber",
+    "consultar_contas_a_pagar",
+}
+
+
+def _argumento_preenchido(argumentos, chave):
+    valor = argumentos.get(chave)
+    if valor is None:
+        return False
+    texto = str(valor).strip().lower()
+    return texto not in ("", "none", "null")
+
+
+def _aplicar_contexto_na_chamada(argumentos, contexto, nome_funcao):
+    if not contexto:
+        return argumentos
+
+    args = dict(argumentos)
+
+    if nome_funcao in FERRAMENTAS_COM_PERIODO:
+        tem_inicio = _argumento_preenchido(args, "data_inicio")
+        tem_fim = _argumento_preenchido(args, "data_fim")
+        if not tem_inicio and not tem_fim:
+            inicio = contexto.get("periodo_inicio") or ""
+            fim = contexto.get("periodo_fim") or inicio
+            if inicio:
+                args["data_inicio"] = inicio
+                args["data_fim"] = fim or inicio
+
+    if nome_funcao in FERRAMENTAS_COM_DATA_REFERENCIA:
+        if not _argumento_preenchido(args, "data_referencia"):
+            referencia = contexto.get("data_referencia") or ""
+            if referencia:
+                args["data_referencia"] = referencia
+
+    if nome_funcao == "analisar_reposicao":
+        if not _argumento_preenchido(args, "produto_id"):
+            produto = contexto.get("produto_id") or ""
+            if produto:
+                args["produto_id"] = produto
+
+    return args
+
+
+def processar_pergunta_com_tools(pergunta, contexto=None):
 
     mensagens = [
 
@@ -1753,6 +1901,15 @@ capacidades ou forma de funcionamento estão dentro do escopo.
 
 Sempre utilize as ferramentas disponíveis quando
 a pergunta depender de dados da empresa.
+
+Pode receber um bloco "Contexto da sessão anterior".
+Use-o SOMENTE para interpretar continuação incompleta,
+como "e em junho?", "e as despesas?" ou "e desse produto?".
+Nesse caso, reutilize a última ferramenta ou o último
+período/produto que faltarem na pergunta atual.
+Se a pergunta nova já for completa, ignore o contexto.
+Nunca reutilize números, totais ou listas do turno
+anterior. Sempre chame a ferramenta de novo.
 
 Nunca invente valores, produtos, fornecedores,
 estoques, previsões ou resultados financeiros.
@@ -1844,6 +2001,9 @@ Não use segunda frase.
 Regras do resumo:
 Responda cru. Se perguntaram faturamento, só faturamento.
 Se perguntaram lucro, só lucro após despesas e o período.
+Se periodo_inicio e periodo_fim forem meses diferentes,
+cite os dois (de maio a julho de 2026). Não atribua o
+total a um único mês.
 Se perguntaram reposição de um produto, só o produto e a
 quantidade recomendada (com nome e código).
 
@@ -2001,6 +2161,10 @@ não chame ferramenta de novo. Responda só com [[RESUMO]] e [[ANALISE]].
         }
 
     ]
+
+    texto_contexto = _texto_contexto_sessao(contexto)
+    if texto_contexto:
+        mensagens[0]["content"] += "\n\n" + texto_contexto
     # =====================================================
     # 1ª CHAMADA AO MODELO
     # =====================================================
@@ -2039,7 +2203,8 @@ não chame ferramenta de novo. Responda só com [[RESUMO]] e [[ANALISE]].
                     "A consulta ultrapassou o limite temporário "
                     "da Groq. Aguarde cerca de um minuto e "
                     "tente de novo."
-                )
+                ),
+                "contexto_sessao": contexto,
             }
         recuperacao = _ler_failed_generation(texto_erro)
         if recuperacao is None:
@@ -2062,6 +2227,11 @@ não chame ferramenta de novo. Responda só com [[RESUMO]] e [[ANALISE]].
             for chave, valor in recuperacao["arguments"].items()
             if str(chave).strip()
         }
+        argumentos = _aplicar_contexto_na_chamada(
+            argumentos,
+            contexto,
+            nome_funcao,
+        )
         funcao = funcoes_disponiveis[nome_funcao]
         try:
             resultado = funcao(**argumentos)
@@ -2102,7 +2272,8 @@ não chame ferramenta de novo. Responda só com [[RESUMO]] e [[ANALISE]].
         if not tool_calls:
             return {
                 "tipo_resposta": "texto",
-                "resposta_ia": mensagem_modelo.content
+                "resposta_ia": mensagem_modelo.content,
+                "contexto_sessao": contexto,
             }
         mensagens.append(
             mensagem_modelo
@@ -2147,6 +2318,11 @@ não chame ferramenta de novo. Responda só com [[RESUMO]] e [[ANALISE]].
             for chave, valor in argumentos.items()
             if chave.strip()
         }
+        argumentos = _aplicar_contexto_na_chamada(
+            argumentos,
+            contexto,
+            nome_funcao,
+        )
         # -------------------------------------------------
         # PEGA A FUNÇÃO PYTHON REAL
         # -------------------------------------------------
@@ -2307,16 +2483,23 @@ não chame ferramenta de novo. Responda só com [[RESUMO]] e [[ANALISE]].
     # RETORNO PARA O BACKEND
     # =====================================================
 
+    contexto_atualizado = _mesclar_contexto_sessao(
+        contexto,
+        _extrair_contexto_sessao(resultados_ferramentas),
+    )
+
     if not resultados_ferramentas:
         return {
             "tipo_resposta": "texto",
-            "resposta_ia": texto_final
+            "resposta_ia": texto_final,
+            "contexto_sessao": contexto_atualizado,
         }
 
     return {
         "tipo_resposta": "resposta_ia",
         "resposta_ia": texto_final,
-        "ferramentas_utilizadas": resultados_ferramentas
+        "ferramentas_utilizadas": resultados_ferramentas,
+        "contexto_sessao": contexto_atualizado,
     }
 
 # TESTE

@@ -12,6 +12,7 @@ LIMITE_ITENS = 200
 
 MARGEM = 12
 ALTURA_CABECALHO_SECAO = 8
+ALTURA_CABECALHO_COM_DATA = 11.2
 PADDING_SECAO = 3
 GAP_GRADE = 2.0
 GAP_PEDIDOS = 5.0
@@ -196,9 +197,14 @@ class RelatorioPDF(FPDF):
 
         self._desenhar_secao_fluida(secao)
 
+    def _altura_cabecalho(self, secao):
+        if secao.get("data"):
+            return ALTURA_CABECALHO_COM_DATA
+        return ALTURA_CABECALHO_SECAO
+
     def _altura_secao(self, secao):
         largura_conteudo = self.largura_util - (2 * PADDING_SECAO)
-        altura = ALTURA_CABECALHO_SECAO + PADDING_SECAO
+        altura = self._altura_cabecalho(secao) + PADDING_SECAO
         altura += self._altura_paragrafos(secao["paragrafos"], largura_conteudo)
         altura += self._altura_grade(secao["cards"], largura_conteudo)
         altura += self._altura_lista(secao["lista"], largura_conteudo)
@@ -354,17 +360,18 @@ class RelatorioPDF(FPDF):
         y = self.get_y()
         self._caixa(x, y, self.largura_util, altura, BRANCO, BORDA, raio=3.2)
         self._desenhar_cabecalho_secao(x, y, secao)
-        cursor = y + ALTURA_CABECALHO_SECAO
+        cursor = y + self._altura_cabecalho(secao)
         cursor = self._desenhar_conteudo(x, cursor, secao, self.largura_util)
         self.set_y(max(cursor, y + altura) + 3.2)
 
     def _desenhar_secao_fluida(self, secao):
-        self._quebrar_se_preciso(14)
+        altura_cabecalho = self._altura_cabecalho(secao)
+        self._quebrar_se_preciso(altura_cabecalho + 6)
         x = MARGEM
         y = self.get_y()
-        self._caixa(x, y, self.largura_util, ALTURA_CABECALHO_SECAO, FUNDO_PAGINA, BORDA, raio=3)
+        self._caixa(x, y, self.largura_util, altura_cabecalho, FUNDO_PAGINA, BORDA, raio=3)
         self._desenhar_cabecalho_secao(x, y, secao)
-        self.set_y(y + ALTURA_CABECALHO_SECAO + 2)
+        self.set_y(y + altura_cabecalho + 2)
         padding = PADDING_SECAO
         largura = self.largura_util
         self._desenhar_paragrafos_fluxo(secao["paragrafos"], x, largura, padding)
@@ -374,23 +381,34 @@ class RelatorioPDF(FPDF):
         self.ln(2)
 
     def _desenhar_cabecalho_secao(self, x, y, secao):
+        altura = self._altura_cabecalho(secao)
         self.set_fill_color(*FUNDO_PAGINA)
         self.rect(
             x + 0.35,
             y + 0.35,
             self.largura_util - 0.7,
-            ALTURA_CABECALHO_SECAO - 0.7,
+            altura - 0.7,
             style="F",
         )
         self.set_draw_color(*BORDA)
         self.set_line_width(0.2)
         self.line(
             x,
-            y + ALTURA_CABECALHO_SECAO - 0.2,
+            y + altura - 0.2,
             x + self.largura_util,
-            y + ALTURA_CABECALHO_SECAO - 0.2,
+            y + altura - 0.2,
         )
-        self.set_xy(x + 4, y + 2.2)
+
+        titulo_x = x + 4
+        if secao.get("data"):
+            self._fonte(8)
+            self.set_text_color(*MUDO)
+            self.set_xy(titulo_x, y + 1.3)
+            self.cell(self.largura_util - 8, 3.4, secao["data"])
+            self.set_xy(titulo_x, y + 5.2)
+        else:
+            self.set_xy(titulo_x, y + 2.2)
+
         self._fonte(8, negrito=True)
         self.set_text_color(*AZUL)
         self.cell(self.largura_util - 8, 4, secao["titulo"])
@@ -675,16 +693,33 @@ def _linha_padrao(item):
     }
 
 
-def _normalizar_secao(secao, _data_hora_geracao=None):
+def _hora_do_chat(data_chat, gerado):
+    hora = gerado.strftime("%H:%M")
+    texto = _limpar_texto(data_chat)
+    if not texto:
+        return hora
+    for parte in reversed(texto.replace(",", " ").split()):
+        if ":" in parte:
+            return parte[:5]
+    return hora
+
+
+def _normalizar_secao(secao, data_hora_geracao=None):
     titulo = _limpar_texto(secao.get("titulo", "")).upper()
     paragrafos = _limpar_lista(secao.get("paragrafos", []))
     texto = _limpar_texto(secao.get("texto", ""))
     if texto and not paragrafos:
         paragrafos = [texto]
 
+    data = ""
+    if "RESUMO EXECUTIVO" in titulo:
+        gerado = data_hora_geracao or data_hora_relatorio()
+        hora = _hora_do_chat(secao.get("data", ""), gerado)
+        data = f"{gerado.strftime('%d/%m/%Y')}, {hora}"
+
     return {
         "titulo": titulo,
-        "data": "",
+        "data": data,
         "paragrafos": paragrafos,
         "cards": [_card_padrao(card) for card in secao.get("cards") or []][:20],
         "lista": _limpar_lista(secao.get("lista", [])),

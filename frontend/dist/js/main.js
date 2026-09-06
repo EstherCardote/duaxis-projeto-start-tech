@@ -356,6 +356,24 @@ function urlApiChat() {
   return "/api/chat";
 }
 
+let contextoSessaoChat = null;
+
+function atualizarContextoSessaoChat(dados) {
+  const contexto = dados && dados.contexto_sessao;
+
+  if (!contexto || !contexto.ferramenta) {
+    return;
+  }
+
+  contextoSessaoChat = {
+    ferramenta: contexto.ferramenta || "",
+    produto_id: contexto.produto_id || "",
+    periodo_inicio: contexto.periodo_inicio || "",
+    periodo_fim: contexto.periodo_fim || "",
+    data_referencia: contexto.data_referencia || "",
+  };
+}
+
 function urlApiRelatorio() {
   const host = window.location.hostname;
 
@@ -1268,6 +1286,7 @@ async function enviarPerguntaDuaxis(campoChat) {
 
       body: JSON.stringify({
         mensagem: pergunta,
+        contexto: contextoSessaoChat,
       }),
     });
 
@@ -1278,6 +1297,7 @@ async function enviarPerguntaDuaxis(campoChat) {
     const dados = await resposta.json();
 
     console.log("Resposta do DUAXIS:", dados);
+    atualizarContextoSessaoChat(dados);
     atualizarDataHoraMensagemUsuario(mensagemUsuario, dados.data_hora_pergunta);
 
     // ==================================================

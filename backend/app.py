@@ -35,8 +35,17 @@ app.add_middleware(
 )
 
 
+class ContextoSessao(BaseModel):
+    ferramenta: str = ""
+    produto_id: str = ""
+    periodo_inicio: str = ""
+    periodo_fim: str = ""
+    data_referencia: str = ""
+
+
 class PerguntaChat(BaseModel):
     mensagem: str
+    contexto: ContextoSessao | None = None
 
 
 class CardRelatorio(BaseModel):
@@ -135,8 +144,15 @@ def chat(pergunta: PerguntaChat):
         ZoneInfo("America/Sao_Paulo")
     )
 
+    contexto = None
+    if pergunta.contexto is not None:
+        contexto = pergunta.contexto.model_dump()
+        if not contexto.get("ferramenta"):
+            contexto = None
+
     resultado = processar_pergunta_com_tools(
-        pergunta.mensagem
+        pergunta.mensagem,
+        contexto,
     )
 
     resultado["data_hora_pergunta"] = (
