@@ -12,6 +12,7 @@ document.addEventListener("DOMContentLoaded", () => {
   inicializarAbasPainel();
 
   inicializarChatDuaxis();
+  inicializarHistoricoCopiloto();
   inicializarDownloadRelatorio();
   inicializarAtalhoChatDashboard();
   enviarPerguntaPendenteDaUrl();
@@ -305,6 +306,214 @@ function inicializarChatDuaxis() {
       enviarPerguntaDuaxis(campoChat);
     }
   });
+}
+
+const LIMITE_HISTORICO_PERGUNTAS = 20;
+let historicoPerguntasSessao = [];
+let proximoIdHistorico = 1;
+
+function formatarDataHoraHistorico(dataHora) {
+  if (!dataHora) {
+    return "";
+  }
+
+  const data = new Date(dataHora);
+  const dataParte = data.toLocaleDateString("pt-BR", {
+    day: "2-digit",
+    month: "2-digit",
+    timeZone: "America/Sao_Paulo",
+  });
+  const horaParte = data.toLocaleTimeString("pt-BR", {
+    hour: "2-digit",
+    minute: "2-digit",
+    timeZone: "America/Sao_Paulo",
+  });
+
+  return `${dataParte} ${horaParte}`;
+}
+
+function registrarPerguntaNoHistorico(texto) {
+  const pergunta = (texto || "").trim();
+
+  if (!pergunta) {
+    return;
+  }
+
+  historicoPerguntasSessao = historicoPerguntasSessao.filter(
+    (item) => item.texto.toLowerCase() !== pergunta.toLowerCase(),
+  );
+  historicoPerguntasSessao.unshift({
+    id: proximoIdHistorico,
+    texto: pergunta,
+    dataHora: null,
+  });
+  proximoIdHistorico += 1;
+  historicoPerguntasSessao = historicoPerguntasSessao.slice(
+    0,
+    LIMITE_HISTORICO_PERGUNTAS,
+  );
+
+  const busca = document.getElementById("busca-historico");
+  renderizarHistoricoPerguntas(busca ? busca.value : "");
+}
+
+function atualizarDataHoraHistorico(texto, dataHora) {
+  const pergunta = (texto || "").trim().toLowerCase();
+
+  if (!pergunta || !dataHora) {
+    return;
+  }
+
+  const item = historicoPerguntasSessao.find(
+    (entrada) => entrada.texto.toLowerCase() === pergunta,
+  );
+
+  if (!item) {
+    return;
+  }
+
+  item.dataHora = dataHora;
+
+  const busca = document.getElementById("busca-historico");
+  renderizarHistoricoPerguntas(busca ? busca.value : "");
+}
+
+function excluirPerguntaDoHistorico(id) {
+  historicoPerguntasSessao = historicoPerguntasSessao.filter(
+    (item) => item.id !== id,
+  );
+
+  const busca = document.getElementById("busca-historico");
+  renderizarHistoricoPerguntas(busca ? busca.value : "");
+}
+
+function renderizarHistoricoPerguntas(filtro) {
+  const listaEl = document.getElementById("historico-dv-lista");
+  const vazioEl = document.getElementById("historico-dv-vazio");
+
+  if (!listaEl || !vazioEl) {
+    return;
+  }
+
+  const termo = (filtro || "").trim().toLowerCase();
+  const perguntas = historicoPerguntasSessao.filter((item) =>
+    item.texto.toLowerCase().includes(termo),
+  );
+
+  listaEl.innerHTML = "";
+
+  if (!historicoPerguntasSessao.length) {
+    vazioEl.hidden = false;
+    listaEl.hidden = true;
+    return;
+  }
+
+  vazioEl.hidden = true;
+  listaEl.hidden = false;
+
+  perguntas.forEach((entrada) => {
+    const item = document.createElement("li");
+    item.className = "historico-dv__entrada";
+
+    const botao = document.createElement("button");
+    botao.type = "button";
+    botao.className = "historico-dv__item";
+    botao.title = entrada.texto;
+
+    const icone = document.createElement("i");
+    icone.setAttribute("data-lucide", "file-text");
+    icone.className = "icone icone--pequeno historico-dv__item-icone";
+
+    const corpo = document.createElement("span");
+    corpo.className = "historico-dv__item-corpo";
+
+    const texto = document.createElement("span");
+    texto.className = "historico-dv__item-texto";
+    texto.textContent = entrada.texto;
+    corpo.appendChild(texto);
+
+    const hora = formatarDataHoraHistorico(entrada.dataHora);
+    if (hora) {
+      const horario = document.createElement("span");
+      horario.className = "historico-dv__item-hora";
+      horario.textContent = hora;
+      corpo.appendChild(horario);
+    }
+
+    botao.appendChild(icone);
+    botao.appendChild(corpo);
+
+    botao.addEventListener("click", () => {
+      const campo = document.getElementById("campo-chat-dv");
+
+      if (!campo) {
+        return;
+      }
+
+      campo.value = entrada.texto;
+      enviarPerguntaDuaxis(campo);
+    });
+
+    const excluir = document.createElement("button");
+    excluir.type = "button";
+    excluir.className = "historico-dv__excluir";
+    excluir.setAttribute("aria-label", "Excluir do histórico");
+    excluir.title = "Excluir";
+    excluir.innerHTML = '<i data-lucide="trash-2" class="icone icone--pequeno"></i>';
+    excluir.addEventListener("click", (evento) => {
+      evento.preventDefault();
+      evento.stopPropagation();
+      excluirPerguntaDoHistorico(entrada.id);
+    });
+
+    item.appendChild(botao);
+    item.appendChild(excluir);
+    listaEl.appendChild(item);
+  });
+
+  inicializarIconesLucide();
+}
+
+function iniciarNovaConversaCopiloto() {
+  const container = document.getElementById("mensagens-chat-dv");
+  const campo = document.getElementById("campo-chat-dv");
+
+  if (container) {
+    container.innerHTML = "";
+  }
+
+  contextoSessaoChat = null;
+
+  if (campo) {
+    campo.value = "";
+    campo.dataset.consultando = "";
+    campo.focus();
+  }
+}
+
+function inicializarHistoricoCopiloto() {
+  const painel = document.querySelector(".historico-dv");
+
+  if (!painel) {
+    return;
+  }
+
+  localStorage.removeItem("duaxis_historico_perguntas");
+
+  const busca = document.getElementById("busca-historico");
+  const botaoNovo = painel.querySelector(".historico-dv__botao-novo");
+
+  renderizarHistoricoPerguntas();
+
+  if (busca) {
+    busca.addEventListener("input", () => {
+      renderizarHistoricoPerguntas(busca.value);
+    });
+  }
+
+  if (botaoNovo) {
+    botaoNovo.addEventListener("click", iniciarNovaConversaCopiloto);
+  }
 }
 
 function inicializarAtalhoChatDashboard() {
@@ -1271,6 +1480,7 @@ async function enviarPerguntaDuaxis(campoChat) {
   }
 
   const mensagemUsuario = adicionarMensagemUsuario(pergunta);
+  registrarPerguntaNoHistorico(pergunta);
 
   campoChat.value = "";
   campoChat.dataset.consultando = "1";
@@ -1299,6 +1509,7 @@ async function enviarPerguntaDuaxis(campoChat) {
     console.log("Resposta do DUAXIS:", dados);
     atualizarContextoSessaoChat(dados);
     atualizarDataHoraMensagemUsuario(mensagemUsuario, dados.data_hora_pergunta);
+    atualizarDataHoraHistorico(pergunta, dados.data_hora_pergunta);
 
     // ==================================================
     // NOVA LÓGICA DE RESPOSTA
@@ -1700,7 +1911,10 @@ function montarBlocoAnalise(textoAnalise) {
 
 function montarBlocoRecomendacoes(textoRecomendacoes) {
   const corpo = formatarTopicosHtml(textoRecomendacoes);
-  const classeVazio = corpo ? "" : "resposta-duaxis__conteudo--vazio";
+
+  if (!corpo) {
+    return "";
+  }
 
   return `
     <section class="resposta-duaxis__secao">
@@ -1708,7 +1922,7 @@ function montarBlocoRecomendacoes(textoRecomendacoes) {
         <i data-lucide="lightbulb"></i>
         <span>RECOMENDAÇÕES</span>
       </div>
-      <div class="resposta-duaxis__conteudo resposta-ia-texto ${classeVazio}">
+      <div class="resposta-duaxis__conteudo resposta-ia-texto">
         ${corpo}
       </div>
     </section>
@@ -3775,6 +3989,7 @@ function adicionarRespostaFaturamento(dados, textoIa, dataHora) {
       "Cálculo determinístico das vendas concluídas por competência. Nenhuma limitação significativa identificada.",
     dataHora,
     textoIa,
+    ocultarRecomendacoes: true,
   })}
 `;
   linhaResposta.appendChild(avatarDuaxis);
@@ -3895,6 +4110,7 @@ function adicionarRespostaComparacaoFaturamento(dados, textoIa, dataHora) {
         "Comparação determinística do faturamento líquido por competência. Não explica a causa da variação.",
       dataHora,
       textoIa,
+      ocultarRecomendacoes: true,
     })}
   `;
 
@@ -3997,6 +4213,7 @@ function adicionarRespostaComparacaoDespesas(dados, textoIa, dataHora) {
         "Comparação determinística da despesa operacional por competência. Não inclui compra de mercadorias e não explica a causa da variação.",
       dataHora,
       textoIa,
+      ocultarRecomendacoes: true,
     })}
   `;
 
@@ -4099,6 +4316,7 @@ function adicionarRespostaComparacaoLucro(dados, textoIa, dataHora) {
         "Comparação do lucro após despesas (faturamento − CMV − despesa). Não é lucro líquido contábil e não explica a causa.",
       dataHora,
       textoIa,
+      ocultarRecomendacoes: true,
     })}
   `;
 
@@ -4681,6 +4899,7 @@ function adicionarRespostaComparacaoFluxoCaixa(dados, textoIa, dataHora) {
         "Comparação do saldo de caixa (entradas − saídas na data da movimentação). Não é faturamento nem lucro e não explica a causa.",
       dataHora,
       textoIa,
+      ocultarRecomendacoes: true,
     })}
   `;
 
@@ -4797,6 +5016,7 @@ function adicionarRespostaDespesas(dados, textoIa, dataHora) {
         "Apenas despesas operacionais por competência. Compra de mercadorias não entra.",
       dataHora,
       textoIa,
+      ocultarRecomendacoes: true,
     })}
   `;
 
@@ -4901,6 +5121,7 @@ function adicionarRespostaLucro(dados, textoIa, dataHora) {
         "Resultado operacional simplificado (faturamento − CMV − despesa). Não é lucro líquido contábil.",
       dataHora,
       textoIa,
+      ocultarRecomendacoes: true,
     })}
   `;
 
@@ -5010,6 +5231,7 @@ function adicionarRespostaContasAReceber(dados, textoIa, dataHora) {
         "Saldo reconstruído na data. O arquivo já contém recebimentos futuros.",
       dataHora,
       textoIa,
+      ocultarRecomendacoes: true,
     })}
   `;
 
@@ -5140,6 +5362,7 @@ function adicionarRespostaContasAPagar(dados, textoIa, dataHora) {
         "Saldo reconstruído na data. O arquivo já contém pagamentos futuros.",
       dataHora,
       textoIa,
+      ocultarRecomendacoes: true,
     })}
   `;
 
@@ -5286,6 +5509,7 @@ function adicionarRespostaFluxoCaixa(dados, textoIa, dataHora) {
         "Usa a data da movimentação, não a competência. Não há saldo inicial de caixa na base.",
       dataHora,
       textoIa,
+      ocultarRecomendacoes: true,
     })}
   `;
 

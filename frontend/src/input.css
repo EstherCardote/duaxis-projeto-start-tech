@@ -177,6 +177,10 @@
     @apply flex min-h-screen flex-1 flex-col transition-all duration-300 ease-in-out ml-0 lg:ml-[260px];
   }
 
+  .app-principal:has(> .layout-dv) {
+    @apply h-screen min-h-0 overflow-hidden;
+  }
+
   .menu-lateral--recolhido~.app-principal {
     @apply lg:ml-[72px];
   }
@@ -522,15 +526,15 @@
   }
 
   .app-principal>.layout-dv {
-    @apply min-h-0 flex-1;
+    @apply min-h-0 flex-1 overflow-hidden;
   }
 
   .layout-dv {
-    @apply flex min-h-0 flex-1;
+    @apply flex min-h-0 flex-1 overflow-hidden;
   }
 
   .historico-dv {
-    @apply hidden w-full shrink-0 flex-col border-r border-border bg-bg-card lg:flex lg:w-[280px];
+    @apply hidden min-h-0 w-full shrink-0 flex-col overflow-hidden border-r border-border bg-bg-card lg:flex lg:w-[280px];
   }
 
   .historico-dv__cabecalho {
@@ -538,7 +542,12 @@
   }
 
   .historico-dv__titulo {
-    @apply text-base font-bold text-text-primary;
+    @apply flex items-center gap-2 text-base font-bold text-text-primary;
+  }
+
+  .historico-dv__titulo-icone,
+  .historico-dv__titulo-icone svg {
+    @apply h-4 w-4 shrink-0 text-brand-blue;
   }
 
   .historico-dv__botao-novo {
@@ -557,8 +566,49 @@
     @apply flex flex-1 flex-col items-center justify-center gap-2 px-4 text-center text-sm text-text-muted;
   }
 
+  .historico-dv__lista {
+    @apply flex min-h-0 flex-1 flex-col gap-1 overflow-y-auto px-3 pb-4;
+  }
+
+  .historico-dv__entrada {
+    @apply relative;
+  }
+
+  .historico-dv__item {
+    @apply flex w-full cursor-pointer items-start gap-2 rounded-xl bg-brand-blue/10 px-3 py-2.5 pr-8 text-left text-sm text-brand-blue transition-colors hover:bg-brand-blue/15;
+  }
+
+  .historico-dv__item-icone,
+  .historico-dv__item-icone svg {
+    @apply mt-0.5 h-3.5 w-3.5 shrink-0 text-brand-blue;
+  }
+
+  .historico-dv__item-corpo {
+    @apply min-w-0 flex-1;
+  }
+
+  .historico-dv__item-texto {
+    @apply line-clamp-1 font-medium;
+  }
+
+  .historico-dv__item-hora {
+    @apply mt-0.5 block text-xs font-normal text-text-muted;
+  }
+
+  .historico-dv__excluir {
+    @apply absolute top-1/2 right-1.5 flex h-6 w-6 -translate-y-1/2 cursor-pointer items-center justify-center rounded-md text-text-muted opacity-0 transition-opacity hover:bg-white/80 hover:text-danger-text;
+  }
+
+  .historico-dv__entrada:hover .historico-dv__excluir {
+    @apply opacity-100;
+  }
+
+  .historico-dv__excluir svg {
+    @apply h-3.5 w-3.5;
+  }
+
   .chat-dv {
-    @apply relative flex flex-1 flex-col bg-bg-page;
+    @apply relative flex min-h-0 flex-1 flex-col overflow-hidden bg-bg-page;
   }
 
   .chat-dv__interno {

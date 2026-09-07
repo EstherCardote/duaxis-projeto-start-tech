@@ -112,7 +112,10 @@
       <div class="layout-dv">
         <aside class="historico-dv">
           <div class="historico-dv__cabecalho">
-            <h2 class="historico-dv__titulo">Histórico</h2>
+            <h2 class="historico-dv__titulo">
+              <i data-lucide="message-square" class="icone icone--pequeno historico-dv__titulo-icone"></i>
+              Histórico
+            </h2>
             <button class="historico-dv__botao-novo" type="button" aria-label="Nova conversa">
               <i data-lucide="plus" class="icone icone--pequeno"></i>
             </button>
@@ -122,10 +125,11 @@
             <input type="text" id="busca-historico" class="historico-dv__busca-campo"
               placeholder="Buscar conversas..." />
           </div>
-          <div class="historico-dv__vazio">
+          <div class="historico-dv__vazio" id="historico-dv-vazio">
             <i data-lucide="clock" class="icone icone--grande"></i>
             <span>Nenhuma conversa ainda</span>
           </div>
+          <ul class="historico-dv__lista" id="historico-dv-lista" hidden></ul>
         </aside>
 
         <section class="chat-dv">
