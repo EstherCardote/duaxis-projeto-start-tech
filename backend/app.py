@@ -7,11 +7,6 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 from fastapi.responses import Response
-from dashboard_service import (
-    montar_kpis_dashboard,
-    montar_grafico_faturamento,
-    montar_grafico_lucro,
-)
 
 BACKEND_DIR = Path(__file__).resolve().parent
 ROOT_DIR = BACKEND_DIR.parent
@@ -19,6 +14,11 @@ ROOT_DIR = BACKEND_DIR.parent
 if str(BACKEND_DIR) not in sys.path:
     sys.path.insert(0, str(BACKEND_DIR))
 
+from dashboard_service import (
+    montar_kpis_dashboard,
+    montar_grafico_faturamento,
+    montar_grafico_lucro,
+)
 from ml_service import analisar_reposicao
 from ia_service import processar_pergunta_com_tools
 from relatorio_service import montar_pdf_relatorio
