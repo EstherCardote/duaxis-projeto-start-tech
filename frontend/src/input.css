@@ -545,9 +545,8 @@
     @apply flex items-center gap-2 text-base font-bold text-text-primary;
   }
 
-  .historico-dv__titulo-icone,
-  .historico-dv__titulo-icone svg {
-    @apply h-4 w-4 shrink-0 text-brand-blue;
+  .historico-dv__titulo-icone {
+    @apply h-4 w-4 text-brand-blue;
   }
 
   .historico-dv__botao-novo {
@@ -575,12 +574,11 @@
   }
 
   .historico-dv__item {
-    @apply flex w-full cursor-pointer items-start gap-2 rounded-xl bg-brand-blue/10 px-3 py-2.5 pr-8 text-left text-sm text-brand-blue transition-colors hover:bg-brand-blue/15;
+    @apply flex w-full cursor-pointer items-start gap-2 rounded-xl bg-brand-blue/10 px-3 py-2.5 pr-9 text-left text-sm text-brand-blue transition-colors hover:bg-brand-blue/15;
   }
 
-  .historico-dv__item-icone,
-  .historico-dv__item-icone svg {
-    @apply mt-0.5 h-3.5 w-3.5 shrink-0 text-brand-blue;
+  .historico-dv__item-icone {
+    @apply mt-0.5 h-4 w-4 shrink-0 text-brand-blue;
   }
 
   .historico-dv__item-corpo {
@@ -596,15 +594,11 @@
   }
 
   .historico-dv__excluir {
-    @apply absolute top-1/2 right-1.5 flex h-6 w-6 -translate-y-1/2 cursor-pointer items-center justify-center rounded-md text-text-muted opacity-0 transition-opacity hover:bg-white/80 hover:text-danger-text;
+    @apply absolute top-1/2 right-2 hidden h-7 w-7 -translate-y-1/2 cursor-pointer items-center justify-center rounded-md text-text-muted transition-colors hover:bg-white/80 hover:text-danger-text;
   }
 
   .historico-dv__entrada:hover .historico-dv__excluir {
-    @apply opacity-100;
-  }
-
-  .historico-dv__excluir svg {
-    @apply h-3.5 w-3.5;
+    @apply flex;
   }
 
   .chat-dv {

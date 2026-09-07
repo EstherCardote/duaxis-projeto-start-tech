@@ -422,7 +422,7 @@ function renderizarHistoricoPerguntas(filtro) {
 
     const icone = document.createElement("i");
     icone.setAttribute("data-lucide", "file-text");
-    icone.className = "icone icone--pequeno historico-dv__item-icone";
+    icone.className = "historico-dv__item-icone";
 
     const corpo = document.createElement("span");
     corpo.className = "historico-dv__item-corpo";
@@ -459,7 +459,7 @@ function renderizarHistoricoPerguntas(filtro) {
     excluir.className = "historico-dv__excluir";
     excluir.setAttribute("aria-label", "Excluir do histórico");
     excluir.title = "Excluir";
-    excluir.innerHTML = '<i data-lucide="trash-2" class="icone icone--pequeno"></i>';
+    excluir.innerHTML = '<i data-lucide="trash-2"></i>';
     excluir.addEventListener("click", (evento) => {
       evento.preventDefault();
       evento.stopPropagation();
