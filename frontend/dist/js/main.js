@@ -1515,31 +1515,15 @@ async function enviarPerguntaDuaxis(campoChat) {
     // NOVA LÓGICA DE RESPOSTA
     // ==================================================
 
-    if (dados.tipo_resposta === "texto") {
-      adicionarRespostaTextoIa(dados.resposta_ia, dados.data_hora_pergunta);
-
-      return;
-    }
-
     if (
-      !dados.ferramentas_utilizadas ||
-      dados.ferramentas_utilizadas.length === 0
+      dados.ferramentas_utilizadas &&
+      dados.ferramentas_utilizadas.length > 0
     ) {
-      adicionarRespostaTextoIa(
-        dados.resposta_ia || "Não consegui apresentar essa resposta.",
-        dados.data_hora_pergunta,
-      );
+      const ferramentaUtilizada = dados.ferramentas_utilizadas[0];
+      const nomeFerramenta = ferramentaUtilizada.ferramenta;
+      const resultadoFerramenta = ferramentaUtilizada.resultado;
 
-      return;
-    }
-
-    const ferramentaUtilizada = dados.ferramentas_utilizadas[0];
-
-    const nomeFerramenta = ferramentaUtilizada.ferramenta;
-
-    const resultadoFerramenta = ferramentaUtilizada.resultado;
-
-    if (nomeFerramenta === "analisar_reposicao") {
+      if (nomeFerramenta === "analisar_reposicao") {
       adicionarRespostaDuaxis(
         resultadoFerramenta,
         dados.resposta_ia,
@@ -1659,6 +1643,18 @@ async function enviarPerguntaDuaxis(campoChat) {
         dados.resposta_ia,
         dados.data_hora_pergunta,
       );
+    } else if (nomeFerramenta === "resumir_dia") {
+      adicionarRespostaResumoDia(
+        resultadoFerramenta,
+        dados.resposta_ia,
+        dados.data_hora_pergunta,
+      );
+    } else {
+      adicionarRespostaTextoIa(
+        dados.resposta_ia || "Não consegui apresentar essa resposta.",
+        dados.data_hora_pergunta,
+      );
+    }
     } else {
       adicionarRespostaTextoIa(
         dados.resposta_ia || "Não consegui apresentar essa resposta.",
@@ -5536,6 +5532,264 @@ function adicionarRespostaFluxoCaixa(dados, textoIa, dataHora) {
         ? "Mostrar menos"
         : `Ver todos os ${meses.length} meses`;
     });
+  }
+
+  inicializarIconesLucide();
+  linhaResposta.scrollIntoView({
+    behavior: "smooth",
+    block: "end",
+  });
+}
+
+function rotuloDiaBriefing(dados) {
+  const dataFmt = formatarDataIsoKpi(dados.data_referencia);
+  const relativo = dados.rotulo_relativo;
+
+  if (relativo === "ontem") {
+    return `Ontem · ${dataFmt}`;
+  }
+  if (relativo === "hoje") {
+    return `Hoje · ${dataFmt}`;
+  }
+  if (relativo === "anteontem") {
+    return `Anteontem · ${dataFmt}`;
+  }
+  return dataFmt;
+}
+
+function formatarVariacaoBriefing(valor) {
+  if (valor === null || valor === undefined) {
+    return "—";
+  }
+  const numero = Number(valor);
+  const sinal = numero > 0 ? "+" : "";
+  return `${sinal}${numero.toLocaleString("pt-BR", {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  })}%`;
+}
+
+function desenharSvgBarrasBriefing(barras) {
+  const valores = barras.map((item) => Number(item.faturamento) || 0);
+  const maxValor = Math.max(...valores, 0);
+  const maxEixo = calcularMaximoEixoMoeda(maxValor);
+  const baseY = 118;
+  const alturaMax = 92;
+  const topoY = baseY - alturaMax;
+  const eixoX = 48;
+  const largura = 42;
+  const passo = 90;
+  const inicioX = 78;
+  const quantidadeTicks = 4;
+  const passoTick = maxEixo / (quantidadeTicks - 1);
+
+  let eixos = `
+      <line x1="${eixoX}" y1="${topoY}" x2="${eixoX}" y2="${baseY}" stroke="#e5e7eb" stroke-width="1"></line>
+      <line x1="${eixoX}" y1="${baseY}" x2="392" y2="${baseY}" stroke="#e5e7eb" stroke-width="1"></line>
+  `;
+
+  for (let indice = 0; indice < quantidadeTicks; indice += 1) {
+    const valorTick = indice * passoTick;
+    const yTick = baseY - (valorTick / maxEixo) * alturaMax;
+    eixos += `
+      <line x1="${eixoX}" y1="${yTick}" x2="392" y2="${yTick}" stroke="#f3f4f6" stroke-width="1"></line>
+      <text x="${eixoX - 4}" y="${yTick + 3}" text-anchor="end" fill="#9ca3af" font-size="7">${formatarEixoMoeda(valorTick)}</text>
+    `;
+  }
+
+  const colunas = barras
+    .map((item, indice) => {
+      const valor = Number(item.faturamento) || 0;
+      const altura = Math.max((valor / maxEixo) * alturaMax, 2);
+      const x = inicioX + indice * passo;
+      const y = baseY - altura;
+      const meio = x + largura / 2;
+      const cor = indice === barras.length - 1 ? "#2563eb" : "#93c5fd";
+      const valorFmt = Number(valor).toLocaleString("pt-BR", {
+        style: "currency",
+        currency: "BRL",
+      });
+      const dataFmt = item.data ? ` (${formatarDataIsoKpi(item.data)})` : "";
+      const textoBalao = `${item.rotulo}${dataFmt}: ${valorFmt}`;
+
+      return `
+      <g class="barra-grafico" data-balao="${escaparAtributoHtml(textoBalao)}">
+        <rect x="${x}" y="${y}" width="${largura}" height="${altura}" rx="3" fill="${cor}"></rect>
+        <text x="${meio}" y="148" text-anchor="middle" fill="#6b7280" font-size="8">${escaparAtributoHtml(item.rotulo)}</text>
+      </g>
+    `;
+    })
+    .join("");
+
+  return `<svg viewBox="0 0 400 168">${eixos}${colunas}</svg>`;
+}
+
+function linhasAtencaoBriefing(dados) {
+  const linhas = [];
+
+  if (dados.pedidos_atrasados > 0) {
+    const palavra =
+      dados.pedidos_atrasados === 1 ? "pedido" : "pedidos";
+    linhas.push(
+      `${dados.pedidos_atrasados} ${palavra} de compra estavam atrasados nessa data.`,
+    );
+  }
+
+  const receber = dados.parcelas_venceram_nao_recebidas || {};
+  if (receber.quantidade > 0) {
+    linhas.push(
+      `${receber.quantidade} parcelas venceram e ainda não tinham sido recebidas (${Number(receber.valor).toLocaleString("pt-BR", { style: "currency", currency: "BRL" })}).`,
+    );
+  }
+
+  const pagar = dados.contas_venceram_nao_pagas || {};
+  if (pagar.quantidade > 0) {
+    linhas.push(
+      `${pagar.quantidade} contas a pagar venceram e ainda não tinham sido pagas (${Number(pagar.valor).toLocaleString("pt-BR", { style: "currency", currency: "BRL" })}).`,
+    );
+  }
+
+  return linhas;
+}
+
+function adicionarRespostaResumoDia(dados, textoIa, dataHora) {
+  const container = document.getElementById("mensagens-chat-dv");
+
+  if (!container) {
+    return;
+  }
+
+  function formatarValor(valor) {
+    return Number(valor).toLocaleString("pt-BR", {
+      style: "currency",
+      currency: "BRL",
+    });
+  }
+
+  const canais = dados.canais || [];
+  const textoCanais = canais
+    .map((canal) => {
+      return `${canal.canal_venda}: ${formatarValor(canal.faturamento)}`;
+    })
+    .join(" · ");
+
+  const atencao = linhasAtencaoBriefing(dados);
+  const blocoAtencao = atencao.length
+    ? `
+        <p class="reposicao-intro">Atenção</p>
+        <div class="briefing-alerta">
+          ${atencao
+            .map((linha) => `<div class="briefing-alerta__item">${linha}</div>`)
+            .join("")}
+        </div>
+      `
+    : "";
+
+  const linhaResposta = document.createElement("div");
+  linhaResposta.className = "linha-chat linha-chat--duaxis";
+
+  const avatarDuaxis = document.createElement("div");
+  avatarDuaxis.className = "avatar-chat avatar-chat--duaxis";
+  avatarDuaxis.innerHTML = `<i data-lucide="bot"></i>`;
+
+  const bloco = document.createElement("div");
+  bloco.className = "resposta-duaxis resposta-duaxis--lista";
+
+  bloco.innerHTML = `
+    ${montarBlocoResumoExecutivo(textoIa, dataHora)}
+
+    <section class="resposta-duaxis__secao">
+      <div class="resposta-duaxis__cabecalho">
+        <i data-lucide="calendar-days"></i>
+        <span>O DIA · ${rotuloDiaBriefing(dados)}</span>
+      </div>
+      <div class="resposta-duaxis__conteudo">
+        <div class="confiabilidade-grade">
+          <div class="confiabilidade-card">
+            <span class="confiabilidade-card__rotulo">Faturamento</span>
+            <strong>${formatarValor(dados.faturamento_total)}</strong>
+          </div>
+          <div class="confiabilidade-card">
+            <span class="confiabilidade-card__rotulo">Vendas</span>
+            <strong>${dados.total_vendas}</strong>
+          </div>
+          <div class="confiabilidade-card">
+            <span class="confiabilidade-card__rotulo">Ticket médio</span>
+            <strong>${formatarValor(dados.ticket_medio)}</strong>
+          </div>
+          <div class="confiabilidade-card">
+            <span class="confiabilidade-card__rotulo">Vs. dia anterior</span>
+            <strong>${formatarVariacaoBriefing(dados.variacao_vs_anteontem_percentual)}</strong>
+          </div>
+          <div class="confiabilidade-card">
+            <span class="confiabilidade-card__rotulo">Compras emitidas</span>
+            <strong>${dados.compras_emitidas} · ${formatarValor(dados.valor_compras_emitidas)}</strong>
+          </div>
+          <div class="confiabilidade-card">
+            <span class="confiabilidade-card__rotulo">Entregas recebidas</span>
+            <strong>${dados.entregas_recebidas} · ${formatarValor(dados.valor_entregas_recebidas)}</strong>
+          </div>
+          <div class="confiabilidade-card">
+            <span class="confiabilidade-card__rotulo">Entradas de caixa</span>
+            <strong>${formatarValor(dados.entradas_caixa)}</strong>
+          </div>
+          <div class="confiabilidade-card">
+            <span class="confiabilidade-card__rotulo">Saídas de caixa</span>
+            <strong>${formatarValor(dados.saidas_caixa)}</strong>
+          </div>
+          <div class="confiabilidade-card">
+            <span class="confiabilidade-card__rotulo">Saldo do dia</span>
+            <strong>${formatarValor(dados.saldo_caixa_do_dia)}</strong>
+          </div>
+          <div class="confiabilidade-card">
+            <span class="confiabilidade-card__rotulo">A receber (em aberto)</span>
+            <strong>${formatarValor(dados.contas_receber_em_aberto)}</strong>
+          </div>
+          <div class="confiabilidade-card">
+            <span class="confiabilidade-card__rotulo">A pagar (em aberto)</span>
+            <strong>${formatarValor(dados.contas_pagar_em_aberto)}</strong>
+          </div>
+          <div class="confiabilidade-card">
+            <span class="confiabilidade-card__rotulo">Pedidos atrasados</span>
+            <strong>${dados.pedidos_atrasados}</strong>
+          </div>
+        </div>
+        ${
+          textoCanais
+            ? `<p class="briefing-canais">${textoCanais}</p>`
+            : ""
+        }
+
+        <div class="briefing-grafico">
+          <p class="briefing-grafico__titulo">Faturamento em contexto</p>
+          <div class="briefing-grafico__area"></div>
+        </div>
+
+        ${blocoAtencao}
+      </div>
+    </section>
+
+    ${montarBlocosFinais({
+      nivel: 100,
+      registros: dados.registros_analisados,
+      fontes: ["Financeiro", "Logística"],
+      limitacao: dados.limitacao,
+      dataHora,
+      textoIa,
+      ocultarRecomendacoes: true,
+    })}
+  `;
+
+  linhaResposta.appendChild(avatarDuaxis);
+  linhaResposta.appendChild(bloco);
+  container.appendChild(linhaResposta);
+
+  const areaGrafico = bloco.querySelector(".briefing-grafico__area");
+  if (areaGrafico && Array.isArray(dados.grafico_faturamento)) {
+    areaGrafico.innerHTML = desenharSvgBarrasBriefing(
+      dados.grafico_faturamento,
+    );
+    ativarBaloesGrafico(areaGrafico);
   }
 
   inicializarIconesLucide();

@@ -413,17 +413,49 @@ CONCEITOS = [
         "modulo": "Sistema",
         "aliases": (
             "duaxis",
+            "o que e o duaxis",
+            "quem e o duaxis",
             "o que voce faz",
             "o que o duaxis faz",
+            "quem e voce",
+            "o que e voce",
             "copiloto",
+            "copiloto corporativo",
         ),
         "definicao": (
-            "Copiloto de IA da Urban Style. Consulta indicadores "
-            "calculados no backend; a LLM interpreta, não inventa números."
+            "Copiloto corporativo de IA da Urban Style. "
+            "O gestor pergunta em português; o backend calcula "
+            "os indicadores e a IA interpreta o resultado, "
+            "sem inventar números. Há um modelo preditivo de "
+            "demanda só para reposição de estoque."
         ),
         "nao_e": (
-            "Não substitui o ERP. Não responde conhecimento geral. "
-            "Não treinamos a IA generativa; há um modelo preditivo de demanda."
+            "Não substitui o ERP. Não conecta com qualquer sistema. "
+            "Não responde conhecimento geral. "
+            "Não treinamos a IA generativa."
+        ),
+    },
+    {
+        "id": "urban_style",
+        "rotulo": "Urban Style",
+        "modulo": "Sistema",
+        "aliases": (
+            "urban style",
+            "urbanstyle",
+            "quem e a urban style",
+            "o que e a urban style",
+            "empresa",
+            "empresa de demonstracao",
+        ),
+        "definicao": (
+            "Empresa fictícia de varejo de roupas usada na "
+            "demonstração do DUAXIS. O histórico sintético vai "
+            "de agosto de 2023 a julho de 2026. Não é uma "
+            "empresa cliente real."
+        ),
+        "nao_e": (
+            "Não é um ERP. Não é um cliente real. "
+            "Não há módulo de RH neste MVP."
         ),
     },
     {
@@ -459,6 +491,7 @@ CONCEITOS = [
             "E se as despesas de maio de 2026 aumentarem 8%, ainda teremos lucro?",
             "E se o CMV de maio de 2026 subir 10%, ainda teremos lucro?",
             "Há pedidos atrasados?",
+            "Como foi o dia de ontem?",
         ),
     },
     {

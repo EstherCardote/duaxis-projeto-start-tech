@@ -10,7 +10,7 @@ O DUAXIS **não substitui** um ERP. Nesta versão as bases são CSVs sintéticos
 
 - **Python 3.12, 3.13 ou 3.14**
 - **Node.js** (para gerar o CSS com Tailwind)
-- Uma chave da **Groq** (o chat não funciona sem ela)
+- Uma chave da **Groq** (o chat não funciona sem ela).
 
 No Windows, use o **PowerShell**. Os comandos abaixo assumem que você já está na pasta do repositório:
 
@@ -130,6 +130,6 @@ Pergunta de teste no copiloto:
 | `No module named 'app'` | O uvicorn precisa ser iniciado **de dentro** de `backend`. |
 | `No module named 'fpdf'` | `pip install fpdf2` com o venv ativo. |
 | Porta 8000 ocupada | Já existe um uvicorn rodando. Feche o outro terminal ou use `Ctrl + C`. |
-| Copiloto não responde | Backend no ar? Chave Groq válida? Console do navegador (F12) mostra erro de rede? |
+| Copiloto não responde | Backend no ar? Chave Groq válida no `backend/.env`? Console do navegador (F12) mostra erro de rede? |
 
 A data de demonstração do mundo Urban Style é **31 de julho de 2026**. Perguntas de fato histórico devem usar meses até essa data.

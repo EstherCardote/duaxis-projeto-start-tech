@@ -1,6 +1,7 @@
 # Biblioteca padrão do Python
 import os
 import re
+import time
 from pathlib import Path
 
 # Biblioteca para manipulação de arquivos JSON
@@ -36,10 +37,14 @@ from financeiro_service import (
 
 from glossario_service import explicar_conceito
 
+from briefing_service import resumir_dia
+
 # lê o .env
 from dotenv import load_dotenv
 # Classe que cria nosso cliente para conversar com o modelo
 from groq import Groq
+
+MODELO_IA = "openai/gpt-oss-20b"
 
 tools = [
 
@@ -282,6 +287,8 @@ tools = [
             "ticket médio. "
             "Não use para recebimentos, contas a receber, "
             "fluxo de caixa, lucro ou despesas. "
+            "Não use para resumo de um único dia "
+            "(ontem, hoje, como foi o dia). Aí use resumir_dia. "
             "Quando o usuário informar um período, envie "
             "data_inicio e data_fim no formato YYYY-MM. "
             "Se for continuação da sessão, envie o último "
@@ -496,11 +503,11 @@ tools = [
         "name": "explicar_conceito",
         "description": (
             "Explica um termo do DUAXIS ou da Urban Style. "
-            "Use em 'o que é', 'o que significa', "
+            "Use em 'o que é', 'quem é', 'o que significa', "
             "'qual a diferença' entre indicadores "
             "ou 'o que posso te perguntar'. "
-            "Exemplos: CMV, faturamento, despesa, lucro, "
-            "competência, caixa, reposição, lead time. "
+            "Exemplos: DUAXIS, Urban Style, CMV, faturamento, "
+            "despesa, lucro, competência, caixa, reposição. "
             "Não calcula valores. Envie o termo como "
             "o usuário escreveu."
         ),
@@ -612,6 +619,8 @@ tools = [
             "ou contas a pagar. "
             "Não use para comparar períodos ou se o fluxo "
             "subiu ou caiu. Use comparar_fluxo_caixa. "
+            "Não use para resumo de um único dia "
+            "(ontem, hoje, briefing do dia). Aí use resumir_dia. "
             "Quando informar um período, envie data_inicio e "
             "data_fim no formato YYYY-MM. "
             "Um único mês: envie o mesmo valor nos dois. "
@@ -842,6 +851,8 @@ tools = [
             "Não explique a causa. Não é faturamento nem lucro. "
             "Não use para um único período "
             "(aí use calcular_fluxo_caixa). "
+            "Não use para resumo de um único dia "
+            "(ontem, hoje, briefing do dia). Aí use resumir_dia. "
             "Se o usuário não informar o período anterior, "
             "não envie data_inicio_anterior nem data_fim_anterior."
         ),
@@ -863,6 +874,49 @@ tools = [
                 "data_fim_anterior": {
                     "type": ["string", "null"],
                     "description": "Mês final do período anterior (YYYY-MM)."
+                }
+            },
+            "required": [],
+            "additionalProperties": False
+        }
+    }
+},
+{
+    "type": "function",
+    "function": {
+        "name": "resumir_dia",
+        "description": (
+            "Resume UM DIA civil da Urban Style: faturamento, "
+            "vendas, compras emitidas, entregas recebidas, "
+            "caixa do dia, contas em aberto, parcelas que "
+            "venceram e pedidos atrasados naquela data. "
+            "Use quando o usuário perguntar como foi o dia, "
+            "o dia de ontem, hoje, anteontem, briefing do dia, "
+            "resumo do dia ou o que aconteceu ontem. "
+            "Não use para um mês inteiro "
+            "(aí use calcular_faturamento, calcular_fluxo_caixa "
+            "ou as outras ferramentas mensais). "
+            "Não encadeie várias ferramentas financeiras "
+            "para montar esse resumo. "
+            "A base não registra devolução. "
+            "Ontem/hoje seguem o calendário da Urban Style "
+            "(último dia: 31/07/2026). "
+            "Quando o usuário disser ontem ou não informar "
+            "data, NÃO envie data_referencia. "
+            "Hoje: envie 2026-07-31. "
+            "Anteontem: envie 2026-07-29. "
+            "Data explícita: YYYY-MM-DD."
+        ),
+        "parameters": {
+            "type": "object",
+            "properties": {
+                "data_referencia": {
+                    "type": ["string", "null"],
+                    "description": (
+                        "Dia no formato YYYY-MM-DD. "
+                        "Use null quando o usuário disser "
+                        "ontem ou não informar data."
+                    )
                 }
             },
             "required": [],
@@ -943,7 +997,10 @@ funcoes_disponiveis = {
     calcular_fluxo_caixa,
 
     "comparar_fluxo_caixa":
-    comparar_fluxo_caixa
+    comparar_fluxo_caixa,
+
+    "resumir_dia":
+    resumir_dia
 
 }
 
@@ -962,12 +1019,50 @@ def get_cliente():
         if not api_key:
             raise ValueError(
                 "GROQ_API_KEY não encontrada. "
-                "Configure a variável no .env local ou nas Environment Variables da Vercel."
+                "Configure a variável no .env local ou nas "
+                "Environment Variables da Vercel."
             )
 
         _cliente = Groq(api_key=api_key)
 
     return _cliente
+
+
+def _eh_limite_groq(erro):
+    texto = str(erro).lower()
+    return (
+        "rate_limit" in texto
+        or "request too large" in texto
+        or "tokens per minute" in texto
+        or "429" in texto
+    )
+
+
+def _resposta_limite_groq(contexto):
+    return {
+        "tipo_resposta": "texto",
+        "resposta_ia": (
+            "A consulta ultrapassou o limite temporário "
+            "da Groq. Aguarde cerca de um minuto e "
+            "tente de novo."
+        ),
+        "contexto_sessao": contexto,
+    }
+
+
+def _chamar_modelo(**kwargs):
+    espera = 0.5
+    ultimo_erro = None
+    for tentativa in range(3):
+        try:
+            return get_cliente().chat.completions.create(**kwargs)
+        except Exception as erro:
+            ultimo_erro = erro
+            if not _eh_limite_groq(erro) or tentativa == 2:
+                raise
+            time.sleep(espera)
+            espera = min(espera * 2, 4)
+    raise ultimo_erro
 
 # Função que recebe uma pergunta do usuário e retorna a intenção e o ID do produto
 def interpretar_pergunta(pergunta):
@@ -975,7 +1070,7 @@ def interpretar_pergunta(pergunta):
 # Cria uma resposta do modelo de linguagem com base na pergunta do usuário
     resposta = get_cliente().chat.completions.create(
         # Modelo de linguagem que será utilizado para interpretar a pergunta do usuário
-        model="openai/gpt-oss-20b",
+        model=MODELO_IA,
 
 # Contexto do que o modelo deve fazer e a pergunta do usuário
         messages=[
@@ -1612,6 +1707,44 @@ def preparar_resultado_para_ia(
             "saldo":
                 resultado["saldo"]
         }
+
+    if nome_funcao == "resumir_dia":
+        if resultado.get("erro"):
+            return resultado
+        return {
+            "data_referencia":
+                resultado["data_referencia"],
+            "rotulo_relativo":
+                resultado["rotulo_relativo"],
+            "faturamento_total":
+                resultado["faturamento_total"],
+            "total_vendas":
+                resultado["total_vendas"],
+            "variacao_vs_anteontem_percentual":
+                resultado["variacao_vs_anteontem_percentual"],
+            "variacao_vs_media_percentual":
+                resultado["variacao_vs_media_percentual"],
+            "entradas_caixa":
+                resultado["entradas_caixa"],
+            "saidas_caixa":
+                resultado["saidas_caixa"],
+            "saldo_caixa_do_dia":
+                resultado["saldo_caixa_do_dia"],
+            "compras_emitidas":
+                resultado["compras_emitidas"],
+            "entregas_recebidas":
+                resultado["entregas_recebidas"],
+            "contas_receber_em_aberto":
+                resultado["contas_receber_em_aberto"],
+            "contas_pagar_em_aberto":
+                resultado["contas_pagar_em_aberto"],
+            "pedidos_atrasados":
+                resultado["pedidos_atrasados"],
+            "destaques":
+                resultado["destaques"],
+            "limitacao":
+                resultado["limitacao"],
+        }
     # =====================================================
     # SEGURANÇA
     # =====================================================
@@ -1648,6 +1781,12 @@ NOMES_CANONICOS_FERRAMENTAS = {
     "explicar_conceito",
     "explain_conceito":
     "explicar_conceito",
+    "resumo_do_dia":
+    "resumir_dia",
+    "briefing_do_dia":
+    "resumir_dia",
+    "summarize_day":
+    "resumir_dia",
 }
 
 
@@ -1684,6 +1823,88 @@ def _ler_failed_generation(texto_erro):
         "name": nome,
         "arguments": argumentos or {}
     }
+
+
+def _texto_fallback_resumir_dia(resultado):
+    if resultado.get("erro"):
+        return (
+            "[[RESUMO]]\n"
+            f"{resultado['erro']}\n"
+            "[[ANALISE]]\n"
+            "[[RECOMENDACOES]]\n"
+        )
+    data = resultado.get("data_referencia", "")
+    partes = str(data).split("-")
+    if len(partes) == 3:
+        data_fmt = f"{partes[2]}/{partes[1]}/{partes[0]}"
+    else:
+        data_fmt = data
+    rotulo = resultado.get("rotulo_relativo")
+    if rotulo:
+        quando = f"{rotulo.capitalize()} ({data_fmt})"
+    else:
+        quando = data_fmt
+    variacao = resultado.get("variacao_vs_anteontem_percentual")
+    if variacao is None:
+        comparacao = "sem variação percentual frente ao dia anterior"
+    elif variacao > 0:
+        comparacao = (
+            f"o faturamento ficou {variacao:.2f}% "
+            "acima do dia anterior"
+        )
+    elif variacao < 0:
+        comparacao = (
+            f"o faturamento ficou {abs(variacao):.2f}% "
+            "abaixo do dia anterior"
+        )
+    else:
+        comparacao = "o faturamento ficou estável frente ao dia anterior"
+    return (
+        "[[RESUMO]]\n"
+        f"{quando} {comparacao}.\n"
+        "[[ANALISE]]\n"
+        "- Faturamento é competência da venda; caixa é a "
+        "movimentação do dia.\n"
+        "[[RECOMENDACOES]]\n"
+    )
+
+
+def _texto_fallback_apos_limite(resultados_ferramentas):
+    for item in resultados_ferramentas or []:
+        nome = item.get("ferramenta")
+        resultado = item.get("resultado") or {}
+        if nome == "resumir_dia":
+            return _texto_fallback_resumir_dia(resultado)
+        if nome in ("simular_lucro_despesa", "simular_lucro_cmv"):
+            return _texto_fallback_simular(resultado, nome)
+        if nome == "explicar_conceito":
+            if resultado.get("erro"):
+                return (
+                    "[[RESUMO]]\n"
+                    f"{resultado['erro']}\n"
+                    "[[ANALISE]]\n"
+                    "[[RECOMENDACOES]]\n"
+                )
+            return (
+                "[[RESUMO]]\n"
+                f"{resultado.get('definicao', '')}\n"
+                "[[ANALISE]]\n"
+                f"- {resultado.get('nao_e', '')}\n"
+                "[[RECOMENDACOES]]\n"
+            )
+        if nome in (
+            "listar_produtos_reposicao",
+            "explicar_variacao_lucro",
+            "consultar_pedidos_atrasados",
+        ):
+            return _texto_fallback_lista_reposicao(resultado)
+    return (
+        "[[RESUMO]]\n"
+        "Os indicadores foram calculados, mas a interpretação "
+        "da IA atingiu o limite temporário da Groq.\n"
+        "[[ANALISE]]\n"
+        "[[RECOMENDACOES]]\n"
+    )
 
 
 def _texto_fallback_simular(resultado, ferramenta="simular_lucro_despesa"):
@@ -2092,6 +2313,7 @@ total do card.
 Roteamento financeiro:
 - o que é / o que significa / diferença entre termos → explicar_conceito
 - o que posso perguntar / que perguntas posso fazer → explicar_conceito
+- como foi o dia / ontem / hoje / anteontem / briefing / resumo do dia → resumir_dia
 - subiu/caiu/comparar → comparar_*
 - por que o lucro variou → explicar_variacao_lucro
 - e se despesa/aluguel/energia etc. → simular_lucro_despesa
@@ -2143,6 +2365,21 @@ Use a definição da ferramenta. Não invente.
 Se houver sugestoes, o resumo diz que o card lista exemplos.
 Deixe [[ANALISE]] e [[RECOMENDACOES]] vazios.
 
+resumir_dia:
+É o briefing de UM dia civil, não de um mês.
+Ontem sem data = 30/07/2026 no mundo da Urban Style.
+Não encadeie outras ferramentas.
+Não fale de devolução: a base não registra.
+[[RESUMO]] uma frase: a data (ou ontem) e se o faturamento
+ficou acima, abaixo ou estável frente ao dia anterior,
+usando variacao_vs_anteontem_percentual com sinal.
+Se a variação for null, não invente %.
+Não cite ticket, quantidade de vendas, canais nem listas.
+[[ANALISE]] 2 tópicos com "- ".
+Use os destaques. Lembre que faturamento não é caixa.
+Não repita os totais dos cards.
+Deixe [[RECOMENDACOES]] vazio.
+
 Explique apenas os critérios explicitamente retornados pela ferramenta.
 
 Não recomende promoções, redução de compras, alterações de reposição,
@@ -2179,9 +2416,9 @@ não chame ferramenta de novo. Responda só com [[RESUMO]] e [[ANALISE]].
 
     recuperacao = None
     try:
-        resposta = get_cliente().chat.completions.create(
+        resposta = _chamar_modelo(
 
-            model="openai/gpt-oss-20b",
+            model=MODELO_IA,
 
             messages=mensagens,
 
@@ -2193,19 +2430,8 @@ não chame ferramenta de novo. Responda só com [[RESUMO]] e [[ANALISE]].
         )
     except Exception as erro:
         texto_erro = str(erro)
-        if (
-            "rate_limit" in texto_erro
-            or "Request too large" in texto_erro
-        ):
-            return {
-                "tipo_resposta": "texto",
-                "resposta_ia": (
-                    "A consulta ultrapassou o limite temporário "
-                    "da Groq. Aguarde cerca de um minuto e "
-                    "tente de novo."
-                ),
-                "contexto_sessao": contexto,
-            }
+        if _eh_limite_groq(erro):
+            return _resposta_limite_groq(contexto)
         recuperacao = _ler_failed_generation(texto_erro)
         if recuperacao is None:
             raise
@@ -2308,11 +2534,13 @@ não chame ferramenta de novo. Responda só com [[RESUMO]] e [[ANALISE]].
         # ARGUMENTOS VÊM DA IA COMO TEXTO JSON
         # -------------------------------------------------
 
-        argumentos = json.loads(
-            tool_call
-            .function
-            .arguments
-        )
+        argumentos_brutos = tool_call.function.arguments
+        if isinstance(argumentos_brutos, str):
+            argumentos = json.loads(argumentos_brutos or "{}")
+        elif isinstance(argumentos_brutos, dict):
+            argumentos = argumentos_brutos
+        else:
+            argumentos = {}
         argumentos = {
             chave: valor
             for chave, valor in argumentos.items()
@@ -2423,30 +2651,41 @@ não chame ferramenta de novo. Responda só com [[RESUMO]] e [[ANALISE]].
             "listar_produtos_reposicao",
             "explicar_variacao_lucro",
             "consultar_pedidos_atrasados",
+            "resumir_dia",
         )
     ):
-        texto_final = _texto_fallback_lista_reposicao(
-            resultados_ferramentas[0]["resultado"]
-        )
+        if resultados_ferramentas[0]["ferramenta"] == "resumir_dia":
+            texto_final = _texto_fallback_resumir_dia(
+                resultados_ferramentas[0]["resultado"]
+            )
+        else:
+            texto_final = _texto_fallback_lista_reposicao(
+                resultados_ferramentas[0]["resultado"]
+            )
     else:
-        resposta_final = (
-        get_cliente().chat.completions.create(
+        try:
+            resposta_final = _chamar_modelo(
 
-            model="openai/gpt-oss-20b",
+                model=MODELO_IA,
 
-            messages=mensagens,
+                messages=mensagens,
 
-            temperature=0
-        )
-    )
-
-
-        texto_final = (
-            resposta_final
-            .choices[0]
-            .message
-            .content
-        )
+                temperature=0
+            )
+        except Exception as erro:
+            if _eh_limite_groq(erro):
+                texto_final = _texto_fallback_apos_limite(
+                    resultados_ferramentas
+                )
+            else:
+                raise
+        else:
+            texto_final = (
+                resposta_final
+                .choices[0]
+                .message
+                .content
+            )
 
         if _resumo_ia_vazio(texto_final):
             for item in resultados_ferramentas:
@@ -2457,6 +2696,11 @@ não chame ferramenta de novo. Responda só com [[RESUMO]] e [[ANALISE]].
                     texto_final = _texto_fallback_simular(
                         item["resultado"],
                         item["ferramenta"],
+                    )
+                    break
+                if item["ferramenta"] == "resumir_dia":
+                    texto_final = _texto_fallback_resumir_dia(
+                        item["resultado"],
                     )
                     break
                 if item["ferramenta"] == "explicar_conceito":

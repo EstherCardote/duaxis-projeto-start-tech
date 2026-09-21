@@ -898,6 +898,30 @@
     @apply mb-1 block text-text-primary;
   }
 
+  .briefing-grafico {
+    @apply mt-4 rounded-xl border border-border bg-bg-page px-3 pb-2 pt-3;
+  }
+
+  .briefing-grafico__titulo {
+    @apply mb-1 text-[11px] font-medium tracking-normal text-text-muted;
+  }
+
+  .briefing-grafico__area svg {
+    @apply h-[168px] w-full;
+  }
+
+  .briefing-alerta {
+    @apply mt-4 flex flex-col gap-2;
+  }
+
+  .briefing-alerta__item {
+    @apply rounded-xl border border-warning/30 bg-warning-bg/60 px-3 py-2 text-sm text-text-secondary;
+  }
+
+  .briefing-canais {
+    @apply mt-3 text-xs text-text-secondary;
+  }
+
   /* Produtos com maior risco de ruptura */
 
   .lista-produtos-risco {
