@@ -2,7 +2,7 @@ import sys
 from pathlib import Path
 from datetime import datetime
 from zoneinfo import ZoneInfo
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, Depends
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
@@ -22,9 +22,17 @@ from dashboard_service import (
 from ml_service import analisar_reposicao
 from ia_service import processar_pergunta_com_tools
 from relatorio_service import montar_pdf_relatorio
+from security_service import (
+    autenticar_gestor,
+    emitir_token,
+    exigir_gestor,
+    verificar_integridade_bases,
+)
 
 
 app = FastAPI()
+
+verificar_integridade_bases()
 
 app.add_middleware(
     CORSMiddleware,
@@ -81,6 +89,11 @@ class PedidoRelatorio(BaseModel):
     secoes: list[SecaoRelatorio]
 
 
+class PedidoLogin(BaseModel):
+    usuario: str
+    senha: str
+
+
 @app.get("/api/health")
 def inicio():
     return {
@@ -107,12 +120,41 @@ def horario():
     }
 
 
+@app.post("/api/login")
+def login(pedido: PedidoLogin):
+    try:
+        usuario = autenticar_gestor(pedido.usuario, pedido.senha)
+    except RuntimeError as erro:
+        raise HTTPException(status_code=500, detail=str(erro)) from erro
+    except ValueError as erro:
+        raise HTTPException(status_code=401, detail=str(erro)) from erro
+    return {
+        "usuario": usuario,
+        "token": emitir_token(usuario),
+    }
+
+
+@app.get("/api/sessao")
+def sessao(gestor: str = Depends(exigir_gestor)):
+    return {
+        "autenticado": True,
+        "usuario": gestor,
+    }
+
+
 @app.get("/api/previsao/{produto_id}")
-def previsao_produto(produto_id: str):
+def previsao_produto(
+    produto_id: str,
+    gestor: str = Depends(exigir_gestor),
+):
     return analisar_reposicao(produto_id)
 
 @app.get("/api/dashboard")
-def dashboard(data_inicio: str | None = None, data_fim: str | None = None):
+def dashboard(
+    data_inicio: str | None = None,
+    data_fim: str | None = None,
+    gestor: str = Depends(exigir_gestor),
+):
     return montar_kpis_dashboard(data_inicio, data_fim)
 
 
@@ -120,6 +162,7 @@ def dashboard(data_inicio: str | None = None, data_fim: str | None = None):
 def dashboard_faturamento(
     data_inicio: str | None = None,
     data_fim: str | None = None,
+    gestor: str = Depends(exigir_gestor),
 ):
     try:
         return montar_grafico_faturamento(data_inicio, data_fim)
@@ -131,6 +174,7 @@ def dashboard_faturamento(
 def dashboard_lucro(
     data_inicio: str | None = None,
     data_fim: str | None = None,
+    gestor: str = Depends(exigir_gestor),
 ):
     try:
         return montar_grafico_lucro(data_inicio, data_fim)
@@ -138,7 +182,10 @@ def dashboard_lucro(
         raise HTTPException(status_code=400, detail=str(erro)) from erro
 
 @app.post("/api/chat")
-def chat(pergunta: PerguntaChat):
+def chat(
+    pergunta: PerguntaChat,
+    gestor: str = Depends(exigir_gestor),
+):
 
     data_hora_pergunta = datetime.now(
         ZoneInfo("America/Sao_Paulo")
@@ -165,7 +212,10 @@ def chat(pergunta: PerguntaChat):
 
 
 @app.post("/api/relatorio")
-def gerar_relatorio(pedido: PedidoRelatorio):
+def gerar_relatorio(
+    pedido: PedidoRelatorio,
+    gestor: str = Depends(exigir_gestor),
+):
     secoes = [secao.model_dump() for secao in pedido.secoes]
     try:
         pdf_bytes, nome_arquivo = montar_pdf_relatorio(secoes)

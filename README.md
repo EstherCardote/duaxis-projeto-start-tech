@@ -49,13 +49,18 @@ O backend lê o arquivo **`backend/.env`** (não o da pasta raiz).
 Copy-Item .env.example backend\.env
 ```
 
-2. Abra `backend/.env` e cole a chave:
+2. Abra `backend/.env` e preencha:
 
 ```
 GROQ_API_KEY=sua_chave_aqui
+HMAC_SECRET=duaxis-hmac-mvp-urban-style
+GESTOR_USUARIO=gestor
+GESTOR_SENHA_HASH='(hash bcrypt — já vem no .env.example)'
 ```
 
-Sem essa chave, o Dashboard até abre, mas o Copiloto não responde.
+Sem a chave da Groq, o Dashboard até abre (depois do login), mas o Copiloto não responde.
+
+**Login de demonstração:** usuário `gestor` / senha `UrbanStyle2026`. A senha **não** fica em texto no servidor: o `passlib` guarda só o hash bcrypt. O `cryptography` assina os CSVs (HMAC); se alguém alterar um arquivo em `backend/dados`, o uvicorn recusa subir. Depois de mudar CSV de propósito, rode `python security_service.py` na pasta `backend`.
 
 ---
 
@@ -126,6 +131,8 @@ Pergunta de teste no copiloto:
 | Sintoma | O que checar |
 |---|---|
 | `GROQ_API_KEY não encontrada` | O arquivo é `backend/.env`, não `.env` na raiz. |
+| Pediu login / 401 no chat | Entrar com `gestor` / `UrbanStyle2026`. Instalar `pip install -r requirements.txt`. |
+| Uvicorn recusa CSV (HMAC) | Se você alterou um CSV, rode `python security_service.py` em `backend`. |
 | Tela sem estilo / CSS antigo | Rodar `npm run build` ou deixar `npm run dev` ligado e recarregar com F5. |
 | `No module named 'app'` | O uvicorn precisa ser iniciado **de dentro** de `backend`. |
 | `No module named 'fpdf'` | `pip install fpdf2` com o venv ativo. |

@@ -61,6 +61,34 @@
     @apply flex min-h-screen;
   }
 
+  .login-gestor[hidden] {
+    display: none;
+  }
+
+  .login-gestor__caixa {
+    @apply w-full max-w-md rounded-2xl border border-border bg-bg-card p-6 shadow-lg;
+  }
+
+  .login-gestor__titulo {
+    @apply text-lg font-semibold text-text-primary;
+  }
+
+  .login-gestor__texto {
+    @apply mt-2 text-sm text-text-secondary;
+  }
+
+  .login-gestor__campo {
+    @apply mt-3 w-full rounded-xl border border-border bg-bg-page px-3 py-2.5 text-sm text-text-primary;
+  }
+
+  .login-gestor__botao {
+    @apply mt-4 w-full rounded-xl bg-brand-blue px-4 py-2.5 text-sm font-semibold text-white;
+  }
+
+  .login-gestor__erro {
+    @apply mt-3 text-sm text-danger-text;
+  }
+
   .menu-overlay {
     @apply fixed inset-0 z-30 bg-black/50 opacity-0 pointer-events-none transition-opacity duration-300 lg:hidden;
   }

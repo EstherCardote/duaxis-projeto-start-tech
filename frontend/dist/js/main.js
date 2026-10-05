@@ -4,6 +4,7 @@ document.addEventListener("DOMContentLoaded", () => {
   inicializarAlternadorTema();
   inicializarMenuLateral();
   inicializarMenuMobile();
+  inicializarLoginGestor();
 
   inicializarEtiquetasSugestao();
   inicializarFiltrosSugestoesDv();
@@ -613,6 +614,116 @@ function urlApiHorario() {
   return "/api/horario";
 }
 
+const CHAVE_TOKEN_GESTOR = "duaxis_token_gestor";
+
+function urlApiCaminho(caminho) {
+  const host = window.location.hostname;
+
+  if (!host || host === "localhost" || host === "127.0.0.1") {
+    return `http://127.0.0.1:8000${caminho}`;
+  }
+
+  return caminho;
+}
+
+function obterTokenGestor() {
+  return sessionStorage.getItem(CHAVE_TOKEN_GESTOR) || "";
+}
+
+function cabecalhosApi() {
+  const cabecalhos = {
+    "Content-Type": "application/json",
+  };
+  const token = obterTokenGestor();
+  if (token) {
+    cabecalhos.Authorization = `Bearer ${token}`;
+  }
+  return cabecalhos;
+}
+
+function tratarNaoAutorizado(resposta) {
+  if (resposta.status !== 401) {
+    return false;
+  }
+  sessionStorage.removeItem(CHAVE_TOKEN_GESTOR);
+  mostrarTelaLoginGestor();
+  return true;
+}
+
+function mostrarTelaLoginGestor() {
+  const tela = document.getElementById("login-gestor");
+  if (tela) {
+    tela.hidden = false;
+  }
+}
+
+function ocultarTelaLoginGestor() {
+  const tela = document.getElementById("login-gestor");
+  if (tela) {
+    tela.hidden = true;
+  }
+}
+
+function inicializarLoginGestor() {
+  if (document.getElementById("login-gestor")) {
+    if (!obterTokenGestor()) {
+      mostrarTelaLoginGestor();
+    }
+    return;
+  }
+
+  const tela = document.createElement("div");
+  tela.id = "login-gestor";
+  tela.className = "login-gestor";
+  tela.innerHTML = `
+    <form class="login-gestor__caixa" id="form-login-gestor">
+      <h2 class="login-gestor__titulo">Acesso do gestor</h2>
+      <p class="login-gestor__texto">
+        Demonstração Urban Style. Usuário: <strong>gestor</strong>.
+        A senha fica só no servidor, com hash bcrypt (passlib).
+      </p>
+      <input class="login-gestor__campo" id="login-usuario" name="usuario" autocomplete="username" value="gestor" />
+      <input class="login-gestor__campo" id="login-senha" name="senha" type="password" autocomplete="current-password" placeholder="Senha" />
+      <p class="login-gestor__erro" id="login-erro" hidden></p>
+      <button class="login-gestor__botao" type="submit">Entrar</button>
+    </form>
+  `;
+  document.body.appendChild(tela);
+
+  const formulario = document.getElementById("form-login-gestor");
+  const erroEl = document.getElementById("login-erro");
+
+  formulario.addEventListener("submit", async (evento) => {
+    evento.preventDefault();
+    erroEl.hidden = true;
+    try {
+      const resposta = await fetch(urlApiCaminho("/api/login"), {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          usuario: document.getElementById("login-usuario").value,
+          senha: document.getElementById("login-senha").value,
+        }),
+      });
+      const dados = await resposta.json().catch(() => ({}));
+      if (!resposta.ok) {
+        throw new Error(dados.detail || "Usuário ou senha inválidos.");
+      }
+      sessionStorage.setItem(CHAVE_TOKEN_GESTOR, dados.token);
+      window.location.reload();
+    } catch (erro) {
+      erroEl.textContent = erro.message || "Não foi possível entrar.";
+      erroEl.hidden = false;
+    }
+  });
+
+  if (!obterTokenGestor()) {
+    mostrarTelaLoginGestor();
+  } else {
+    ocultarTelaLoginGestor();
+  }
+}
+
 async function carregarSaudacaoDashboard() {
   const titulo = document.getElementById("saudacao-titulo");
 
@@ -744,7 +855,13 @@ async function carregarKpisDashboard() {
   }
 
   try {
-    const resposta = await fetch(urlApiDashboard());
+    const resposta = await fetch(urlApiDashboard(), {
+      headers: cabecalhosApi(),
+    });
+
+    if (tratarNaoAutorizado(resposta)) {
+      return;
+    }
 
     if (!resposta.ok) {
       throw new Error(`Erro HTTP ${resposta.status}`);
@@ -1094,7 +1211,12 @@ async function carregarGraficoFaturamento() {
   try {
     const resposta = await fetch(
       urlApiDashboardSerie("faturamento", dataInicio, dataFim),
+      { headers: cabecalhosApi() },
     );
+
+    if (tratarNaoAutorizado(resposta)) {
+      return;
+    }
 
     if (!resposta.ok) {
       throw new Error(`Erro HTTP ${resposta.status}`);
@@ -1288,7 +1410,12 @@ async function carregarGraficoLucro() {
   try {
     const resposta = await fetch(
       urlApiDashboardSerie("lucro", dataInicio, dataFim),
+      { headers: cabecalhosApi() },
     );
+
+    if (tratarNaoAutorizado(resposta)) {
+      return;
+    }
 
     if (!resposta.ok) {
       throw new Error(`Erro HTTP ${resposta.status}`);
@@ -1490,15 +1617,17 @@ async function enviarPerguntaDuaxis(campoChat) {
     const resposta = await fetch(urlApiChat(), {
       method: "POST",
 
-      headers: {
-        "Content-Type": "application/json",
-      },
+      headers: cabecalhosApi(),
 
       body: JSON.stringify({
         mensagem: pergunta,
         contexto: contextoSessaoChat,
       }),
     });
+
+    if (tratarNaoAutorizado(resposta)) {
+      throw new Error("Faça login como gestor para continuar.");
+    }
 
     if (!resposta.ok) {
       throw new Error(`Erro HTTP ${resposta.status}`);
@@ -2150,11 +2279,13 @@ function coletarSecoesRelatorio(bloco) {
 async function baixarRelatorioPdf(secoes) {
   const resposta = await fetch(urlApiRelatorio(), {
     method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
+    headers: cabecalhosApi(),
     body: JSON.stringify({ secoes }),
   });
+
+  if (tratarNaoAutorizado(resposta)) {
+    throw new Error("Faça login como gestor para continuar.");
+  }
 
   if (!resposta.ok) {
     throw new Error(`Erro HTTP ${resposta.status}`);
