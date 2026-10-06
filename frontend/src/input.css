@@ -89,6 +89,79 @@
     @apply mt-3 text-sm text-danger-text;
   }
 
+  .login-pagina {
+    @apply relative flex min-h-screen items-center justify-center bg-bg-page px-4 py-10;
+  }
+
+  .login-pagina__tema {
+    @apply absolute top-4 right-4;
+  }
+
+  .login-pagina__cartao {
+    @apply w-full max-w-[420px] rounded-2xl border border-border bg-bg-card p-8 shadow-sm;
+  }
+
+  .login-pagina__logo {
+    @apply mx-auto h-10 w-auto;
+  }
+
+  .login-pagina__titulo {
+    @apply mt-5 text-center text-2xl font-semibold text-text-primary;
+  }
+
+  .login-pagina__subtitulo {
+    @apply mt-1 text-center text-sm text-text-secondary;
+  }
+
+  .login-pagina__dica {
+    @apply mt-2 text-center text-xs text-text-muted;
+  }
+
+  .login-pagina__formulario {
+    @apply mt-6 flex flex-col;
+  }
+
+  .login-pagina__rotulo {
+    @apply mt-3 mb-1 text-xs font-medium text-text-secondary;
+  }
+
+  .login-pagina__campo {
+    @apply w-full rounded-xl border border-border bg-bg-page px-3 py-2.5 text-sm text-text-primary;
+  }
+
+  .login-pagina__esqueci {
+    @apply mt-2 cursor-pointer self-end border-0 bg-transparent p-0 text-xs font-medium text-brand-blue;
+  }
+
+  .login-pagina__erro {
+    @apply mt-3 text-sm text-danger-text;
+  }
+
+  .login-pagina__entrar {
+    @apply mt-4 w-full cursor-pointer rounded-xl bg-brand-blue px-4 py-2.5 text-sm font-semibold text-white;
+  }
+
+  .login-pagina__divisor {
+    @apply mt-6 flex items-center gap-3 text-xs text-text-muted;
+  }
+
+  .login-pagina__divisor::before,
+  .login-pagina__divisor::after {
+    @apply h-px flex-1 bg-border content-[''];
+  }
+
+  .login-pagina__sociais {
+    @apply mt-4 flex justify-center gap-3;
+  }
+
+  .login-pagina__social {
+    @apply flex h-11 w-11 cursor-default items-center justify-center rounded-full border border-border bg-bg-page text-text-primary;
+  }
+
+  .login-pagina__social svg {
+    @apply h-5 w-5;
+  }
+
   .menu-overlay {
     @apply fixed inset-0 z-30 bg-black/50 opacity-0 pointer-events-none transition-opacity duration-300 lg:hidden;
   }
@@ -1172,6 +1245,78 @@
 
   .cartao-plano__acoes {
     @apply mt-5 flex flex-wrap gap-3;
+  }
+
+  .visao-configuracoes {
+    @apply flex flex-col gap-8;
+  }
+
+  .painel-perfil {
+    @apply flex w-full flex-col gap-4;
+  }
+
+  .painel-perfil__voltar {
+    @apply flex w-fit cursor-pointer items-center gap-2 border-0 bg-transparent p-0 text-sm font-medium text-brand-blue;
+  }
+
+  .painel-perfil__cartao {
+    @apply w-full rounded-2xl border border-border bg-bg-card p-6;
+  }
+
+  .painel-perfil__titulo {
+    @apply text-lg font-semibold text-text-primary;
+  }
+
+  .painel-perfil__texto {
+    @apply mt-1 text-sm text-text-secondary;
+  }
+
+  .painel-perfil__foto {
+    @apply mt-6 mb-2 flex items-center gap-4;
+  }
+
+  .painel-perfil__avatar {
+    @apply flex h-20 w-20 items-center justify-center rounded-full border border-dashed border-border bg-bg-page text-text-muted;
+  }
+
+  .painel-perfil__avatar .icone {
+    @apply h-8 w-8;
+  }
+
+  .painel-perfil__vazio {
+    @apply mt-0.5 text-sm text-text-muted;
+  }
+
+  .painel-perfil__linha {
+    @apply mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2;
+  }
+
+  .painel-perfil__linha:first-of-type {
+    @apply mt-6;
+  }
+
+  .painel-perfil__item {
+    @apply flex min-w-0 flex-col;
+  }
+
+  .painel-perfil__item--vazio {
+    @apply hidden sm:block;
+  }
+
+  .painel-perfil__rotulo {
+    @apply mb-1 block text-xs font-medium text-text-secondary;
+  }
+
+  .painel-perfil__campo {
+    @apply w-full cursor-not-allowed rounded-xl border border-border bg-bg-page px-3 py-2.5 text-sm text-text-primary;
+  }
+
+  .painel-perfil__campo--destaque {
+    @apply border-brand-blue/30 bg-brand-blue/5 font-semibold text-brand-blue;
+  }
+
+  .painel-perfil__nota {
+    @apply mt-3 rounded-xl border border-border bg-bg-page px-4 py-3 text-sm text-text-secondary;
   }
 
   .botao-secundario__texto {

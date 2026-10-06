@@ -108,14 +108,15 @@
         </header>
 
         <div class="conteudo-pagina">
+          <div class="visao-configuracoes" id="visao-configuracoes">
           <div class="grade-configuracoes">
-            <article class="cartao-configuracao">
+            <article class="cartao-configuracao" id="cartao-perfil" role="button" tabindex="0">
               <div class="cartao-configuracao__icone">
                 <i data-lucide="user" class="icone icone--medio"></i>
               </div>
               <div>
                 <h3 class="cartao-configuracao__titulo">Perfil</h3>
-                <p class="cartao-configuracao__descricao">Nome, foto e informações de contato</p>
+                <p class="cartao-configuracao__descricao">Nome, foto, informações de contato e permissões</p>
               </div>
             </article>
 
@@ -180,11 +181,71 @@
               <button class="botao-secundario" type="button">Ver faturas</button>
             </div>
           </section>
+          </div>
+
+          <section class="painel-perfil" id="visao-perfil" hidden>
+            <button class="painel-perfil__voltar" id="voltar-configuracoes" type="button">
+              <i data-lucide="arrow-left" class="icone icone--pequeno"></i>
+              Voltar às configurações
+            </button>
+
+            <div class="painel-perfil__cartao">
+              <h2 class="painel-perfil__titulo">Perfil do usuário</h2>
+
+              <div class="painel-perfil__foto">
+                <span class="painel-perfil__avatar" aria-hidden="true">
+                  <i data-lucide="user" class="icone icone--grande"></i>
+                </span>
+                <div>
+                  <p class="painel-perfil__rotulo">Foto</p>
+                  <p class="painel-perfil__vazio">Nenhuma foto cadastrada</p>
+                </div>
+              </div>
+
+              <div class="painel-perfil__linha">
+                <div class="painel-perfil__item">
+                  <label class="painel-perfil__rotulo" for="perfil-nome">Nome</label>
+                  <input class="painel-perfil__campo" id="perfil-nome" type="text" value="José da Silva" readonly />
+                </div>
+                <div class="painel-perfil__item">
+                  <label class="painel-perfil__rotulo" for="perfil-email">E-mail</label>
+                  <input class="painel-perfil__campo" id="perfil-email" type="text" value="gestorgeral@urbanstyle.com.br" readonly />
+                </div>
+              </div>
+
+              <div class="painel-perfil__linha">
+                <div class="painel-perfil__item">
+                  <label class="painel-perfil__rotulo" for="perfil-celular">Telefone Celular</label>
+                  <input class="painel-perfil__campo" id="perfil-celular" type="text" value="(11) 99999-9999" readonly />
+                </div>
+                <div class="painel-perfil__item">
+                  <label class="painel-perfil__rotulo" for="perfil-comercial">Telefone Comercial</label>
+                  <input class="painel-perfil__campo" id="perfil-comercial" type="text" value="(11) 3333-3333" readonly />
+                </div>
+              </div>
+
+              <div class="painel-perfil__linha">
+                <div class="painel-perfil__item">
+                  <label class="painel-perfil__rotulo" for="perfil-acesso">Permissão</label>
+                  <input
+                    class="painel-perfil__campo painel-perfil__campo--destaque"
+                    id="perfil-acesso"
+                    type="text"
+                    value="Gestor geral"
+                    readonly
+                  />
+                  <p class="painel-perfil__nota">
+                    Este perfil tem acesso a todos os departamentos
+                  </p>
+                </div>
+              </div>
+            </div>
+          </section>
         </div>
       </main>
     </div>
 
     <script src="js/lucide.min.js"></script>
-    <script src="js/main.js?v=seguranca-gestor"></script>
+    <script src="js/main.js?v=perfil-demo"></script>
   </body>
 </html>

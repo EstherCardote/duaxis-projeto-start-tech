@@ -6,7 +6,7 @@ from fastapi import FastAPI, HTTPException, Depends
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
-from fastapi.responses import Response
+from fastapi.responses import Response, RedirectResponse
 
 BACKEND_DIR = Path(__file__).resolve().parent
 ROOT_DIR = BACKEND_DIR.parent
@@ -232,6 +232,12 @@ def gerar_relatorio(
 
 
 FRONTEND_DIR = ROOT_DIR / "frontend" / "dist"
+
+
+@app.get("/")
+def pagina_inicial():
+    return RedirectResponse(url="/login.html")
+
 
 if FRONTEND_DIR.exists():
     app.mount(

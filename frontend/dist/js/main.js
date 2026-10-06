@@ -19,6 +19,7 @@ document.addEventListener("DOMContentLoaded", () => {
   enviarPerguntaPendenteDaUrl();
   inicializarFiltroFaturamento();
   inicializarFiltroLucro();
+  inicializarPainelPerfil();
 
   carregarSaudacaoDashboard();
   carregarKpisDashboard();
@@ -641,86 +642,122 @@ function cabecalhosApi() {
   return cabecalhos;
 }
 
+const USUARIO_DEMO = "gestor";
+const SENHA_DEMO = "UrbanStyle2026";
+
+function estaNaPaginaLogin() {
+  return Boolean(document.getElementById("form-login-pagina"));
+}
+
+function irParaLogin() {
+  if (estaNaPaginaLogin()) {
+    return;
+  }
+  window.location.replace("login.html");
+}
+
+function irParaDashboard() {
+  window.location.replace("index.html");
+}
+
 function tratarNaoAutorizado(resposta) {
   if (resposta.status !== 401) {
     return false;
   }
   sessionStorage.removeItem(CHAVE_TOKEN_GESTOR);
-  mostrarTelaLoginGestor();
+  irParaLogin();
   return true;
 }
 
-function mostrarTelaLoginGestor() {
-  const tela = document.getElementById("login-gestor");
-  if (tela) {
-    tela.hidden = false;
-  }
-}
-
-function ocultarTelaLoginGestor() {
-  const tela = document.getElementById("login-gestor");
-  if (tela) {
-    tela.hidden = true;
-  }
-}
-
 function inicializarLoginGestor() {
-  if (document.getElementById("login-gestor")) {
-    if (!obterTokenGestor()) {
-      mostrarTelaLoginGestor();
+  const formulario = document.getElementById("form-login-pagina");
+
+  if (formulario) {
+    if (obterTokenGestor()) {
+      irParaDashboard();
+      return;
     }
+
+    const erroEl = document.getElementById("login-erro");
+    const esqueci = document.getElementById("esqueci-senha");
+
+    if (esqueci) {
+      esqueci.addEventListener("click", (evento) => {
+        evento.preventDefault();
+      });
+    }
+
+    formulario.addEventListener("submit", async (evento) => {
+      evento.preventDefault();
+      erroEl.hidden = true;
+
+      const usuario = document.getElementById("login-usuario").value.trim();
+      const senha = document.getElementById("login-senha").value;
+
+      if (usuario !== USUARIO_DEMO || senha !== SENHA_DEMO) {
+        erroEl.textContent = "Usuário ou senha inválidos.";
+        erroEl.hidden = false;
+        return;
+      }
+
+      try {
+        const resposta = await fetch(urlApiCaminho("/api/login"), {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ usuario, senha }),
+        });
+        const dados = await resposta.json().catch(() => ({}));
+        if (resposta.ok && dados.token) {
+          sessionStorage.setItem(CHAVE_TOKEN_GESTOR, dados.token);
+        } else {
+          sessionStorage.setItem(CHAVE_TOKEN_GESTOR, "demo-gestor");
+        }
+        irParaDashboard();
+      } catch (_erro) {
+        sessionStorage.setItem(CHAVE_TOKEN_GESTOR, "demo-gestor");
+        irParaDashboard();
+      }
+    });
     return;
   }
 
-  const tela = document.createElement("div");
-  tela.id = "login-gestor";
-  tela.className = "login-gestor";
-  tela.innerHTML = `
-    <form class="login-gestor__caixa" id="form-login-gestor">
-      <h2 class="login-gestor__titulo">Acesso do gestor</h2>
-      <p class="login-gestor__texto">
-        Demonstração Urban Style. Usuário: <strong>gestor</strong>.
-        A senha fica só no servidor, com hash bcrypt (passlib).
-      </p>
-      <input class="login-gestor__campo" id="login-usuario" name="usuario" autocomplete="username" value="gestor" />
-      <input class="login-gestor__campo" id="login-senha" name="senha" type="password" autocomplete="current-password" placeholder="Senha" />
-      <p class="login-gestor__erro" id="login-erro" hidden></p>
-      <button class="login-gestor__botao" type="submit">Entrar</button>
-    </form>
-  `;
-  document.body.appendChild(tela);
+  if (!obterTokenGestor()) {
+    irParaLogin();
+  }
+}
 
-  const formulario = document.getElementById("form-login-gestor");
-  const erroEl = document.getElementById("login-erro");
+function inicializarPainelPerfil() {
+  const cartao = document.getElementById("cartao-perfil");
+  const visaoLista = document.getElementById("visao-configuracoes");
+  const visaoPerfil = document.getElementById("visao-perfil");
+  const voltar = document.getElementById("voltar-configuracoes");
 
-  formulario.addEventListener("submit", async (evento) => {
-    evento.preventDefault();
-    erroEl.hidden = true;
-    try {
-      const resposta = await fetch(urlApiCaminho("/api/login"), {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          usuario: document.getElementById("login-usuario").value,
-          senha: document.getElementById("login-senha").value,
-        }),
-      });
-      const dados = await resposta.json().catch(() => ({}));
-      if (!resposta.ok) {
-        throw new Error(dados.detail || "Usuário ou senha inválidos.");
-      }
-      sessionStorage.setItem(CHAVE_TOKEN_GESTOR, dados.token);
-      window.location.reload();
-    } catch (erro) {
-      erroEl.textContent = erro.message || "Não foi possível entrar.";
-      erroEl.hidden = false;
+  if (!cartao || !visaoLista || !visaoPerfil) {
+    return;
+  }
+
+  function abrirPerfil() {
+    visaoLista.hidden = true;
+    visaoPerfil.hidden = false;
+    inicializarIconesLucide();
+  }
+
+  function fecharPerfil() {
+    visaoPerfil.hidden = true;
+    visaoLista.hidden = false;
+    inicializarIconesLucide();
+  }
+
+  cartao.addEventListener("click", abrirPerfil);
+  cartao.addEventListener("keydown", (evento) => {
+    if (evento.key === "Enter" || evento.key === " ") {
+      evento.preventDefault();
+      abrirPerfil();
     }
   });
 
-  if (!obterTokenGestor()) {
-    mostrarTelaLoginGestor();
-  } else {
-    ocultarTelaLoginGestor();
+  if (voltar) {
+    voltar.addEventListener("click", fecharPerfil);
   }
 }
 
